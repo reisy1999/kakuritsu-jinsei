@@ -29,7 +29,8 @@ function evalChoice(c){
 }
 const distressed=()=>(s.age>=22&&s.money<240)||Math.max(...Object.values(s.cd))>=2;
 function choose(d,ok){
-  if(POLICY!=="smart")return ok[R(0,ok.length-1)];
+  /* 意思の分岐（prior つき）は、ランダム方針でも実際の意識調査の割合で選ぶ */
+  if(POLICY!=="smart")return ok.some(c=>c.prior!=null)?ok[pickW(ok,c=>c.prior??.1)]:ok[R(0,ok.length-1)];
   const e=ok.map(c=>({c,...evalChoice(c)}));
   if(distressed())e.sort((a,b)=>a.risk-b.risk||b.ev-a.ev);else e.sort((a,b)=>b.ev-a.ev);
   return e[0].c}
@@ -53,13 +54,13 @@ function die(){s.alive=false}
 let LOG=[],GENUSE=0;const USED={},GENERIC={track:0,special:0};
 const N=+(process.env.SIM_N||2000);
 const L=[];
-for(let n=0;n<N;n++){LOG=[];newLife();let g=0,em=false,mk=0,first=null,sk40=null,sk60=null,max=0,at45=null,tv5=null;
-  while(s.alive&&g++<200){step();if(s.married)em=true;mk=Math.max(mk,s.kids);if(s.track&&s.tv!==undefined&&s.age===s.trackSince+5&&!s.trackEnded)tv5=s.tv;
+for(let n=0;n<N;n++){LOG=[];newLife();let g=0,em=false,mk=0,first=null,sk40=null,sk60=null,max=0,at45=null,tv5=null,m22=null,m40=null,m60=null,schMax=0;
+  while(s.alive&&g++<200){step();schMax=Math.max(schMax,s.sch||0);if(s.age===22)m22=netWorth();if(s.age===40)m40=netWorth();if(s.age===60)m60=netWorth();if(s.married)em=true;mk=Math.max(mk,s.kids);if(s.track&&s.tv!==undefined&&s.age===s.trackSince+5&&!s.trackEnded)tv5=s.tv;
     if(s.job&&!s.job.legacy){if(first===null)first=s.skill;max=Math.max(max,s.skill);
       if(s.age===40)sk40=s.skill;if(s.age===60)sk60=s.skill;if(s.age===45)at45={skill:s.skill,inc:s.job.inc,type:s.job.type,form:s.job.form}}}
   if(isNaN(s.money))throw new Error("NaN");
-  L.push({age:s.age,money:typeof netWorth==="function"?netWorth():s.money,minMoney:s.minMoney,forks:s.forks.length,rainbow:s.rainbow>0,track:s.track||null,
-    bankrupt:!!s.bankruptAge,hiki:s.hikiYears>=10,hikiAny:s.hikiYears>0,
+  L.push({fam:s.fam,m22,m40,m60,uni:s.flags.uni||0,college:!!(s.flags.uni||s.flags.senmon),schMax,age:s.age,money:typeof netWorth==="function"?netWorth():s.money,minMoney:s.minMoney,forks:s.forks.length,rainbow:s.rainbow>0,track:s.track||null,
+    bankrupt:!!s.bankruptAge,bkAge:s.bankruptAge||null,owner:!!s.flags.house,city:(typeof cityF==="function"?cityF():1),tokyo:s.livePref==="東京都",rentInvest:!!s.flags.rentInvest,want:{...(s.want||{})},everOwn:!!s.everOwn,offered:s.decUsed.house!==undefined,flagsHome:!!s.flags.home,status:s.status,hiki:s.hikiYears>=10,hikiAny:s.hikiYears>0,
     futoko:LOG.some(l=>l.includes("不登校")||l.includes("足が動かなく")),
     married:!!s.married,everMarried:em,divorced:!!s.divorces,bkCount:s.bankruptCount||0,cause:s.deathCause||null,illAge:s.illSince||null,assets:(s.assets||[]).map(x=>[x.k,Math.round(x.v-(x.loan||0))]),kidsOut:(s.kidList||[]).map(k=>({grow:Math.round(k.grow),edu:k.edu,path:k.path,married:k.married})),grand:s.grandkids||0,kids:mk,jobs:s.jobs.length,cd:{...s.cd},job:{first,sk40,sk60,max,at45},
     tr:s.track?{id:s.track,since:s.trackSince,end:s.trackEndKind||null,endAge:s.trackEndAge||null,peakAge:s.tvPeakAge||null,tv5}:null});
