@@ -110,6 +110,7 @@ def summarize(r):
             "自己破産": rate(lambda x: x["bankrupt"]),
             "結婚経験": rate(lambda x: x["everMarried"]),
             "子どもあり": rate(lambda x: x["kids"] > 0),
+            "離婚経験（結婚した人のうち）": sum(1 for x in L if x["divorced"]) / max(1, sum(1 for x in L if x["everMarried"])) * 100,
             "虹ルート": rate(lambda x: x["rainbow"]),
             "ひきこもり(1年以上)": rate(lambda x: x["hikiAny"]),
             "ひきこもり(10年以上)": rate(lambda x: x["hiki"]),
@@ -132,7 +133,7 @@ ROWS = [
     ("最終資産 中央値(万円)", lambda s: f"{s['money']['med']:,.0f}"),
     ("最終資産 p10 / p90", lambda s: f"{s['money']['p10']:,.0f} / {s['money']['p90']:,.0f}"),
     *[(k, (lambda k: lambda s: f"{s['rate%'][k]:.1f}%")(k)) for k in
-      ("資産マイナスで死ぬ", "自己破産", "結婚経験", "子どもあり", "虹ルート", "ひきこもり(1年以上)", "ひきこもり(10年以上)", "不登校")],
+      ("資産マイナスで死ぬ", "自己破産", "結婚経験", "離婚経験（結婚した人のうち）", "子どもあり", "虹ルート", "ひきこもり(1年以上)", "ひきこもり(10年以上)", "不登校")],
     ("分岐/人生（うち生成）", lambda s: f"{s['forks_avg']:.1f}（{s['gen_decisions_per_life']:.1f}）"),
     ("生成分岐 未出現", lambda s: f"{len(s['unused_ids'])} / {s['gen_total']}"),
     ("最初の仕事の熟練 中央値 / 最大", lambda s: "%s / %s" % s["job"]["first"]),
