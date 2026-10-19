@@ -70,6 +70,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .opt .short{font-size:.72rem;color:var(--minus)}
 .opt.picked{opacity:1;border:1.5px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
 .opt .lbl{font-weight:700}
+.opt .info{display:block;font-size:.75rem;color:var(--muted);font-family:var(--f-num)}
 .chips{display:inline-flex;flex-wrap:wrap;gap:4px;vertical-align:1px}
 .chip{font-family:var(--f-num);font-size:.68rem;padding:0 6px;border:1px solid currentColor;white-space:nowrap}
 .chip.p{color:var(--plus)} .chip.m{color:var(--minus)}
@@ -132,7 +133,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     <div class="who"><span class="age" id="age">0<small>歳</small></span><span class="status" id="status">—</span><span class="meta" id="meta"></span></div>
     <div class="stats" id="stats"></div>
     <div class="sub"><span id="family">実家：—</span><span class="conds" id="conds"></span></div>
-    <div class="money"><span><span class="lbl" id="mlbl">資産 </span><span class="big" id="money">0万円</span></span><span><span class="lbl">年収 </span><span class="num" id="inc">—</span></span></div>
+    <div class="money"><span><span class="lbl" id="mlbl">資産 </span><span class="big" id="money">0万円</span><span class="lbl" id="assets" style="display:block"></span></span><span><span class="lbl">年収 </span><span class="num" id="inc">—</span></span></div>
   </section>
 
   <div class="controls" id="controls">
@@ -173,12 +174,12 @@ const tx=(t,s)=>typeof t==="function"?t(s):t;
 /* 職種と、熟練の伸びに効く能力 */
 const JT={sales:{n:"対人・営業",st:["bond","luck"]},service:{n:"接客・飲食",st:["bond","health"]},office:{n:"事務・公務",st:["know","bond"]},
   tech:{n:"技術・IT",st:["know","luck"]},care:{n:"医療・福祉",st:["bond","health"]},field:{n:"現場・製造",st:["health","know"]},
-  research:{n:"研究・専門",st:["know","happy"]},founder:{n:"経営・自営",st:["luck","know"]},art:{n:"表現",st:["happy","luck"]},sport:{n:"競技",st:["health","luck"]}};
+  research:{n:"研究・専門",st:["know","happy"]},gov:{n:"行政",st:["know","bond"]},founder:{n:"経営・自営",st:["luck","know"]},art:{n:"表現",st:["happy","luck"]},sport:{n:"競技",st:["health","luck"]}};
 /* 職種の近さ（転職時に職歴を引き継ぐ率）。書いていない組み合わせは 0.1 */
 const NEAR={"sales|service":.6,"sales|office":.4,"sales|care":.2,"sales|founder":.5,"sales|art":.2,"service|office":.3,"service|care":.4,"service|field":.3,
   "service|founder":.4,"service|art":.2,"office|tech":.3,"office|care":.2,"office|field":.2,"office|research":.3,"office|founder":.3,"tech|field":.2,
   "tech|research":.5,"tech|founder":.4,"tech|art":.2,"care|field":.3,"care|research":.2,"care|founder":.2,"care|sport":.2,"field|founder":.2,"field|sport":.2,
-  "research|founder":.2,"research|art":.2,"founder|art":.2,"art|sport":.2};
+  "research|founder":.2,"office|gov":.6,"gov|sales":.2,"gov|care":.2,"gov|research":.2,"research|art":.2,"founder|art":.2,"art|sport":.2};
 const near=(a,b)=>a===b?1:NEAR[a+"|"+b]??NEAR[b+"|"+a]??.1;
 /* 雇用の形 */
 const FORMS={large:"大手",small:"中小",public:"公務",irregular:"非正規",self:"自営"};
@@ -193,15 +194,16 @@ const WAGE={
   tech:    {large:[420,1000],small:[350,700], public:[360,750], irregular:[220,400],self:[250,1000]},
   care:    {large:[350,650], small:[280,480], public:[350,700], irregular:[180,300],self:[220,550]},
   field:   {large:[330,650], small:[270,480], public:[300,550], irregular:[170,280],self:[200,550]},
+  gov:     {large:[330,750], small:[330,750], public:[330,750], irregular:[180,300],self:[200,500]},
   research:{large:[450,1100],small:[380,750], public:[400,850], irregular:[220,400],self:[200,900]},
   founder: {large:[400,1500],small:[300,900], public:[330,700], irregular:[200,350],self:[150,1200]},
   art:     {large:[320,800], small:[250,500], public:[300,550], irregular:[120,260],self:[100,1000]},
-  sport:   {large:[400,1000],small:[300,550], public:[300,550], irregular:[150,280],self:[150,1200]}};
+  sport:   {large:[350,650], small:[300,550], public:[300,550], irregular:[150,280],self:[150,1200]}};
 /* 仕事名 → 職種。"=" は今の職種を引き継ぐ（昇進・転職先など）。載っていない名前も引き継ぎ扱い */
 const JOB_TYPE={"営業職":"sales","中小企業の営業":"sales",
   "販売員":"service","スポーツ用品店の店員":"service","店舗スタッフ":"service","店舗社員":"service","コンビニ店員":"service","売店スタッフ":"service","アルバイト":"service","パート":"service","パート勤務":"service","短期スタッフ":"service","店主":"service",
   "大手企業 会社員":"office","中小企業 会社員":"office","地元企業 会社員":"office","地元企業の会社員":"office","会社員":"office","中堅企業の会社員":"office","大手メーカー社員":"office",
-  "事務職":"office","事務補助":"office","中小企業の事務":"office","地方公務員":"office","市役所職員":"office","契約社員":"office","地元の契約社員":"office","派遣社員":"office","嘱託職員":"office","新分野の社員":"office",
+  "事務職":"office","事務補助":"office","中小企業の事務":"office","地方公務員":"gov","市役所職員":"gov","契約社員":"office","地元の契約社員":"office","派遣社員":"office","嘱託職員":"office","新分野の社員":"office",
   "ITエンジニア":"tech","受託開発エンジニア":"tech","派遣テスター":"tech",
   "医療職":"care","介護職":"care","非常勤職員":"care",
   "工場 正社員":"field","軽作業スタッフ":"field","倉庫の軽作業":"field","ビル清掃":"field","施設清掃":"field","作業所":"field","作業所・アルバイト":"field","在宅データ入力":"field","在宅ワーク":"field",
@@ -228,7 +230,8 @@ function setJob(s,name,inc,grow,kind,jtype){
   const keep=inherit&&prev&&prev.type===type;
   const skill=keep?prev.skill:Math.min(80,Math.min(30,aptOf(s,type)*.3)+carryOf(s,type));
   s.job={name,inc,grow,kind,type,form,skill,mul:1,legacy};
-  if(!legacy){const[lo,hi]=WAGE[type][form];s.job.mul=Math.max(.8,Math.min(1.25,Math.max(lo,Math.min(hi,inc))/wageAt(s.job,skill)));s.job.inc=jobInc(s.job)}
+  if(!legacy&&inc==null)s.job.inc=jobInc(s.job);
+  if(!legacy&&inc!=null){const[lo,hi]=WAGE[type][form];s.job.mul=Math.max(.8,Math.min(1.25,Math.max(lo,Math.min(hi,inc))/wageAt(s.job,skill)));s.job.inc=jobInc(s.job)}
   if(!keep)s.jobSince=s.age;s.lastType=type;s.status="work";s.jobs.push(name);if(kind==="pro"&&!s.track&&typeof TRACKS!=="undefined"&&TRACKS.athlete){s.track="athlete";s.trackSince=s.age}}
 const SKILL_RATE=3.2;
 /* 毎年：熟練が伸びる（伸び ∝ 100−熟練。適性・頑張り・傾きで変わる）。職歴は使わないと少しずつ減る */
@@ -327,6 +330,57 @@ function hikiDecision(s){
 const PRO_BAR=85;
 /* がむしゃらの効き：満たされているほど（幸福が高いほど）がむしゃらになる理由がなく、効きにくい */
 const hunger=s=>Math.max(0,Math.min(1,(80-s.happy)/40));
+/* ========== 就職活動：職種を選ぶ → 雇用の形はルーレット ==========
+   mode: "hs" 高卒 / "college" 専門・大学卒 / "change" 転職・無職からの就職 */
+const HUNT_TYPES={hs:["field","service","office","sales","care","sport","gov"],senmon:["field","service","office","sales","care","sport","gov","tech","art"]};
+const DREAM_TYPE={tech:"tech",sport:"sport",art:"art",stable:"gov"};
+const TITLE={sales:"営業職",service:"販売・サービス職",office:"事務職",tech:"エンジニア",care:"医療・福祉職",field:"製造・現場職",research:"研究職",gov:"公務員",art:"表現の仕事",sport:"競技"};
+const aptLabel=a=>a>=65?"高":a>=45?"中":"低";
+const eduBonus=()=>s.flags.uni===2?25:s.flags.uni===1?12:s.flags.senmon?5:0;
+function huntTypes(mode){
+  const all=Object.keys(JT).filter(k=>k!=="founder");
+  if(s.flags.uni)return all;
+  return mode==="hs"||!s.flags.senmon?HUNT_TYPES.hs:HUNT_TYPES.senmon;
+}
+/* 候補6つ：夢の職種 ＋ 適性の高い2つ ＋ 残りはランダム（人生ごとに少し変わる） */
+function huntCands(mode){
+  /* 競技は夢がスポーツか競技経験のある人だけ、転職では選べない */
+  const ok=huntTypes(mode).filter(k=>!(mode==="change"&&s.job&&k===s.job.type)&&!(k==="sport"&&(mode==="change"||s.goal!=="sport"&&!s.flags.sport))),out=[];
+  const dream=DREAM_TYPE[s.goal];if(dream&&ok.includes(dream))out.push(dream);
+  ok.filter(k=>!out.includes(k)).sort((a,b)=>aptOf(s,b)-aptOf(s,a)).slice(0,2).forEach(k=>out.push(k));
+  const rest=ok.filter(k=>!out.includes(k));while(out.length<6&&rest.length)out.push(rest.splice(R(0,rest.length-1),1)[0]);
+  return out;
+}
+/* 別の職種への転職：35歳以降で、前の職種から遠いほど正社員になりにくい */
+const changePen=(mode,type)=>mode==="change"&&s.age>=35&&s.lastType?.3+.7*near(s.lastType,type):1;
+function huntChoice(type,mode){
+  const apt=aptOf(s,type),[lo,hi]=type==="gov"?WAGE.gov.public:[WAGE[type].small[0],WAGE[type].large[1]];
+  const l=`${JT[type].n}`,info=`適性${aptLabel(apt)}・年収${lo}〜${hi}万`,pen=changePen(mode,type),dream=DREAM_TYPE[s.goal]===type;
+  const take=(name,kind,text)=>()=>{setJob(s,name,null,.02,kind,type)};
+  if(type==="gov")return{l,info,fx:{know:2,happy:-1},roll:{q:"公務員試験",why:["know"],o:[
+    o("浪人して無職に",D("know",.25),{happy:-6},"もう一年、勉強を続けることにした。",()=>{s.status="jobless";s.job=null}),
+    o("臨時職員になる",40,{happy:-2},"試験には落ちた。役所の臨時職員として働きはじめた。",take("臨時職員","irregular")),
+    o("合格",s=>Math.max(1,(s.know-40+eduBonus())*pen),{happy:6},"役所の採用通知が届いた。",take("公務員","public"))]}};
+  if(type==="sport")return{l,info,fx:{health:3},roll:{q:"競技の道",why:["health","luck"],o:[
+    o("声がかからず一般就職",D("health",.5),{happy:-6},"どこからも声はかからなかった。スポーツ用品店に就職した。",()=>setJob(s,"スポーツ用品店の店員",null,.015,"corp","service")),
+    o("実業団に入る",s=>35*pen,{happy:4},"実業団に入った。昼は会社員、夕方からは選手。",take("大手企業の実業団選手","corp")),
+    o("プロ契約",s=>Math.max(1,s.health-PRO_BAR+(s.flags.sport||0)*4+s.luck/20),{happy:10},"プロ契約を結んだ。",()=>setJob(s,"プロ選手",700,.05,"pro"))]}};
+  if(type==="art")return{l,info,fx:{happy:3},roll:{q:"表現の世界",why:["happy","luck"],o:[
+    o("夢をあきらめて就職",25,{happy:-6},"スーツを買った日、画材を押し入れにしまった。",()=>setJob(s,"事務職",null,.02,"corp","office")),
+    o("アルバイトをしながら活動",50,{happy:2,health:-2},"夜はバイト、昼は制作。",take("アルバイト・創作活動","irregular")),
+    o("事務所に所属する",UA("happy","luck",30),{happy:8},"小さな事務所に所属が決まった。",take("所属アーティスト","art"))]}};
+  const e=era(s);
+  return{l,info,fx:dream?{happy:2}:{},roll:{q:"採用",why:JT[type].st,era:1,o:[
+    o("非正規で働く",s=>Math.max(1,(100-aptOf(s,type))*.35+(1-e.m)*60),{happy:-4},`${TITLE[type]}の仕事に、非正規で就いた。`,take(TITLE[type]+"（非正規）","irregular")),
+    o("中小企業に就職",s=>45*pen,{},`${TITLE[type]}として、中小企業に就職した。`,take(TITLE[type],"corp")),
+    o("大手企業に就職",s=>Math.max(1,((aptOf(s,type)-35)*.8+eduBonus())*e.m*pen),{happy:6},`${TITLE[type]}として、大手企業に採用された。`,take("大手企業の"+TITLE[type],"corp"))]}};
+}
+function jobHunt(mode){
+  const text=mode==="hs"?"高校を卒業する。どんな仕事に就くか。":mode==="college"?"卒業が近づいた。どんな仕事を目指すか。":s.job?`${s.job.name}として働いている。別の仕事を探す。`:"仕事を探す。どんな仕事を目指すか。";
+  return{title:mode==="change"?"仕事探し":"就職活動",text,generic:mode==="change"?1:0,choices:huntCands(mode).map(k=>huntChoice(k,mode))};
+}
+/* 選んだ結果で就職活動が始まるときは、同じ年のうちに続けて出す */
+function afterDecision(){if(!s.pendingHunt)return false;const m=s.pendingHunt;s.pendingHunt=null;if(special())return false;showDecision(jobHunt(m));return true}
 function jobChoices(s){
   const uni=s.flags.uni||0,big=[
    {l:"大手企業を目指す",fx:{know:2},roll:{q:"就職活動",why:["know","bond"],era:1,o:[
@@ -364,10 +418,7 @@ function jobChoices(s){
 function workDecision(s,title){
   if(!s.job||s.job.kind==="irregular"){
     return{generic:1,title:title||"働き方",text:s.job?`${s.job.name}として働いている。年収は${man(s.job.inc)}。`:"仕事がない。通帳の数字が減っていくのを眺めている。",choices:[
-     {l:"正社員を目指して就職活動",fx:{happy:-2},roll:{q:"正社員への道",why:["know","bond"],era:1,o:[
-       o("正社員になる",E(UA("know","bond",25)),{happy:8},"正社員の採用通知が届いた。",s=>setJob(s,"中小企業 会社員",320,.02,"corp")),
-       o("契約社員止まり",40,{},"契約社員として採用された。",s=>setJob(s,"契約社員",250,.01,"irregular")),
-       o("不採用が続く",DA("know","bond",.5),{happy:-6},"不採用通知が20通を超えた。")]}},
+     {l:"正社員を目指して就職活動",fx:{happy:-2},set:s=>{s.pendingHunt="change"},roll:{q:"仕事探し",why:["bond"],o:[o("求人を探しはじめる",1,{},"求人票を何十枚もめくった。")]}},
      {l:"職業訓練に通う",fx:{know:6,money:-20},roll:{q:"訓練のあと",why:["know"],o:[
        o("資格を生かして就職",U("know",20),{happy:6},"取った資格で、事務職に就いた。",s=>setJob(s,"事務職",300,.02,"corp")),
        o("学んだが活かせない",45,{happy:-2},"資格は取れたが、求人は少なかった。"),
@@ -396,7 +447,8 @@ function workDecision(s,title){
      o("副業が軌道に乗る",UA("know","luck",30),{money:300,happy:5},"副業の収入が本業のボーナスを超えた。"),
      o("小遣い程度",45,{money:40},"月に数万円。悪くない。"),
      o("赤字で終わる",DA("know","luck",.4),{money:-60,happy:-3},"機材代だけが残った。")]}},
-   {l:"転職する",fx:{happy:1},roll:{q:"転職",why:["know","skill"],era:1,o:[
+   {l:"別の職種に移る",fx:{happy:1},set:s=>{s.pendingHunt="change"},roll:{q:"仕事探し",why:["bond"],o:[o("求人を探しはじめる",1,{},"今の仕事を続けながら、求人を探しはじめた。")]}},
+   {l:"同じ職種で転職する",fx:{happy:1},roll:{q:"転職",why:["know","skill"],era:1,o:[
      o("年収アップ",E(UA("know","skill",25)),{happy:4,incMul:1.2},"条件の良い会社に移った。"),
      o("条件は横ばい",40,{happy:1},"仕事内容は変わったが、年収は同じだった。"),
      o("転職先が合わない",D("know",.4),{happy:-5,incMul:.85},"入って半年で、前の職場が恋しくなった。")]}}]};
@@ -473,15 +525,12 @@ function pickDecision(s,a=s.age){
         o("プロ契約",s=>Math.max(1,s.health-PRO_BAR+(s.flags.sport||0)*4+s.luck/20),{happy:12},"プロからの指名を受けた。",s=>setJob(s,"プロ選手",650,.05,"pro")),
         o("実業団に入る",35,{happy:3},"実業団に入った。",s=>setJob(s,"実業団選手",320,.02,"corp")),
         o("声がかからない",D("health",.5),{happy:-8},"どこからも声はかからなかった。地元で就職した。",s=>setJob(s,"地元企業 会社員",270,.018,"corp"))]}}:
-      {l:"就職する",fx:{money:10},roll:{q:"高卒就職",why:["know","bond"],era:1,o:[
-        o("地元企業の正社員",E(UA("know","bond",20)),{happy:3},"地元の工場に正社員で入った。",s=>setJob(s,"工場 正社員",270,.02,"corp")),
-        o("販売・サービス業",40,{},"量販店の販売員になった。",s=>setJob(s,"販売員",240,.012,"corp")),
-        o("アルバイトで働く",DA("know","bond",.4),{happy:-3},"アルバイトを掛け持ちすることにした。",s=>setJob(s,"アルバイト",170,.005,"irregular"))]}}];
+      {l:"就職する",fx:{money:10},set:s=>{s.pendingHunt="hs"},roll:{q:"卒業",why:["bond"],o:[o("高校を卒業した",1,{},"卒業式の帰り道、制服のまま少し遠回りした。")]}}];
       return{title:"進路",text:"高校卒業。次の道を決める。",choices:ch};}
     if(hiki)return hikiDecision(s);
     return workDecision(s,"18歳の働き方");
   case 20:
-    if(st==="college"&&s.flags.senmon)return{title:"就職活動",text:"卒業が近づいた。どこで働くか。",choices:jobChoices(s)};
+    if(st==="college"&&s.flags.senmon)return jobHunt("college");
     if(st==="college")return{title:"学生生活",text:"大学生活も折り返し。何に時間を使うか。",choices:[
       {l:"研究・勉強に没頭する",fx:{know:6},roll:{q:"ゼミ",why:["know"],o:[o("教授に見込まれる",U("know",30),{know:5,happy:3},"教授に大学院を勧められた。"),o("普通に単位を取る",45,{know:1},"成績は真ん中あたり。"),o("ついていけない",D("know",.4),{happy:-4},"ゼミの発表で何も答えられなかった。")]}},
       {l:"サークルで仲間をつくる",fx:{bond:6,happy:3},roll:{q:"仲間",why:["bond"],o:[o("生涯の友を得る",U("bond",25),{bond:5,happy:3},"夜通し語り合える友人が3人できた。"),o("楽しく過ごす",45,{happy:2},"合宿と飲み会の2年間だった。"),o("揉めて抜ける",D("bond",.4),{bond:-4},"代替わりで揉めて、サークルを抜けた。")]}},
@@ -490,7 +539,7 @@ function pickDecision(s,a=s.age){
     if(hiki)return hikiDecision(s);
     return workDecision(s,"20歳の働き方");
   case 22:
-    if(st==="college")return{title:"就職活動",text:"大学4年。エントリーシートの山を前にしている。",choices:jobChoices(s)};
+    if(st==="college")return jobHunt("college");
     if(hiki)return hikiDecision(s);
     return workDecision(s);
   case 25:
@@ -542,8 +591,8 @@ function pickDecision(s,a=s.age){
       {l:"気にしない",fx:{happy:3},roll:{q:"お金",why:["luck"],o:[o("なんとかなる",U("luck"),{},"なんとかなった。"),o("不安が募る",D("luck"),{happy:-5},"夜中に家計の計算をする日が増えた。")]}}]};
     {const inv=Math.max(0,s.money)*.5;return{title:"お金の使い道",text:`資産は${man(s.money)}。半分を何かに回すか考えている。`,choices:[
       {l:"預金しておく",fx:{},roll:{q:"10年後",why:["luck"],o:[o("物価が安定",U("luck"),{money:Math.round(inv*.02)},"利息はわずかだが、減りもしなかった。"),o("物価上昇で目減り",D("luck"),{money:-Math.round(inv*.1)},"物価が上がり、預金の価値が目減りした。")]}},
-      {l:"インデックス投資",fx:{},roll:{q:"市場",why:["luck"],o:[o("大きく増える",U("luck",20),{money:Math.round(inv*.6),happy:4},"10年で資産が1.6倍になった。"),o("堅調に増える",50,{money:Math.round(inv*.25)},"地味に増えた。"),o("暴落に巻き込まれる",D("luck",.5),{money:-Math.round(inv*.3),happy:-4},"暴落で3割を失った。")]}},
-      {l:"個別株・暗号資産に賭ける",fx:{happy:3},roll:{q:"相場",why:["luck"],o:[o("大化けする",U("luck",45),{money:Math.round(inv*3),happy:10},"買った銘柄が4倍になった。"),o("行ってこい",30,{},"上がって、下がって、元に戻った。"),o("大損する",D("luck",.7),{money:-Math.round(inv*.7),happy:-8},"画面の数字が7割消えた。")]}},
+      {l:"インデックス投資",fx:{},set:s=>{s.money-=Math.round(inv);addAsset("stock",inv)},roll:{q:"最初の数年",why:["luck"],o:[o("大きく増える",U("luck",20),{happy:4},"数年で、思った以上に増えた。",s=>{const x=assetsOf().at(-1);x.v*=1.3}),o("堅調に増える",50,{},"地味に増えた。"),o("暴落に巻き込まれる",D("luck",.5),{happy:-4},"買った直後に相場が大きく下がった。",s=>{const x=assetsOf().at(-1);x.v*=.7})]}},
+      {l:"個別株・暗号資産に賭ける",fx:{happy:3},set:s=>{s.money-=Math.round(inv);addAsset("risky",inv)},roll:{q:"相場",why:["luck"],o:[o("大化けする",U("luck",45),{happy:10},"買った銘柄が4倍になった。",s=>{assetsOf().at(-1).v*=4}),o("行ってこい",30,{},"上がって、下がって、元に戻った。"),o("大損する",D("luck",.7),{happy:-6},"買った銘柄が紙くず同然になった。",s=>{assetsOf().at(-1).v*=.2})]}},
       {l:"家族や体験に使う",fx:{money:-Math.round(inv*.4),happy:8,bond:4},roll:{q:"使ったお金",why:["happy"],o:[o("一生の思い出になる",U("happy",20),{happy:4},"何度も見返す写真ができた。"),o("良い時間だった",50,{},"いい時間だった。")]}}]};}
   case 50:
     if(hiki)return{title:"8050",text:"親は80歳を超えた。自分は50歳。暮らしは親の年金だけで回っている。",choices:[
@@ -791,7 +840,7 @@ function applySet(st){
   for(const k in st.cond||{})s.cd[k]=Math.max(0,Math.min(3,s.cd[k]+st.cond[k]));
   for(const k in st.press||{})s.press[k]+=st.press[k];
   if(st.track){s.track=st.track;s.trackSince=s.age}
-  if(st.bankrupt){s.money=0;s.flags.bankrupt=1;s.bankruptAge=s.age;s.bankruptCount=(s.bankruptCount||0)+1;s.cd.poor=0;s.press.poor=0;
+  if(st.bankrupt){s.money=0;s.assets=[];delete s.flags.house;s.flags.bankrupt=1;s.bankruptAge=s.age;s.bankruptCount=(s.bankruptCount||0)+1;s.cd.poor=0;s.press.poor=0;
     addRow("life","再出発","借金はなくなった。財布には、今月の給料だけが入っている。")}
 }
 /* 優先分岐：傾き2段以上・借金・不登校/無職/ひきこもり「だけ」が対象のもの（2年空いたら出て、8年空ければ再登場する） */
@@ -943,10 +992,55 @@ function yearlyEvent(){
 }
 /* 家計の基準（万円/年）：手取り率、生活費（単身の上限・下限、実家、配偶者、子ども1人あたり）
    働いている人の単身の生活費は、手取りに合わせて下限〜上限のあいだで縮む（収入が低ければ切り詰める） */
-const ECON={take:.82,live:240,liveMin:145,adapt:.95,liveHome:140,kid:50};
+const ECON={take:.82,live:225,liveMin:130,adapt:.95,liveHome:140,kid:50};
 /* 子どもの年齢：s.kids の増減に合わせて生まれた年を記録し、22歳になるまでを養育費の対象にする */
-function syncKids(){s.kidBorn=s.kidBorn||[];while(s.kidBorn.length<s.kids)s.kidBorn.push(s.age);while(s.kidBorn.length>s.kids)s.kidBorn.pop()}
-const kidsAtHome=()=>{syncKids();return s.kidBorn.filter(a=>s.age-a<22).length};
+/* ========== 子ども ==========
+   育ち（0〜100）は毎年、夫婦の愛情・親の幸福・家計で動く。12歳で教育の分岐（資産があれば私立・塾）。
+   22歳で育ちに応じて独立のしかたが決まり、そのあと結婚して孫が生まれることがある */
+const KID={start:[45,55],drift:-.6,eliteBoost:1,eliteMin:800,eliteCost:250,eliteYearly:60,stayUntil:30,marryRate:.07,grandRate:.12,grandMax:2};
+function syncKids(){s.kidList=s.kidList||[];while(s.kidList.length<s.kids)s.kidList.push({born:s.age,grow:R(...KID.start),edu:null,path:null,married:false,grand:0});
+  while(s.kidList.length>s.kids)s.kidList.pop();s.kidBorn=s.kidList.map(k=>k.born)}
+const kidAge=k=>s.age-k.born;
+const kidHome=k=>kidAge(k)<22||k.path==="stay"&&kidAge(k)<KID.stayUntil;
+const kidsAtHome=()=>{syncKids();return s.kidList.filter(kidHome).length};
+const eliteAtHome=()=>s.kidList?s.kidList.filter(k=>k.edu==="elite"&&kidAge(k)<22).length:0;
+const kidName=(i,n)=>n>1?["上の子","下の子","末の子"][Math.min(i,2)]:"子ども";
+function kidYear(){
+  syncKids();const n=s.kidList.length;
+  s.kidList.forEach((k,i)=>{const a=kidAge(k),who=kidName(i,n);
+    if(a>0&&a<22){
+      const home=s.married&&s.partner?(s.partner.love-60)/45:s.flags.divorced?-.4:-.2;   /* 夫婦の仲（ひとり親は少し不利） */
+      k.grow=Math.max(0,Math.min(100,k.grow+KID.drift+home+(s.happy-55)/40-(s.cd.poor>=1?1:0)-(s.cd.poor>=2?1:0)+(k.edu==="elite"?KID.eliteBoost:0)+gauss(5)));
+    }
+    if(a===22){
+      k.path=k.grow>=75?"big":k.grow>=28?"local":"stay";
+      addRow("life","家族",{big:`${who}が家を出た。名前を聞けば誰もが知る会社に就職した。`,local:`${who}が家を出た。地元の会社に就職した。部屋が急に広くなった。`,stay:`${who}は、しばらく家にいることになった。`}[k.path]);
+      if(k.path==="big")s.happy=clamp(s.happy+3);
+    }
+    if(k.path==="stay"&&a===KID.stayUntil){addRow("life","家族",`${who}が、ようやく家を出た。`)}
+    if(a>=25&&a<=40&&!k.married&&k.path!=="stay"&&Math.random()<KID.marryRate*(.6+k.grow/125)){k.married=true;addRow("life","家族",`${who}が結婚した。式で、少しだけ泣いた。`,{happy:4});s.happy=clamp(s.happy+4)}
+    if(k.married&&k.grand<KID.grandMax&&a<=42&&Math.random()<KID.grandRate){k.grand++;s.grandkids=(s.grandkids||0)+1;addRow("life","家族",s.grandkids===1?"孫が生まれた。小さな手が、指を握った。":"また孫が生まれた。",{happy:4,bond:2});s.happy=clamp(s.happy+4);s.bond=clamp(s.bond+2)}
+  });
+}
+/* 12歳の教育の分岐：資産があれば私立・塾を選べる */
+function eduDecision(k,who){
+  const rich=s.money>=KID.eliteMin;
+  return{title:"子どもの進学",text:`${who}が中学に上がる。進学のことを、夫婦で話し合った。`,choices:[
+   ...(rich?[{l:"私立・塾に入れる",cost:KID.eliteCost,fx:{happy:-1},set:()=>{k.edu="elite"},roll:{q:"新しい環境",why:["bond","luck"],o:[
+     o("伸び伸び学ぶ",UA("bond","luck",10),{happy:4},`${who}は、毎日楽しそうに塾の話をした。`,()=>{k.grow=Math.min(100,k.grow+8)}),
+     o("ついていく",45,{},`${who}は、課題の量に文句を言いながらも続けた。`),
+     o("合わずに疲れる",DA("bond","luck",.4),{happy:-4},`${who}は、朝起きられない日が増えた。`,()=>{k.grow=Math.max(0,k.grow-6)})]}}]:[]),
+   {l:"地元の公立で伸び伸び",fx:{happy:2},roll:{q:"地元の中学",why:["bond"],o:[
+     o("友達に恵まれる",U("bond",15),{happy:3},`${who}は、近所の友達といつも一緒だった。`,()=>{k.grow=Math.min(100,k.grow+5)}),
+     o("普通の毎日",50,{},`${who}の中学生活は、静かに始まった。`),
+     o("つまずく",D("bond",.4),{happy:-3},`${who}は、勉強についていけなくなった。`,()=>{k.grow=Math.max(0,k.grow-5)})]}},
+   {l:"本人に任せる",fx:{bond:2},roll:{q:"本人の選択",why:["luck"],o:[
+     o("自分で道を見つける",U("luck",20),{happy:4,bond:2},`${who}は、自分で調べた学校に行くと言った。`,()=>{k.grow=Math.min(100,k.grow+6)}),
+     o("なんとなく決まる",50,{},`${who}は、友達と同じ学校に進んだ。`),
+     o("迷ったまま",D("luck",.4),{happy:-2},`${who}は、決めきれないまま春を迎えた。`,()=>{k.grow=Math.max(0,k.grow-3)})]}}]};
+}
+function kidDecision(){syncKids();const n=s.kidList.length;
+  for(let i=0;i<n;i++){const k=s.kidList[i];if(kidAge(k)===12&&!k.eduAsked){k.eduAsked=1;return eduDecision(k,kidName(i,n))}}return null}
 /* ========== パートナー ==========
    結婚した年に、パートナーの年収を自分の年収の近くから1回だけ決める（年収の近い人どうしが結婚しやすい）。
    愛情（0〜100）は毎年、人間関係・幸福・傾きで動き、低い年が続くと離婚が起きることがある */
@@ -973,6 +1067,61 @@ function partnerYear(){
 const partnerNet=()=>!s.partner?0:s.age<PARTNER.retireAge?(s.partner.works?s.partner.inc*ECON.take:0):PARTNER.pension;
 /* 自己破産から7年間は借りられないので、資産はマイナスにならない。足りない分は生活を切り詰める（幸福が下がる） */
 function noBorrow(){if(s.flags.bankrupt&&s.money<0){const lack=-s.money;s.money=0;s.happy=clamp(s.happy-Math.min(4,1+lack/100))}}
+/* ========== 資産 ==========
+   現金（s.money）とは別に、家・株・土地・ビルを持つ。純資産 = 現金 + 資産の評価額 − ローン残高。
+   現金がマイナスになると、株→ビル→土地の順に売って埋める（家は自己破産のときだけ手放す） */
+const ASSET={names:{house:"家",stock:"株",risky:"個別株",land:"土地",building:"ビル"},
+  house:{price:2500,loan:2200,dep:.015,floor:.5},stock:{mu:.04,sd:.16,div:.015},risky:{mu:.02,sd:.4,div:0},
+  land:{mu:.005,sd:.03},building:{mu:.005,sd:.06,rent:.05}};
+const assetsOf=()=>s.assets||(s.assets=[]);
+const netWorth=()=>s.money+assetsOf().reduce((a,x)=>a+x.v-(x.loan||0),0);
+function addAsset(k,v,extra){assetsOf().push({k,v:Math.round(v),since:s.age,...extra})}
+function assetYear(){
+  const A=assetsOf();
+  if(s.flags.house&&!A.some(x=>x.k==="house"))addAsset("house",ASSET.house.price,{loan:ASSET.house.loan});
+  if(!s.flags.house)s.assets=A.filter(x=>x.k!=="house");
+  for(const x of assetsOf()){
+    if(x.k==="house"){x.v=Math.max(ASSET.house.price*ASSET.house.floor,x.v*(1-ASSET.house.dep));if(s.age<66)x.loan=Math.max(0,(x.loan||0)-70)}
+    else{const c=ASSET[x.k];x.v=Math.max(0,x.v*Math.exp(c.mu+gauss(c.sd)));
+      if(c.div)s.money+=x.v*c.div;if(c.rent)s.money+=x.v*c.rent}
+  }
+}
+/* 現金のマイナスを、売れる資産で埋める */
+function sellToCover(){
+  if(s.money>=0)return;
+  for(const k of["risky","stock","building","land"])for(const x of assetsOf().filter(x=>x.k===k)){
+    if(s.money>=0)break;const take=Math.min(x.v,-s.money+50);x.v-=take;s.money+=take;
+    addRow("life","資産",`${ASSET.names[k]}を売って、足りない分に充てた。`)}
+  s.assets=assetsOf().filter(x=>x.k==="house"||x.v>1);
+}
+const assetLine=()=>{const A=assetsOf().filter(x=>x.v>=1);if(!A.length)return"";
+  const sum={};for(const x of A)sum[x.k]=(sum[x.k]||0)+x.v-(x.loan||0);
+  return"現金 "+man(s.money)+"・"+Object.entries(sum).map(([k,v])=>`${ASSET.names[k]} ${man(v)}`).join("・")};
+/* 積み立て投資・不動産投資の分岐（候補プールに入る） */
+function tsumitateDecision(){
+  const amt=Math.round(s.money*.3);
+  return{title:"積み立て投資",text:`貯金が${man(s.money)}になった。一部を投資に回すか考えている。`,choices:[
+   {l:"一部を投資に回す",fx:{know:2},set:s=>{s.money-=amt;addAsset("stock",amt)},roll:{q:"最初の一年",why:["luck"],o:[
+     o("値下がりする",D("luck",.4),{happy:-3},"始めた途端に相場が下がった。"),
+     o("じわじわ増える",50,{},"気づくと、少しだけ増えていた。"),
+     o("順調に増える",U("luck",20),{happy:3},"思ったより増えていた。")]}},
+   {l:"現金で持っておく",fx:{happy:1},roll:{q:"現金",why:["luck"],o:[
+     o("物価に目減りする",D("luck",.4),{happy:-2},"物価が上がり、貯金の重みが少し減った。"),
+     o("変わらない",50,{},"通帳の数字は、そのままだった。"),
+     o("安心して暮らす",U("luck"),{happy:3},"いざというときの備えがあると思うと、落ち着いた。")]}}]};
+}
+function buildingDecision(){
+  const amt=Math.round(s.money*.6);
+  return{title:"不動産投資",text:`資産は${man(s.money)}。一棟ビルの売り話が持ち込まれた。`,choices:[
+   {l:"一棟ビルを買う",fx:{},set:s=>{s.money-=amt;addAsset("building",amt)},roll:{q:"入居",why:["luck","know"],o:[
+     o("空室が続く",DA("luck","know",.5),{happy:-6},"テナントが埋まらず、管理費だけが出ていった。",()=>{const b=assetsOf().find(x=>x.k==="building");if(b)b.v*=.8}),
+     o("ほどほどに埋まる",45,{},"半分ほどの部屋が埋まった。"),
+     o("満室になる",UA("luck","know",25),{happy:6},"満室になった。毎月、家賃が入ってくる。")]}},
+   {l:"株に分けて回す",fx:{know:2},set:s=>{s.money-=Math.round(amt/2);addAsset("stock",Math.round(amt/2))},roll:{q:"相場",why:["luck"],o:[
+     o("値下がりする",D("luck",.4),{happy:-3},"相場が下がった。"),o("じわじわ増える",50,{},"少しずつ増えた。"),o("大きく増える",U("luck",25),{happy:4},"大きく増えた。")]}},
+   {l:"断る",fx:{happy:1},roll:{q:"そのあと",why:["luck"],o:[
+     o("惜しいことをした",D("luck",.3),{happy:-2},"あとで、そのビルの値段が上がったと聞いた。"),o("何も変わらない",50,{},"いつも通りの暮らしが続いた。"),o("断ってよかった",U("luck",10),{happy:3},"そのビルは、翌年に空き家だらけになった。")]}}]};
+}
 function econ(){
   const st=s.status;let net=0,cost=0;
   partnerYear();
@@ -983,18 +1132,19 @@ function econ(){
   if(s.status==="college")net=20;
   if(s.status==="jobless")net=50;
   if(["work","jobless","retired"].includes(s.status)||(s.status==="hikikomori"&&!s.parentsAlive)){
-    cost=(s.flags.home&&s.parentsAlive?ECON.liveHome:st==="work"?Math.min(ECON.live,Math.max(ECON.liveMin,net*ECON.adapt)):ECON.live)+(s.married?PARTNER.live:0)+kidsAtHome()*ECON.kid*(!s.married&&s.flags.divorced?PARTNER.kidShareAfterDivorce:1)-(s.status==="jobless"||s.status==="hikikomori"?80:0);
+    cost=(s.flags.home&&s.parentsAlive?ECON.liveHome:st==="work"?Math.min(ECON.live,Math.max(ECON.liveMin,net*ECON.adapt)):ECON.live)+(s.married?PARTNER.live:0)+kidsAtHome()*ECON.kid*(!s.married&&s.flags.divorced?PARTNER.kidShareAfterDivorce:1)+eliteAtHome()*KID.eliteYearly-(s.status==="jobless"||s.status==="hikikomori"?80:0);
     if(s.flags.house&&s.age<66)cost+=70;
     if(s.status==="retired")cost-=40;
     if(s.status!=="work"&&s.money<0)cost=Math.min(cost,net+20);
     if(s.status==="jobless")s.happy=clamp(s.happy-2);}
   if(s.status==="hikikomori"&&s.age>=18)s.hikiYears++;
   s.money+=net+partnerNet()-cost;
+  assetYear();sellToCover();
   noBorrow();
   if(s.money<0&&s.age>=22)s.happy=clamp(s.happy-1);
 }
 /* 結婚している42歳未満の人には、毎年少しの確率で子どもが生まれる（子2人まで。「二人の時間」を選んだ人と、借金・困窮中の人は除く） */
-const BIRTH_RATE=.19;
+const BIRTH_RATE=.21;
 /* 25〜40歳の独身の人には、毎年少しの確率で結婚が起きる（「ひとりで生きると決める」を選んだ人と、ひきこもり中の人は除く） */
 const MARRY_RATE=.013;
 function marryCheck(){
@@ -1008,8 +1158,8 @@ function birthCheck(){
   addRow("life","誕生",s.kids===1?"子どもが生まれた。夜中に何度も起きる日々が始まった。":"二人目が生まれた。家の中が一気ににぎやかになった。",{happy:6,bond:3});
 }
 /* 子どもの節目 */
-const KID_STEPS={6:"子どもがランドセルを背負って、初めて登校した。",12:"子どもが中学生になった。制服が少し大きい。",15:"子どもが高校に上がった。",22:"子どもが家を出た。部屋が急に広くなった。"};
-function kidSteps(){syncKids();s.kidBorn.forEach((b,i)=>{const a=s.age-b,txt=KID_STEPS[a];if(txt)addRow("life","家族",s.kidBorn.length>1?txt.replace("子どもが",["上の子が","下の子が","末の子が"][Math.min(i,2)]):txt)})}
+const KID_STEPS={6:"子どもがランドセルを背負って、初めて登校した。",12:"子どもが中学生になった。制服が少し大きい。",15:"子どもが高校に上がった。"};
+function kidSteps(){syncKids();kidYear();s.kidBorn.forEach((b,i)=>{const a=s.age-b,txt=KID_STEPS[a];if(txt)addRow("life","家族",s.kidBorn.length>1?txt.replace("子どもが",["上の子が","下の子が","末の子が"][Math.min(i,2)]):txt)})}
 function passive(){
   kidSteps();
   if(s.age>=6&&s.age<=18&&(s.status==="school"))s.know=clamp(s.know+2+(s.flags.private?1:0));
@@ -1026,15 +1176,50 @@ function passive(){
   for(const p of s.parents)if(p.alive){const pa=p.a+s.age;
     if(pa>=50&&Math.random()<.00003*Math.exp(.095*pa)*(p.n==="父"?1.4:1)||pa>=105){p.alive=0;
       const last=!s.parents.some(q=>q.alive);s.happy=clamp(s.happy-(last?6:4));
-      if(last){s.parentsAlive=false;const inh=Math.round([0,30,200,600,1500,5000][s.fam]*(.6+Math.random()*.8));s.money+=inh;
+      if(last){s.parentsAlive=false;const inh=Math.round([0,30,200,600,1500,5000][s.fam]*(.6+Math.random()*.8)),landPart=s.fam>=3?Math.round(inh*.5):0;s.money+=inh-landPart;if(landPart)addAsset("land",landPart);
         addRow("life","別れ",`${p.n}を見送った（${pa}歳）。両親とも亡くなった。`+(inh>0?`相続した資産は${man(inh)}。`:"遺されたものは、ほとんどなかった。"),inh?{money:inh}:null)}
       else addRow("life","別れ",`${p.n}を見送った（${pa}歳）。`)}}
 }
-function deathCheck(){
-  const p=.000028*Math.exp(.093*s.age)*(1.6-s.health/100*1.2);
-  return s.age>=105||Math.random()<p;
+/* ========== 病気 ==========
+   死の多くは病気の段階を踏む：持病（1）→ 体調の悪化（2）→ 大きな病気（3）。段階ごとに医療費と健康の低下があり、
+   大きな病気になると治療方針の分岐が出る。事故などの突然の死はごくまれ。高齢になると老衰もある */
+const ILL={names:["","持病","体調の悪化","大きな病気"],onset:.00035,onsetK:.075,worsen:[0,.10,.22],recover:[0,.10,.07],
+  cost:[0,5,20,50],drain:[0,1,2,4],death:[0,.001,.02,.15],accident:.00015,frailAge:85};
+const ILL_TXT={1:"健康診断で再検査になった。持病とつきあう日々が始まった。",2:"体調の悪い日が増えた。しばらく入院した。",3:"大きな病気が見つかった。",down:"治療が効いて、体調が少し落ち着いた。",cured:"持病の数値が、いつの間にか落ち着いていた。"};
+function illnessYear(){
+  const h=1.6-s.health/100*1.2;
+  if(!s.ill){if(Math.random()<ILL.onset*Math.exp(ILL.onsetK*s.age)*h){s.ill=1;s.illSince=s.age;addRow("slope","病気",ILL_TXT[1])}return}
+  const tr=s.treat||0;
+  if(s.ill<3&&Math.random()<ILL.worsen[s.ill]*h*(s.age>70?1.3:1)){s.ill++;addRow("slope","病気",ILL_TXT[s.ill]);if(s.ill===3)s.illAsk=1}
+  else if(Math.random()<ILL.recover[s.ill]*(.5+s.health/100)*(1+tr*.5)){s.ill--;addRow("rise","回復",s.ill?ILL_TXT.down:ILL_TXT.cured);if(!s.ill)s.treat=0}
+  if(s.ill){s.money-=ILL.cost[s.ill];s.health=clamp(s.health-ILL.drain[s.ill])}
 }
-function snap(){s.hist.push({age:s.age,health:s.health,happy:s.happy,know:s.know,bond:s.bond,luck:s.luck,money:s.money});s.peak=Math.max(s.peak,s.money);s.minMoney=Math.min(s.minMoney,s.money);s.slopeMax=Math.max(s.slopeMax,...Object.values(s.cd))}
+/* 大きな病気になった年は、治療方針の分岐を必ず出す */
+function illDecision(){
+  if(!s.illAsk)return null;s.illAsk=0;
+  return{title:"治療の方針",text:"医師から、治療の進め方について説明を受けた。",choices:[
+   {l:"積極的な治療を受ける",cost:150,fx:{happy:-2},set:s=>{s.treat=2},roll:{q:"治療",why:["health","luck"],o:[
+     o("副作用がつらい",D("health",.4),{health:-6,happy:-4},"副作用で、しばらく何も食べられない日が続いた。"),
+     o("一進一退",45,{},"良くなったり悪くなったりを繰り返した。"),
+     o("治療がよく効く",UA("health","luck",10),{happy:6},"検査の数値が、目に見えて良くなった。",s=>{s.ill=2})]}},
+   {l:"標準的な治療を受ける",cost:40,fx:{},set:s=>{s.treat=1},roll:{q:"治療",why:["health"],o:[
+     o("思うように進まない",D("health",.4),{happy:-3},"思ったほど良くならなかった。"),
+     o("落ち着いている",50,{},"大きな変化はなかった。"),
+     o("少し良くなる",U("health",20),{happy:3},"少しずつ、体が楽になった。")]}},
+   {l:"家で穏やかに過ごす",fx:{happy:4,bond:2},set:s=>{s.treat=0},roll:{q:"家での日々",why:["bond"],o:[
+     o("不安な夜が続く",D("bond",.4),{happy:-4},"眠れない夜が続いた。"),
+     o("静かな日々",50,{happy:2},"縁側で過ごす時間が増えた。"),
+     o("家族と過ごす",U("bond",20),{happy:5,bond:3},"家族が、交代で顔を見に来てくれた。")]}}]};
+}
+function deathCheck(){
+  const tr=s.treat||0;
+  if(s.age>=105){s.deathCause="old";return true}
+  if(Math.random()<ILL.accident*(s.age>=75?2:1)){s.deathCause="accident";return true}
+  if(s.ill&&Math.random()<ILL.death[s.ill]*(1-tr*.2)*(s.age>75?1.5:1)){s.deathCause="ill";return true}
+  if(s.age>=ILL.frailAge&&Math.random()<.03*Math.exp(.12*(s.age-ILL.frailAge))*(1.4-s.health/100*.8)){s.deathCause="old";return true}
+  return false;
+}
+function snap(){const nw=netWorth();s.hist.push({age:s.age,health:s.health,happy:s.happy,know:s.know,bond:s.bond,luck:s.luck,money:nw});s.peak=Math.max(s.peak,nw);s.minMoney=Math.min(s.minMoney,nw);s.slopeMax=Math.max(s.slopeMax,...Object.values(s.cd))}
 
 /* 分岐の決め方：
    ・構造が変わる節目（夢・受験・進路・就職・定年）はその年に必ず出す
@@ -1074,6 +1259,8 @@ function poolCands(){
     if(d.generic&&special())continue;
     c.push({cat:d.generic?"generic":fam&&famBoost(fam)?"family":"hand",max:hi,make:()=>{s.decUsed[id]=a;return d}})}
   for(const p of DPOOL)if(!p.prio&&eligible(p))c.push({cat:"pool",max:p.max,make:()=>fromPool(p)});
+  if(s.decUsed.tsumitate===undefined&&a>=25&&a<=60&&s.money>=500&&!s.flags.bankrupt)c.push({cat:"money",max:60,make:()=>{s.decUsed.tsumitate=a;return tsumitateDecision()}});
+  if(s.decUsed.building===undefined&&a>=40&&a<=70&&s.money>=6000)c.push({cat:"money",max:70,make:()=>{s.decUsed.building=a;return buildingDecision()}});
   return c;
 }
 /* 候補の選び方：まず題材の種類を均等に（直前と同じ種類は半分、結婚・子どもは FAMILY_W 倍）、その中で年齢の幅が残り少ないものほど重く */
@@ -1090,6 +1277,7 @@ function nextDecision(){
   if(s.pendingRainbow){const t=s.pendingRainbow;s.pendingRainbow=null;return rainbowDecision(t)}
   if(a<6)return null;
   if(STRUCT[a]&&STRUCT[a]()){const d=pickDecision(s,a);if(d)return d}
+  {const kd=illDecision()||kidDecision();if(kd)return kd}
   if(a-s.lastDec>=2){
     const g=GEN.decisions.filter(x=>prioOf(x)&&genOk(x,1)),h=DPOOL.filter(p=>p.prio&&eligible(p));
     if(g.length||h.length)return g.length&&(!h.length||Math.random()<.75)?fromGen(pick(g)):fromPool(pick(h))}
@@ -1108,7 +1296,7 @@ function nextDecision(){
 function step(){
   if(pending||!s.alive)return;
   s.age++;s.year++;
-  passive();marryCheck();birthCheck();if(s.status!=="work")growSkill();econ();
+  passive();illnessYear();marryCheck();birthCheck();if(s.status!=="work")growSkill();econ();
   const soc=SOCIETY[s.year];if(soc){const extra=soc[1](s);addRow("soc","社会",soc[0]+(extra?" "+extra:""))}
   yearlyEvent();
   updateConds();trackCurve();trackEnd();noBorrow();
@@ -1128,7 +1316,7 @@ function chips(fx){
 }
 function addRow(kind,label,text,fx){
   const li=document.createElement("li");li.className="fresh"+(kind==="rainbow"?" rainbow":kind==="slope"?" slope":"");
-  li.innerHTML=`<span class="a">${s.age}歳</span><span class="badge b-${kind}">${label}</span><span class="t">${echo(text)}${fx?chips(fx):""}</span><span class="m${s.money<0?" neg":""}">${man(s.money)}</span>`;
+  li.innerHTML=`<span class="a">${s.age}歳</span><span class="badge b-${kind}">${label}</span><span class="t">${echo(text)}${fx?chips(fx):""}</span><span class="m${netWorth()<0?" neg":""}">${man(netWorth())}</span>`;
   $("log").prepend(li);
 }
 function statusLabel(){const st=s.status,a=s.age;
@@ -1140,12 +1328,13 @@ function render(){
   $("age").innerHTML=`${s.age}<small>歳</small>`;$("status").textContent=statusLabel();
   $("meta").textContent=`${s.year}年 · ${s.pref}`+(s.goal?` · 夢：${GOALS[s.goal]}`:"")+(s.married?(s.partner?` · 既婚（愛情${Math.round(s.partner.love)}${s.partner.works?"・共働き":""}）`:" · 既婚"):"")+(s.kids?` · 子${s.kids}人（${(syncKids(),s.kidBorn.map(b=>s.age-b+"歳").join("・"))}）`:"")+(s.track&&TRACKS[s.track]?` · ★${TRACKS[s.track].name}`+(onCurve(s)?` ${TRACKS[s.track].curve.label}${Math.round(s.tv)}`:""):"")+(s.job&&!s.job.legacy?` · ${JT[s.job.type].n} 熟練${s.skill}`:"")+(s.flags.bankrupt?" · 自己破産から再出発中":"");
   $("stats").innerHTML=STATS.map(([k,n])=>`<div class="stat"><label>${n}<b>${s[k]}</b></label><div class="bar"><i style="width:${s[k]}%"></i></div></div>`).join("");
-  const m=$("money");m.textContent=man(s.money);m.classList.toggle("neg",s.money<0);
+  const nw=netWorth(),m=$("money");m.textContent=man(nw);m.classList.toggle("neg",nw<0);$("assets").textContent=assetLine();
   $("mlbl").textContent=s.age<22&&s.status!=="work"?"資産（親の教育資金を含む） ":"資産 ";
   $("inc").textContent=s.job?man(s.job.inc):s.status==="retired"?`年金 ${man(s.pension||0)}`:"—";
   $("family").textContent=s.parent?`実家：世帯年収 ${FAM[s.fam][0]}・${s.parent}`:"実家：—";
   const cs=Object.keys(CONDS).filter(k=>s.cd[k]>0);
-  $("conds").innerHTML=cs.length?cs.map(k=>`<span class="cond">${CONDS[k].n} <span class="dots">${"●".repeat(s.cd[k])}${"○".repeat(3-s.cd[k])}</span></span>`).join(""):`<span class="cond ok">状態：良好</span>`;
+  const ill=s.ill?`<span class="cond">${ILL.names[s.ill]} <span class="dots">${"●".repeat(s.ill)}${"○".repeat(3-s.ill)}</span></span>`:"";
+  $("conds").innerHTML=ill+(cs.length?cs.map(k=>`<span class="cond">${CONDS[k].n} <span class="dots">${"●".repeat(s.cd[k])}${"○".repeat(3-s.cd[k])}</span></span>`).join(""):ill?"":`<span class="cond ok">状態：良好</span>`);
 }
 function setAuto(v){auto=v;clearTimeout(timer);$("play").textContent=auto?"❚❚ 一時停止":"▶ 自動で進める";if(auto&&!pending)timer=setTimeout(step,300)}
 $("play").onclick=()=>{if(!s.alive)return newLife();setAuto(!auto)};
@@ -1160,7 +1349,7 @@ function showDecision(d){
   const sc=$("scene");sc.hidden=false;
   sc.innerHTML=`<div class="scene-head"><span class="yr">${s.year}年 · ${s.age}歳</span><h2>${d.title}</h2></div>
    <p class="story">${echo(tx(d.text,s))}</p>
-   <span class="q">選択</span><div class="opts${d.choices.length===1?" one":""}" id="opts">${d.choices.map((c,i)=>`<button class="opt" data-i="${i}"${off[i]?" disabled":""}><span class="lbl">${c.l}</span>${chips(Object.assign({},c.cost?{money:-c.cost}:{},c.fx||{}))}${off[i]?'<span class="short">資金が足りない</span>':""}</button>`).join("")}</div>
+   <span class="q">選択</span><div class="opts${d.choices.length===1?" one":""}" id="opts">${d.choices.map((c,i)=>`<button class="opt" data-i="${i}"${off[i]?" disabled":""}><span class="lbl">${c.l}</span>${c.info?`<span class="info">${c.info}</span>`:""}${chips(Object.assign({},c.cost?{money:-c.cost}:{},c.fx||{}))}${off[i]?'<span class="short">資金が足りない</span>':""}</button>`).join("")}</div>
    <div id="slot"></div>`;
   sc.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
     sc.querySelectorAll(".opt").forEach(x=>{x.disabled=true;x.classList.add("done")});b.classList.add("picked");
@@ -1204,25 +1393,26 @@ function land(d,c,r,box,res,ps,pos){
   if(r===c.roll&&c.then){setTimeout(()=>roll(d,c,c.then(s)),reduce?0:500);return}
   snap();
   const nb=document.createElement("button");nb.className="btn next";nb.textContent=d.birth?"人生をはじめる":"続ける";
-  nb.onclick=()=>{pending=false;$("scene").hidden=true;if(d.birth&&!auto)setAuto(true);else if(auto)timer=setTimeout(step,400);};
+  nb.onclick=()=>{pending=false;if(afterDecision())return;$("scene").hidden=true;if(d.birth&&!auto)setAuto(true);else if(auto)timer=setTimeout(step,400);};
   box.appendChild(nb);nb.focus({preventScroll:true});
 }
 
 /* ========== 死と振り返り ========== */
 /* 最も長く続けた職種 */
+function kidStory(){const g=s.grandkids||0;return g?`孫は${g}人。`:""}
 function longestType(){const e=Object.entries(s.typeYears||{}).sort((a,b)=>b[1]-a[1])[0];return e?`最も長く続けた職種は${JT[e[0]].n}（${e[1]}年・熟練${Math.round(s.exp[e[0]]||0)}）。`:""}
 function die(){
   s.alive=false;setAuto(false);snap();render();
-  const cause=s.age<40?"突然の病で":s.health<30?"長い闘病の末に":s.age>=90?"眠るように":"静かに";
+  const cause=s.deathCause==="accident"?"思いがけない事故で":s.deathCause==="ill"?(s.age-(s.illSince||s.age)>=5?"長い闘病の末に":"病気で"):s.age>=90?"眠るように":"静かに";
   addRow("life","死",`${s.year}年、${s.age}歳で${cause}息を引き取った。`);
   const career=s.hikiYears>=10?"長い時間を部屋の中で過ごし":s.jobs.length?`${s.jobs.includes("プロ選手")?"プロ選手として活躍し":[...new Set(s.jobs)].slice(-2).join("、") + "として働き"}`:"働くことはなく";
   const sc=$("scene");sc.hidden=false;$("controls").hidden=true;
   sc.innerHTML=`<div class="scene-head"><span class="yr">${s.birthYear}–${s.year}</span><h2>ある人生の記録</h2></div>
-   <p class="story">${s.pref}の${s.parent}（世帯年収${FAM[s.fam][0]}）に生まれ、${career}、${s.age}歳で亡くなった。${s.married?"結婚し":s.flags.divorced?"離婚を経験し":"結婚はせず"}、${s.kids?`子どもを${s.kids}人育てた。`:"子どもはいなかった。"}${longestType()}${s.track&&TRACKS[s.track]?`★${TRACKS[s.track].name}の道を${s.trackSince}歳から歩いた。`:""}${s.bankruptAge?`${s.bankruptAge}歳で自己破産し、そこから立て直した。`:""}</p>
+   <p class="story">${s.pref}の${s.parent}（世帯年収${FAM[s.fam][0]}）に生まれ、${career}、${s.age}歳で亡くなった。${s.married?"結婚し":s.flags.divorced?"離婚を経験し":"結婚はせず"}、${s.kids?`子どもを${s.kids}人育てた。${kidStory()}`:"子どもはいなかった。"}${longestType()}${s.track&&TRACKS[s.track]?`★${TRACKS[s.track].name}の道を${s.trackSince}歳から歩いた。`:""}${s.bankruptAge?`${s.bankruptAge}歳で自己破産し、そこから立て直した。`:""}</p>
    <div class="review">
     <div class="facts">
-      <div>最終資産<b class="${s.money<0?"neg":""}">${man(s.money)}</b></div>
-      <div>最大資産<b>${man(s.peak)}</b></div>
+      <div>最終資産<b class="${netWorth()<0?"neg":""}">${man(netWorth())}</b></div>
+      <div>最大資産<b>${man(s.peak)}</b></div>${assetLine()?`<div>内訳<b style="font-size:.8rem">${assetLine()}</b></div>`:""}
       <div>虹イベント<b>${s.rainbow}回</b></div>
       <div>分岐<b>${s.forks.length}回</b></div>
       <div>最も深い傾き<b>${s.slopeMax}／3</b></div>

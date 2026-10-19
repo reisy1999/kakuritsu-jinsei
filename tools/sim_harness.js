@@ -46,6 +46,7 @@ function showDecision(d){
   if(!c.roll)throw new Error("no roll "+d.title+" "+c.l);
   if(c.cost)s.money-=c.cost;applyFx(c.fx||{});if(c.set)c.set(s);doRoll(c.roll);if(c.then)doRoll(c.then(s));
   if(!d.birth&&!d.rainbow){s.forks.push(1);if(d.gen){GENUSE++;if(d.id)USED[d.id]=(USED[d.id]||0)+1}}snap();pending=false;
+  if(typeof afterDecision==="function")afterDecision();
 }
 function die(){s.alive=false}
 
@@ -57,10 +58,10 @@ for(let n=0;n<N;n++){LOG=[];newLife();let g=0,em=false,mk=0,first=null,sk40=null
     if(s.job&&!s.job.legacy){if(first===null)first=s.skill;max=Math.max(max,s.skill);
       if(s.age===40)sk40=s.skill;if(s.age===60)sk60=s.skill;if(s.age===45)at45={skill:s.skill,inc:s.job.inc,type:s.job.type,form:s.job.form}}}
   if(isNaN(s.money))throw new Error("NaN");
-  L.push({age:s.age,money:s.money,minMoney:s.minMoney,forks:s.forks.length,rainbow:s.rainbow>0,track:s.track||null,
+  L.push({age:s.age,money:typeof netWorth==="function"?netWorth():s.money,minMoney:s.minMoney,forks:s.forks.length,rainbow:s.rainbow>0,track:s.track||null,
     bankrupt:!!s.bankruptAge,hiki:s.hikiYears>=10,hikiAny:s.hikiYears>0,
     futoko:LOG.some(l=>l.includes("不登校")||l.includes("足が動かなく")),
-    married:!!s.married,everMarried:em,divorced:!!s.divorces,bkCount:s.bankruptCount||0,kids:mk,jobs:s.jobs.length,cd:{...s.cd},job:{first,sk40,sk60,max,at45},
+    married:!!s.married,everMarried:em,divorced:!!s.divorces,bkCount:s.bankruptCount||0,cause:s.deathCause||null,illAge:s.illSince||null,assets:(s.assets||[]).map(x=>[x.k,Math.round(x.v-(x.loan||0))]),kidsOut:(s.kidList||[]).map(k=>({grow:Math.round(k.grow),edu:k.edu,path:k.path,married:k.married})),grand:s.grandkids||0,kids:mk,jobs:s.jobs.length,cd:{...s.cd},job:{first,sk40,sk60,max,at45},
     tr:s.track?{id:s.track,since:s.trackSince,end:s.trackEndKind||null,endAge:s.trackEndAge||null,peakAge:s.tvPeakAge||null,tv5}:null});
 }
 const decIds=(GEN.decisions||[]).map(x=>x.id);
