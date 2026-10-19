@@ -38,7 +38,7 @@ function showDecision(d){
   if(!d.choices||!d.choices.length)throw new Error("no choices "+s.age);
   tx(d.text,s);
   if(d.choices[0]&&GENERIC_FIRST.has(d.choices[0].l)){
-    if(s.track)GENERIC.track++;
+    if(s.track&&s.trackEndKind!=="fail")GENERIC.track++;
     else if(s.job&&["pro","art","founder"].includes(s.job.kind))GENERIC.special++;}
   const need=c=>(c.cost||0)+Math.max(0,-((c.fx||{}).money||0));
   let ok=d.choices.filter(c=>!(need(c)>0&&s.money<need(c)));if(!ok.length)ok=d.choices;
@@ -52,15 +52,16 @@ function die(){s.alive=false}
 let LOG=[],GENUSE=0;const USED={},GENERIC={track:0,special:0};
 const N=+(process.env.SIM_N||2000);
 const L=[];
-for(let n=0;n<N;n++){LOG=[];newLife();let g=0,em=false,mk=0,first=null,sk40=null,sk60=null,max=0,at45=null;
-  while(s.alive&&g++<200){step();if(s.married)em=true;mk=Math.max(mk,s.kids);
+for(let n=0;n<N;n++){LOG=[];newLife();let g=0,em=false,mk=0,first=null,sk40=null,sk60=null,max=0,at45=null,tv5=null;
+  while(s.alive&&g++<200){step();if(s.married)em=true;mk=Math.max(mk,s.kids);if(s.track&&s.tv!==undefined&&s.age===s.trackSince+5&&!s.trackEnded)tv5=s.tv;
     if(s.job&&!s.job.legacy){if(first===null)first=s.skill;max=Math.max(max,s.skill);
       if(s.age===40)sk40=s.skill;if(s.age===60)sk60=s.skill;if(s.age===45)at45={skill:s.skill,inc:s.job.inc,type:s.job.type,form:s.job.form}}}
   if(isNaN(s.money))throw new Error("NaN");
   L.push({age:s.age,money:s.money,minMoney:s.minMoney,forks:s.forks.length,rainbow:s.rainbow>0,track:s.track||null,
     bankrupt:!!s.bankruptAge,hiki:s.hikiYears>=10,hikiAny:s.hikiYears>0,
     futoko:LOG.some(l=>l.includes("不登校")||l.includes("足が動かなく")),
-    married:!!s.married,everMarried:em,kids:mk,jobs:s.jobs.length,cd:{...s.cd},job:{first,sk40,sk60,max,at45}});
+    married:!!s.married,everMarried:em,kids:mk,jobs:s.jobs.length,cd:{...s.cd},job:{first,sk40,sk60,max,at45},
+    tr:s.track?{id:s.track,since:s.trackSince,end:s.trackEndKind||null,endAge:s.trackEndAge||null,peakAge:s.tvPeakAge||null,tv5}:null});
 }
 const decIds=(GEN.decisions||[]).map(x=>x.id);
 console.log(JSON.stringify({N,policy:POLICY,genUse:GENUSE,used:USED,decIds,generic:GENERIC,lives:L}));

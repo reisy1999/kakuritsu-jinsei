@@ -76,6 +76,25 @@ def job_summary(L):
             "type45%": {k: v / max(1, len(a45)) * 100 for k, v in Counter(z["type"] for z in a45).most_common()}}
 
 
+def track_summary(L):
+    """虹ルートごとの人数・続いた年数・終わり方・ピーク年齢・5年後の値のばらつき"""
+    by = {}
+    for x in L:
+        tr = x.get("tr")
+        if tr: by.setdefault(tr["id"], []).append((tr, x["age"]))
+    out = {}
+    for k, v in by.items():
+        yrs = sorted(((tr["endAge"] or age) - tr["since"]) for tr, age in v)
+        peaks = sorted(tr["peakAge"] for tr, _ in v if tr["peakAge"])
+        tv5 = sorted(tr["tv5"] for tr, _ in v if tr["tv5"] is not None)
+        out[k] = {"n": len(v), "years_med": yrs[len(yrs) // 2],
+                  "fail%": sum(1 for tr, _ in v if tr["end"] == "fail") / len(v) * 100,
+                  "end%": sum(1 for tr, _ in v if tr["end"] == "end") / len(v) * 100,
+                  "peak_age_med": peaks[len(peaks) // 2] if peaks else None,
+                  "tv5_p10_p90": (round(tv5[len(tv5) // 10]), round(tv5[len(tv5) * 9 // 10])) if len(tv5) >= 5 else None}
+    return out
+
+
 def summarize(r):
     L, N = r["lives"], r["N"]
     ages = sorted(x["age"] for x in L)
@@ -101,6 +120,7 @@ def summarize(r):
         "generic_to_track": r["generic"]["track"],
         "generic_to_pro_art_founder": r["generic"]["special"],
         "job": job_summary(L),
+        "track_detail": track_summary(L),
         "tracks%": {k: v / N * 100 for k, v in Counter(x["track"] for x in L if x["track"]).most_common()},
         "gen_total": len(r["decIds"]),
         "unused_ids": [i for i in r["decIds"] if i not in used],
@@ -162,6 +182,10 @@ def main():
     table([(s["policy"], s) for s in res])
     for s in res:
         print(f"\n[{s['policy']}] 45歳の職種  " + "  ".join(f"{k} {v:.0f}%" for k, v in s["job"]["type45%"].items()))
+        print(f"[{s['policy']}] 虹ルート別  " + "  ".join(
+            f"{k}: {v['n']}人 {v['years_med']}年 失敗{v['fail%']:.0f}% 区切り{v['end%']:.0f}%"
+            + (f" ピーク{v['peak_age_med']}歳" if v['peak_age_med'] else "") + (f" 5年後{v['tv5_p10_p90']}" if v['tv5_p10_p90'] else "")
+            for k, v in sorted(s["track_detail"].items(), key=lambda kv: -kv[1]["n"])))
         print(f"[{s['policy']}] 虹の内訳  " + "  ".join(f"{k} {v:.1f}%" for k, v in s["tracks%"].items()))
     if a.unused:
         both = set.intersection(*(set(s["unused_ids"]) for s in res))

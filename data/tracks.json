@@ -54,6 +54,20 @@
      "grow": 0.01,
      "kind": "corp"
     }
+   },
+   "curve": {
+    "type": "peak",
+    "label": "実力",
+    "fail": {
+     "text": "戦力外通告を受けた。ロッカーを空にして、ユニフォームを返した。",
+     "job": {
+      "name": "スポーツ用品店の店員",
+      "income": 280,
+      "grow": 0.01,
+      "kind": "corp",
+      "type": "service"
+     }
+    }
    }
   },
   {
@@ -92,6 +106,20 @@
      "text": "差し出された名刺は、怪しいと思って捨ててしまった。",
      "fx": {
       "happy": -1
+     }
+    }
+   },
+   "curve": {
+    "type": "buzz",
+    "label": "人気",
+    "fail": {
+     "text": "テレビで見かけることがなくなった。事務所との契約が切れた。",
+     "job": {
+      "name": "アルバイト",
+      "income": 180,
+      "grow": 0.005,
+      "kind": "irregular",
+      "type": "service"
      }
     }
    }
@@ -136,6 +164,14 @@
       "happy": -1
      }
     }
+   },
+   "curve": {
+    "type": "swing",
+    "label": "業績",
+    "fail": {
+     "text": "資金が尽き、会社をたたんだ。",
+     "money": -300
+    }
    }
   },
   {
@@ -179,6 +215,23 @@
       "happy": -1
      }
     }
+   },
+   "curve": {
+    "type": "grind",
+    "label": "実力",
+    "fail": {
+     "text": "書く仕事だけでは暮らせず、昼の仕事に戻った。書くことは、夜に続けている。",
+     "job": {
+      "name": "事務職",
+      "income": 300,
+      "grow": 0.02,
+      "kind": "corp",
+      "type": "office"
+     }
+    },
+    "start": 25,
+    "drift": -5.0,
+    "sd": 5
    }
   },
   {
@@ -222,6 +275,20 @@
      "fx": {
       "know": 2,
       "happy": -2
+     }
+    }
+   },
+   "curve": {
+    "type": "grind",
+    "label": "実力",
+    "fail": {
+     "text": "任期が切れ、次のポストは見つからなかった。",
+     "job": {
+      "name": "専門職の会社員",
+      "income": 420,
+      "grow": 0.02,
+      "kind": "corp",
+      "type": "research"
      }
     }
    }
@@ -271,6 +338,21 @@
       "happy": -1
      }
     }
+   },
+   "curve": {
+    "type": "buzz",
+    "label": "人気",
+    "fail": {
+     "text": "再生数が戻らないまま、配信の予定表は白紙になった。",
+     "job": {
+      "name": "アルバイト",
+      "income": 180,
+      "grow": 0.005,
+      "kind": "irregular",
+      "type": "service"
+     }
+    },
+    "start": 25
    }
   },
   {
@@ -312,6 +394,21 @@
      "fx": {
       "happy": -1,
       "bond": 1
+     }
+    }
+   },
+   "curve": {
+    "type": "swing",
+    "label": "評判",
+    "fail": {
+     "text": "客足が戻らず、店を閉めた。最後の日、常連が花を持ってきた。",
+     "money": -200,
+     "job": {
+      "name": "店舗スタッフ",
+      "income": 260,
+      "grow": 0.01,
+      "kind": "corp",
+      "type": "service"
      }
     }
    }
