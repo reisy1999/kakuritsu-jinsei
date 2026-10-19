@@ -30,6 +30,10 @@ h1{font-family:var(--f-story);font-size:1.5rem;margin:0;letter-spacing:.04em}
 .age{font-family:var(--f-num);font-size:2rem;font-weight:600;line-height:1}
 .age small{font-size:.8rem;color:var(--muted);margin-left:2px}
 .meta{color:var(--muted);font-size:.85rem}
+.household{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.85rem}
+.household b{font-weight:700}
+.household:empty{display:none}
+.log li.family{background:color-mix(in srgb,var(--plus) 10%,transparent)}
 .status{font-size:.8rem;border:1px solid var(--ink);padding:0 8px}
 .sub{display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center;font-size:.8rem;color:var(--muted)}
 .conds{display:flex;gap:6px;flex-wrap:wrap}
@@ -132,6 +136,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   <section class="profile" aria-label="現在の状態">
     <div class="who"><span class="age" id="age">0<small>歳</small></span><span class="status" id="status">—</span><span class="meta" id="meta"></span></div>
     <div class="stats" id="stats"></div>
+    <div class="sub household" id="household"></div>
     <div class="sub"><span id="family">実家：—</span><span class="conds" id="conds"></span></div>
     <div class="money"><span><span class="lbl" id="mlbl">資産 </span><span class="big" id="money">0万円</span><span class="lbl" id="assets" style="display:block"></span></span><span><span class="lbl">年収 </span><span class="num" id="inc">—</span></span></div>
   </section>
@@ -172,7 +177,7 @@ const tx=(t,s)=>typeof t==="function"?t(s):t;
 
 /* ========== 仕事：職種 × 雇用の形・熟練・年収レンジ ========== */
 /* 職種と、熟練の伸びに効く能力 */
-const JT={sales:{n:"対人・営業",st:["bond","luck"]},service:{n:"接客・飲食",st:["bond","health"]},office:{n:"事務・公務",st:["know","bond"]},
+const JT={sales:{n:"対人・営業",st:["bond","luck"]},service:{n:"接客・飲食",st:["bond","health"]},office:{n:"事務・総合職",st:["know","bond"]},
   tech:{n:"技術・IT",st:["know","luck"]},care:{n:"医療・福祉",st:["bond","health"]},field:{n:"現場・製造",st:["health","know"]},
   research:{n:"研究・専門",st:["know","happy"]},gov:{n:"行政",st:["know","bond"]},founder:{n:"経営・自営",st:["luck","know"]},art:{n:"表現",st:["happy","luck"]},sport:{n:"競技",st:["health","luck"]}};
 /* 職種の近さ（転職時に職歴を引き継ぐ率）。書いていない組み合わせは 0.1 */
@@ -1144,9 +1149,9 @@ function econ(){
   if(s.money<0&&s.age>=22)s.happy=clamp(s.happy-1);
 }
 /* 結婚している42歳未満の人には、毎年少しの確率で子どもが生まれる（子2人まで。「二人の時間」を選んだ人と、借金・困窮中の人は除く） */
-const BIRTH_RATE=.21;
+const BIRTH_RATE=.23;
 /* 25〜40歳の独身の人には、毎年少しの確率で結婚が起きる（「ひとりで生きると決める」を選んだ人と、ひきこもり中の人は除く） */
-const MARRY_RATE=.013;
+const MARRY_RATE=.016;
 function marryCheck(){
   if(s.married||s.age<25||s.age>40||s.flags.solo||s.status==="hikikomori"||Math.random()>=MARRY_RATE)return;
   s.married=true;applyFx({happy:6,bond:4});
@@ -1259,12 +1264,16 @@ function poolCands(){
     if(d.generic&&special())continue;
     c.push({cat:d.generic?"generic":fam&&famBoost(fam)?"family":"hand",max:hi,make:()=>{s.decUsed[id]=a;return d}})}
   for(const p of DPOOL)if(!p.prio&&eligible(p))c.push({cat:"pool",max:p.max,make:()=>fromPool(p)});
+  /* 仕事の見直し：働いている人は8年に1回、無職の人は2年に1回、職種を選び直せる分岐が候補に入る */
+  {const last=s.decUsed.career,gap=s.status==="jobless"?2:8;
+   if((s.status==="work"&&a>=25&&a<=58||s.status==="jobless"&&a>=18&&a<=64)&&!special()&&(last===undefined||a-last>=gap))
+     c.push({cat:"career",max:a,make:()=>{s.decUsed.career=a;const d=workDecision(s,s.status==="jobless"?"仕事を探す":"これからの働き方");d.generic=0;return d}})}
   if(s.decUsed.tsumitate===undefined&&a>=25&&a<=60&&s.money>=500&&!s.flags.bankrupt)c.push({cat:"money",max:60,make:()=>{s.decUsed.tsumitate=a;return tsumitateDecision()}});
   if(s.decUsed.building===undefined&&a>=40&&a<=70&&s.money>=6000)c.push({cat:"money",max:70,make:()=>{s.decUsed.building=a;return buildingDecision()}});
   return c;
 }
 /* 候補の選び方：まず題材の種類を均等に（直前と同じ種類は半分、結婚・子どもは FAMILY_W 倍）、その中で年齢の幅が残り少ないものほど重く */
-const FAMILY_W=2;
+const FAMILY_W=3;
 function pickCand(c){
   const cats={};for(const x of c)if(x.cat!=="generic")(cats[x.cat]=cats[x.cat]||[]).push(x);
   const ks=Object.keys(cats);
@@ -1315,7 +1324,7 @@ function chips(fx){
   return out.length?` <span class="chips">${out.join("")}</span>`:"";
 }
 function addRow(kind,label,text,fx){
-  const li=document.createElement("li");li.className="fresh"+(kind==="rainbow"?" rainbow":kind==="slope"?" slope":"");
+  const li=document.createElement("li");li.className="fresh"+(kind==="rainbow"?" rainbow":kind==="slope"?" slope":["誕生","結婚","離婚","家族"].includes(label)&&s.age>0?" family":"");
   li.innerHTML=`<span class="a">${s.age}歳</span><span class="badge b-${kind}">${label}</span><span class="t">${echo(text)}${fx?chips(fx):""}</span><span class="m${netWorth()<0?" neg":""}">${man(netWorth())}</span>`;
   $("log").prepend(li);
 }
@@ -1324,9 +1333,22 @@ function statusLabel(){const st=s.status,a=s.age;
   if(st==="futoko")return"不登校";if(st==="hikikomori")return"ひきこもり";
   if(st==="college")return s.flags.senmon?"専門学校生":"大学生";
   if(st==="work")return s.job.name;if(st==="jobless")return"無職";if(st==="retired")return"引退";return"—"}
+/* 家族の行：配偶者・子ども・孫 */
+const growLabel=g=>g>=75?"すくすく":g>=45?"ふつう":g>=28?"少し心配":"心配";
+function householdHTML(){
+  const out=[];
+  if(s.married&&s.partner)out.push(`<span>配偶者 <b>愛情${Math.round(s.partner.love)}</b>・${s.partner.works?`共働き（年収${man(s.partner.inc)}）`:"専業"}</span>`);
+  else if(s.married)out.push("<span>配偶者 <b>あり</b></span>");
+  else if(s.flags.divorced)out.push("<span>配偶者 <b>なし</b>（離婚）</span>");
+  if(s.kids){syncKids();const n=s.kidList.length;
+    out.push("<span>子ども "+s.kidList.map((k,i)=>`<b>${kidName(i,n)} ${kidAge(k)}歳</b>${kidAge(k)<22?`（${growLabel(k.grow)}${k.edu==="elite"?"・私立":""}）`:k.married?"（既婚）":k.path==="stay"&&kidHome(k)?"（実家）":"（独立）"}`).join("・")+"</span>")}
+  if(s.grandkids)out.push(`<span>孫 <b>${s.grandkids}人</b></span>`);
+  return out.join("");
+}
 function render(){
   $("age").innerHTML=`${s.age}<small>歳</small>`;$("status").textContent=statusLabel();
-  $("meta").textContent=`${s.year}年 · ${s.pref}`+(s.goal?` · 夢：${GOALS[s.goal]}`:"")+(s.married?(s.partner?` · 既婚（愛情${Math.round(s.partner.love)}${s.partner.works?"・共働き":""}）`:" · 既婚"):"")+(s.kids?` · 子${s.kids}人（${(syncKids(),s.kidBorn.map(b=>s.age-b+"歳").join("・"))}）`:"")+(s.track&&TRACKS[s.track]?` · ★${TRACKS[s.track].name}`+(onCurve(s)?` ${TRACKS[s.track].curve.label}${Math.round(s.tv)}`:""):"")+(s.job&&!s.job.legacy?` · ${JT[s.job.type].n} 熟練${s.skill}`:"")+(s.flags.bankrupt?" · 自己破産から再出発中":"");
+  $("meta").textContent=`${s.year}年 · ${s.pref}`+(s.goal?` · 夢：${GOALS[s.goal]}`:"")+(s.track&&TRACKS[s.track]?` · ★${TRACKS[s.track].name}`+(onCurve(s)?` ${TRACKS[s.track].curve.label}${Math.round(s.tv)}`:""):"")+(s.job&&!s.job.legacy?` · ${JT[s.job.type].n} 熟練${s.skill}`:"")+(s.flags.bankrupt?" · 自己破産から再出発中":"");
+  $("household").innerHTML=householdHTML();
   $("stats").innerHTML=STATS.map(([k,n])=>`<div class="stat"><label>${n}<b>${s[k]}</b></label><div class="bar"><i style="width:${s[k]}%"></i></div></div>`).join("");
   const nw=netWorth(),m=$("money");m.textContent=man(nw);m.classList.toggle("neg",nw<0);$("assets").textContent=assetLine();
   $("mlbl").textContent=s.age<22&&s.status!=="work"?"資産（親の教育資金を含む） ":"資産 ";
