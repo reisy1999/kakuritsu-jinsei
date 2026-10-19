@@ -237,6 +237,7 @@ function setJob(s,name,inc,grow,kind,jtype){
   s.job={name,inc,grow,kind,type,form,skill,mul:1,legacy};
   if(!legacy&&inc==null)s.job.inc=jobInc(s.job);
   if(!legacy&&inc!=null){const[lo,hi]=WAGE[type][form];s.job.mul=Math.max(.8,Math.min(1.25,Math.max(lo,Math.min(hi,inc))/wageAt(s.job,skill)));s.job.inc=jobInc(s.job)}
+  if(form==="large"&&!METRO.includes(s.livePref||s.pref)&&!s.flags.home&&Math.random()<.6){s.livePref="東京都";if(typeof addRow==="function")addRow("life","引っ越し","仕事のために東京へ引っ越した。家賃の高さに驚いた。")}
   if(!keep)s.jobSince=s.age;s.lastType=type;s.status="work";s.jobs.push(name);if(kind==="pro"&&!s.track&&typeof TRACKS!=="undefined"&&TRACKS.athlete){s.track="athlete";s.trackSince=s.age}}
 const SKILL_RATE=3.2;
 /* 毎年：熟練が伸びる（伸び ∝ 100−熟練。適性・頑張り・傾きで変わる）。職歴は使わないと少しずつ減る */
@@ -252,7 +253,7 @@ function growSkill(){
   s.exp[j.type]=Math.max(s.exp[j.type]||0,j.skill);s.typeYears[j.type]=(s.typeYears[j.type]||0)+1;
 }
 /* 年金（年額・万円）：基礎部分 + 現役最後の年収に比例する部分 */
-const pensionOf=inc=>Math.round(110+inc*.33);
+const pensionOf=inc=>Math.round(95+inc*.3);
 const TU={hard:450,mid:420,local:260,tandai:200,senmon:240};
 
 /* 時代補正（就職時のみ） */
@@ -563,8 +564,8 @@ function pickDecision(s,a=s.age){
     return{title:"住まい",text:"30代に入った。住む場所について考える。",choices:[
       {l:"家を買う（住宅ローン）",fx:{money:-300,happy:4},set:s=>{s.flags.house=1},roll:{q:"物件の当たり外れ",why:["luck"],o:[o("資産価値が上がる",U("luck",30),{happy:3},"駅前の再開発で、家の価値が上がった。",s=>{s.flags.houseGood=1}),o("普通の家",50,{},"住みやすい家だった。"),o("修繕費がかさむ",D("luck",.4),{money:-200,happy:-4},"雨漏りが見つかった。")]}},
       {l:"賃貸で身軽に暮らす",fx:{happy:2},roll:{q:"住まい",why:["luck"],o:[o("良い物件に出会う",U("luck"),{happy:3},"日当たりの良い部屋に越した。"),o("普通に暮らす",50,{},"家賃は高いが、仕方ない。"),o("騒音トラブル",D("luck",.4),{happy:-4,health:-2},"隣の部屋の足音に悩まされた。")]}},
-      {l:"実家に戻る",fx:{bond:3,happy:-2},set:s=>{s.flags.home=1},roll:{q:"親との暮らし",why:["bond"],o:[o("親と良い関係",U("bond",20),{bond:4,happy:2},"夕飯を一緒に食べるのが習慣になった。"),o("ほどほど",45,{},"干渉はあるが、家賃はかからない。"),o("衝突が絶えない",D("bond",.4),{happy:-5},"毎晩のように言い合いになった。")]}},
-      {l:"地方に移住する",fx:{happy:4,incMul:.85},roll:{q:"移住先",why:["bond"],o:[o("地域に溶け込む",U("bond",20),{bond:6,happy:3},"近所の人が野菜を持ってくるようになった。"),o("それなりに暮らす",45,{},"車がないと不便だが、空は広い。"),o("なじめず戻る",D("bond",.4),{money:-100,happy:-4},"2年で都会に戻った。",s=>{if(s.job)s.job.inc/=.85})]}}]};
+      {l:"実家に戻る",fx:{bond:3,happy:-2},set:s=>{s.flags.home=1;s.livePref=s.pref},roll:{q:"親との暮らし",why:["bond"],o:[o("親と良い関係",U("bond",20),{bond:4,happy:2},"夕飯を一緒に食べるのが習慣になった。"),o("ほどほど",45,{},"干渉はあるが、家賃はかからない。"),o("衝突が絶えない",D("bond",.4),{happy:-5},"毎晩のように言い合いになった。")]}},
+      {l:"地方に移住する",fx:{happy:4,incMul:.85},set:s=>{s.livePref=RURAL[R(0,RURAL.length-1)]},roll:{q:"移住先",why:["bond"],o:[o("地域に溶け込む",U("bond",20),{bond:6,happy:3},"近所の人が野菜を持ってくるようになった。"),o("それなりに暮らす",45,{},"車がないと不便だが、空は広い。"),o("なじめず戻る",D("bond",.4),{money:-100,happy:-4},"2年で都会に戻った。",s=>{if(s.job)s.job.inc/=.85})]}}]};
   case 34:
     if(hiki)return hikiDecision(s);
     if(s.married)return{title:"家族",text:"結婚して数年。これからの家族の形を考える。",choices:[
@@ -997,7 +998,14 @@ function yearlyEvent(){
 }
 /* 家計の基準（万円/年）：手取り率、生活費（単身の上限・下限、実家、配偶者、子ども1人あたり）
    働いている人の単身の生活費は、手取りに合わせて下限〜上限のあいだで縮む（収入が低ければ切り詰める） */
-const ECON={take:.82,live:225,liveMin:130,adapt:.95,liveHome:140,kid:50};
+/* 家計の基準（万円/年）。働いている人の生活費は手取り×adapt（下限 liveMin〜上限 liveMax）で、収入が増えると暮らしも上がる。
+   live は働いていない人の生活費。家賃分 rent は持ち家ならローンに置き換わる */
+const ECON={take:.82,live:190,liveMin:115,liveMax:420,adapt:.65,liveHome:140,kid:60,rent:60};
+/* 住んでいる県の物価（生活費・配偶者・子どもの費用にかける） */
+const CITY={"東京都":1.35,"神奈川県":1.2,"大阪府":1.15,"愛知県":1.1,"埼玉県":1.1,"千葉県":1.1,"兵庫県":1.05,"福岡県":1.05};
+const METRO=Object.keys(CITY);
+const cityF=()=>CITY[s.livePref||s.pref]??.9;
+const RURAL=["新潟県","長野県","福島県","熊本県","岡山県","鹿児島県","青森県","石川県","高知県","山形県"];
 /* 子どもの年齢：s.kids の増減に合わせて生まれた年を記録し、22歳になるまでを養育費の対象にする */
 /* ========== 子ども ==========
    育ち（0〜100）は毎年、夫婦の愛情・親の幸福・家計で動く。12歳で教育の分岐（資産があれば私立・塾）。
@@ -1137,8 +1145,8 @@ function econ(){
   if(s.status==="college")net=20;
   if(s.status==="jobless")net=50;
   if(["work","jobless","retired"].includes(s.status)||(s.status==="hikikomori"&&!s.parentsAlive)){
-    cost=(s.flags.home&&s.parentsAlive?ECON.liveHome:st==="work"?Math.min(ECON.live,Math.max(ECON.liveMin,net*ECON.adapt)):ECON.live)+(s.married?PARTNER.live:0)+kidsAtHome()*ECON.kid*(!s.married&&s.flags.divorced?PARTNER.kidShareAfterDivorce:1)+eliteAtHome()*KID.eliteYearly-(s.status==="jobless"||s.status==="hikikomori"?80:0);
-    if(s.flags.house&&s.age<66)cost+=70;
+    cost=((s.flags.home&&s.parentsAlive?ECON.liveHome:st==="work"?Math.min(ECON.liveMax,Math.max(ECON.liveMin,net*ECON.adapt)):ECON.live)+(s.married?PARTNER.live:0))*cityF()+kidsAtHome()*ECON.kid*cityF()*(!s.married&&s.flags.divorced?PARTNER.kidShareAfterDivorce:1)+eliteAtHome()*KID.eliteYearly-(s.status==="jobless"||s.status==="hikikomori"?80:0);
+    if(s.flags.house)cost+=(s.age<66?70:0)-ECON.rent*cityF();   /* 持ち家は家賃のかわりにローン */
     if(s.status==="retired")cost-=40;
     if(s.status!=="work"&&s.money<0)cost=Math.min(cost,net+20);
     if(s.status==="jobless")s.happy=clamp(s.happy-2);}
@@ -1149,9 +1157,9 @@ function econ(){
   if(s.money<0&&s.age>=22)s.happy=clamp(s.happy-1);
 }
 /* 結婚している42歳未満の人には、毎年少しの確率で子どもが生まれる（子2人まで。「二人の時間」を選んだ人と、借金・困窮中の人は除く） */
-const BIRTH_RATE=.23;
+const BIRTH_RATE=.18;
 /* 25〜40歳の独身の人には、毎年少しの確率で結婚が起きる（「ひとりで生きると決める」を選んだ人と、ひきこもり中の人は除く） */
-const MARRY_RATE=.016;
+const MARRY_RATE=.006;
 function marryCheck(){
   if(s.married||s.age<25||s.age>40||s.flags.solo||s.status==="hikikomori"||Math.random()>=MARRY_RATE)return;
   s.married=true;applyFx({happy:6,bond:4});
@@ -1273,7 +1281,7 @@ function poolCands(){
   return c;
 }
 /* 候補の選び方：まず題材の種類を均等に（直前と同じ種類は半分、結婚・子どもは FAMILY_W 倍）、その中で年齢の幅が残り少ないものほど重く */
-const FAMILY_W=3;
+const FAMILY_W=2;
 function pickCand(c){
   const cats={};for(const x of c)if(x.cat!=="generic")(cats[x.cat]=cats[x.cat]||[]).push(x);
   const ks=Object.keys(cats);
@@ -1311,7 +1319,7 @@ function step(){
   updateConds();trackCurve();trackEnd();noBorrow();
   if(deathCheck()){die();return}
   snap();render();
-  const d=nextDecision();if(d){s.lastDec=s.age;s.nextGap=Math.random()<.5?2:3;showDecision(d);return}
+  const d=nextDecision();if(d){s.lastDec=s.age;s.nextGap=s.age>=24&&s.age<35?(Math.random()<.5?1:2):(Math.random()<.5?2:3);   /* 25〜35歳は選択が多い */showDecision(d);return}
   if(auto)timer=setTimeout(step,SPEED[speed]);
 }
 
@@ -1347,7 +1355,7 @@ function householdHTML(){
 }
 function render(){
   $("age").innerHTML=`${s.age}<small>歳</small>`;$("status").textContent=statusLabel();
-  $("meta").textContent=`${s.year}年 · ${s.pref}`+(s.goal?` · 夢：${GOALS[s.goal]}`:"")+(s.track&&TRACKS[s.track]?` · ★${TRACKS[s.track].name}`+(onCurve(s)?` ${TRACKS[s.track].curve.label}${Math.round(s.tv)}`:""):"")+(s.job&&!s.job.legacy?` · ${JT[s.job.type].n} 熟練${s.skill}`:"")+(s.flags.bankrupt?" · 自己破産から再出発中":"");
+  $("meta").textContent=`${s.year}年 · ${s.pref}`+(s.livePref&&s.livePref!==s.pref?` · ${s.livePref}在住`:"")+(s.goal?` · 夢：${GOALS[s.goal]}`:"")+(s.track&&TRACKS[s.track]?` · ★${TRACKS[s.track].name}`+(onCurve(s)?` ${TRACKS[s.track].curve.label}${Math.round(s.tv)}`:""):"")+(s.job&&!s.job.legacy?` · ${JT[s.job.type].n} 熟練${s.skill}`:"")+(s.flags.bankrupt?" · 自己破産から再出発中":"");
   $("household").innerHTML=householdHTML();
   $("stats").innerHTML=STATS.map(([k,n])=>`<div class="stat"><label>${n}<b>${s[k]}</b></label><div class="bar"><i style="width:${s[k]}%"></i></div></div>`).join("");
   const nw=netWorth(),m=$("money");m.textContent=man(nw);m.classList.toggle("neg",nw<0);$("assets").textContent=assetLine();
