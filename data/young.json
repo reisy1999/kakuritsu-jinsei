@@ -1413,10 +1413,7 @@
    "requires": {
     "status": [
      "work"
-    ],
-    "cond_min": {
-     "tired": 1
-    }
+    ]
    }
   },
   {

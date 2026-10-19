@@ -169,7 +169,7 @@ const tx=(t,s)=>typeof t==="function"?t(s):t;
 
 function setJob(s,name,inc,grow,kind){s.job={name,inc,grow,kind};s.jobSince=s.age;s.status="work";s.jobs.push(name);if(kind==="pro"&&!s.track&&typeof TRACKS!=="undefined"&&TRACKS.athlete){s.track="athlete";s.trackSince=s.age}}
 /* 年金（年額・万円）：基礎部分 + 現役最後の年収に比例する部分 */
-const pensionOf=inc=>Math.round(120+inc*.35);
+const pensionOf=inc=>Math.round(110+inc*.33);
 const TU={hard:450,mid:420,local:260,tandai:200,senmon:240};
 
 /* 時代補正（就職時のみ） */
@@ -712,7 +712,9 @@ function applySet(st){
   if(st.track){s.track=st.track;s.trackSince=s.age}
   if(st.bankrupt){s.money=0;s.flags.bankrupt=1;s.bankruptAge=s.age;s.cd.poor=0}
 }
-const prioOf=x=>{const r=x.requires||{};return !!(r.cond_min||r.money_max!==undefined&&r.money_max<0||(r.status||[]).some(v=>v==="hikikomori"||v==="jobless"||v==="futoko"))};
+/* 優先分岐：傾き2段以上・借金・不登校/無職/ひきこもり「だけ」が対象のもの（2年空いたら出て、8年空ければ再登場する） */
+const prioOf=x=>{const r=x.requires||{},st=r.status||[];
+  return st.length>0&&st.every(v=>v==="hikikomori"||v==="jobless"||v==="futoko")||Object.values(r.cond_min||{}).some(v=>v>=2)||r.money_max!==undefined&&r.money_max<0};
 /* 自己破産の選択肢は、資産が −500万円以下のときだけ選べる */
 const BANKRUPT_LINE=-500;
 const isBankruptChoice=c=>["good","mid","bad"].some(k=>c.roll[k].set&&c.roll[k].set.bankrupt);
@@ -829,7 +831,7 @@ function yearlyEvent(){
 /* 家計の基準（万円/年）：手取り率、生活費（単身の上限・下限、実家、配偶者、子ども1人あたり）
    配偶者はマイナス＝共働きで家計に足される分
    働いている人の単身の生活費は、手取りに合わせて下限〜上限のあいだで縮む（収入が低ければ切り詰める） */
-const ECON={take:.82,live:220,liveMin:130,adapt:.95,liveHome:140,spouse:-30,kid:70};
+const ECON={take:.82,live:240,liveMin:145,adapt:.95,liveHome:140,spouse:-30,kid:70};
 function econ(){
   const st=s.status;let net=0,cost=0;
   if(st==="work"&&s.job){if(s.job.kind==="pro"&&s.age>=34&&!TRACKS.athlete){addRow("life","引退","現役を引退した。指導者として第二のキャリアが始まった。");setJob(s,"コーチ・解説者",420,.01,"corp")}
@@ -849,9 +851,9 @@ function econ(){
   if(s.money<0&&s.age>=22)s.happy=clamp(s.happy-1);
 }
 /* 結婚している42歳未満の人には、毎年少しの確率で子どもが生まれる（子2人まで。「二人の時間」を選んだ人と、借金・困窮中の人は除く） */
-const BIRTH_RATE=.2;
+const BIRTH_RATE=.16;
 /* 25〜40歳の独身の人には、毎年少しの確率で結婚が起きる（「ひとりで生きると決める」を選んだ人と、ひきこもり中の人は除く） */
-const MARRY_RATE=.02;
+const MARRY_RATE=.01;
 function marryCheck(){
   if(s.married||s.age<25||s.age>40||s.flags.solo||s.status==="hikikomori"||Math.random()>=MARRY_RATE)return;
   s.married=true;applyFx({happy:6,bond:4});
@@ -928,7 +930,7 @@ function poolCands(){
   return c;
 }
 /* 候補の選び方：まず題材の種類を均等に（直前と同じ種類は半分、結婚・子どもは FAMILY_W 倍）、その中で年齢の幅が残り少ないものほど重く */
-const FAMILY_W=6;
+const FAMILY_W=2;
 function pickCand(c){
   const cats={};for(const x of c)if(x.cat!=="generic")(cats[x.cat]=cats[x.cat]||[]).push(x);
   const ks=Object.keys(cats);

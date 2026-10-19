@@ -1,0 +1,4751 @@
+{
+ "decisions": [
+  {
+   "id": "teen_uniform_01",
+   "age": [
+    13,
+    15
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "校則の見直し",
+   "text": "髪型や靴下の色まで細かい校則に、クラスで不満が出ている。",
+   "choices": [
+    {
+     "label": "意見書を出す",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "先生の反応",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "案が通る",
+       "text": "一部の校則が、来年から見直されることになった。",
+       "fx": {
+        "happy": 5,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "保留になる",
+       "text": "「検討します」と言われたまま、時間が過ぎた。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "目をつけられる",
+       "text": "生意気だと言われ、しばらく先生の目が冷たかった。",
+       "fx": {
+        "happy": -4,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "みんなで愚痴る",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "愚痴の輪",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "結束が強まる",
+       "text": "昼休みの愚痴会が、いつもの集まりになった。",
+       "fx": {
+        "bond": 4,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "気が晴れる",
+       "text": "言うだけ言って、少し楽になった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "愚痴ばかりになる",
+       "text": "文句ばかりの輪に、居心地の悪さを感じた。",
+       "fx": {
+        "happy": -3,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "黙って従う",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "平穏な日々",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "何も起きない",
+       "text": "波風が立たず、静かな一年が過ぎた。",
+       "fx": {
+        "happy": 2,
+        "health": 2
+       }
+      },
+      "mid": {
+       "label": "そのまま",
+       "text": "特に何も変わらなかった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "もやもやが残る",
+       "text": "言えなかったことが、胸に引っかかったままだ。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_tutor_01",
+   "age": [
+    14,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "年下の勉強係",
+   "text": "近所の小学生の親から、勉強を見てやってほしいと頼まれた。",
+   "choices": [
+    {
+     "label": "引き受ける",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "教え方",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "伸びる",
+       "text": "教えるうちに自分の理解も深まった。",
+       "fx": {
+        "know": 6,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "ぼちぼち",
+       "text": "週に一度、宿題を一緒に片付けている。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "空回りする",
+       "text": "うまく教えられず、自分の勉強時間が削られた。",
+       "fx": {
+        "know": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "断る",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "自分の時間",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "勉強がはかどる",
+       "text": "空いた時間で、苦手な単元を片付けた。",
+       "fx": {
+        "know": 5
+       }
+      },
+      "mid": {
+       "label": "いつも通り",
+       "text": "いつも通りの放課後が続いた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "少し後ろめたい",
+       "text": "断った顔が、ときどき浮かぶ。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "友達と交代で引き受ける",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "当番制",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "楽しい当番",
+       "text": "三人で回すと、教える日が楽しみになった。",
+       "fx": {
+        "bond": 6,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "まあまあ",
+       "text": "日程の調整に手間取りつつ、続いている。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "すれ違う",
+       "text": "予定が合わず、友達とも気まずくなった。",
+       "fx": {
+        "bond": -4,
+        "happy": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_stray_01",
+   "age": [
+    13,
+    16
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "捨て猫",
+   "text": "帰り道の空き地で、段ボールの中の子猫が鳴いていた。",
+   "choices": [
+    {
+     "label": "家に連れて帰る",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "親の返事",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "飼えることになる",
+       "text": "親が折れ、子猫は家の一員になった。",
+       "fx": {
+        "happy": 8,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "里親が見つかる",
+       "text": "飼えなかったが、近所の人が引き取ってくれた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "泣く泣く戻す",
+       "text": "親に反対され、翌朝に空き地を見に行った。",
+       "fx": {
+        "happy": -6,
+        "bond": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "先生に相談する",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "大人の力",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "保護団体につながる",
+       "text": "先生の伝手で、引き取り先が決まった。",
+       "fx": {
+        "happy": 4,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "先生に任せる",
+       "text": "結果は聞けないまま、日が過ぎた。",
+       "fx": {
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "取り合ってもらえない",
+       "text": "忙しいと流され、悔しさだけが残った。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "餌を持って通う",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "通い猫",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "なつく",
+       "text": "毎日の寄り道が、楽しみになった。",
+       "fx": {
+        "happy": 6,
+        "health": 2
+       }
+      },
+      "mid": {
+       "label": "気まぐれ",
+       "text": "姿を見せる日も見せない日もあった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "いなくなる",
+       "text": "ある日、段ボールだけが残っていた。",
+       "fx": {
+        "happy": -6
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_cook_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "夕食当番",
+   "text": "親の帰りが遅くなり、週に何度か夕食を作ることになった。",
+   "choices": [
+    {
+     "label": "レシピ通りに作る",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "手際",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "上手に作れる",
+       "text": "家族に「おいしい」と言われ、少し得意になった。",
+       "fx": {
+        "happy": 5,
+        "know": 3,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "普通の味",
+       "text": "可もなく不可もない夕食が並んだ。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "焦がす",
+       "text": "火加減を誤り、皿の上は黒くなった。",
+       "fx": {
+        "happy": -4,
+        "health": -1
+       }
+      }
+     }
+    },
+    {
+     "label": "簡単なものですませる",
+     "fx": {
+      "health": -1
+     },
+     "roll": {
+      "name": "手抜き",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "意外とうまい",
+       "text": "袋麺に野菜をのせたら、案外いけた。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "ふつう",
+       "text": "毎回似た夕食になった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "栄養が偏る",
+       "text": "同じものが続き、体が重くなってきた。",
+       "fx": {
+        "health": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "友達に頼って教わる",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "料理教室",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "腕が上がる",
+       "text": "友達の家で教わり、品数が増えた。",
+       "fx": {
+        "know": 4,
+        "bond": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "楽しく失敗",
+       "text": "笑いながら作ったが、味はいまひとつ。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "時間が足りない",
+       "text": "教わる時間で、宿題が後回しになった。",
+       "fx": {
+        "know": -4,
+        "happy": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_volunteer_01",
+   "age": [
+    14,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "地域の清掃活動",
+   "text": "町内会から、休日の川沿いの清掃に参加しないかと声がかかった。",
+   "choices": [
+    {
+     "label": "参加する",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "地域の輪",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "顔なじみができる",
+       "text": "年上の人たちに、名前を覚えてもらえた。",
+       "fx": {
+        "bond": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "ごみ拾いで終わる",
+       "text": "黙々とごみ袋を運んで、昼に解散した。",
+       "fx": {
+        "health": 1
+       }
+      },
+      "bad": {
+       "label": "手持ち無沙汰",
+       "text": "何をすればいいか分からず、立ち尽くした。",
+       "fx": {
+        "happy": -3,
+        "bond": -1
+       }
+      }
+     }
+    },
+    {
+     "label": "友達を誘って参加する",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "一緒に",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "いい思い出になる",
+       "text": "友達と競ってごみを拾い、笑って帰った。",
+       "fx": {
+        "bond": 6,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "来てくれたが…",
+       "text": "誘った友達は、終始つまらなそうだった。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "断られる",
+       "text": "断られ、気まずさが残った。",
+       "fx": {
+        "bond": -3,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "休日は休む",
+     "fx": {
+      "health": 2
+     },
+     "roll": {
+      "name": "休息",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "よく眠れる",
+       "text": "昼まで寝て、体が軽くなった。",
+       "fx": {
+        "health": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "だらだら過ごす",
+       "text": "何をしたか、よく覚えていない一日だった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "後ろめたい",
+       "text": "参加した人の話を聞いて、少し気まずい。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_bicycle_01",
+   "age": [
+    14,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "自転車の遠出",
+   "text": "友達から、自転車で隣の県まで行ってみようと誘われた。",
+   "choices": [
+    {
+     "label": "行く",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "道のり",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "やりきる",
+       "text": "夕方、見知らぬ海にたどり着いた。",
+       "fx": {
+        "happy": 8,
+        "health": 3,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "途中で引き返す",
+       "text": "半分でバテて、電車で帰った。",
+       "fx": {
+        "happy": 2,
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "パンクする",
+       "text": "帰り道でパンクし、親に迎えに来てもらった。",
+       "fx": {
+        "happy": -5,
+        "health": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "近場にする",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "手前の目的地",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "ちょうどいい",
+       "text": "隣町の古い商店街が、思いのほかおもしろかった。",
+       "fx": {
+        "happy": 4,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "普通に楽しい",
+       "text": "ほどよく走って、ほどよく疲れた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "物足りない",
+       "text": "寄り道のつもりが、すぐ着いてしまった。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "断って勉強する",
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "机に向かう",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "はかどる",
+       "text": "遠出を断った分、問題集が一章進んだ。",
+       "fx": {
+        "know": 5
+       }
+      },
+      "mid": {
+       "label": "まあまあ",
+       "text": "集中が切れ、ぼんやり過ごした。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "後悔する",
+       "text": "翌日、遠出の話で盛り上がる教室にいた。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_novel_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "小説を書く",
+   "text": "授業中に思いついた物語を、ノートに書き始めた。",
+   "choices": [
+    {
+     "label": "書き続ける",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "物語の力",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "のめり込む",
+       "text": "最終話まで書き上げて、胸がすっとした。",
+       "fx": {
+        "happy": 7,
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "書きかけ",
+       "text": "途中で止まったノートが、増えていった。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "書けなくなる",
+       "text": "読み返すほど恥ずかしくなり、手が止まった。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "友達に読ませる",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "感想",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "続きを待たれる",
+       "text": "「次は？」と聞かれる日々が始まった。",
+       "fx": {
+        "bond": 6,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "微妙な反応",
+       "text": "「いいんじゃない」と、あっさり返された。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "からかわれる",
+       "text": "一部の文が教室で読み上げられ、顔が熱くなった。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "人に見せずしまう",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "自分だけの物語",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "心のよりどころ",
+       "text": "誰にも見せない物語が、夜の楽しみになった。",
+       "fx": {
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "そっと閉じる",
+       "text": "机の奥で、ノートは眠っている。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "忘れていく",
+       "text": "いつしか、書くことも思い出さなくなった。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_grandma_01",
+   "age": [
+    13,
+    17
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "祖父母の家の夏",
+   "text": "夏休み、祖父母の家で二週間過ごさないかと言われた。",
+   "choices": [
+    {
+     "label": "行く",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "田舎の暮らし",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "のびのび過ごす",
+       "text": "畑と川と縁側。ゲームのない毎日が心地よかった。",
+       "fx": {
+        "health": 5,
+        "happy": 5,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "退屈だが…",
+       "text": "暇を持て余しつつ、スイカは毎日食べた。",
+       "fx": {
+        "health": 2
+       }
+      },
+      "bad": {
+       "label": "馴染めない",
+       "text": "話し相手がおらず、日が長く感じられた。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "数日だけ行く",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "短い滞在",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "ちょうどいい",
+       "text": "三日間で、祖母の昔話をたっぷり聞いた。",
+       "fx": {
+        "bond": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "あっという間",
+       "text": "慌ただしく帰ってきた。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "気を遣う",
+       "text": "お互いに気を遣い合って、疲れて帰った。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "行かず友達と過ごす",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "夏の予定",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "忘れない夏",
+       "text": "毎日誰かと会い、夏の思い出が増えた。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "普通の夏",
+       "text": "宿題と遊びで、普通の夏が終わった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "予定が合わない",
+       "text": "みんな旅行に行き、家で一人の日が続いた。",
+       "fx": {
+        "happy": -5,
+        "bond": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_rival_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "成績のライバル",
+   "text": "隣の席の子が、毎回自分より数点上の点数を取っている。",
+   "choices": [
+    {
+     "label": "勝つために猛勉強する",
+     "fx": {
+      "health": -2
+     },
+     "roll": {
+      "name": "対抗心",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "追い抜く",
+       "text": "初めて順位が逆転し、答案を何度も見返した。",
+       "fx": {
+        "know": 6,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "あと一歩",
+       "text": "差はわずかに縮まったが、まだ届かない。",
+       "fx": {
+        "know": 3,
+        "health": -1
+       }
+      },
+      "bad": {
+       "label": "空回りする",
+       "text": "睡眠を削ったのに、成績は変わらなかった。",
+       "fx": {
+        "health": -5,
+        "know": -2,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "勉強の仕方を聞く",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "素直さ",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "仲良くなる",
+       "text": "ノートの取り方を教わり、友達になれた。",
+       "fx": {
+        "know": 4,
+        "bond": 5
+       }
+      },
+      "mid": {
+       "label": "さらっと教わる",
+       "text": "「普通にやってるだけ」と言われた。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "かわされる",
+       "text": "話しかけたが、どこかよそよそしかった。",
+       "fx": {
+        "bond": -2,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "気にしないことにする",
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "マイペース",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "気が楽になる",
+       "text": "順位を見ないようにしたら、授業が楽しくなった。",
+       "fx": {
+        "happy": 5,
+        "know": 1
+       }
+      },
+      "mid": {
+       "label": "そのまま",
+       "text": "自分のペースで淡々と過ごした。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "やる気が落ちる",
+       "text": "張り合いがなくなり、勉強が惰性になった。",
+       "fx": {
+        "know": -3,
+        "happy": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_copy_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "宿題を見せて",
+   "text": "席の近い友達から、提出前の宿題を見せてほしいと頼まれた。",
+   "choices": [
+    {
+     "label": "見せる",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "友情",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "感謝される",
+       "text": "友達が助かり、帰りにジュースをおごってくれた。",
+       "fx": {
+        "bond": 4,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "次も頼まれる",
+       "text": "それから、毎回のように頼まれるようになった。",
+       "fx": {
+        "bond": 1,
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "先生にばれる",
+       "text": "同じ間違いが並び、二人で呼び出された。",
+       "fx": {
+        "happy": -5,
+        "bond": -2,
+        "know": -1
+       }
+      }
+     }
+    },
+    {
+     "label": "断る",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "自分の信念",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "すっきりする",
+       "text": "断ったが、友達は意外とあっさり引いた。",
+       "fx": {
+        "happy": 3,
+        "know": 1
+       }
+      },
+      "mid": {
+       "label": "気まずい",
+       "text": "断ってから、少し口数が減った。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "距離ができる",
+       "text": "友達が教室で別のグループに入るようになった。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "一緒にやろうと誘う",
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "勉強会",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "一緒に終わる",
+       "text": "並んで解き終え、二人とも少し賢くなった。",
+       "fx": {
+        "know": 4,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "半分で諦める",
+       "text": "途中で飽きて、おしゃべりの時間になった。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "断られる",
+       "text": "「いい」と言われ、自分の分だけ片付けた。",
+       "fx": {
+        "bond": -1
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_late_01",
+   "age": [
+    13,
+    17
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "遅刻のくせ",
+   "text": "朝起きられず、遅刻が週に何度もたまるようになってきた。",
+   "choices": [
+    {
+     "label": "夜更かしをやめる",
+     "fx": {
+      "health": 2
+     },
+     "roll": {
+      "name": "生活リズム",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "朝が変わる",
+       "text": "毎朝すっきり起きられるようになった。",
+       "fx": {
+        "health": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "三日坊主",
+       "text": "三日で元の生活に戻ってしまった。",
+       "fx": {
+        "health": -1
+       }
+      },
+      "bad": {
+       "label": "眠れなくなる",
+       "text": "早く寝ようとして、かえって寝つけなかった。",
+       "fx": {
+        "health": -3,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "担任に相談する",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "担任の理解",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "味方になってくれる",
+       "text": "担任が事情を聞き、家庭にも連絡してくれた。",
+       "fx": {
+        "happy": 4,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "注意されるだけ",
+       "text": "「気をつけなさい」と言われて終わった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "親に連絡が行く",
+       "text": "家で気まずい空気が流れた。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "急いで走って登校する",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "朝の全力疾走",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "間に合う",
+       "text": "校門が閉まる前に、滑り込めた。",
+       "fx": {
+        "health": 2,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "ぎりぎり",
+       "text": "チャイムとほぼ同時に着いた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "遅刻する",
+       "text": "走って遅れ、息が整うまで授業に集中できなかった。",
+       "fx": {
+        "know": -2,
+        "health": -1
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_sleepover_01",
+   "age": [
+    13,
+    16
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "友達の家に泊まる",
+   "text": "友達から、週末にお泊まり会をしようと誘われた。",
+   "choices": [
+    {
+     "label": "泊まりに行く",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "お泊まり",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "忘れられない夜",
+       "text": "夜中まで語り合い、朝は並んで寝ていた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "普通に過ごす",
+       "text": "ゲームをして、そのまま眠った。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "気疲れする",
+       "text": "他人の家で眠れず、帰宅後はぐったりした。",
+       "fx": {
+        "health": -3,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "日帰りで遊ぶ",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "日帰り",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "ほどよい",
+       "text": "夕方に帰り、夜はゆっくり眠れた。",
+       "fx": {
+        "bond": 3,
+        "happy": 2,
+        "health": 1
+       }
+      },
+      "mid": {
+       "label": "そこそこ",
+       "text": "楽しくはあったが、泊まる子たちが羨ましかった。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "取り残される",
+       "text": "翌日、泊まった子たちの内輪の話についていけなかった。",
+       "fx": {
+        "bond": -3,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "断る",
+     "fx": {
+      "health": 2
+     },
+     "roll": {
+      "name": "一人の週末",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "のんびり過ごす",
+       "text": "一人の週末は、心が休まった。",
+       "fx": {
+        "health": 3,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "普通",
+       "text": "いつも通りの週末だった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "距離ができる",
+       "text": "断りが続き、誘いも減っていった。",
+       "fx": {
+        "bond": -4,
+        "happy": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_schoolvisit_01",
+   "age": [
+    13,
+    14
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "学校見学",
+   "text": "高校の学校見学会が、ちょうど同じ週末に二校で開かれる。",
+   "choices": [
+    {
+     "label": "家から近い高校へ行く",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "通学の現実",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "雰囲気が合う",
+       "text": "校舎の落ち着いた空気に、ここだと思えた。",
+       "fx": {
+        "happy": 4,
+        "know": 2
+       }
+      },
+      "mid": {
+       "label": "普通だった",
+       "text": "特に悪くはなかったが、特別な印象もなかった。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "拍子抜けする",
+       "text": "思っていたより、さっぱりした学校だった。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "偏差値の高い高校へ行く",
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "背伸び",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "刺激を受ける",
+       "text": "生徒の話を聞き、勉強への意欲が高まった。",
+       "fx": {
+        "know": 6,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "場違いな気分",
+       "text": "周りが優秀に見えて、緊張したまま帰った。",
+       "fx": {
+        "know": 2,
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "自信をなくす",
+       "text": "説明会の内容が難しく、自分にはまだ遠いと感じた。",
+       "fx": {
+        "know": -2,
+        "happy": -5
+       }
+      }
+     }
+    },
+    {
+     "label": "友達と同じ高校へ行く",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "仲間と一緒",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "心強い",
+       "text": "友達と見学し、一緒に通うイメージが膨らんだ。",
+       "fx": {
+        "bond": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "楽しい遠足",
+       "text": "見学というより遠足のようで、笑って帰った。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "温度差がある",
+       "text": "友達は気に入ったが、自分はしっくりこなかった。",
+       "fx": {
+        "happy": -3,
+        "bond": -1
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_ouendan_01",
+   "age": [
+    14,
+    17
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "応援団",
+   "text": "体育祭の応援団に、推薦されてしまった。",
+   "choices": [
+    {
+     "label": "引き受ける",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "応援団",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "会場が一体になる",
+       "text": "本番、全校の声が重なって鳥肌が立った。",
+       "fx": {
+        "bond": 7,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "役目を果たす",
+       "text": "大きなミスなく、本番を終えた。",
+       "fx": {
+        "bond": 3,
+        "health": -1
+       }
+      },
+      "bad": {
+       "label": "声が出ない",
+       "text": "練習で声を潰し、本番は掠れ声になった。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "辞退する",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "断り方",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "すんなり通る",
+       "text": "すぐに別の人が決まり、自分は観客席で見た。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "気まずい",
+       "text": "断った後、少し変な空気になった。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "責められる",
+       "text": "「逃げた」と陰で言われているのを聞いた。",
+       "fx": {
+        "bond": -4,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "補佐として手伝う",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "裏方",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "裏方の達人",
+       "text": "衣装や小道具が評判になり、頼られた。",
+       "fx": {
+        "bond": 5,
+        "happy": 4,
+        "know": 1
+       }
+      },
+      "mid": {
+       "label": "地味な仕事",
+       "text": "目立たないが、確かな仕事をした。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "仕事が増える",
+       "text": "頼まれ事が増え、勉強時間が減った。",
+       "fx": {
+        "know": -3,
+        "health": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_teacher_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "合わない先生",
+   "text": "担任ではない先生の言い方が、どうしても苦手だ。",
+   "choices": [
+    {
+     "label": "距離をおく",
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "避ける",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "平穏",
+       "text": "必要最低限の関わりで、日々が過ぎていった。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "なんとか過ごす",
+       "text": "授業のたびに身構えたが、乗り切った。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "目をつけられる",
+       "text": "避けているうちに、授業でよく当てられた。",
+       "fx": {
+        "happy": -4,
+        "know": -1
+       }
+      }
+     }
+    },
+    {
+     "label": "勇気を出して話しかける",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "対話",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "誤解が解ける",
+       "text": "話すと、不器用なだけだと分かった。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "少し話せた",
+       "text": "会話は短かったが、苦手意識は薄れた。",
+       "fx": {
+        "bond": 1,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "逆効果になる",
+       "text": "「態度が悪い」と受け取られてしまった。",
+       "fx": {
+        "bond": -4,
+        "happy": -5
+       }
+      }
+     }
+    },
+    {
+     "label": "信頼できる大人に相談する",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "相談",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "楽になる",
+       "text": "話を聞いてもらえて、気持ちが整理された。",
+       "fx": {
+        "happy": 5,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "聞いてもらうだけ",
+       "text": "解決はしなかったが、話せて少し軽くなった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "大ごとになる",
+       "text": "話が先生に伝わり、気まずさが増した。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_transfer_01",
+   "age": [
+    13,
+    16
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "転校の知らせ",
+   "text": "親の転勤で、年度末に転校することが決まった。",
+   "choices": [
+    {
+     "label": "前向きに受け入れる",
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "新天地",
+      "stats": [
+       "happy",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "すぐに馴染む",
+       "text": "席の隣の子が、初日から声をかけてくれた。",
+       "fx": {
+        "bond": 6,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "徐々に慣れる",
+       "text": "半年かけて、少しずつ居場所ができた。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "馴染めない",
+       "text": "方言や話題が合わず、教室で浮いてしまった。",
+       "fx": {
+        "bond": -5,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "iso": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "友達と連絡を取り続ける",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "遠距離の友達",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "絆が続く",
+       "text": "手紙と電話で、前の友達とつながり続けた。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "だんだん減る",
+       "text": "連絡は、半年でまばらになった。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "途切れる",
+       "text": "返事が途絶え、疎遠になった。",
+       "fx": {
+        "bond": -4,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "新しい学校で部活に入る",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "部活で打ち解ける",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "仲間ができる",
+       "text": "部活の仲間が、すぐに居場所をくれた。",
+       "fx": {
+        "bond": 6,
+        "health": 2,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "入っただけ",
+       "text": "参加はしているが、まだ距離がある。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "合わない",
+       "text": "雰囲気が合わず、一学期で幽霊部員になった。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_gametourn_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "ゲームの大会",
+   "text": "オンラインゲームの大会に、友達とチームで出ようと誘われた。",
+   "choices": [
+    {
+     "label": "本気で練習する",
+     "fx": {
+      "health": -1
+     },
+     "roll": {
+      "name": "練習量",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "上位に入る",
+       "text": "予選を突破し、友達と画面の前で叫んだ。",
+       "fx": {
+        "happy": 8,
+        "bond": 5
+       }
+      },
+      "mid": {
+       "label": "一回戦敗退",
+       "text": "惜しくも一回戦で敗れた。",
+       "fx": {
+        "bond": 2,
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "寝不足で惨敗",
+       "text": "練習で睡眠を削り、本番は散々だった。",
+       "fx": {
+        "health": -4,
+        "know": -3,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "楽しく参加する",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "お祭り気分",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "盛り上がる",
+       "text": "結果より、通話で騒いだことが思い出になった。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "普通に楽しい",
+       "text": "普通に遊んで終わった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "空気が悪くなる",
+       "text": "勝敗で言い合いになり、後味が悪かった。",
+       "fx": {
+        "bond": -4,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "観戦に回る",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "観戦",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "勉強になる",
+       "text": "上手い人のプレイから、考え方を学んだ。",
+       "fx": {
+        "know": 3,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "暇つぶし",
+       "text": "画面を眺めるうちに、日が暮れた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "つまらなくなる",
+       "text": "自分だけ参加していない疎外感があった。",
+       "fx": {
+        "happy": -3,
+        "bond": -1
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_dorm_01",
+   "age": [
+    13,
+    14
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "寮のある高校",
+   "text": "志望校の一つに、寮のある学校がある。親は一人暮らしを勧めてくる。",
+   "choices": [
+    {
+     "label": "寮のある学校を受ける",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "寮生活",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "自立が進む",
+       "text": "家事も人付き合いも、少しずつ自分でこなせるようになった。",
+       "fx": {
+        "know": 3,
+        "happy": 5,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "慣れが必要",
+       "text": "最初の一か月は、毎晩家が恋しかった。",
+       "fx": {
+        "health": -1,
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "寂しさに沈む",
+       "text": "慣れない集団生活に疲れて、家に戻りたくなった。",
+       "fx": {
+        "health": -4,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "家から通える学校を受ける",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "慣れた環境",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "安心して通う",
+       "text": "家で眠れる安心感に支えられて、勉強に集中できた。",
+       "fx": {
+        "health": 4,
+        "know": 3
+       }
+      },
+      "mid": {
+       "label": "平凡",
+       "text": "可もなく不可もない通学路が続く。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "物足りなさ",
+       "text": "自分の選択に、時々もやもやを感じた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "親ともう一度話し合う",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "話し合い",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "納得できる",
+       "text": "親の本音を聞いて、お互い納得して決められた。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "平行線",
+       "text": "結局、どちらもはっきりしない結論になった。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "もめる",
+       "text": "言い合いになり、家の空気が重くなった。",
+       "fx": {
+        "bond": -4,
+        "happy": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_asaren_01",
+   "age": [
+    13,
+    17
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "朝練か睡眠か",
+   "text": "部活の朝練が始まった。早起きが続き、体が悲鳴を上げている。",
+   "choices": [
+    {
+     "label": "毎日出る",
+     "fx": {
+      "health": -2
+     },
+     "roll": {
+      "name": "朝練",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "上達する",
+       "text": "朝の練習で、フォームが見違えるように安定した。",
+       "fx": {
+        "health": 2,
+        "happy": 5,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "疲労が残る",
+       "text": "上達は感じるが、授業中は眠かった。",
+       "fx": {
+        "know": -2,
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "体調を崩す",
+       "text": "寝不足が重なり、風邪を引いた。",
+       "fx": {
+        "health": -6,
+        "know": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "週に何回かだけ出る",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "加減",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "バランスがいい",
+       "text": "出た日は集中でき、休んだ日はぐっすり眠れた。",
+       "fx": {
+        "health": 3,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "中途半端",
+       "text": "どちらにも中途半端な気分が残った。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "浮いてしまう",
+       "text": "毎回出ている子たちとの間に、距離を感じた。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "朝練をやめて放課後に集中する",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "夕方の練習",
+      "stats": [
+       "health",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "成績が上がる",
+       "text": "朝の時間に勉強できて、点数が伸びた。",
+       "fx": {
+        "know": 5,
+        "health": 2
+       }
+      },
+      "mid": {
+       "label": "部活は下手なまま",
+       "text": "練習量が減り、レギュラーから遠ざかった。",
+       "fx": {
+        "know": 2,
+        "bond": -2
+       }
+      },
+      "bad": {
+       "label": "居づらくなる",
+       "text": "「やる気がない」と言われ、部内で居づらくなった。",
+       "fx": {
+        "bond": -4,
+        "happy": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_wallet_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "拾った財布",
+   "text": "通学路に、中身の入った財布が落ちていた。",
+   "choices": [
+    {
+     "label": "交番に届ける",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "届け出",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "お礼を言われる",
+       "text": "持ち主が見つかり、菓子折りを持ってお礼に来た。",
+       "fx": {
+        "happy": 6,
+        "bond": 3,
+        "luck": 3
+       }
+      },
+      "mid": {
+       "label": "手続きだけ",
+       "text": "書類を書いて終わり。後日、持ち主から連絡が来た。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "時間がかかる",
+       "text": "事情聴取に付き合い、帰りが遅くなった。",
+       "fx": {
+        "happy": -2,
+        "know": -1
+       }
+      }
+     }
+    },
+    {
+     "label": "近くのお店に預ける",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "手近な方法",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "すぐ解決",
+       "text": "店員さんがすぐに警察へ連絡してくれた。",
+       "fx": {
+        "happy": 3,
+        "luck": 2
+       }
+      },
+      "mid": {
+       "label": "そのまま",
+       "text": "どうなったか、知る機会はなかった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "気がかりが残る",
+       "text": "ちゃんと届いたのか、頭の隅で気になり続けた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "友達に相談する",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "相談",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "一緒に届ける",
+       "text": "友達と一緒に届け、帰り道で「いいことしたね」と笑った。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "意見が割れる",
+       "text": "友達と意見が割れ、結論が出るのに時間がかかった。",
+       "fx": {
+        "bond": -1,
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "面倒がられる",
+       "text": "「放っておけば」と言われ、気持ちがしぼんだ。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_witness_01",
+   "age": [
+    13,
+    17
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "目にした出来事",
+   "text": "廊下で、同じ学年の子が数人にからかわれているのを見かけた。",
+   "choices": [
+    {
+     "label": "間に入る",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "勇気",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "空気が変わる",
+       "text": "声をかけると、その場が静かに解散した。",
+       "fx": {
+        "bond": 6,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "一時的に収まる",
+       "text": "その場は収まったが、翌日また似た光景を見た。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "矛先が向く",
+       "text": "今度は自分がからかわれ、教室で居場所をなくした。",
+       "fx": {
+        "happy": -8,
+        "bond": -5
+       },
+       "set": {
+        "press": {
+         "iso": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "先生に伝える",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "大人を頼る",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "対応してもらえる",
+       "text": "先生が動き、その子が笑う日が増えた。",
+       "fx": {
+        "bond": 4,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "様子見になる",
+       "text": "「注意しておく」と言われ、それ以降は分からない。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "告げ口と言われる",
+       "text": "誰が言ったか知れ渡り、肩身が狭くなった。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "声をかけられずに通り過ぎる",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "沈黙",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "何事もなく過ぎる",
+       "text": "その日は何も起きず、翌日には忘れていた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "引っかかる",
+       "text": "夜になっても、あの光景が頭から離れない。",
+       "fx": {
+        "happy": -3
+       }
+      },
+      "bad": {
+       "label": "後悔する",
+       "text": "あの子が学校を休んだと聞き、胸が痛んだ。",
+       "fx": {
+        "happy": -6,
+        "bond": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_video_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "動画を作る",
+   "text": "友達と、学校の裏話を面白おかしく紹介する動画を作ろうという話になった。",
+   "choices": [
+    {
+     "label": "身近な風景だけを撮る",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "発信",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "じわじわ人気が出る",
+       "text": "近所の路地や猫を撮った動画が、地元で話題になった。",
+       "fx": {
+        "happy": 7,
+        "bond": 5,
+        "know": 2
+       }
+      },
+      "mid": {
+       "label": "再生数は伸びない",
+       "text": "友達と見て満足するだけで終わった。",
+       "fx": {
+        "bond": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "飽きる",
+       "text": "編集に疲れ、動画は更新が止まった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "顔を出して挑戦する",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "露出",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "人気者になる",
+       "text": "ほんの一部が拡散し、学校でも声をかけられるようになった。",
+       "fx": {
+        "happy": 8,
+        "bond": 6
+       }
+      },
+      "mid": {
+       "label": "そこそこ",
+       "text": "たまに見てくれる人がいて、悪くない気分だった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "からかわれる",
+       "text": "動画が学校で出回り、教室で笑われた。",
+       "fx": {
+        "happy": -7,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "やらずに見る側に回る",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "傍観",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "勉強になる",
+       "text": "他の人の動画から、編集のコツを学んだ。",
+       "fx": {
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "ぼんやり",
+       "text": "気がつくと一時間、動画を眺めていた。",
+       "fx": {
+        "know": -1
+       }
+      },
+      "bad": {
+       "label": "取り残される",
+       "text": "友達の間で動画の話ばかりになり、輪に入れなかった。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_akaten_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "赤点の補習",
+   "text": "期末の一科目が赤点で、夏休みに補習を受けることになった。",
+   "choices": [
+    {
+     "label": "素直に補習へ通う",
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "補習",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "得意になる",
+       "text": "少人数で教わるうちに、苦手科目が分かるようになった。",
+       "fx": {
+        "know": 6,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "ぼんやり過ごす",
+       "text": "毎日通ったが、頭に入ったかは怪しい。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "体力が落ちる",
+       "text": "補習で夏の予定が潰れ、疲れが溜まった。",
+       "fx": {
+        "health": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "塾に頼る",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "塾の力",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "しっかり伸びる",
+       "text": "塾の先生の説明が分かりやすく、成績が上向いた。",
+       "fx": {
+        "know": 7,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "出席するだけ",
+       "text": "通うだけで満足してしまい、定着しなかった。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "疲れる",
+       "text": "補習と塾の二重生活に、心が重くなった。",
+       "fx": {
+        "health": -4,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "友達に教わる",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "仲間の力",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "楽しく覚える",
+       "text": "分かる人に教わるうち、勉強が少し楽しくなった。",
+       "fx": {
+        "know": 4,
+        "bond": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "雑談で終わる",
+       "text": "結局おしゃべりが長くなり、あまり進まなかった。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "頼りすぎる",
+       "text": "友達に頼りきりで、自分で解く力が身につかなかった。",
+       "fx": {
+        "know": -2,
+        "bond": -1
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_workexp_01",
+   "age": [
+    13,
+    15
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "職場体験",
+   "text": "中学の職場体験で、希望先を三つの中から選ぶことになった。",
+   "choices": [
+    {
+     "label": "商店で接客を体験する",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "接客",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "向いていると感じる",
+       "text": "お客さんに「ありがとう」と言われ、自信がついた。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "慣れない",
+       "text": "声を出すだけで精一杯だった。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "緊張で固まる",
+       "text": "お客さんの前で固まり、ミスが続いた。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "工場で作業を体験する",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "ものづくり",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "没頭する",
+       "text": "手を動かすうちに、時間を忘れた。",
+       "fx": {
+        "know": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "地味だが勉強",
+       "text": "単調だが、ものを作る大変さを知った。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "体がきつい",
+       "text": "立ち仕事で足がパンパンになった。",
+       "fx": {
+        "health": -4,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "役所で事務を体験する",
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "事務仕事",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "堅実さに触れる",
+       "text": "書類の流れを知り、社会の仕組みが少し見えた。",
+       "fx": {
+        "know": 5,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "退屈",
+       "text": "ずっと座っているだけで、時計ばかり見ていた。",
+       "fx": {
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "やる気をなくす",
+       "text": "単調さに圧倒され、将来のイメージが沈んだ。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_hospital_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "祖父の見舞い",
+   "text": "祖父が入院した。母から「会いに行く？」と聞かれた。",
+   "choices": [
+    {
+     "label": "毎週通う",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "寄り添う",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "かけがえのない時間",
+       "text": "病室で聞いた昔話が、宝物になった。",
+       "fx": {
+        "bond": 7,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "疲れる",
+       "text": "学校と病院の往復で、体力が削られていった。",
+       "fx": {
+        "bond": 3,
+        "health": -2
+       }
+      },
+      "bad": {
+       "label": "見るのがつらい",
+       "text": "弱っていく姿を見るのがつらく、足が重くなった。",
+       "fx": {
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "手紙を書いて届ける",
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "手紙",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "喜ばれる",
+       "text": "祖父が、手紙を枕元に飾ってくれた。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "気持ちは伝わる",
+       "text": "手紙の返事は、一言だけ書かれていた。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "そっけない",
+       "text": "忙しくて返事はなく、少し不安になった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "気になるが行かない",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "距離をおく",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "日常を守る",
+       "text": "いつも通りの生活で、気持ちを保てた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "もやもやする",
+       "text": "会いに行けなかったことが、心に残った。",
+       "fx": {
+        "happy": -3
+       }
+      },
+      "bad": {
+       "label": "後悔する",
+       "text": "会えないまま、時間が過ぎてしまった。",
+       "fx": {
+        "happy": -6,
+        "bond": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_speech_01",
+   "age": [
+    13,
+    17
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "クラス代表のスピーチ",
+   "text": "行事で、クラス代表としてみんなの前で話すことになった。",
+   "choices": [
+    {
+     "label": "原稿を丸暗記する",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "暗記",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "すらすら言える",
+       "text": "一言も詰まらず、拍手をもらった。",
+       "fx": {
+        "happy": 6,
+        "know": 3
+       }
+      },
+      "mid": {
+       "label": "棒読みになる",
+       "text": "間違えなかったが、心が入らなかった。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "頭が真っ白になる",
+       "text": "途中で言葉が飛び、沈黙が教室に落ちた。",
+       "fx": {
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "メモだけ持って即興で話す",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "アドリブ",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "共感を呼ぶ",
+       "text": "自分の言葉で話したら、笑いも拍手も起きた。",
+       "fx": {
+        "bond": 6,
+        "happy": 7
+       }
+      },
+      "mid": {
+       "label": "まとまらない",
+       "text": "話は散らかったが、熱意は伝わった。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "大失敗",
+       "text": "話がまとまらず、教室がざわついた。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "友達に代わってもらう",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "辞退",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "助かる",
+       "text": "友達が快く代わり、胸をなでおろした。",
+       "fx": {
+        "happy": 3,
+        "bond": 1
+       }
+      },
+      "mid": {
+       "label": "借りができる",
+       "text": "代わってもらい、借りが一つ増えた。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "断られる",
+       "text": "断られ、結局自分でやることになった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_library_01",
+   "age": [
+    13,
+    17
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "図書委員",
+   "text": "委員会決めで、図書委員だけが余っている。",
+   "choices": [
+    {
+     "label": "図書委員になる",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "本の力",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "静かな居場所",
+       "text": "カウンターの奥が、自分だけの席になった。",
+       "fx": {
+        "know": 4,
+        "happy": 4,
+        "bond": 2
+       }
+      },
+      "mid": {
+       "label": "地味な当番",
+       "text": "昼休みの貸出当番が淡々と続いた。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "暇すぎる",
+       "text": "暇な当番ばかりで、時間を持て余した。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "くじ引きで決める",
+     "fx": {
+      "luck": 1
+     },
+     "roll": {
+      "name": "運試し",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "当たりを引く",
+       "text": "希望の係が当たり、友達と同じ委員になった。",
+       "fx": {
+        "happy": 4,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "可もなく不可もなく",
+       "text": "どこの委員でも、特に変わらなかった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "面倒な係",
+       "text": "一番忙しい係を引いてしまい、肩を落とした。",
+       "fx": {
+        "happy": -3,
+        "health": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "他の委員を譲ってもらう",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "交渉",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "すんなり代わる",
+       "text": "事情を話すと、すぐ代わってくれた。",
+       "fx": {
+        "bond": 3,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "貸しを作る",
+       "text": "代わってもらったが、借りが残った。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "揉める",
+       "text": "話がこじれ、教室の空気が悪くなった。",
+       "fx": {
+        "bond": -4,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_sibling_01",
+   "age": [
+    13,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "弟妹の宿題",
+   "text": "小学生の弟妹が、毎晩のように宿題を見てほしいと言ってくる。",
+   "choices": [
+    {
+     "label": "毎晩つきあう",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "面倒見",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "信頼される",
+       "text": "弟妹に「お兄ちゃん/お姉ちゃんの説明が一番分かる」と言われた。",
+       "fx": {
+        "bond": 6,
+        "know": 3,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "そこそこ",
+       "text": "宿題を見る時間は、少しずつ日課になった。",
+       "fx": {
+        "bond": 2,
+        "know": -1
+       }
+      },
+      "bad": {
+       "label": "自分の勉強が遅れる",
+       "text": "自分の宿題が後回しになり、成績が落ちた。",
+       "fx": {
+        "know": -4,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "できる範囲でつきあう",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "加減",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "丁度よい関係",
+       "text": "週に二日見る約束で、お互い負担が減った。",
+       "fx": {
+        "bond": 3,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "もどかしい",
+       "text": "時間が足りず、お互いに不満が残った。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "ケンカになる",
+       "text": "熱が入りすぎ、言い争いになった。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "親に任せる",
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "自分の時間",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "勉強がはかどる",
+       "text": "机に向かう時間が増え、模試の点が上がった。",
+       "fx": {
+        "know": 5
+       }
+      },
+      "mid": {
+       "label": "気まずさ",
+       "text": "弟妹がしょんぼりしているのを見て、胸が痛んだ。",
+       "fx": {
+        "know": 1,
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "関係が冷える",
+       "text": "弟妹と話す機会が減り、距離を感じた。",
+       "fx": {
+        "bond": -4,
+        "happy": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "teen_marathon_01",
+   "age": [
+    13,
+    16
+   ],
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "title": "校内マラソン大会",
+   "text": "全校マラソン大会が来週に迫っている。苦手な種目だ。",
+   "choices": [
+    {
+     "label": "毎朝走って備える",
+     "fx": {
+      "health": 2
+     },
+     "roll": {
+      "name": "練習",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "好成績を出す",
+       "text": "自己ベストを更新し、友達に驚かれた。",
+       "fx": {
+        "health": 4,
+        "happy": 6,
+        "bond": 2
+       }
+      },
+      "mid": {
+       "label": "普通に完走",
+       "text": "練習のおかげで、最後まで走りきれた。",
+       "fx": {
+        "health": 2
+       }
+      },
+      "bad": {
+       "label": "膝を痛める",
+       "text": "走りすぎて膝が痛み、本番は歩いた。",
+       "fx": {
+        "health": -5,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "友達と並んで走る約束をする",
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "伴走",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "ゴール前で笑う",
+       "text": "並んでゴールし、手を取り合った。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "途中ではぐれる",
+       "text": "結局バラバラになり、一人でゴールした。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "足を引っ張る",
+       "text": "互いにペースを乱し、気まずい空気になった。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "手を抜いて歩く",
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "マイペース",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 5,
+      "good": {
+       "label": "気楽",
+       "text": "周りの景色を見ながら歩き、意外と気分がよかった。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "のんびり",
+       "text": "先生に注意されつつ、自分のペースで終えた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "先生に叱られる",
+       "text": "見咎められて、全校の前で叱られた。",
+       "fx": {
+        "happy": -5,
+        "bond": -1
+       }
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "events": [
+  {
+   "id": "teen_ev_rainbow_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "下校中、校舎の上に大きな虹がかかり、みんなで見上げた。",
+   "fx": {
+    "happy": 3,
+    "bond": 1
+   }
+  },
+  {
+   "id": "teen_ev_straycat_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "通学路の猫が、今日は足元まですり寄ってきた。",
+   "fx": {
+    "happy": 3
+   }
+  },
+  {
+   "id": "teen_ev_hanamaru_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "提出したノートに、先生が花丸をつけてくれた。",
+   "fx": {
+    "know": 2,
+    "happy": 2
+   }
+  },
+  {
+   "id": "teen_ev_dodge_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "体育のドッジボールで、最後の一人まで逃げ切った。",
+   "fx": {
+    "happy": 3,
+    "health": 1,
+    "bond": 1
+   }
+  },
+  {
+   "id": "teen_ev_trainnap_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "部活帰りの電車で座れて、降りる駅まで眠れた。",
+   "fx": {
+    "health": 3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "teen_ev_goldfish_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "近所の夏祭りで、友達と金魚すくいに三回挑戦した。",
+   "fx": {
+    "happy": 3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "teen_ev_icewin_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "部活後に友達と半分こしたアイスは、当たりだった。",
+   "fx": {
+    "happy": 2,
+    "bond": 2,
+    "luck": 1
+   }
+  },
+  {
+   "id": "teen_ev_fathercar_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "雨の日、父が駅まで車で迎えに来てくれた。",
+   "fx": {
+    "happy": 2,
+    "bond": 2
+   }
+  },
+  {
+   "id": "teen_ev_quizhit_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "授業中の小テストで、山が全部当たった。",
+   "fx": {
+    "know": 3,
+    "luck": 2
+   }
+  },
+  {
+   "id": "teen_ev_sakura_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "校庭の桜が満開で、昼休みに木の下で弁当を食べた。",
+   "fx": {
+    "happy": 3,
+    "health": 1
+   }
+  },
+  {
+   "id": "teen_ev_typhoon_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "台風で休校になり、毛布にくるまって漫画を読み続けた。",
+   "fx": {
+    "health": 3,
+    "happy": 2
+   }
+  },
+  {
+   "id": "teen_ev_pun_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "先生の駄洒落で教室が静まり返り、後から全員で笑った。",
+   "fx": {
+    "happy": 2,
+    "bond": 2
+   }
+  },
+  {
+   "id": "teen_ev_curry_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "調理実習のカレーが、思いのほかうまくできた。",
+   "fx": {
+    "happy": 3,
+    "bond": 1,
+    "know": 1
+   }
+  },
+  {
+   "id": "teen_ev_pencilcase_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "失くしたと思った筆箱が、ロッカーの奥から出てきた。",
+   "fx": {
+    "luck": 3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "teen_ev_borrowbook_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "友達が貸してくれた小説が面白く、一気に読み終えた。",
+   "fx": {
+    "happy": 3,
+    "know": 2
+   }
+  },
+  {
+   "id": "teen_ev_persimmon_01",
+   "age": [
+    13,
+    17
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "祖母から、庭の柿が今年は大豊作だと電話があった。",
+   "fx": {
+    "happy": 2,
+    "bond": 2
+   }
+  },
+  {
+   "id": "teen_ev_stars_01",
+   "age": [
+    13,
+    15
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "林間学校の夜、停電で見上げた星の数に息をのんだ。",
+   "fx": {
+    "happy": 3,
+    "bond": 1
+   }
+  },
+  {
+   "id": "teen_ev_morningwalk_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "早起きして散歩すると、朝の空気が澄んでいた。",
+   "fx": {
+    "health": 3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "teen_ev_caricature_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "黒板の隅に、先生そっくりの似顔絵が描かれていた。",
+   "fx": {
+    "happy": 2,
+    "bond": 1
+   }
+  },
+  {
+   "id": "teen_ev_experiment_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "理科の実験で、教科書どおりの色に変わった。",
+   "fx": {
+    "know": 3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "teen_ev_birthdaymemo_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "誕生日に、クラス全員がメモ帳へ一言ずつ書いてくれた。",
+   "fx": {
+    "happy": 2,
+    "bond": 3
+   }
+  },
+  {
+   "id": "teen_ev_pianoroom_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "放課後の音楽室から聞こえたピアノに、廊下で足を止めた。",
+   "fx": {
+    "happy": 3
+   }
+  },
+  {
+   "id": "teen_ev_ballgame_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "球技大会で、クラスが一回戦を突破した。",
+   "fx": {
+    "happy": 2,
+    "bond": 2
+   }
+  },
+  {
+   "id": "teen_ev_dictword_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "辞書を引いていて見つけた言葉が、ずっと頭に残った。",
+   "fx": {
+    "know": 2,
+    "happy": 1
+   }
+  },
+  {
+   "id": "teen_ev_morningprac_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "朝練が始まり、体力はついたが授業中の眠気が抜けない。",
+   "fx": {
+    "health": 2,
+    "know": -2
+   }
+  },
+  {
+   "id": "teen_ev_phonelimit_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "親にスマホの時間を制限され、腹が立ったが寝不足は減った。",
+   "fx": {
+    "happy": -2,
+    "health": 2
+   }
+  },
+  {
+   "id": "teen_ev_transferguide_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "転校生の案内役になり、気疲れしたが友達が一人増えた。",
+   "fx": {
+    "happy": -1,
+    "bond": 3
+   }
+  },
+  {
+   "id": "teen_ev_hwbinge_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "宿題を一気に片付け、手首は痛んだが気分は晴れた。",
+   "fx": {
+    "know": 3,
+    "health": -1,
+    "happy": 1
+   }
+  },
+  {
+   "id": "teen_ev_selfstudyroom_01",
+   "age": [
+    14,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "塾の自習室に通い、成績は上がったが遊ぶ時間が減った。",
+   "fx": {
+    "know": 3,
+    "bond": -2
+   }
+  },
+  {
+   "id": "teen_ev_sibfight_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "きょうだいと喧嘩したが、夜にはお菓子を分け合っていた。",
+   "fx": {
+    "bond": -1,
+    "happy": 2
+   }
+  },
+  {
+   "id": "teen_ev_sunburn_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "体育祭の練習で日焼けしたが、応援の声はよく揃った。",
+   "fx": {
+    "health": -1,
+    "bond": 3
+   }
+  },
+  {
+   "id": "teen_ev_glasses_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "視力が落ちて眼鏡を作り、黒板がよく見えるようになった。",
+   "fx": {
+    "know": 2,
+    "happy": -1
+   }
+  },
+  {
+   "id": "teen_ev_lendnote_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "友達にノートを貸したら、自分の復習が遅れた。",
+   "fx": {
+    "bond": 3,
+    "know": -2
+   }
+  },
+  {
+   "id": "teen_ev_latechat_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "友達と夜までメッセージを続け、話は弾んだが翌朝がつらかった。",
+   "fx": {
+    "bond": 3,
+    "health": -2
+   }
+  },
+  {
+   "id": "teen_ev_rainytrip_01",
+   "age": [
+    13,
+    16
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "遠足が雨でバス移動だけになり、車内の合唱が盛り上がった。",
+   "fx": {
+    "happy": -1,
+    "bond": 3
+   }
+  },
+  {
+   "id": "teen_ev_committee_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "委員会の仕事で放課後が潰れたが、先生に感謝された。",
+   "fx": {
+    "happy": -1,
+    "bond": 2
+   }
+  },
+  {
+   "id": "teen_ev_testweek_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "試験期間は友達と図書室に通い、点は伸びたが帰りは毎日暗かった。",
+   "fx": {
+    "know": 3,
+    "health": -2
+   }
+  },
+  {
+   "id": "teen_ev_flatbike_01",
+   "age": [
+    14,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "自転車がパンクして歩いて帰ったが、遠回りの景色が新鮮だった。",
+   "fx": {
+    "health": -1,
+    "happy": 2
+   }
+  },
+  {
+   "id": "teen_ev_acne_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "肌荒れが気になって鏡を見る時間が増えたが、洗顔の習慣がついた。",
+   "fx": {
+    "happy": -2,
+    "health": 2
+   }
+  },
+  {
+   "id": "teen_ev_classspeech_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "授業で意見を発表し、手は震えたが先生が頷いてくれた。",
+   "fx": {
+    "happy": -1,
+    "know": 2,
+    "bond": 1
+   }
+  },
+  {
+   "id": "teen_ev_alarms_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "目覚ましを三つかけて起きられたが、一日中眠かった。",
+   "fx": {
+    "health": -1,
+    "happy": 1,
+    "know": -1
+   }
+  },
+  {
+   "id": "teen_ev_schoollunch_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "給食の苦手な献立を完食し、午後はおなかが重かった。",
+   "fx": {
+    "happy": 2,
+    "health": -1
+   }
+  },
+  {
+   "id": "teen_ev_dentist_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "歯医者に通い、虫歯は治ったが放課後の予定が潰れた。",
+   "fx": {
+    "health": 3,
+    "bond": -1
+   }
+  },
+  {
+   "id": "teen_ev_summerhw_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "夏休みの宿題を最終日に片付け、間に合ったが寝不足だった。",
+   "fx": {
+    "know": 2,
+    "health": -3
+   }
+  },
+  {
+   "id": "teen_ev_teacherleave_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "好きだった先生が転任し、寂しかったが手紙を書いた。",
+   "fx": {
+    "happy": -3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "teen_ev_cleanfest_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "大掃除で教室がぴかぴかになり、腰は痛んだが達成感があった。",
+   "fx": {
+    "happy": 2,
+    "health": -1
+   }
+  },
+  {
+   "id": "teen_ev_seatnext_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "隣の席の子と話すうちに、共通の趣味が見つかった。",
+   "fx": {
+    "bond": 3,
+    "know": -1
+   }
+  },
+  {
+   "id": "teen_ev_lastbell_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "終業式の後、友達とだらだら教室に残って話し込んだ。",
+   "fx": {
+    "bond": 3,
+    "know": -1
+   }
+  },
+  {
+   "id": "teen_ev_nobento_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "弁当を持たずに家を出て、昼は水だけで過ごした。",
+   "fx": {
+    "health": -2,
+    "happy": -2
+   }
+  },
+  {
+   "id": "teen_ev_sprain_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "体育で足首をひねり、一週間松葉杖だった。",
+   "fx": {
+    "health": -5,
+    "happy": -2
+   }
+  },
+  {
+   "id": "teen_ev_peekscore_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "返却されたテストの点を、隣の席にのぞかれた。",
+   "fx": {
+    "happy": -3,
+    "bond": -1
+   }
+  },
+  {
+   "id": "teen_ev_lostgame_01",
+   "age": [
+    13,
+    17
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "試合で自分のミスから逆転され、帰り道は無言だった。",
+   "fx": {
+    "happy": -5,
+    "bond": -1
+   }
+  },
+  {
+   "id": "teen_ev_overheard_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "廊下で自分の悪口が聞こえ、聞こえないふりをした。",
+   "fx": {
+    "happy": -4,
+    "bond": -3
+   }
+  },
+  {
+   "id": "teen_ev_sleepless_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "緊張で眠れない夜が続き、授業に集中できなかった。",
+   "fx": {
+    "health": -4,
+    "know": -3
+   }
+  },
+  {
+   "id": "teen_ev_misjudged_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "先生に誤解されて叱られ、言い返せないまま席に戻った。",
+   "fx": {
+    "happy": -4,
+    "know": -1
+   }
+  },
+  {
+   "id": "teen_ev_flu_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "インフルエンザで一週間寝込み、期末が迫っていた。",
+   "fx": {
+    "health": -5,
+    "know": -3
+   }
+  },
+  {
+   "id": "teen_ev_leftout_01",
+   "age": [
+    13,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "友達の誘いに返事が遅れ、気づいたら予定が決まっていた。",
+   "fx": {
+    "bond": -3,
+    "happy": -3
+   }
+  },
+  {
+   "id": "teen_ev_goldfishdie_01",
+   "age": [
+    13,
+    16
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "飼っていた金魚が死に、水槽の前でしばらく動けなかった。",
+   "fx": {
+    "happy": -5
+   }
+  },
+  {
+   "id": "teen_ev_datalost_01",
+   "age": [
+    15,
+    18
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "提出直前に、仕上げたレポートのデータが消えた。",
+   "fx": {
+    "know": -3,
+    "happy": -4
+   }
+  },
+  {
+   "id": "teen_ev_notregular_01",
+   "age": [
+    13,
+    17
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "school"
+    ]
+   },
+   "text": "期待していたレギュラー発表で、自分の名前はなかった。",
+   "fx": {
+    "happy": -5,
+    "bond": -1
+   }
+  }
+ ]
+}
