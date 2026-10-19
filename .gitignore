@@ -2,3 +2,4 @@ dist/
 sim.js
 *:Zone.Identifier
 __pycache__/
+site/
