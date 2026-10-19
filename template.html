@@ -831,7 +831,10 @@ function yearlyEvent(){
 /* 家計の基準（万円/年）：手取り率、生活費（単身の上限・下限、実家、配偶者、子ども1人あたり）
    配偶者はマイナス＝共働きで家計に足される分
    働いている人の単身の生活費は、手取りに合わせて下限〜上限のあいだで縮む（収入が低ければ切り詰める） */
-const ECON={take:.82,live:240,liveMin:145,adapt:.95,liveHome:140,spouse:-30,kid:70};
+const ECON={take:.82,live:240,liveMin:145,adapt:.95,liveHome:140,spouse:-30,kid:60};
+/* 子どもの年齢：s.kids の増減に合わせて生まれた年を記録し、22歳になるまでを養育費の対象にする */
+function syncKids(){s.kidBorn=s.kidBorn||[];while(s.kidBorn.length<s.kids)s.kidBorn.push(s.age);while(s.kidBorn.length>s.kids)s.kidBorn.pop()}
+const kidsAtHome=()=>{syncKids();return s.kidBorn.filter(a=>s.age-a<22).length};
 function econ(){
   const st=s.status;let net=0,cost=0;
   if(st==="work"&&s.job){if(s.job.kind==="pro"&&s.age>=34&&!TRACKS.athlete){addRow("life","引退","現役を引退した。指導者として第二のキャリアが始まった。");setJob(s,"コーチ・解説者",420,.01,"corp")}
@@ -841,7 +844,7 @@ function econ(){
   if(s.status==="college")net=20;
   if(s.status==="jobless")net=50;
   if(["work","jobless","retired"].includes(s.status)||(s.status==="hikikomori"&&!s.parentsAlive)){
-    cost=(s.flags.home&&s.parentsAlive?ECON.liveHome:st==="work"?Math.min(ECON.live,Math.max(ECON.liveMin,net*ECON.adapt)):ECON.live)+(s.married?ECON.spouse:0)+(s.age<58?s.kids*ECON.kid:0)-(s.status==="jobless"||s.status==="hikikomori"?80:0);
+    cost=(s.flags.home&&s.parentsAlive?ECON.liveHome:st==="work"?Math.min(ECON.live,Math.max(ECON.liveMin,net*ECON.adapt)):ECON.live)+(s.married?ECON.spouse:0)+kidsAtHome()*ECON.kid-(s.status==="jobless"||s.status==="hikikomori"?80:0);
     if(s.flags.house&&s.age<66)cost+=70;
     if(s.status==="retired")cost-=40;
     if(s.status!=="work"&&s.money<0)cost=Math.min(cost,net+20);
@@ -851,7 +854,7 @@ function econ(){
   if(s.money<0&&s.age>=22)s.happy=clamp(s.happy-1);
 }
 /* 結婚している42歳未満の人には、毎年少しの確率で子どもが生まれる（子2人まで。「二人の時間」を選んだ人と、借金・困窮中の人は除く） */
-const BIRTH_RATE=.16;
+const BIRTH_RATE=.17;
 /* 25〜40歳の独身の人には、毎年少しの確率で結婚が起きる（「ひとりで生きると決める」を選んだ人と、ひきこもり中の人は除く） */
 const MARRY_RATE=.01;
 function marryCheck(){
