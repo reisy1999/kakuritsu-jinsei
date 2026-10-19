@@ -9,7 +9,7 @@ CONDS = {"iso", "tired", "poor", "apathy"}
 GOALS = {"tech", "sport", "art", "stable"}
 KINDS = {"corp", "public", "irregular", "founder", "pro", "art"}
 REQ_KEYS = {"status", "married", "kids_min", "money_min", "money_max", "stat_min", "stat_max", "cond_min", "cond_max",
-            "parents_alive", "goal", "track", "flags_any", "flags_none"}
+            "parents_alive", "goal", "track", "flags_any", "flags_none", "year_min", "year_max"}
 SET_KEYS = {"status", "job", "married", "kids_delta", "flags", "cond", "press", "track", "bankrupt"}
 BANNED = ["自殺", "自傷", "リストカット", "死にたい", "風俗", "売春", "援助交際", "覚醒剤", "大麻", "万引き", "窃盗", "強盗", "逮捕", "前科", "拒食", "過食", "嘔吐"]
 
@@ -55,6 +55,9 @@ def main(paths):
             for ck in ("stat_min", "stat_max"):
                 for k in (r.get(ck) or {}):
                     if k not in STATS: E(where, f"unknown stat {k}")
+            for yk in ("year_min", "year_max"):
+                if yk in r and not (isinstance(r[yk], int) and 1975 <= r[yk] <= 2110): E(where, f"{yk} must be a year 1975-2110")
+            if isinstance(r.get("year_min"), int) and isinstance(r.get("year_max"), int) and r["year_min"] > r["year_max"]: E(where, "year_min > year_max")
 
         def chk_set(where, s):
             if s is None: return
@@ -135,6 +138,8 @@ def main(paths):
             g = t.get("gate", {})
             if "age" not in g: E(w, "gate.age missing")
             if not (g.get("stat_min")): E(w, "gate.stat_min required (虹は能力条件必須)")
+            for yk in ("year_min", "year_max"):
+                if yk in g and not (isinstance(g[yk], int) and 1975 <= g[yk] <= 2110): E(w, f"gate.{yk} must be a year 1975-2110")
             ch = t.get("chance", {})
             for k in ("name", "stats", "difficulty", "hit", "miss"):
                 if k not in ch: E(w, f"chance missing {k}")

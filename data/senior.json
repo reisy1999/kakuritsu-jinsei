@@ -2040,7 +2040,9 @@
     60,
     85
    ],
-   "requires": {},
+   "requires": {
+    "year_min": 2010
+   },
    "title": "デジタル化",
    "text": "役所や銀行の手続きが、次々とスマートフォンに移ってきた。",
    "choices": [
@@ -4285,6 +4287,9 @@
     "know": 3,
     "happy": -2,
     "money": -15
+   },
+   "requires": {
+    "year_min": 1998
    }
   },
   {

@@ -52,13 +52,15 @@ function die(){s.alive=false}
 let LOG=[],GENUSE=0;const USED={},GENERIC={track:0,special:0};
 const N=+(process.env.SIM_N||2000);
 const L=[];
-for(let n=0;n<N;n++){LOG=[];newLife();let g=0,em=false,mk=0;
-  while(s.alive&&g++<200){step();if(s.married)em=true;mk=Math.max(mk,s.kids)}
+for(let n=0;n<N;n++){LOG=[];newLife();let g=0,em=false,mk=0,first=null,sk40=null,sk60=null,max=0,at45=null;
+  while(s.alive&&g++<200){step();if(s.married)em=true;mk=Math.max(mk,s.kids);
+    if(s.job&&!s.job.legacy){if(first===null)first=s.skill;max=Math.max(max,s.skill);
+      if(s.age===40)sk40=s.skill;if(s.age===60)sk60=s.skill;if(s.age===45)at45={skill:s.skill,inc:s.job.inc,type:s.job.type,form:s.job.form}}}
   if(isNaN(s.money))throw new Error("NaN");
   L.push({age:s.age,money:s.money,minMoney:s.minMoney,forks:s.forks.length,rainbow:s.rainbow>0,track:s.track||null,
     bankrupt:!!s.bankruptAge,hiki:s.hikiYears>=10,hikiAny:s.hikiYears>0,
     futoko:LOG.some(l=>l.includes("不登校")||l.includes("足が動かなく")),
-    married:!!s.married,everMarried:em,kids:mk,jobs:s.jobs.length,cd:{...s.cd}});
+    married:!!s.married,everMarried:em,kids:mk,jobs:s.jobs.length,cd:{...s.cd},job:{first,sk40,sk60,max,at45}});
 }
 const decIds=(GEN.decisions||[]).map(x=>x.id);
 console.log(JSON.stringify({N,policy:POLICY,genUse:GENUSE,used:USED,decIds,generic:GENERIC,lives:L}));

@@ -1766,7 +1766,8 @@
    "requires": {
     "stat_max": {
      "health": 55
-    }
+    },
+    "year_min": 2000
    },
    "title": "デイサービス",
    "text": "ケアマネージャーが、デイサービスの利用を勧めてきた。",
@@ -2701,7 +2702,8 @@
     "money_min": 60,
     "cond_max": {
      "poor": 0
-    }
+    },
+    "year_min": 2015
    },
    "title": "推しのコンサート",
    "text": "若い頃から好きな歌手が、近くでコンサートを開く。チケットは高い。",
@@ -3542,7 +3544,8 @@
    ],
    "tier": "good",
    "requires": {
-    "kids_min": 1
+    "kids_min": 1,
+    "year_min": 2013
    },
    "text": "孫に教わって、ビデオ通話で遠くの親戚の顔を見た。",
    "fx": {
@@ -3769,6 +3772,9 @@
    "fx": {
     "know": 2,
     "happy": -1
+   },
+   "requires": {
+    "year_min": 2013
    }
   },
   {
@@ -3974,6 +3980,9 @@
     "happy": -4,
     "know": -1,
     "money": -10
+   },
+   "requires": {
+    "year_min": 2000
    }
   },
   {

@@ -106,7 +106,8 @@
     ],
     "stat_min": {
      "know": 88
-    }
+    },
+    "year_min": 2010
    },
    "chance": {
     "name": "趣味のアプリ",
@@ -239,7 +240,8 @@
     },
     "goal": [
      "art"
-    ]
+    ],
+    "year_min": 2015
    },
    "chance": {
     "name": "バズる投稿",
@@ -779,7 +781,8 @@
     40
    ],
    "requires": {
-    "track": "athlete"
+    "track": "athlete",
+    "year_min": 2006
    },
    "title": "言葉の行き違い",
    "text": "取材での冗談が切り取られ、批判の声が広がった。",
@@ -1772,7 +1775,8 @@
     56
    ],
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "title": "サーバーが落ちた",
    "text": "利用者が急増し、サービスが丸一日止まってしまった。",
@@ -1912,7 +1916,8 @@
     58
    ],
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "title": "買収の打診",
    "text": "大手の会社から、会社ごと買い取りたいと打診された。",
@@ -2052,7 +2057,8 @@
     60
    ],
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "title": "人が辞めていく",
    "text": "創業メンバーが「ついていけない」と退職を申し出た。",
@@ -2200,7 +2206,8 @@
     62
    ],
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "title": "ブームの終わり",
    "text": "競合の登場で、アプリの利用者が目に見えて減ってきた。",
@@ -2347,7 +2354,8 @@
     70
    ],
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "title": "次の世代へ",
    "text": "若い開発者が、自分のアプリを見てもらいたいと訪ねてきた。",
@@ -2906,7 +2914,8 @@
     80
    ],
    "requires": {
-    "track": "author"
+    "track": "author",
+    "year_min": 2010
    },
    "title": "ブームの終わり",
    "text": "書店の平台から、自分の本の姿が消えた。",
@@ -3888,7 +3897,8 @@
     45
    ],
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "title": "再生数が伸びない",
    "text": "投稿を続けても、再生数が頭打ちになっている。",
@@ -4028,7 +4038,8 @@
     50
    ],
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "title": "発言が切り取られた",
    "text": "配信中の一言が一部だけ拡散し、誤解を招いた。",
@@ -4167,7 +4178,8 @@
     50
    ],
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "title": "事務所からの誘い",
    "text": "配信者を束ねる事務所から、所属しないかと誘われた。",
@@ -4308,7 +4320,8 @@
     55
    ],
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "title": "熱の冷めた視聴者",
    "text": "人気が落ち着き、新規の登録者も増えなくなった。",
@@ -4446,7 +4459,8 @@
     60
    ],
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "title": "後進のクリエイター",
    "text": "配信者を目指す若者が、動画を見てくれと頼んできた。",
@@ -4998,7 +5012,8 @@
     68
    ],
    "requires": {
-    "track": "chef"
+    "track": "chef",
+    "year_min": 2000
    },
    "title": "ブームの終わり",
    "text": "行列が消え、席が埋まらない夜が増えてきた。",
@@ -6193,7 +6208,8 @@
    ],
    "tier": "bad",
    "requires": {
-    "track": "entertainer"
+    "track": "entertainer",
+    "year_min": 2000
    },
    "text": "根拠のない噂がネットに載り、友人から心配された。",
    "fx": {
@@ -6241,7 +6257,8 @@
    ],
    "tier": "good",
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "text": "新機能への口コミが広まり、利用者数が伸びた。",
    "fx": {
@@ -6258,7 +6275,8 @@
    ],
    "tier": "good",
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "text": "テレビで取り上げられ、問い合わせが殺到した。",
    "fx": {
@@ -6275,7 +6293,8 @@
    ],
    "tier": "normal",
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "text": "売上は伸びたが、毎晩のように障害対応に追われた。",
    "fx": {
@@ -6292,7 +6311,8 @@
    ],
    "tier": "normal",
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "text": "社員が増え、オフィスを広げたが、固定費も膨らんだ。",
    "fx": {
@@ -6310,7 +6330,8 @@
    ],
    "tier": "normal",
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "spend": true,
    "text": "広告収入が安定し、休日に趣味の開発ができた。",
@@ -6329,7 +6350,8 @@
    ],
    "tier": "bad",
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "text": "配信ストアの規約が変わり、収益が一気に落ちた。",
    "fx": {
@@ -6345,7 +6367,8 @@
    ],
    "tier": "bad",
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "text": "低評価の書き込みが並び、数日手につかなかった。",
    "fx": {
@@ -6361,7 +6384,8 @@
    ],
    "tier": "bad",
    "requires": {
-    "track": "app_founder"
+    "track": "app_founder",
+    "year_min": 2010
    },
    "text": "取引先との行き違いで、契約を失った。",
    "fx": {
@@ -6647,7 +6671,8 @@
    ],
    "tier": "good",
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "text": "視聴者から届いたファンレターに、手描きのイラストがあった。",
    "fx": {
@@ -6663,7 +6688,8 @@
    ],
    "tier": "good",
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "text": "投稿した動画が検索の上位に出て、広告収益が伸びた。",
    "fx": {
@@ -6679,7 +6705,8 @@
    ],
    "tier": "normal",
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "spend": true,
    "text": "機材を買い替え、画質が上がったが貯金は減った。",
@@ -6698,7 +6725,8 @@
    ],
    "tier": "normal",
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "text": "生配信が盛り上がり、深夜まで話し続けた。",
    "fx": {
@@ -6715,7 +6743,8 @@
    ],
    "tier": "normal",
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "text": "企業の案件が舞い込んだが、台本の制約が多かった。",
    "fx": {
@@ -6731,7 +6760,8 @@
    ],
    "tier": "bad",
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "text": "編集中にデータが消え、徹夜で撮り直すことになった。",
    "fx": {
@@ -6747,7 +6777,8 @@
    ],
    "tier": "bad",
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "text": "見知らぬ人の中傷が続き、コメント欄を閉じた。",
    "fx": {
@@ -6763,7 +6794,8 @@
    ],
    "tier": "bad",
    "requires": {
-    "track": "streamer"
+    "track": "streamer",
+    "year_min": 2015
    },
    "text": "長時間の撮影で腰を痛め、数日寝込んだ。",
    "fx": {
@@ -6898,7 +6930,8 @@
    ],
    "tier": "bad",
    "requires": {
-    "track": "chef"
+    "track": "chef",
+    "year_min": 2006
    },
    "text": "口コミサイトに事実と異なる酷評が載り、客足が遠のいた。",
    "fx": {

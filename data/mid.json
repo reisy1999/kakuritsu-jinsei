@@ -4742,7 +4742,9 @@
     38,
     55
    ],
-   "requires": null,
+   "requires": {
+    "year_min": 2013
+   },
    "title": "疎遠な友人",
    "text": "何年も連絡を取っていなかった友人から、突然メッセージが届いた。",
    "choices": [
@@ -5594,6 +5596,9 @@
    "fx": {
     "bond": 2,
     "happy": -1
+   },
+   "requires": {
+    "year_min": 2006
    }
   },
   {
