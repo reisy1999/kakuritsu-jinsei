@@ -1,7 +1,7 @@
 // Cloudflare Workers の設定。GitHub に push すると Workers Builds がこれを使ってビルドと公開をする。
 // 手元から公開するときは `npx wrangler deploy`（初回だけ `npx wrangler login` が必要）。
 {
-  "name": "kakuritsu-jinsei",
+  "name": "kakuritsu-jinsei-pub",
   "compatibility_date": "2025-01-01",
   // data/*.json を template.html に埋め込んで site/index.html を作る
   "build": { "command": "python3 build.py site/index.html" },
