@@ -60,7 +60,7 @@ for(let n=0;n<N;n++){LOG=[];newLife();let g=0,em=false,mk=0,first=null,sk40=null
   L.push({age:s.age,money:s.money,minMoney:s.minMoney,forks:s.forks.length,rainbow:s.rainbow>0,track:s.track||null,
     bankrupt:!!s.bankruptAge,hiki:s.hikiYears>=10,hikiAny:s.hikiYears>0,
     futoko:LOG.some(l=>l.includes("不登校")||l.includes("足が動かなく")),
-    married:!!s.married,everMarried:em,divorced:!!s.divorces,kids:mk,jobs:s.jobs.length,cd:{...s.cd},job:{first,sk40,sk60,max,at45},
+    married:!!s.married,everMarried:em,divorced:!!s.divorces,bkCount:s.bankruptCount||0,kids:mk,jobs:s.jobs.length,cd:{...s.cd},job:{first,sk40,sk60,max,at45},
     tr:s.track?{id:s.track,since:s.trackSince,end:s.trackEndKind||null,endAge:s.trackEndAge||null,peakAge:s.tvPeakAge||null,tv5}:null});
 }
 const decIds=(GEN.decisions||[]).map(x=>x.id);

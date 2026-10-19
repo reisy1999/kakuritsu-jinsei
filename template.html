@@ -91,9 +91,11 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 .log h3,.review h3{font-size:.75rem;letter-spacing:.1em;color:var(--muted);margin:0 0 6px;font-weight:500}
 .log ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
-.log li{display:grid;grid-template-columns:3.2em 3.6em 1fr;gap:8px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:.88rem;align-items:baseline}
+.log li{display:grid;grid-template-columns:3.2em 3.6em 1fr auto;gap:8px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:.88rem;align-items:baseline}
 .log li .a{font-family:var(--f-num);color:var(--muted)}
 .log li .t{min-width:0}
+.log li .m{font-family:var(--f-num);font-size:.75rem;color:var(--muted);white-space:nowrap;text-align:right}
+.log li .m.neg{color:var(--minus)}
 .badge{font-size:.66rem;font-weight:700;letter-spacing:.04em;text-align:center;padding:1px 0;border:1px solid currentColor}
 .b-good{color:var(--plus)} .b-normal{color:var(--muted)} .b-bad{color:var(--minus)} .b-soc{color:var(--soc)} .b-fork{color:var(--accent)} .b-life{color:var(--ink)}
 .b-slope{color:var(--minus);border-style:dashed} .b-rise{color:var(--plus);border-style:dashed} .b-gray{color:var(--muted);border-color:transparent}
@@ -789,7 +791,8 @@ function applySet(st){
   for(const k in st.cond||{})s.cd[k]=Math.max(0,Math.min(3,s.cd[k]+st.cond[k]));
   for(const k in st.press||{})s.press[k]+=st.press[k];
   if(st.track){s.track=st.track;s.trackSince=s.age}
-  if(st.bankrupt){s.money=0;s.flags.bankrupt=1;s.bankruptAge=s.age;s.cd.poor=0}
+  if(st.bankrupt){s.money=0;s.flags.bankrupt=1;s.bankruptAge=s.age;s.bankruptCount=(s.bankruptCount||0)+1;s.cd.poor=0;s.press.poor=0;
+    addRow("life","再出発","借金はなくなった。財布には、今月の給料だけが入っている。")}
 }
 /* 優先分岐：傾き2段以上・借金・不登校/無職/ひきこもり「だけ」が対象のもの（2年空いたら出て、8年空ければ再登場する） */
 const prioOf=x=>{const r=x.requires||{},st=r.status||[];
@@ -797,8 +800,9 @@ const prioOf=x=>{const r=x.requires||{},st=r.status||[];
 /* 自己破産の選択肢は、資産が −500万円以下のときだけ選べる */
 const BANKRUPT_LINE=-500;
 const isBankruptChoice=c=>["good","mid","bad"].some(k=>c.roll[k].set&&c.roll[k].set.bankrupt);
+const BANKRUPT_MAX=2;   /* 生涯の上限。2回目は前回から7年以上空いたとき（bankrupt フラグが消えてから） */
 function genDecision(x){
-  const chs=x.choices.filter(c=>s.money<=BANKRUPT_LINE||!isBankruptChoice(c));
+  const chs=x.choices.filter(c=>!isBankruptChoice(c)||s.money<=BANKRUPT_LINE&&!s.flags.bankrupt&&(s.bankruptCount||0)<BANKRUPT_MAX);
   return{id:x.id,title:x.title,text:fill(x.text),gen:1,choices:(chs.length?chs:x.choices).map(c=>{const r=c.roll,av=()=>avgOf(s,r.stats);
     const mk=(k,w)=>{const z=r[k];return o(z.label,w,genFx(z.fx),fill(z.text),z.set?()=>applySet(z.set):undefined)};
     return{l:c.label,cost:-(c.cost&&c.cost.money||0),fx:genFx(c.fx),roll:{q:r.name,why:r.stats,o:[
@@ -967,6 +971,8 @@ function partnerYear(){
   if(p.love<LOVE.line&&Math.random()<LOVE.divorceP)divorce(s,"話し合いの末、別々の道を歩くことにした。");
 }
 const partnerNet=()=>!s.partner?0:s.age<PARTNER.retireAge?(s.partner.works?s.partner.inc*ECON.take:0):PARTNER.pension;
+/* 自己破産から7年間は借りられないので、資産はマイナスにならない。足りない分は生活を切り詰める（幸福が下がる） */
+function noBorrow(){if(s.flags.bankrupt&&s.money<0){const lack=-s.money;s.money=0;s.happy=clamp(s.happy-Math.min(4,1+lack/100))}}
 function econ(){
   const st=s.status;let net=0,cost=0;
   partnerYear();
@@ -984,6 +990,7 @@ function econ(){
     if(s.status==="jobless")s.happy=clamp(s.happy-2);}
   if(s.status==="hikikomori"&&s.age>=18)s.hikiYears++;
   s.money+=net+partnerNet()-cost;
+  noBorrow();
   if(s.money<0&&s.age>=22)s.happy=clamp(s.happy-1);
 }
 /* 結婚している42歳未満の人には、毎年少しの確率で子どもが生まれる（子2人まで。「二人の時間」を選んだ人と、借金・困窮中の人は除く） */
@@ -1000,7 +1007,11 @@ function birthCheck(){
   s.kids++;applyFx({happy:6,bond:3});
   addRow("life","誕生",s.kids===1?"子どもが生まれた。夜中に何度も起きる日々が始まった。":"二人目が生まれた。家の中が一気ににぎやかになった。",{happy:6,bond:3});
 }
+/* 子どもの節目 */
+const KID_STEPS={6:"子どもがランドセルを背負って、初めて登校した。",12:"子どもが中学生になった。制服が少し大きい。",15:"子どもが高校に上がった。",22:"子どもが家を出た。部屋が急に広くなった。"};
+function kidSteps(){syncKids();s.kidBorn.forEach((b,i)=>{const a=s.age-b,txt=KID_STEPS[a];if(txt)addRow("life","家族",s.kidBorn.length>1?txt.replace("子どもが",["上の子が","下の子が","末の子が"][Math.min(i,2)]):txt)})}
 function passive(){
+  kidSteps();
   if(s.age>=6&&s.age<=18&&(s.status==="school"))s.know=clamp(s.know+2+(s.flags.private?1:0));
   if(s.status==="college")s.know=clamp(s.know+1.5);
   if(s.age>45)s.health=clamp(s.health-.6);
@@ -1100,7 +1111,7 @@ function step(){
   passive();marryCheck();birthCheck();if(s.status!=="work")growSkill();econ();
   const soc=SOCIETY[s.year];if(soc){const extra=soc[1](s);addRow("soc","社会",soc[0]+(extra?" "+extra:""))}
   yearlyEvent();
-  updateConds();trackCurve();trackEnd();
+  updateConds();trackCurve();trackEnd();noBorrow();
   if(deathCheck()){die();return}
   snap();render();
   const d=nextDecision();if(d){s.lastDec=s.age;s.nextGap=Math.random()<.5?2:3;showDecision(d);return}
@@ -1117,7 +1128,7 @@ function chips(fx){
 }
 function addRow(kind,label,text,fx){
   const li=document.createElement("li");li.className="fresh"+(kind==="rainbow"?" rainbow":kind==="slope"?" slope":"");
-  li.innerHTML=`<span class="a">${s.age}歳</span><span class="badge b-${kind}">${label}</span><span class="t">${echo(text)}${fx?chips(fx):""}</span>`;
+  li.innerHTML=`<span class="a">${s.age}歳</span><span class="badge b-${kind}">${label}</span><span class="t">${echo(text)}${fx?chips(fx):""}</span><span class="m${s.money<0?" neg":""}">${man(s.money)}</span>`;
   $("log").prepend(li);
 }
 function statusLabel(){const st=s.status,a=s.age;
@@ -1127,7 +1138,7 @@ function statusLabel(){const st=s.status,a=s.age;
   if(st==="work")return s.job.name;if(st==="jobless")return"無職";if(st==="retired")return"引退";return"—"}
 function render(){
   $("age").innerHTML=`${s.age}<small>歳</small>`;$("status").textContent=statusLabel();
-  $("meta").textContent=`${s.year}年 · ${s.pref}`+(s.goal?` · 夢：${GOALS[s.goal]}`:"")+(s.married?(s.partner?` · 既婚（愛情${Math.round(s.partner.love)}${s.partner.works?"・共働き":""}）`:" · 既婚"):"")+(s.kids?` · 子${s.kids}人`:"")+(s.track&&TRACKS[s.track]?` · ★${TRACKS[s.track].name}`+(onCurve(s)?` ${TRACKS[s.track].curve.label}${Math.round(s.tv)}`:""):"")+(s.job&&!s.job.legacy?` · ${JT[s.job.type].n} 熟練${s.skill}`:"")+(s.flags.bankrupt?" · 自己破産から再出発中":"");
+  $("meta").textContent=`${s.year}年 · ${s.pref}`+(s.goal?` · 夢：${GOALS[s.goal]}`:"")+(s.married?(s.partner?` · 既婚（愛情${Math.round(s.partner.love)}${s.partner.works?"・共働き":""}）`:" · 既婚"):"")+(s.kids?` · 子${s.kids}人（${(syncKids(),s.kidBorn.map(b=>s.age-b+"歳").join("・"))}）`:"")+(s.track&&TRACKS[s.track]?` · ★${TRACKS[s.track].name}`+(onCurve(s)?` ${TRACKS[s.track].curve.label}${Math.round(s.tv)}`:""):"")+(s.job&&!s.job.legacy?` · ${JT[s.job.type].n} 熟練${s.skill}`:"")+(s.flags.bankrupt?" · 自己破産から再出発中":"");
   $("stats").innerHTML=STATS.map(([k,n])=>`<div class="stat"><label>${n}<b>${s[k]}</b></label><div class="bar"><i style="width:${s[k]}%"></i></div></div>`).join("");
   const m=$("money");m.textContent=man(s.money);m.classList.toggle("neg",s.money<0);
   $("mlbl").textContent=s.age<22&&s.status!=="work"?"資産（親の教育資金を含む） ":"資産 ";
