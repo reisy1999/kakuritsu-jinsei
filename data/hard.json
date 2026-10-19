@@ -1,0 +1,6534 @@
+{
+ "decisions": [
+  {
+   "id": "hard_debt_01",
+   "age": [
+    25,
+    70
+   ],
+   "requires": {
+    "money_max": -500,
+    "flags_none": [
+     "bankrupt"
+    ]
+   },
+   "title": "返せない借金",
+   "text": "借金は返済額が収入を超え、毎月の電話に出られなくなった。",
+   "choices": [
+    {
+     "label": "自己破産を申し立てる",
+     "fx": {
+      "happy": -3
+     },
+     "roll": {
+      "name": "弁護士との相談",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "借金が消える",
+       "text": "弁護士に任せ、免責が下りた。官報に名前が載った。",
+       "fx": {
+        "happy": 4,
+        "bond": -3
+       },
+       "set": {
+        "bankrupt": true,
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "手続きを終える",
+       "text": "弁護士と書類を整え、借金は消えた。信用は失った。",
+       "fx": {
+        "happy": -2,
+        "bond": -4
+       },
+       "set": {
+        "bankrupt": true
+       }
+      },
+      "bad": {
+       "label": "手続きが長引く",
+       "text": "書類が揃わず、半年以上かかった。",
+       "fx": {
+        "happy": -6,
+        "bond": -6,
+        "health": -3
+       },
+       "set": {
+        "bankrupt": true,
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "任意整理を頼む",
+     "cost": {
+      "money": -5
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "交渉の行方",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "利息が止まる",
+       "text": "利息がなくなり、月々の返済が半分になった。",
+       "fx": {
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "返済は続く",
+       "text": "返済は続くが、数年で終わる見通しがついた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "合意に至らない",
+       "text": "一部の業者と折り合えず、返済が重く残った。",
+       "fx": {
+        "happy": -5,
+        "health": -3
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "実家に頼る",
+     "fx": {
+      "bond": -2
+     },
+     "roll": {
+      "name": "親への相談",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "肩代わりしてくれた",
+       "text": "親は黙って通帳を出し、あとで少しずつ返すことにした。",
+       "fx": {
+        "bond": 4,
+        "happy": 4,
+        "money": 300
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "半分だけ援助",
+       "text": "親は半分だけ出してくれた。残りは自分で返す。",
+       "fx": {
+        "bond": -2,
+        "money": 150
+       }
+      },
+      "bad": {
+       "label": "頼れなかった",
+       "text": "電話をかけたが、本題は切り出せなかった。",
+       "fx": {
+        "bond": -5,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "働いて返す",
+     "fx": {
+      "health": -2
+     },
+     "roll": {
+      "name": "返済生活",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "完済が見えた",
+       "text": "二つ仕事を掛け持ち、返済の終わりが見えてきた。",
+       "fx": {
+        "happy": 3,
+        "health": -3,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "ぎりぎり回る",
+       "text": "生活を切り詰め、返済日だけを数える日々。",
+       "fx": {
+        "happy": -4,
+        "health": -4
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "体が先に悲鳴",
+       "text": "掛け持ちの疲れで寝込み、返済が滞った。",
+       "fx": {
+        "health": -9,
+        "happy": -7
+       },
+       "set": {
+        "press": {
+         "tired": 1,
+         "poor": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_welfare_01",
+   "age": [
+    30,
+    85
+   ],
+   "requires": {
+    "money_max": -100,
+    "status": [
+     "jobless",
+     "hikikomori"
+    ]
+   },
+   "title": "生活の相談窓口",
+   "text": "家賃と食費が尽きかけている。役所に生活の相談に行くか迷っている。",
+   "choices": [
+    {
+     "label": "窓口で相談する",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "窓口での面談",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "制度につながる",
+       "text": "担当者は丁寧に聞き取り、生活保護の申請を受け付けた。",
+       "fx": {
+        "happy": 6,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "説明を受ける",
+       "text": "条件を詳しく説明され、書類を持ち帰った。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "今日は断られた",
+       "text": "要件が足りず、別の窓口を案内された。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "支援団体に行く",
+     "fx": {},
+     "roll": {
+      "name": "支援団体の支え",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "同行してもらえた",
+       "text": "支援団体の人が窓口までついてきてくれた。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "poor": -1,
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "食料をもらう",
+       "text": "食料と相談先の連絡先を受け取った。",
+       "fx": {
+        "happy": 2,
+        "health": 2
+       }
+      },
+      "bad": {
+       "label": "行列に帰る",
+       "text": "混み合って、順番が来る前に閉まってしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "知人に借りてみる",
+     "fx": {
+      "bond": -1
+     },
+     "roll": {
+      "name": "頼み込む",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "少し貸してもらう",
+       "text": "古い友人が数万円を貸してくれた。",
+       "fx": {
+        "bond": 2,
+        "money": 10
+       }
+      },
+      "mid": {
+       "label": "気まずく終わる",
+       "text": "話は聞いてもらえたが、貸してはもらえなかった。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      },
+      "bad": {
+       "label": "連絡が途絶える",
+       "text": "断られ、その後返信が来なくなった。",
+       "fx": {
+        "bond": -6,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "もう少し様子を見る",
+     "fx": {},
+     "roll": {
+      "name": "様子見",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "単発の仕事が入る",
+       "text": "日雇いの話が入り、今月だけしのげた。",
+       "fx": {
+        "happy": 2,
+        "money": 15
+       }
+      },
+      "mid": {
+       "label": "何も変わらない",
+       "text": "残高だけが静かに減っていく。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "支払いが止まる",
+       "text": "電気が止まり、暗い部屋で一晩過ごした。",
+       "fx": {
+        "health": -5,
+        "happy": -8
+       },
+       "set": {
+        "press": {
+         "poor": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_hikki_01",
+   "age": [
+    20,
+    29
+   ],
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "title": "昼夜逆転",
+   "text": "昼夜が逆転し、カーテンを開けない日が続いている。親の足音が気になる。",
+   "choices": [
+    {
+     "label": "支援窓口に電話する",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "最初の電話",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "窓口で話せた",
+       "text": "相談員は急かさず、週一回の面談が決まった。",
+       "fx": {
+        "happy": 5,
+        "bond": 4
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "名前だけ伝える",
+       "text": "名前だけ伝えて切った。控えた番号は残してある。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "途中で切ってしまう",
+       "text": "呼び出し音の途中で切ってしまった。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "短時間のバイトを探す",
+     "fx": {
+      "health": -1
+     },
+     "roll": {
+      "name": "面接の日",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "週2日の仕事が決まる",
+       "text": "コンビニの夜勤明けでない短時間枠で採用された。",
+       "fx": {
+        "happy": 5,
+        "bond": 3,
+        "money": 5
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "コンビニ店員",
+         "income": 110,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "面接で終わる",
+       "text": "面接には行けた。結果待ちの数日が長い。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "前日に行けなくなる",
+       "text": "前日の夜、体が動かなくなった。連絡できなかった。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "ネットで人と話す",
+     "fx": {},
+     "roll": {
+      "name": "画面の向こう",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "気の合う仲間ができる",
+       "text": "ゲームの通話で、毎晩話す仲間ができた。",
+       "fx": {
+        "bond": 6,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "時間だけ過ぎる",
+       "text": "何時間も画面を見て、気づけば朝だった。",
+       "fx": {
+        "happy": -1,
+        "health": -2
+       }
+      },
+      "bad": {
+       "label": "言葉に傷つく",
+       "text": "心ない書き込みを見て、しばらく閉じこもった。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "このまま過ごす",
+     "fx": {},
+     "roll": {
+      "name": "日々の流れ",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "親が扉をたたかない",
+       "text": "ドアの前にお茶が置かれていた。少しだけ飲んだ。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "何も起きない",
+       "text": "同じ一日がまた過ぎた。",
+       "fx": {
+        "happy": -2
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "気力が落ちる",
+       "text": "起き上がる気力がさらに薄れた。",
+       "fx": {
+        "happy": -6,
+        "health": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1,
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_hikki_02",
+   "age": [
+    30,
+    39
+   ],
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "title": "同級生の結婚",
+   "text": "同級生の結婚の知らせが届いた。返事を出せないまま、日が過ぎる。",
+   "choices": [
+    {
+     "label": "就労支援に申し込む",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "支援の面談",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "通い始められる",
+       "text": "作業所に週三日通い、生活のリズムが戻ってきた。",
+       "fx": {
+        "happy": 5,
+        "health": 4
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "軽作業スタッフ",
+         "income": 120,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "見学だけ行く",
+       "text": "見学だけ行けた。次の予約を入れた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "入口で引き返す",
+       "text": "建物の前まで行き、そのまま帰った。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "短い返事を書く",
+     "fx": {},
+     "roll": {
+      "name": "一通の返信",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "返事が来る",
+       "text": "「元気でよかった」と返ってきた。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "既読のまま",
+       "text": "返事はなかったが、送れたことは残った。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "書けなかった",
+       "text": "下書きを消し続け、一行も送れなかった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "日雇いを試す",
+     "fx": {},
+     "roll": {
+      "name": "一日の現場",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "一日働けた",
+       "text": "荷物の仕分けを一日こなした。夜、よく眠れた。",
+       "fx": {
+        "health": 4,
+        "happy": 4,
+        "money": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "倉庫の軽作業",
+         "income": 130,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "半日で帰る",
+       "text": "半日で体力が尽き、早退した。",
+       "fx": {
+        "health": -2,
+        "happy": 0
+       }
+      },
+      "bad": {
+       "label": "寝込む",
+       "text": "翌日から三日寝込んだ。",
+       "fx": {
+        "health": -6,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "見なかったことにする",
+     "fx": {},
+     "roll": {
+      "name": "未開封の封筒",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "気持ちが軽くなる",
+       "text": "案外、しばらくは気にならなかった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "そのまま過ぎる",
+       "text": "封筒は机の隅に積まれたままだ。",
+       "fx": {
+        "happy": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "焦りが募る",
+       "text": "年齢のことばかり考えるようになった。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "iso": 1,
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_hikki_03",
+   "age": [
+    40,
+    49
+   ],
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "title": "四十の誕生日",
+   "text": "誕生日の夜、母が小さなケーキを部屋の前に置いて、何も言わず去った。",
+   "choices": [
+    {
+     "label": "自治体の窓口へ行く",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "窓口の面談",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "支援員がつく",
+       "text": "担当の支援員が決まり、月に二回の訪問が始まった。",
+       "fx": {
+        "happy": 5,
+        "bond": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "資料をもらう",
+       "text": "資料をもらい、帰り道で少し遠回りをした。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "緊張で話せない",
+       "text": "緊張で声が出ず、また来ますと言って出た。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "短時間の仕事に就く",
+     "fx": {},
+     "roll": {
+      "name": "仕事の初日",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 28,
+      "good": {
+       "label": "清掃の仕事に就く",
+       "text": "朝の清掃を週四回。誰にも干渉されない静かな職場だ。",
+       "fx": {
+        "happy": 5,
+        "health": 4,
+        "bond": 2
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "ビル清掃",
+         "income": 130,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "面接だけで終わる",
+       "text": "面接は受けられたが、返事は来なかった。",
+       "fx": {
+        "happy": 0
+       }
+      },
+      "bad": {
+       "label": "初日に行けない",
+       "text": "当日の朝、玄関で足が止まった。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "ケーキを一緒に食べる",
+     "fx": {},
+     "roll": {
+      "name": "食卓",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "母と話せた",
+       "text": "食卓で、母とぽつりぽつり話した。涙ぐむ母に、背を向けなかった。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "黙って食べる",
+       "text": "言葉はなかったが、ケーキは甘かった。",
+       "fx": {
+        "happy": 2,
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "途中で部屋へ戻る",
+       "text": "途中で席を立った。母は皿を片付けた。",
+       "fx": {
+        "happy": -3,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "今まで通り過ごす",
+     "fx": {},
+     "roll": {
+      "name": "変わらない日",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "静かな一日",
+       "text": "穏やかな一日だった。それだけだ。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "日が過ぎる",
+       "text": "ケーキの空き箱だけが玄関に残った。",
+       "fx": {
+        "happy": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "後悔が残る",
+       "text": "夜中に何度も、あの皿のことを思い出した。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_8050_01",
+   "age": [
+    45,
+    62
+   ],
+   "requires": {
+    "status": [
+     "hikikomori"
+    ],
+    "parents_alive": true
+   },
+   "title": "親の入院",
+   "text": "同居の親が倒れて入院した。家のことを、初めて自分が決めなければならない。",
+   "choices": [
+    {
+     "label": "役所と病院に相談",
+     "fx": {
+      "health": -1
+     },
+     "roll": {
+      "name": "手続きの窓口",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "支援につながる",
+       "text": "病院の相談員が、介護と暮らしの窓口を紹介した。",
+       "fx": {
+        "happy": 4,
+        "bond": 4,
+        "know": 3
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "書類をもらう",
+       "text": "書類は多いが、一つずつ埋めた。",
+       "fx": {
+        "happy": 1,
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "窓口で動けない",
+       "text": "順番を待つ間に、息が苦しくなって帰った。",
+       "fx": {
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "親戚に連絡する",
+     "fx": {},
+     "roll": {
+      "name": "久しぶりの電話",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "手を貸してくれる",
+       "text": "叔母が週末に来て、洗濯と買い物を手伝った。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子を聞かれる",
+       "text": "事情を話すと、ため息が返ってきた。",
+       "fx": {
+        "bond": -2,
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "関係が悪くなる",
+       "text": "「今まで何をしていた」と言われ、受話器を置いた。",
+       "fx": {
+        "bond": -6,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "見舞いに通い仕事を探す",
+     "fx": {
+      "health": -1
+     },
+     "roll": {
+      "name": "通う日々",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "短時間の仕事が決まる",
+       "text": "病院の売店で短時間の仕事を紹介された。",
+       "fx": {
+        "happy": 4,
+        "health": 3,
+        "bond": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "売店スタッフ",
+         "income": 120,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "見舞いは続く",
+       "text": "毎日バスで通い、外の空気を吸うようになった。",
+       "fx": {
+        "health": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "疲れが出る",
+       "text": "慣れない外出が続き、熱を出した。",
+       "fx": {
+        "health": -6,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "部屋で待つ",
+     "fx": {},
+     "roll": {
+      "name": "家の静けさ",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "退院の連絡が来る",
+       "text": "退院の知らせが届き、少し肩の力が抜けた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "何もできない",
+       "text": "冷蔵庫の中身が少しずつ減っていく。",
+       "fx": {
+        "happy": -3,
+        "health": -2
+       },
+       "set": {
+        "press": {
+         "poor": 1,
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "連絡を逃す",
+       "text": "病院からの電話に出られず、折り返しも遅れた。",
+       "fx": {
+        "happy": -7,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "iso": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_8050_02",
+   "age": [
+    40,
+    70
+   ],
+   "requires": {
+    "status": [
+     "hikikomori"
+    ],
+    "parents_alive": false
+   },
+   "title": "一人の家",
+   "text": "親を見送り、家には自分ひとりが残った。年金も通帳も、よく分からない。",
+   "choices": [
+    {
+     "label": "相談窓口に行く",
+     "fx": {},
+     "roll": {
+      "name": "葬儀後の手続き",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "手続きが進む",
+       "text": "窓口で一つずつ整理し、当面の暮らしの見通しが立った。",
+       "fx": {
+        "happy": 4,
+        "know": 4
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "相談の約束をする",
+       "text": "次の相談日を手帳に書いた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "書類で止まる",
+       "text": "書類の量に圧倒され、封筒を引き出しに戻した。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "就労支援を受ける",
+     "fx": {},
+     "roll": {
+      "name": "支援の一歩",
+      "stats": [
+       "health",
+       "know"
+      ],
+      "difficulty": 28,
+      "good": {
+       "label": "通える場所ができる",
+       "text": "地域の支援拠点に通い、簡単な作業から始めた。",
+       "fx": {
+        "happy": 5,
+        "bond": 4,
+        "health": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "軽作業スタッフ",
+         "income": 110,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "見学を重ねる",
+       "text": "三か所を見学した。一つに絞れていない。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "長続きしない",
+       "text": "三日通ったところで、足が遠のいた。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "近所に挨拶する",
+     "fx": {},
+     "roll": {
+      "name": "隣の玄関",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "気にかけてもらえる",
+       "text": "隣の人が野菜を分けてくれた。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "会釈を返される",
+       "text": "会釈を返してもらえた。それだけで十分だった。",
+       "fx": {
+        "bond": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "気まずくなる",
+       "text": "うまく話せず、玄関を閉めた。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "手続きを先送りする",
+     "fx": {},
+     "roll": {
+      "name": "積まれた封筒",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "何事もなく過ぎる",
+       "text": "この月は何も起きなかった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "通知が増える",
+       "text": "督促に似た通知が少しずつ増えた。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "支払いが止まる",
+       "text": "公共料金の支払いが止まり、部屋が冷えた。",
+       "fx": {
+        "health": -5,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "poor": 2,
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_hikki_04",
+   "age": [
+    18,
+    29
+   ],
+   "requires": {
+    "status": [
+     "hikikomori"
+    ],
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "title": "通話の誘い",
+   "text": "ネットの仲間から「今度、オフラインで会わない？」と誘われた。",
+   "choices": [
+    {
+     "label": "近くの店で会う",
+     "fx": {
+      "health": -1
+     },
+     "roll": {
+      "name": "初めての対面",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "いい時間になる",
+       "text": "みんな気さくで、三時間があっという間だった。",
+       "fx": {
+        "bond": 6,
+        "happy": 6
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "短く会う",
+       "text": "三十分だけ顔を出した。帰り道は軽かった。",
+       "fx": {
+        "bond": 3,
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "緊張で帰る",
+       "text": "席に着けず、トイレから戻れなかった。",
+       "fx": {
+        "happy": -5
+       }
+      }
+     }
+    },
+    {
+     "label": "ビデオ通話にする",
+     "fx": {},
+     "roll": {
+      "name": "画面越しの顔",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "顔を見て話せた",
+       "text": "画面越しに笑い合えた。部屋の片付けにも気が向いた。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "声だけで済ます",
+       "text": "カメラを切ったまま、声だけで参加した。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "時間を忘れる",
+       "text": "通話が朝まで続き、昼夜がさらに逆転した。",
+       "fx": {
+        "health": -3,
+        "happy": 1
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "通話の中で働く話をする",
+     "fx": {},
+     "roll": {
+      "name": "相談の夜",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "仕事を紹介される",
+       "text": "仲間の知人の店で、短時間の在宅の仕事を紹介された。",
+       "fx": {
+        "happy": 5,
+        "know": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "在宅データ入力",
+         "income": 100,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "励まされる",
+       "text": "「ゆっくりでいい」と言われ、少し泣いた。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "bad": {
+       "label": "話が流れる",
+       "text": "話題はすぐ別の方へ流れていった。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "返事をしない",
+     "fx": {},
+     "roll": {
+      "name": "未読の通知",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "誘いが続く",
+       "text": "誘いは翌月も来た。断る理由が浮かばなかった。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "mid": {
+       "label": "通知が止まる",
+       "text": "通知が来なくなった。画面が静かになった。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "関係が切れる",
+       "text": "アカウントが消えていた。",
+       "fx": {
+        "bond": -6,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "iso": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_hikki_05",
+   "age": [
+    50,
+    65
+   ],
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "title": "体の不調",
+   "text": "長く外に出ておらず、足腰が弱ってきた。階段が怖くなっている。",
+   "choices": [
+    {
+     "label": "近くの診療所へ行く",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "health": -1
+     },
+     "roll": {
+      "name": "診察室",
+      "stats": [
+       "health",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "早めに診てもらえた",
+       "text": "医師は穏やかに診察し、日常の過ごし方を教えてくれた。",
+       "fx": {
+        "health": 5,
+        "happy": 3
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子見と言われる",
+       "text": "大きな問題はないが、運動をと言われた。",
+       "fx": {
+        "health": 1
+       }
+      },
+      "bad": {
+       "label": "待合室で緊張",
+       "text": "待合室の人混みで具合が悪くなり、受診できなかった。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "家の中で体を動かす",
+     "fx": {},
+     "roll": {
+      "name": "毎日の体操",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "習慣になる",
+       "text": "毎朝のストレッチが、日課の目印になった。",
+       "fx": {
+        "health": 4,
+        "happy": 3
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "三日で飽きる",
+       "text": "三日続いて、四日目に休んだ。",
+       "fx": {
+        "health": 1
+       }
+      },
+      "bad": {
+       "label": "無理をして痛める",
+       "text": "張り切りすぎて腰を痛めた。",
+       "fx": {
+        "health": -5,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "訪問の支援を頼む",
+     "fx": {},
+     "roll": {
+      "name": "玄関の呼び鈴",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "人が来てくれる",
+       "text": "保健師が定期的に訪ねてくれることになった。",
+       "fx": {
+        "bond": 4,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "相談だけで終わる",
+       "text": "電話で相談を受け付けてもらえた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "断ってしまう",
+       "text": "訪問の日、居留守を使ってしまった。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "我慢して過ごす",
+     "fx": {},
+     "roll": {
+      "name": "不調との日々",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "調子の良い日",
+       "text": "今日は少し体が軽かった。",
+       "fx": {
+        "health": 1
+       }
+      },
+      "mid": {
+       "label": "少しずつ悪化",
+       "text": "動かない日が増え、足がますます細くなった。",
+       "fx": {
+        "health": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "転んでしまう",
+       "text": "廊下で転び、しばらく起き上がれなかった。",
+       "fx": {
+        "health": -9,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1,
+         "tired": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_jobless_01",
+   "age": [
+    25,
+    55
+   ],
+   "requires": {
+    "status": [
+     "jobless"
+    ],
+    "cond_min": {
+     "apathy": 1,
+     "poor": 1
+    }
+   },
+   "title": "履歴書の空白",
+   "text": "履歴書の空白期間が長くなり、応募ボタンを押す指が止まる。",
+   "choices": [
+    {
+     "label": "職業相談に行く",
+     "fx": {},
+     "roll": {
+      "name": "相談カウンター",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "条件に合う求人",
+       "text": "相談員と一緒に、無理のない求人を三つ選べた。",
+       "fx": {
+        "happy": 4,
+        "know": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "事務補助",
+         "income": 170,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "相談を重ねる",
+       "text": "通ううちに、少しずつ書類が整っていく。",
+       "fx": {
+        "happy": 2,
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "話がかみ合わない",
+       "text": "求人と希望が合わず、気落ちして帰った。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "資格の勉強を始める",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "机と教材",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "講座が身につく",
+       "text": "半年かけて資格を取り、履歴書に一行増えた。",
+       "fx": {
+        "know": 6,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少しだけ進む",
+       "text": "三章まで進んだ。続きはまだ開いていない。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "手が止まる",
+       "text": "教材が机の端で埃をかぶり始めた。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "短期のバイトに入る",
+     "fx": {},
+     "roll": {
+      "name": "短期の現場",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "評価される",
+       "text": "仕事ぶりが認められ、期間延長の声がかかった。",
+       "fx": {
+        "happy": 4,
+        "health": 2,
+        "money": 20
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "短期スタッフ",
+         "income": 150,
+         "grow": 0.01,
+         "kind": "irregular"
+        }
+       }
+      },
+      "mid": {
+       "label": "期間を終える",
+       "text": "契約満了。小さな収入が口座に入った。",
+       "fx": {
+        "money": 10,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "体力が追いつかない",
+       "text": "立ち仕事で足を痛め、数日で辞めた。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "応募を先送りする",
+     "fx": {},
+     "roll": {
+      "name": "閉じたタブ",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "求人が増える",
+       "text": "新しい求人が目に留まった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "貯金が減る",
+       "text": "残高を見るたび、胸がざわつく。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "空白が長くなる",
+       "text": "空白がまた一年分増えた。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1,
+         "poor": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_jobless_02",
+   "age": [
+    50,
+    64
+   ],
+   "requires": {
+    "status": [
+     "jobless"
+    ],
+    "cond_min": {
+     "poor": 1
+    }
+   },
+   "title": "五十代の求人",
+   "text": "五十代の求人は数が少ない。面接まで進むことも、めったにない。",
+   "choices": [
+    {
+     "label": "経験を活かして探す",
+     "fx": {},
+     "roll": {
+      "name": "経験の棚卸し",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "拾ってもらえる",
+       "text": "前職の取引先が声をかけてくれ、嘱託で働くことになった。",
+       "fx": {
+        "happy": 6,
+        "bond": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "嘱託職員",
+         "income": 240,
+         "grow": 0.0,
+         "kind": "irregular"
+        },
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "面談に進む",
+       "text": "書類が通り、面談の日が決まった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "返事が来ない",
+       "text": "十社に出して、返事は二通だけだった。",
+       "fx": {
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "職業訓練を受ける",
+     "fx": {},
+     "roll": {
+      "name": "訓練の教室",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "新しい技能が付く",
+       "text": "半年の訓練を終え、介護の資格を取った。",
+       "fx": {
+        "know": 5,
+        "happy": 4,
+        "health": 2
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "介護職",
+         "income": 250,
+         "grow": 0.01,
+         "kind": "irregular"
+        },
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "修了する",
+       "text": "訓練を終えた。次の道はこれから探す。",
+       "fx": {
+        "know": 4
+       }
+      },
+      "bad": {
+       "label": "途中で体を壊す",
+       "text": "通学の疲れで休みが続き、修了できなかった。",
+       "fx": {
+        "health": -5,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "清掃や警備の仕事",
+     "fx": {},
+     "roll": {
+      "name": "現場の朝",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "朝の仕事が決まる",
+       "text": "朝が早いが、人間関係の薄い仕事に落ち着いた。",
+       "fx": {
+        "health": 2,
+        "happy": 2,
+        "money": 15
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "施設清掃",
+         "income": 150,
+         "grow": 0.0,
+         "kind": "irregular"
+        }
+       }
+      },
+      "mid": {
+       "label": "日数が足りない",
+       "text": "週二日しか入れず、収入は少ない。",
+       "fx": {
+        "happy": -1,
+        "money": 5
+       }
+      },
+      "bad": {
+       "label": "長く続かない",
+       "text": "腰を痛め、一か月で辞めた。",
+       "fx": {
+        "health": -5,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "貯金を切り崩す",
+     "fx": {},
+     "roll": {
+      "name": "通帳を眺める",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "退職金が見つかる",
+       "text": "古い通帳に、小さな積立が残っていた。",
+       "fx": {
+        "happy": 3,
+        "money": 30
+       }
+      },
+      "mid": {
+       "label": "減り続ける",
+       "text": "減る数字を見ない日が増えた。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "底が見える",
+       "text": "通帳の残高が、ついに三桁を切った。",
+       "fx": {
+        "happy": -7
+       },
+       "set": {
+        "press": {
+         "poor": 2,
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_overwork_01",
+   "age": [
+    25,
+    55
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "title": "終電の日々",
+   "text": "終電で帰り、始発で出る日が続いている。休日も頭が仕事から離れない。",
+   "choices": [
+    {
+     "label": "上司に業務量を相談",
+     "fx": {},
+     "roll": {
+      "name": "面談の三十分",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "仕事が減らされる",
+       "text": "上司が人員を調整し、残業が月二十時間減った。",
+       "fx": {
+        "happy": 5,
+        "health": 4
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "気持ちは伝わる",
+       "text": "「分かった」と言われたが、変化は小さい。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "評価を気にされる",
+       "text": "「みんな大変だ」と言われ、言い出せなくなった。",
+       "fx": {
+        "happy": -5,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "有給を取って休む",
+     "fx": {},
+     "roll": {
+      "name": "三連休",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "体が戻る",
+       "text": "久しぶりに昼まで眠った。風呂にゆっくり浸かった。",
+       "fx": {
+        "health": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "あまり休めない",
+       "text": "休みの間も通知が気になり、体は重いままだった。",
+       "fx": {
+        "health": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "溜まった仕事が増える",
+       "text": "戻ると仕事が山積みで、かえって疲れた。",
+       "fx": {
+        "health": -3,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "転職サイトに登録する",
+     "fx": {},
+     "roll": {
+      "name": "新しい求人",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 28,
+      "good": {
+       "label": "条件の良い求人",
+       "text": "残業の少ない職場から面談の連絡が来た。",
+       "fx": {
+        "happy": 5,
+        "know": 2
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子を見る",
+       "text": "求人を眺める夜が、少し楽になった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "決断できない",
+       "text": "登録したまま、画面を開く気力が出ない。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "今まで通り働く",
+     "fx": {},
+     "roll": {
+      "name": "終わらない仕事",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "繁忙期が過ぎる",
+       "text": "山を越え、少しだけ息がつけた。",
+       "fx": {
+        "happy": 2,
+        "health": -2
+       }
+      },
+      "mid": {
+       "label": "疲れが抜けない",
+       "text": "朝、起き上がるのに十分かかる。",
+       "fx": {
+        "health": -4,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "ミスが続く",
+       "text": "集中が切れ、同じ書類を二度間違えた。",
+       "fx": {
+        "health": -6,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_leave_01",
+   "age": [
+    28,
+    55
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "title": "休職の診断書",
+   "text": "朝、駅のホームで足が動かなくなった。数日後、診断書が出た。",
+   "choices": [
+    {
+     "label": "休職して休む",
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "休職の初日",
+      "stats": [
+       "health",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "ゆっくり回復",
+       "text": "数か月休み、散歩ができる日が増えた。",
+       "fx": {
+        "health": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "休むことに慣れない",
+       "text": "休んでいるのに落ち着かず、焦りが消えない。",
+       "fx": {
+        "health": 2,
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "休職が長引く",
+       "text": "回復は遅く、休職期間が延びた。",
+       "fx": {
+        "health": -2,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "復職の相談をする",
+     "fx": {},
+     "roll": {
+      "name": "産業医との面談",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "段階的に戻れる",
+       "text": "時短勤務から始める復職プランが決まった。",
+       "fx": {
+        "happy": 4,
+        "bond": 3
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子を見る",
+       "text": "まだ早いと言われ、もう少し休むことになった。",
+       "fx": {
+        "health": 2
+       }
+      },
+      "bad": {
+       "label": "無理して戻る",
+       "text": "焦って戻り、一か月で再び朝に動けなくなった。",
+       "fx": {
+        "health": -6,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "退職して一から出直す",
+     "fx": {},
+     "roll": {
+      "name": "退職願",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "新天地が見つかる",
+       "text": "半年後、規模の小さな会社で再出発できた。",
+       "fx": {
+        "happy": 5,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        },
+        "job": {
+         "name": "事務職",
+         "income": 280,
+         "grow": 0.01,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "少し休んで探す",
+       "text": "貯金で食いつなぎながら、次を探している。",
+       "fx": {
+        "happy": 0,
+        "money": -30
+       },
+       "set": {
+        "status": "jobless"
+       }
+      },
+      "bad": {
+       "label": "再就職が難航",
+       "text": "次が決まらず、時間だけが過ぎる。",
+       "fx": {
+        "happy": -6,
+        "money": -80
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "診断書を出さずに耐える",
+     "fx": {},
+     "roll": {
+      "name": "朝のホーム",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "持ち直す日",
+       "text": "その週は何とか乗り切れた。",
+       "fx": {
+        "health": 1
+       }
+      },
+      "mid": {
+       "label": "体が重いまま",
+       "text": "朝が来るたびに、胸が重い。",
+       "fx": {
+        "health": -4,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "倒れてしまう",
+       "text": "職場で倒れて、救急で運ばれた。",
+       "fx": {
+        "health": -10,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_quit_01",
+   "age": [
+    30,
+    60
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "title": "退職届",
+   "text": "退職届を書いては引き出しにしまう夜が、もう一か月続いている。",
+   "choices": [
+    {
+     "label": "退職届を出す",
+     "fx": {},
+     "roll": {
+      "name": "最後の日",
+      "stats": [
+       "luck",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "次の道が開ける",
+       "text": "退職後に知人から声がかかり、時間に余裕のある職に就いた。",
+       "fx": {
+        "happy": 6,
+        "health": 4
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        },
+        "job": {
+         "name": "契約社員",
+         "income": 260,
+         "grow": 0.01,
+         "kind": "irregular"
+        }
+       }
+      },
+      "mid": {
+       "label": "しばらく休む",
+       "text": "貯金を崩しつつ、ゆっくりと朝を迎えている。",
+       "fx": {
+        "happy": 3,
+        "health": 3,
+        "money": -20
+       },
+       "set": {
+        "status": "jobless"
+       }
+      },
+      "bad": {
+       "label": "次が決まらない",
+       "text": "辞めたあと、思ったより早く貯金が減っていった。",
+       "fx": {
+        "happy": -5,
+        "money": -70
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "部署の異動を願う",
+     "fx": {},
+     "roll": {
+      "name": "異動願",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 28,
+      "good": {
+       "label": "異動が通る",
+       "text": "別の部署で、定時に帰れる日が増えた。",
+       "fx": {
+        "happy": 5,
+        "health": 4
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "面談で終わる",
+       "text": "人事は話を聞いてくれたが、結論は先に延びた。",
+       "fx": {
+        "happy": 0
+       }
+      },
+      "bad": {
+       "label": "風当たりが強くなる",
+       "text": "希望を出して以降、周囲の目が冷たくなった。",
+       "fx": {
+        "happy": -5,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "家族や友人に打ち明ける",
+     "fx": {},
+     "roll": {
+      "name": "夜の電話",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "味方がいる",
+       "text": "「辞めてもいいよ」と言われ、肩の力が抜けた。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "tired": -1,
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "話せただけで少し楽",
+       "text": "結論は出ないが、一人で抱える夜が減った。",
+       "fx": {
+        "happy": 2,
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "心配をかける",
+       "text": "相手の顔が曇り、話したことを少し悔やんだ。",
+       "fx": {
+        "happy": -3,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "書いたまま保留にする",
+     "fx": {},
+     "roll": {
+      "name": "引き出しの中",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "繁忙が落ち着く",
+       "text": "次の月、仕事の波が少し落ち着いた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "疲れが積もる",
+       "text": "体は重く、通勤の電車で立っているのがやっとだ。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "無断で休む",
+       "text": "連絡も入れられず、一日休んでしまった。",
+       "fx": {
+        "happy": -7,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "tired": 1,
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_overwork_02",
+   "age": [
+    22,
+    35
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "title": "眠れない夜",
+   "text": "布団に入っても、明日の仕事の段取りが頭を回って眠れない。",
+   "choices": [
+    {
+     "label": "睡眠を優先する",
+     "fx": {},
+     "roll": {
+      "name": "夜の過ごし方",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "眠れる夜が増える",
+       "text": "スマホを置き、部屋の灯りを落とした。三日目に深く眠れた。",
+       "fx": {
+        "health": 5,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少しだけ眠れる",
+       "text": "眠りは浅いが、朝の頭痛は軽くなった。",
+       "fx": {
+        "health": 2
+       }
+      },
+      "bad": {
+       "label": "やっぱり眠れない",
+       "text": "結局、午前三時まで天井を見ていた。",
+       "fx": {
+        "health": -2,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "健康診断で相談する",
+     "fx": {},
+     "roll": {
+      "name": "問診票",
+      "stats": [
+       "health",
+       "know"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "専門の窓口を紹介",
+       "text": "産業保健の担当者が、話を聞く場を設けてくれた。",
+       "fx": {
+        "happy": 4,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "生活の助言",
+       "text": "食事と運動の助言を受けた。",
+       "fx": {
+        "health": 3
+       }
+      },
+      "bad": {
+       "label": "異常なしと言われる",
+       "text": "数値は正常だった。疲れの理由は残ったままだ。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "休日を予定で埋める",
+     "fx": {},
+     "roll": {
+      "name": "休日の予定",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "気分が晴れる",
+       "text": "友人と日帰りでドライブに出かけた。",
+       "fx": {
+        "happy": 5,
+        "bond": 4
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "疲れが増す",
+       "text": "予定をこなしたが、月曜の朝が重い。",
+       "fx": {
+        "happy": 1,
+        "health": -3
+       }
+      },
+      "bad": {
+       "label": "寝不足が進む",
+       "text": "遊んだ疲れが抜けず、週の半ばで限界が来た。",
+       "fx": {
+        "health": -5,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "考えないようにする",
+     "fx": {},
+     "roll": {
+      "name": "眠れぬ朝",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "今日は眠れた",
+       "text": "なぜか今夜はよく眠れた。",
+       "fx": {
+        "health": 2
+       }
+      },
+      "mid": {
+       "label": "寝不足が続く",
+       "text": "目の下のくまが、化粧でも隠れなくなった。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "朝に動けない",
+       "text": "目覚ましを止めたまま、一時間起きられなかった。",
+       "fx": {
+        "health": -6,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_tired_kids_01",
+   "age": [
+    28,
+    48
+   ],
+   "requires": {
+    "kids_min": 1,
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "title": "眠れない育児",
+   "text": "子どもの夜泣きと仕事で、もう何か月もまとまって眠れていない。",
+   "choices": [
+    {
+     "label": "家族に頼る",
+     "fx": {},
+     "roll": {
+      "name": "手を借りる",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "夜を任せられる",
+       "text": "パートナーが夜を引き受け、ぐっすり眠れた朝が来た。",
+       "fx": {
+        "health": 5,
+        "happy": 4,
+        "bond": 3
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少し助けを得る",
+       "text": "週に一度だけ、夜を代わってもらえた。",
+       "fx": {
+        "health": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "頼みにくい",
+       "text": "頼むのが申し訳なく、言い出せないまま過ぎた。",
+       "fx": {
+        "happy": -3,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "自治体の子育て支援",
+     "fx": {},
+     "roll": {
+      "name": "支援の窓口",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "一時預かりが使える",
+       "text": "一時預かりの枠が取れ、半日だけ一人で過ごせた。",
+       "fx": {
+        "health": 4,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "相談員と話す",
+       "text": "話を聞いてもらえたことで、気持ちが少し軽くなった。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "bad": {
+       "label": "枠が埋まっている",
+       "text": "申し込みは多く、しばらく順番を待つことになった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "家事を減らす",
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "手抜きの夕食",
+      "stats": [
+       "happy",
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "肩の荷が下りる",
+       "text": "惣菜の日を増やしたら、笑って食卓を囲めた。",
+       "fx": {
+        "happy": 4,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "余裕は小さい",
+       "text": "少し楽になったが、疲れは取れない。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "罪悪感が残る",
+       "text": "手を抜くたび、自分を責める声が頭の中に響いた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "全部ひとりで頑張る",
+     "fx": {},
+     "roll": {
+      "name": "夜の台所",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "子の笑顔",
+       "text": "朝、子が初めて名前を呼んだ。報われた気がした。",
+       "fx": {
+        "happy": 4,
+        "health": -2
+       }
+      },
+      "mid": {
+       "label": "疲れがたまる",
+       "text": "食器を洗いながら、立ったまま眠りかけた。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "体調を崩す",
+       "text": "高熱で寝込み、家の中が回らなくなった。",
+       "fx": {
+        "health": -8,
+        "happy": -5,
+        "bond": -2
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_iso_teen_01",
+   "age": [
+    16,
+    18
+   ],
+   "requires": {
+    "status": [
+     "school",
+     "futoko"
+    ],
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "title": "お昼の時間",
+   "text": "教室の昼休み、一緒に食べる人がいない。いつも図書室に逃げている。",
+   "choices": [
+    {
+     "label": "図書室で顔見知りに話す",
+     "fx": {},
+     "roll": {
+      "name": "図書室の隣席",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "同じ本で話せた",
+       "text": "同じシリーズを読んでいた子と、少しだけ話せた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "会釈をする",
+       "text": "会釈を交わせるようになった。",
+       "fx": {
+        "bond": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "声が出ない",
+       "text": "口が動かず、そのまま本に目を落とした。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "スクールカウンセラーに行く",
+     "fx": {},
+     "roll": {
+      "name": "相談室",
+      "stats": [
+       "happy",
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "話を聞いてもらえる",
+       "text": "担任以外の大人が、時間をかけて聞いてくれた。",
+       "fx": {
+        "happy": 5,
+        "bond": 3
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子を見ることに",
+       "text": "また来週と言われ、予約票をもらった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "うまく話せない",
+       "text": "話そうとすると声が詰まり、時間が過ぎた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "部活や委員会に入る",
+     "fx": {},
+     "roll": {
+      "name": "入部届",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 28,
+      "good": {
+       "label": "居場所ができる",
+       "text": "文化部の先輩が、帰り道に声をかけてくれた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "顔を出す",
+       "text": "週一で顔を出すだけの関係が続いている。",
+       "fx": {
+        "bond": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "なじめない",
+       "text": "輪の中に入れず、一回で行かなくなった。",
+       "fx": {
+        "bond": -3,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "今のままで過ごす",
+     "fx": {},
+     "roll": {
+      "name": "一人の昼",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "静かな昼",
+       "text": "窓際で食べる昼は、案外悪くなかった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "ひとりが続く",
+       "text": "昼休みの終わりを数えるのが日課になった。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "登校が重くなる",
+       "text": "朝、制服に袖を通すのに時間がかかるようになった。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1,
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_futoko_01",
+   "age": [
+    16,
+    18
+   ],
+   "requires": {
+    "status": [
+     "futoko"
+    ],
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "title": "進路の面談",
+   "text": "担任から、通信制や別の進路の資料が届いた。一緒に見ようと言われている。",
+   "choices": [
+    {
+     "label": "資料を見て相談する",
+     "fx": {},
+     "roll": {
+      "name": "面談の机",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "通える道が見える",
+       "text": "自分のペースで通える学び方を知り、少し安心した。",
+       "fx": {
+        "happy": 5,
+        "know": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "気持ちを話す",
+       "text": "進路は決まらなかったが、先生が最後まで聞いてくれた。",
+       "fx": {
+        "happy": 2,
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "答えが出ない",
+       "text": "資料を持ち帰ったまま、棚にしまった。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "フリースクールを見学",
+     "fx": {},
+     "roll": {
+      "name": "見学の日",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "居場所が見つかる",
+       "text": "穏やかな雰囲気に、続けて通えそうな気がした。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "一回だけ顔を出す",
+       "text": "見学した。また来ますと伝えられた。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "入口で足がすくむ",
+       "text": "建物の前で足が動かず、親に謝って帰った。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "家で自習を始める",
+     "fx": {},
+     "roll": {
+      "name": "机の上のノート",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "学びが戻る",
+       "text": "一日一時間の勉強が、日課になった。",
+       "fx": {
+        "know": 6,
+        "happy": 3
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "気が向いたら",
+       "text": "やる日もあれば、やらない日もある。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "手が止まる",
+       "text": "机に向かうだけで、疲れてしまう。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "何も決めない",
+     "fx": {},
+     "roll": {
+      "name": "暗い部屋",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "親が待ってくれる",
+       "text": "親は急かさず、何も言わずにご飯を作った。",
+       "fx": {
+        "happy": 2,
+        "bond": 1
+       }
+      },
+      "mid": {
+       "label": "時間だけ過ぎる",
+       "text": "季節だけが変わっていく。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "気力が落ちる",
+       "text": "一日中、画面を眺めていた。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1,
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_iso_college_01",
+   "age": [
+    19,
+    24
+   ],
+   "requires": {
+    "status": [
+     "college"
+    ],
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "title": "履修の孤独",
+   "text": "大学で誰とも話さずに一日が終わる。サークルの説明会が続いている。",
+   "choices": [
+    {
+     "label": "サークルに顔を出す",
+     "fx": {},
+     "roll": {
+      "name": "説明会の教室",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "気の合う人がいる",
+       "text": "隣の席の先輩が、名前を覚えてくれた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "見学して帰る",
+       "text": "見学だけして、帰り道に学食でラーメンを食べた。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "入口で帰る",
+       "text": "人の多さに圧倒されて、扉を開けられなかった。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "学生相談室に行く",
+     "fx": {},
+     "roll": {
+      "name": "相談室の椅子",
+      "stats": [
+       "happy",
+       "know"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "話せる場所ができる",
+       "text": "週に一度、話せる相談員がいる安心感ができた。",
+       "fx": {
+        "happy": 5,
+        "bond": 3
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "初回は様子見",
+       "text": "今日は雑談だけで終わった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "言葉が出ない",
+       "text": "何を話すか決められず、時間だけ過ぎた。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "授業の課題に集中する",
+     "fx": {},
+     "roll": {
+      "name": "図書館の机",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "成績が上がる",
+       "text": "課題が評価され、教授に声をかけられた。",
+       "fx": {
+        "know": 6,
+        "happy": 3,
+        "bond": 2
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "単位は取れる",
+       "text": "孤独だが、学ぶ時間は静かに満ちている。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "講義が遠のく",
+       "text": "出席が減り、単位が危うくなった。",
+       "fx": {
+        "know": -4,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "何もしない",
+     "fx": {},
+     "roll": {
+      "name": "帰り道の夕陽",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "偶然話しかけられる",
+       "text": "学食で隣になった人に、ペンを貸した。",
+       "fx": {
+        "bond": 3,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "静かな日々",
+       "text": "春が終わり、夏が来た。",
+       "fx": {
+        "happy": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "通学が重い",
+       "text": "大学へ向かう電車に乗れない日が増えた。",
+       "fx": {
+        "happy": -6,
+        "know": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1,
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_iso_adult_01",
+   "age": [
+    30,
+    55
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "title": "誰とも話さない週末",
+   "text": "週末、誰とも一言も話さず、コンビニの店員にだけ「どうも」と言った。",
+   "choices": [
+    {
+     "label": "地域の集まりに参加",
+     "fx": {},
+     "roll": {
+      "name": "地域の集まり",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "顔見知りができる",
+       "text": "同じ町の人と、茶を飲みながら雑談できた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "一度だけ顔を出す",
+       "text": "一度顔を出した。居心地は悪くなかった。",
+       "fx": {
+        "bond": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "場に溶け込めない",
+       "text": "自己紹介だけで疲れて、早々に帰った。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "古い友人に連絡",
+     "fx": {},
+     "roll": {
+      "name": "スマホの宛先",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "再会できる",
+       "text": "連絡先を探し、十年ぶりに飲みに行く約束をした。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "返事が来る",
+       "text": "返事は来た。まだ会う約束はしていない。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "返信がない",
+       "text": "メッセージは既読にならなかった。",
+       "fx": {
+        "happy": -3,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "趣味の教室に通う",
+     "fx": {},
+     "roll": {
+      "name": "教室の入り口",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "仲間ができる",
+       "text": "同じ趣味の人と、毎週話す時間ができた。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "通い続ける",
+       "text": "月謝の分だけは、毎週外に出ている。",
+       "fx": {
+        "happy": 2,
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "数回で行かなくなる",
+       "text": "最初の数回で気後れし、足が遠のいた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "家で過ごす",
+     "fx": {},
+     "roll": {
+      "name": "静かな部屋",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "のんびりした日",
+       "text": "映画を一本見て、洗濯もした。悪くない。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "人と話さない",
+       "text": "会話が減り、声の出し方を忘れそうになる。",
+       "fx": {
+        "happy": -3,
+        "bond": -2
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "気力が落ちる",
+       "text": "休日も、布団から出ない日が続いた。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1,
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_iso_old_01",
+   "age": [
+    65,
+    90
+   ],
+   "requires": {
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "title": "静かな団地",
+   "text": "隣の部屋の人の顔も知らない。朝、新聞受けから音がするだけの日々だ。",
+   "choices": [
+    {
+     "label": "地域のサロンに行く",
+     "fx": {},
+     "roll": {
+      "name": "サロンの入口",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "常連さんができる",
+       "text": "お茶と手芸の会で、名前を呼ばれた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "見学する",
+       "text": "一度見学した。来週も行ってみようと思う。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "入りづらい",
+       "text": "扉の前で迷って、帰ってしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "民生委員に相談",
+     "fx": {},
+     "roll": {
+      "name": "自宅への訪問",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "見守りがつく",
+       "text": "月に二度、顔を出してくれる人ができた。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "話を聞いてもらう",
+       "text": "雑談で一時間が過ぎ、お茶が冷めた。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "bad": {
+       "label": "遠慮してしまう",
+       "text": "来てもらうのが申し訳なく、断ってしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "子や孫に電話する",
+     "fx": {},
+     "roll": {
+      "name": "受話器の向こう",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "声が聞ける",
+       "text": "孫が電話に出て、学校の話をしてくれた。",
+       "fx": {
+        "bond": 5,
+        "happy": 6
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "近況を話す",
+       "text": "忙しそうで、短い電話だった。",
+       "fx": {
+        "bond": 1,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "つながらない",
+       "text": "留守番電話になり、メッセージは残せなかった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "ひとりで過ごす",
+     "fx": {},
+     "roll": {
+      "name": "静かな部屋",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "日課を守る",
+       "text": "朝の散歩と庭いじりで、一日が整った。",
+       "fx": {
+        "health": 2,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "口数が減る",
+       "text": "一日、誰とも話さずに終わった。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "外に出なくなる",
+       "text": "買い物以外、外へ出なくなった。",
+       "fx": {
+        "health": -5,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "iso": 1,
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_iso_retired_01",
+   "age": [
+    60,
+    80
+   ],
+   "requires": {
+    "status": [
+     "retired"
+    ],
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "title": "退職後の居場所",
+   "text": "退職して、毎朝の「行く場所」がなくなった。名刺を見る日が増えた。",
+   "choices": [
+    {
+     "label": "ボランティアを始める",
+     "fx": {},
+     "roll": {
+      "name": "ボランティア",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "役割ができる",
+       "text": "地域の見守り活動で、顔を覚えられた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "週一で続ける",
+       "text": "週一の活動が、一週間の目印になった。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "なじめない",
+       "text": "やり方が合わず、早々に離れてしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "元同僚と会う",
+     "fx": {},
+     "roll": {
+      "name": "喫茶店の約束",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "昔話に花が咲く",
+       "text": "三時間、昔の話で笑った。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "近況を交わす",
+       "text": "互いに近況を伝え合い、解散した。",
+       "fx": {
+        "bond": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "話が合わない",
+       "text": "仕事の話しかなく、気まずいまま別れた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "趣味に没頭する",
+     "fx": {},
+     "roll": {
+      "name": "作業台の前",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "作品が仕上がる",
+       "text": "一年かけた木工が完成し、近所に見せた。",
+       "fx": {
+        "happy": 6,
+        "bond": 3
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "満足する",
+       "text": "誰にも見せないが、やりがいはある。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "bad": {
+       "label": "飽きてしまう",
+       "text": "道具が片付けられないまま、時間が過ぎた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "家で過ごす",
+     "fx": {},
+     "roll": {
+      "name": "昼のテレビ",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "心安らぐ日",
+       "text": "日向ぼっこをしながら、うたた寝した。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "人に会わない",
+       "text": "テレビの音だけで一日が終わる。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "日課が崩れる",
+       "text": "起きる時間も食事も、バラバラになった。",
+       "fx": {
+        "health": -4,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "iso": 1,
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_apathy_01",
+   "age": [
+    20,
+    35
+   ],
+   "requires": {
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "title": "何もしたくない",
+   "text": "好きだったことにも、手が伸びない。何も食べたくないわけではないが、何もしたくない。",
+   "choices": [
+    {
+     "label": "医療機関に相談する",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "診察の予約",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "専門家と話せた",
+       "text": "医師は話を最後まで聞き、無理のない休み方を教えてくれた。",
+       "fx": {
+        "happy": 5,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "初診は様子見",
+       "text": "まず生活の状況を聞かれ、また来週と言われた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "予約が取れない",
+       "text": "どこも数週間待ちで、気力が先に尽きた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "小さな習慣を作る",
+     "fx": {},
+     "roll": {
+      "name": "毎朝の一杯",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "朝が整う",
+       "text": "毎朝、窓を開けてお茶を飲むようになった。",
+       "fx": {
+        "health": 4,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "三日坊主",
+       "text": "三日続いて、四日目はやらなかった。",
+       "fx": {
+        "health": 1
+       }
+      },
+      "bad": {
+       "label": "やる気が出ない",
+       "text": "習慣にするどころか、予定を立てる気力もない。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "友人に話してみる",
+     "fx": {},
+     "roll": {
+      "name": "メッセージ",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "気持ちが軽くなる",
+       "text": "友人は「大丈夫」と言わず、ただ聞いてくれた。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "apathy": -1,
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "聞いてもらえる",
+       "text": "うまく説明できないまま、話した。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "分かってもらえない",
+       "text": "「気の持ちよう」と言われ、話すのをやめた。",
+       "fx": {
+        "bond": -3,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "やり過ごす",
+     "fx": {},
+     "roll": {
+      "name": "天井の模様",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "少し持ち直す",
+       "text": "夕方、ふと外に出る気になった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "何もできない日",
+       "text": "一日が音もなく過ぎた。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "さらに落ちる",
+       "text": "起き上がるだけで精一杯の日が続く。",
+       "fx": {
+        "happy": -6,
+        "health": -3
+       },
+       "set": {
+        "press": {
+         "apathy": 1,
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_apathy_02",
+   "age": [
+    35,
+    55
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "title": "やる気の消えた机",
+   "text": "仕事は回している。ただ、何のためにやっているのか、分からなくなった。",
+   "choices": [
+    {
+     "label": "カウンセリングを受ける",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "面談室の椅子",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "整理がつく",
+       "text": "話すうちに、自分が疲れていたことに気づいた。",
+       "fx": {
+        "happy": 5,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "初回で様子見",
+       "text": "初回はほとんど話せなかったが、次の予約を入れた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "相性が合わない",
+       "text": "合わない人に当たり、続ける気が失せた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "休暇を取って遠出",
+     "fx": {},
+     "roll": {
+      "name": "電車の窓",
+      "stats": [
+       "health",
+       "happy"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "風景に救われる",
+       "text": "海沿いの駅で、何も考えずに一時間座っていた。",
+       "fx": {
+        "happy": 6,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "気晴らしになる",
+       "text": "帰ると元通りだったが、悪くない一日だった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "気が晴れない",
+       "text": "景色は綺麗だが、心は動かなかった。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "仕事の担当を変える",
+     "fx": {},
+     "roll": {
+      "name": "配置換えの希望",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 28,
+      "good": {
+       "label": "新しい仕事で動き出す",
+       "text": "新規の企画に入り、久しぶりに机に向かう時間が楽しい。",
+       "fx": {
+        "happy": 5,
+        "know": 3
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "検討される",
+       "text": "検討するとの返事。待つ日が続く。",
+       "fx": {
+        "happy": 0
+       }
+      },
+      "bad": {
+       "label": "理解されない",
+       "text": "「贅沢だ」と言われ、口をつぐんだ。",
+       "fx": {
+        "happy": -4,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "淡々と続ける",
+     "fx": {},
+     "roll": {
+      "name": "変わらない毎日",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "悪くない日",
+       "text": "定時で上がれて、帰りに好きな店でうどんを食べた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "無感覚が続く",
+       "text": "嬉しいことも悲しいことも、遠くに聞こえる。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "ミスが増える",
+       "text": "うっかりが重なり、上司に呼び出された。",
+       "fx": {
+        "happy": -5,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "apathy": 1,
+         "tired": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_apathy_03",
+   "age": [
+    40,
+    64
+   ],
+   "requires": {
+    "status": [
+     "jobless",
+     "hikikomori"
+    ],
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "title": "動けない朝",
+   "text": "今朝も布団から出られなかった。家賃の引き落とし日を思い出して、また目を閉じた。",
+   "choices": [
+    {
+     "label": "診療所で話を聞く",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "診察室の椅子",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "休み方を教わる",
+       "text": "医師は急かさず、生活のリズムの整え方を教えてくれた。",
+       "fx": {
+        "happy": 5,
+        "health": 4
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "通うことに決める",
+       "text": "まず月一回通うことになった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "受付で帰る",
+       "text": "受付で名前を書く手が震え、帰ってしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "福祉の窓口へ行く",
+     "fx": {},
+     "roll": {
+      "name": "窓口の番号札",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "制度が使える",
+       "text": "費用の軽減や生活の相談先を教えてもらえた。",
+       "fx": {
+        "happy": 4,
+        "know": 3
+       },
+       "set": {
+        "cond": {
+         "poor": -1,
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "説明を受ける",
+       "text": "必要な書類のリストをもらった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "窓口が遠い",
+       "text": "バスに乗る前に疲れて、引き返した。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "一日一つだけ決める",
+     "fx": {},
+     "roll": {
+      "name": "手帳の一行",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "小さな成功",
+       "text": "洗濯物を干す、の一行に丸を付けた。続いた。",
+       "fx": {
+        "happy": 4,
+        "health": 2
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "できない日もある",
+       "text": "できた日と、できなかった日が半分ずつ。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "手帳を開けない",
+       "text": "手帳は机の上に置いたままだ。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "寝て過ごす",
+     "fx": {},
+     "roll": {
+      "name": "夕方の部屋",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "夢の中で安心",
+       "text": "久しぶりに夢を見た。起きて、少し笑った。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "一日が溶ける",
+       "text": "気づけば夜だった。何も食べていない。",
+       "fx": {
+        "health": -3,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "日課が崩れる",
+       "text": "眠る時間も食事も、バラバラになった。",
+       "fx": {
+        "health": -5,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1,
+         "poor": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_apathy_04",
+   "age": [
+    65,
+    85
+   ],
+   "requires": {
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "title": "張り合いのない日",
+   "text": "新聞を読む気も、散歩に出る気も起きない。一日が長く、空虚に感じる。",
+   "choices": [
+    {
+     "label": "かかりつけ医に話す",
+     "cost": {
+      "money": -2
+     },
+     "fx": {},
+     "roll": {
+      "name": "診察室",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "丁寧に聞いてもらう",
+       "text": "医師は時間をかけて話を聞き、体の面から確認してくれた。",
+       "fx": {
+        "happy": 5,
+        "health": 4
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子を見ることに",
+       "text": "特に異常はなく、規則的な生活を勧められた。",
+       "fx": {
+        "happy": 2,
+        "health": 1
+       }
+      },
+      "bad": {
+       "label": "話しそびれる",
+       "text": "診察室で、何を言うつもりだったか忘れた。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "昔の趣味を取り出す",
+     "fx": {},
+     "roll": {
+      "name": "押入れの道具",
+      "stats": [
+       "happy",
+       "know"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "手が覚えている",
+       "text": "埃をはらった道具は、まだ手になじんだ。",
+       "fx": {
+        "happy": 6,
+        "know": 2
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少しだけ触る",
+       "text": "触っただけで、またしまった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "気が乗らない",
+       "text": "広げた道具を、そのまま眺めて終わった。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "地域包括に相談",
+     "fx": {},
+     "roll": {
+      "name": "相談窓口",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "通える場がある",
+       "text": "運動とお茶の教室を紹介された。",
+       "fx": {
+        "bond": 5,
+        "happy": 4,
+        "health": 2
+       },
+       "set": {
+        "cond": {
+         "apathy": -1,
+         "iso": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "資料をもらう",
+       "text": "資料を持ち帰り、居間の机に置いた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "遠慮してしまう",
+       "text": "世話になりたくないと、話を切り上げた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "何もしない",
+     "fx": {},
+     "roll": {
+      "name": "午後の縁側",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "静かな午後",
+       "text": "縁側で猫を眺めて、静かな午後を過ごした。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "体がなまる",
+       "text": "動かない日が増え、立つのが大変になった。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "食が細くなる",
+       "text": "食卓に座る気が起きず、軽く済ませる日が続く。",
+       "fx": {
+        "health": -6,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1,
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_poor_debt_01",
+   "age": [
+    25,
+    60
+   ],
+   "requires": {
+    "money_max": -100,
+    "cond_min": {
+     "poor": 2
+    },
+    "status": [
+     "work"
+    ]
+   },
+   "title": "リボ払いの明細",
+   "text": "カードの明細を開くのが怖い。支払いが、別のカードの借入で回っている。",
+   "choices": [
+    {
+     "label": "公的な相談窓口へ",
+     "fx": {},
+     "roll": {
+      "name": "無料相談",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "整理の道筋が見える",
+       "text": "相談員と一覧表を作り、返済の優先順位が決まった。",
+       "fx": {
+        "happy": 5,
+        "know": 4
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "相談を続ける",
+       "text": "まだ解決はしないが、次の予約をもらった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "金額に圧倒される",
+       "text": "合計金額を見て、書類を閉じてしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "家計を見直す",
+     "fx": {},
+     "roll": {
+      "name": "家計の見直し",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "支出が減る",
+       "text": "固定費を見直し、毎月三万円が浮いた。",
+       "fx": {
+        "happy": 3,
+        "know": 3,
+        "money": 30
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少し楽になる",
+       "text": "見直したが、完済には遠い。",
+       "fx": {
+        "happy": 1,
+        "money": 10
+       }
+      },
+      "bad": {
+       "label": "続かない",
+       "text": "数日で元の暮らしに戻ってしまった。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "副業を始める",
+     "fx": {},
+     "roll": {
+      "name": "夜の副業",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "収入が増える",
+       "text": "夜に在宅の仕事を入れ、毎月二万円増えた。",
+       "fx": {
+        "happy": 3,
+        "health": -2,
+        "money": 40
+       }
+      },
+      "mid": {
+       "label": "手間が増える",
+       "text": "収入より、疲れのほうが目立つ。",
+       "fx": {
+        "health": -3,
+        "happy": -1,
+        "money": 10
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "体が持たない",
+       "text": "睡眠が削れ、昼間の仕事に響いた。",
+       "fx": {
+        "health": -7,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "見ないふりをする",
+     "fx": {},
+     "roll": {
+      "name": "開かない封筒",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "督促が来ない",
+       "text": "この月は、督促状が来なかった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "利息が増える",
+       "text": "利息が毎月、静かに積み上がる。",
+       "fx": {
+        "happy": -3,
+        "money": -30
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "督促が続く",
+       "text": "電話が鳴り続け、スマホを裏返す日が続いた。",
+       "fx": {
+        "happy": -6,
+        "money": -60
+       },
+       "set": {
+        "press": {
+         "poor": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_poor_rent_01",
+   "age": [
+    22,
+    60
+   ],
+   "requires": {
+    "cond_min": {
+     "poor": 2
+    },
+    "money_max": 0
+   },
+   "title": "家賃の滞納",
+   "text": "家賃を二か月滞納している。管理会社から、書面が届いた。",
+   "choices": [
+    {
+     "label": "管理会社に電話して相談",
+     "fx": {},
+     "roll": {
+      "name": "電話口の交渉",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "分割にしてもらう",
+       "text": "分割払いが認められ、住み続けられることになった。",
+       "fx": {
+        "happy": 5,
+        "bond": 2
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "猶予をもらう",
+       "text": "一か月だけ待ってもらえた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "厳しく言われる",
+       "text": "支払いを迫られ、電話を切ってから黙り込んだ。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "住まいの支援制度を調べる",
+     "fx": {},
+     "roll": {
+      "name": "公的な窓口",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "給付が受けられる",
+       "text": "家賃の一部を補助する制度につながった。",
+       "fx": {
+        "happy": 5,
+        "money": 50
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "手続きを始める",
+       "text": "書類が多いが、一つずつ提出した。",
+       "fx": {
+        "happy": 1,
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "条件に合わない",
+       "text": "要件を満たさず、別の制度を案内された。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "家賃の安い部屋に移る",
+     "fx": {},
+     "roll": {
+      "name": "引越しの段ボール",
+      "stats": [
+       "health",
+       "know"
+      ],
+      "difficulty": 28,
+      "good": {
+       "label": "家計が楽になる",
+       "text": "狭いが、家賃が三万円下がった。",
+       "fx": {
+        "happy": 3,
+        "money": 40
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "狭いけれど住める",
+       "text": "荷物を減らし、新しい部屋に慣れてきた。",
+       "fx": {
+        "happy": 0,
+        "money": -20
+       }
+      },
+      "bad": {
+       "label": "初期費用に苦しむ",
+       "text": "引越し費用がかさみ、貯金が尽きた。",
+       "fx": {
+        "happy": -5,
+        "money": -60
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "書面を見なかったことにする",
+     "fx": {},
+     "roll": {
+      "name": "玄関の郵便受け",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "猶予が延びる",
+       "text": "管理会社の通知が、次の月に延期された。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "mid": {
+       "label": "通知が増える",
+       "text": "赤字の封筒が増えていく。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "退去を迫られる",
+       "text": "退去の期日が示され、部屋の荷物が重く見えた。",
+       "fx": {
+        "happy": -7,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "poor": 2,
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_poor_old_01",
+   "age": [
+    65,
+    85
+   ],
+   "requires": {
+    "cond_min": {
+     "poor": 2
+    }
+   },
+   "title": "年金の月末",
+   "text": "年金の振込日までまだ十日ある。財布に残るのは、小銭と診察券だけだ。",
+   "choices": [
+    {
+     "label": "地域包括に相談",
+     "fx": {},
+     "roll": {
+      "name": "相談窓口",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "制度を教えてもらう",
+       "text": "高齢者向けの支援制度と配食の案内をもらえた。",
+       "fx": {
+        "happy": 5,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "相談を続ける",
+       "text": "担当者は丁寧だが、支援は少しずつ進む。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "遠慮してしまう",
+       "text": "恥ずかしく感じ、窓口を出てしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "子に打ち明ける",
+     "fx": {},
+     "roll": {
+      "name": "子への電話",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "仕送りを受ける",
+       "text": "子は驚きつつ、毎月の少額の仕送りを申し出た。",
+       "fx": {
+        "bond": 3,
+        "happy": 3,
+        "money": 30
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "気持ちを話す",
+       "text": "お金は出なかったが、話せたことで気が楽になった。",
+       "fx": {
+        "bond": 2,
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "心配をかけたくない",
+       "text": "電話を切るとき、「元気だよ」と言ってしまった。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "食費を切り詰める",
+     "fx": {},
+     "roll": {
+      "name": "台所の棚",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "工夫で乗り切る",
+       "text": "安い食材で、作り置きを覚えた。",
+       "fx": {
+        "happy": 2,
+        "health": 2,
+        "money": 10
+       }
+      },
+      "mid": {
+       "label": "ぎりぎりしのぐ",
+       "text": "給料日まで何とか耐えた。",
+       "fx": {
+        "health": -2,
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "栄養が偏る",
+       "text": "体がだるく、病院通いが増えた。",
+       "fx": {
+        "health": -6,
+        "happy": -4,
+        "money": -20
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "我慢して様子を見る",
+     "fx": {},
+     "roll": {
+      "name": "通帳の数字",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "臨時の知らせ",
+       "text": "還付金の通知が届いた。",
+       "fx": {
+        "happy": 2,
+        "money": 15
+       }
+      },
+      "mid": {
+       "label": "毎月ぎりぎり",
+       "text": "毎月、月末がつらい。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "体調を崩す",
+       "text": "食事を抑えすぎて、貧血で倒れた。",
+       "fx": {
+        "health": -8,
+        "happy": -5,
+        "money": -30
+       },
+       "set": {
+        "press": {
+         "poor": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "hard_poor_kids_01",
+   "age": [
+    28,
+    50
+   ],
+   "requires": {
+    "kids_min": 1,
+    "cond_min": {
+     "poor": 2
+    }
+   },
+   "title": "給食費の封筒",
+   "text": "子どもが学校の封筒を、そっと差し出した。「お金、明日までだって」",
+   "choices": [
+    {
+     "label": "学校に事情を話す",
+     "fx": {},
+     "roll": {
+      "name": "担任との面談",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 18,
+      "good": {
+       "label": "支援を案内される",
+       "text": "就学援助の案内を受け、封筒の中身が軽くなった。",
+       "fx": {
+        "happy": 5,
+        "bond": 3
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "分割にしてもらう",
+       "text": "数回に分けて払うことで、了承してもらえた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "言い出しにくい",
+       "text": "担任の前では、「大丈夫です」と答えてしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "手当や制度を調べる",
+     "fx": {},
+     "roll": {
+      "name": "役所の窓口",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 22,
+      "good": {
+       "label": "給付が増える",
+       "text": "ひとり親向けの手当を受け取れることが分かった。",
+       "fx": {
+        "happy": 5,
+        "money": 40
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "申請を始める",
+       "text": "書類を揃えるのに時間がかかるが、前に進めた。",
+       "fx": {
+        "happy": 1,
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "該当しない",
+       "text": "条件に当てはまらず、肩を落として帰った。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "仕事を増やす",
+     "fx": {},
+     "roll": {
+      "name": "夜勤のシフト",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "収入が伸びる",
+       "text": "夜のシフトを入れ、家計に余裕が出た。",
+       "fx": {
+        "happy": 2,
+        "health": -3,
+        "money": 50
+       }
+      },
+      "mid": {
+       "label": "子と会う時間が減る",
+       "text": "収入は増えたが、顔を合わせる時間が減った。",
+       "fx": {
+        "happy": -3,
+        "bond": -3,
+        "money": 20
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "体が持たない",
+       "text": "睡眠が足りず、体を壊してしまった。",
+       "fx": {
+        "health": -8,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "自分で何とかする",
+     "fx": {},
+     "roll": {
+      "name": "夜の電卓",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "工夫でしのぐ",
+       "text": "来月の特売品を計算し、なんとか支払いを済ませた。",
+       "fx": {
+        "happy": 1,
+        "money": -10
+       }
+      },
+      "mid": {
+       "label": "やりくりが続く",
+       "text": "子に気づかれないよう、笑って過ごした。",
+       "fx": {
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      },
+      "bad": {
+       "label": "催促が来る",
+       "text": "学校から再度の連絡が来て、息が詰まった。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "poor": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "events": [
+  {
+   "id": "hard_ev_curtain_01",
+   "age": [
+    18,
+    60
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "久しぶりにカーテンを開けた。外の光が、思ったより白かった。",
+   "fx": {
+    "happy": 2,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_convenience_01",
+   "age": [
+    18,
+    60
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "深夜のコンビニで、店員が「あったかいのどうぞ」と言った。",
+   "fx": {
+    "happy": 3,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_sleep_01",
+   "age": [
+    18,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "昼夜が逆転したまま、一週間が過ぎた。",
+   "fx": {
+    "health": -3,
+    "happy": -2
+   }
+  },
+  {
+   "id": "hard_ev_news_01",
+   "age": [
+    20,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "同級生の近況を、画面越しに見てしまった。",
+   "fx": {
+    "happy": -4,
+    "bond": -1
+   }
+  },
+  {
+   "id": "hard_ev_mother_01",
+   "age": [
+    20,
+    50
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ],
+    "parents_alive": true
+   },
+   "text": "部屋の前に、母の作ったおにぎりが置かれていた。",
+   "fx": {
+    "happy": 3,
+    "health": 1
+   }
+  },
+  {
+   "id": "hard_ev_walk_01",
+   "age": [
+    18,
+    60
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "夜明け前に、近所を一周歩いた。星が見えた。",
+   "fx": {
+    "health": 2,
+    "happy": 3
+   }
+  },
+  {
+   "id": "hard_ev_game_01",
+   "age": [
+    18,
+    45
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "ネットの仲間と深夜まで話した。翌日は昼過ぎまで起きられなかった。",
+   "fx": {
+    "bond": 2,
+    "health": -2
+   }
+  },
+  {
+   "id": "hard_ev_cleanup_01",
+   "age": [
+    18,
+    60
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "部屋の隅を片付けたら、昔の定期入れが出てきた。",
+   "fx": {
+    "happy": 3,
+    "health": 1
+   }
+  },
+  {
+   "id": "hard_ev_door_01",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ],
+    "parents_alive": true
+   },
+   "text": "玄関で聞こえる親の足音が、前より遅くなった。",
+   "fx": {
+    "happy": -3,
+    "bond": -1
+   }
+  },
+  {
+   "id": "hard_ev_alone_01",
+   "age": [
+    40,
+    70
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ],
+    "parents_alive": false
+   },
+   "text": "一人分の味噌汁は、いつもの量では多すぎた。",
+   "fx": {
+    "happy": -3,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_letter_01",
+   "age": [
+    22,
+    60
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "自治体から、相談会の案内が届いた。机の隅に置いた。",
+   "fx": {
+    "happy": 1,
+    "bond": -1
+   }
+  },
+  {
+   "id": "hard_ev_cat_01",
+   "age": [
+    18,
+    70
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "hikikomori"
+    ]
+   },
+   "text": "窓の外で、近所の猫がこちらを見ていた。",
+   "fx": {
+    "happy": 3
+   }
+  },
+  {
+   "id": "hard_ev_jobless_01",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "jobless"
+    ]
+   },
+   "text": "不採用の通知が、また一通届いた。",
+   "fx": {
+    "happy": -4,
+    "know": -1
+   }
+  },
+  {
+   "id": "hard_ev_jobless_02",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "jobless"
+    ]
+   },
+   "text": "職業相談の窓口で、職員が履歴書の書き方を丁寧に教えてくれた。",
+   "fx": {
+    "know": 2,
+    "happy": -1
+   }
+  },
+  {
+   "id": "hard_ev_jobless_03",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "jobless"
+    ],
+    "cond_min": {
+     "poor": 1
+    }
+   },
+   "text": "通帳の残高を見るたび、ため息が出る。",
+   "fx": {
+    "happy": -3,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_jobless_04",
+   "age": [
+    22,
+    60
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "jobless"
+    ]
+   },
+   "text": "図書館で借りた本を一冊読み終えた。",
+   "fx": {
+    "know": 3,
+    "happy": 2
+   }
+  },
+  {
+   "id": "hard_ev_jobless_05",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "jobless"
+    ]
+   },
+   "text": "短期バイトの日当で、久しぶりに好きなパンを買った。",
+   "fx": {
+    "happy": 2,
+    "health": -1,
+    "money": 8
+   }
+  },
+  {
+   "id": "hard_ev_jobless_06",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "jobless"
+    ],
+    "cond_min": {
+     "iso": 1
+    }
+   },
+   "text": "昼間の公園で、スーツ姿の人たちが急いで通り過ぎた。",
+   "fx": {
+    "happy": -3,
+    "bond": -1
+   }
+  },
+  {
+   "id": "hard_ev_tired_01",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "text": "通勤の電車で、立ったまま眠りかけた。",
+   "fx": {
+    "health": -3,
+    "happy": -1
+   }
+  },
+  {
+   "id": "hard_ev_tired_02",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "text": "同僚の「大丈夫？」に、反射的に「大丈夫」と答えた。",
+   "fx": {
+    "happy": -3,
+    "bond": -2
+   }
+  },
+  {
+   "id": "hard_ev_tired_03",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "text": "定時で上がれた日、駅前のベンチでしばらく空を見ていた。",
+   "fx": {
+    "happy": 2,
+    "health": 1,
+    "bond": -1
+   }
+  },
+  {
+   "id": "hard_ev_tired_04",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "text": "朝、いつもの駅で降りそびれた。",
+   "fx": {
+    "health": -3,
+    "happy": -2
+   }
+  },
+  {
+   "id": "hard_ev_tired_05",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "good",
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "text": "取れた有給の日、昼まで眠れた。",
+   "fx": {
+    "health": 3,
+    "happy": 2
+   }
+  },
+  {
+   "id": "hard_ev_tired_06",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "normal",
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   },
+   "text": "同僚が差し入れた缶コーヒーは、少し甘すぎた。",
+   "fx": {
+    "bond": 2,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_tired_07",
+   "age": [
+    25,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "cond_min": {
+     "tired": 2
+    },
+    "kids_min": 1
+   },
+   "text": "子どもの寝顔を見て、そのまま床で眠ってしまった。",
+   "fx": {
+    "health": -3,
+    "happy": 1,
+    "bond": -1
+   }
+  },
+  {
+   "id": "hard_ev_iso_01",
+   "age": [
+    16,
+    22
+   ],
+   "tier": "bad",
+   "requires": {
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "text": "グループの通知が鳴った。自分の名前は、なかった。",
+   "fx": {
+    "happy": -4,
+    "bond": -2
+   }
+  },
+  {
+   "id": "hard_ev_iso_02",
+   "age": [
+    16,
+    22
+   ],
+   "tier": "good",
+   "requires": {
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "text": "帰り道、同じクラスの子が「また明日」と手を振ってくれた。",
+   "fx": {
+    "happy": 3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "hard_ev_iso_03",
+   "age": [
+    25,
+    65
+   ],
+   "tier": "bad",
+   "requires": {
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "text": "休日を終えた月曜、声が少しかすれていた。",
+   "fx": {
+    "happy": -2,
+    "bond": -2
+   }
+  },
+  {
+   "id": "hard_ev_iso_04",
+   "age": [
+    25,
+    65
+   ],
+   "tier": "normal",
+   "requires": {
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "text": "古い友人から年賀状が届いた。返事を書くのに三日かかった。",
+   "fx": {
+    "bond": 2,
+    "happy": 1,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_iso_05",
+   "age": [
+    65,
+    90
+   ],
+   "tier": "normal",
+   "requires": {
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "text": "回覧板を渡すとき、隣の人とお天気の話をした。",
+   "fx": {
+    "bond": 2,
+    "happy": 2,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_iso_06",
+   "age": [
+    65,
+    90
+   ],
+   "tier": "bad",
+   "requires": {
+    "cond_min": {
+     "iso": 2
+    }
+   },
+   "text": "今日は、一度も声を出さなかった。",
+   "fx": {
+    "happy": -3,
+    "bond": -2
+   }
+  },
+  {
+   "id": "hard_ev_apathy_01",
+   "age": [
+    20,
+    70
+   ],
+   "tier": "bad",
+   "requires": {
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "text": "洗濯物がたまったまま、もう三日目になる。",
+   "fx": {
+    "happy": -3,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_apathy_02",
+   "age": [
+    20,
+    70
+   ],
+   "tier": "normal",
+   "requires": {
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "text": "お気に入りだった曲を聞いたが、何も感じなかった。それでも最後まで聞いた。",
+   "fx": {
+    "happy": -1,
+    "health": 1
+   }
+  },
+  {
+   "id": "hard_ev_apathy_03",
+   "age": [
+    20,
+    70
+   ],
+   "tier": "good",
+   "requires": {
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "text": "夕方、近所の八百屋で熟れた桃を買った。かじると、甘かった。",
+   "fx": {
+    "happy": 3,
+    "health": 1
+   }
+  },
+  {
+   "id": "hard_ev_apathy_04",
+   "age": [
+    20,
+    70
+   ],
+   "tier": "bad",
+   "requires": {
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "text": "返信しなければならない連絡が、三つたまっている。",
+   "fx": {
+    "happy": -3,
+    "bond": -2
+   }
+  },
+  {
+   "id": "hard_ev_poor_01",
+   "age": [
+    22,
+    70
+   ],
+   "tier": "bad",
+   "requires": {
+    "cond_min": {
+     "poor": 2
+    }
+   },
+   "text": "スーパーの閉店間際、半額シールを待って棚の前に立った。",
+   "fx": {
+    "happy": -3,
+    "health": -1
+   }
+  },
+  {
+   "id": "hard_ev_poor_02",
+   "age": [
+    22,
+    70
+   ],
+   "tier": "normal",
+   "requires": {
+    "cond_min": {
+     "poor": 2
+    }
+   },
+   "text": "同僚の割り勘を断って、家で袋麺を食べた。",
+   "fx": {
+    "money": 10,
+    "happy": -2,
+    "health": 1
+   }
+  },
+  {
+   "id": "hard_ev_poor_03",
+   "age": [
+    22,
+    80
+   ],
+   "tier": "good",
+   "requires": {
+    "cond_min": {
+     "poor": 2
+    }
+   },
+   "text": "市の広報で見つけた無料の講座に、行ってみた。",
+   "fx": {
+    "know": 3,
+    "happy": 2
+   }
+  },
+  {
+   "id": "hard_ev_poor_04",
+   "age": [
+    65,
+    90
+   ],
+   "tier": "normal",
+   "requires": {
+    "cond_min": {
+     "poor": 2
+    }
+   },
+   "text": "寒い夜、暖房を我慢して、湯たんぽを抱いて眠った。",
+   "fx": {
+    "health": -2,
+    "happy": 1
+   }
+  },
+  {
+   "id": "hard_ev_apathy_05",
+   "age": [
+    20,
+    70
+   ],
+   "tier": "normal",
+   "requires": {
+    "cond_min": {
+     "apathy": 2
+    }
+   },
+   "text": "買い物に出る気力がなく、冷蔵庫の残りで済ませた。",
+   "fx": {
+    "health": -1,
+    "happy": 1
+   }
+  }
+ ]
+}

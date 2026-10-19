@@ -1,0 +1,7046 @@
+{
+ "tracks": [
+  {
+   "id": "athlete",
+   "name": "プロスポーツ選手",
+   "gate": {
+    "age": [
+     17,
+     23
+    ],
+    "stat_min": {
+     "health": 82
+    },
+    "goal": [
+     "sport"
+    ]
+   },
+   "chance": {
+    "name": "スカウトの目",
+    "stats": [
+     "health",
+     "luck"
+    ],
+    "difficulty": 60,
+    "hit": {
+     "text": "試合を見ていたスカウトから声がかかり、プロ契約を結んだ。",
+     "fx": {
+      "happy": 12,
+      "money": 300
+     },
+     "job": {
+      "name": "プロ選手",
+      "income": 900,
+      "grow": 0.05,
+      "kind": "pro"
+     }
+    },
+    "miss": {
+     "text": "スカウトが来ていたと、あとで聞いた。声はかからなかった。",
+     "fx": {
+      "happy": -2
+     }
+    }
+   },
+   "end": {
+    "age": [
+     32,
+     38
+    ],
+    "text": "長い現役生活に区切りをつけ、指導者の道へ進んだ。",
+    "job": {
+     "name": "コーチ",
+     "income": 420,
+     "grow": 0.01,
+     "kind": "corp"
+    }
+   }
+  },
+  {
+   "id": "entertainer",
+   "name": "芸能人",
+   "gate": {
+    "age": [
+     15,
+     28
+    ],
+    "stat_min": {
+     "bond": 72
+    }
+   },
+   "chance": {
+    "name": "街角のスカウト",
+    "stats": [
+     "bond",
+     "luck"
+    ],
+    "difficulty": 58,
+    "hit": {
+     "text": "街で名刺を渡され、オーディションを受けて事務所に入った。",
+     "fx": {
+      "happy": 12,
+      "bond": 4
+     },
+     "job": {
+      "name": "タレント",
+      "income": 600,
+      "grow": 0.06,
+      "kind": "art"
+     }
+    },
+    "miss": {
+     "text": "差し出された名刺は、怪しいと思って捨ててしまった。",
+     "fx": {
+      "happy": -1
+     }
+    }
+   }
+  },
+  {
+   "id": "app_founder",
+   "name": "アプリで当てた起業家",
+   "gate": {
+    "age": [
+     18,
+     55
+    ],
+    "stat_min": {
+     "know": 88
+    }
+   },
+   "chance": {
+    "name": "趣味のアプリ",
+    "stats": [
+     "know",
+     "luck"
+    ],
+    "difficulty": 55,
+    "hit": {
+     "text": "趣味で作ったアプリが急に広まり、会社を立ち上げた。",
+     "fx": {
+      "happy": 10,
+      "money": 1000
+     },
+     "job": {
+      "name": "アプリ会社代表",
+      "income": 1500,
+      "grow": 0.04,
+      "kind": "founder"
+     }
+    },
+    "miss": {
+     "text": "作ったアプリは、数百人に使われただけで終わった。",
+     "fx": {
+      "know": 2,
+      "happy": -1
+     }
+    }
+   }
+  },
+  {
+   "id": "author",
+   "name": "作家",
+   "gate": {
+    "age": [
+     18,
+     70
+    ],
+    "stat_min": {
+     "know": 84,
+     "happy": 65
+    }
+   },
+   "chance": {
+    "name": "新人賞の投稿",
+    "stats": [
+     "know",
+     "luck"
+    ],
+    "difficulty": 55,
+    "hit": {
+     "text": "応募した小説が新人賞を受け、作家としてデビューした。",
+     "fx": {
+      "happy": 12,
+      "know": 4,
+      "money": 200
+     },
+     "job": {
+      "name": "作家",
+      "income": 500,
+      "grow": 0.04,
+      "kind": "art"
+     }
+    },
+    "miss": {
+     "text": "最終選考の手前で落ちたが、講評に励まされた。",
+     "fx": {
+      "know": 2,
+      "happy": -1
+     }
+    }
+   }
+  },
+  {
+   "id": "researcher",
+   "name": "研究者",
+   "gate": {
+    "age": [
+     24,
+     45
+    ],
+    "stat_min": {
+     "know": 85
+    },
+    "goal": [
+     "tech",
+     "stable"
+    ]
+   },
+   "chance": {
+    "name": "研究ポストの審査",
+    "stats": [
+     "know",
+     "luck"
+    ],
+    "difficulty": 55,
+    "hit": {
+     "text": "論文が高く評価され、大学の研究ポストが決まった。",
+     "fx": {
+      "happy": 10,
+      "know": 5
+     },
+     "job": {
+      "name": "研究者",
+      "income": 700,
+      "grow": 0.03,
+      "kind": "pro"
+     }
+    },
+    "miss": {
+     "text": "採用は見送られた。選考委員の一人が励ましてくれた。",
+     "fx": {
+      "know": 2,
+      "happy": -2
+     }
+    }
+   }
+  },
+  {
+   "id": "streamer",
+   "name": "配信者・クリエイター",
+   "gate": {
+    "age": [
+     16,
+     40
+    ],
+    "stat_min": {
+     "bond": 65,
+     "luck": 55
+    },
+    "goal": [
+     "art"
+    ]
+   },
+   "chance": {
+    "name": "バズる投稿",
+    "stats": [
+     "bond",
+     "luck"
+    ],
+    "difficulty": 58,
+    "hit": {
+     "text": "投稿した動画が急に広まり、登録者が一晩で何万人も増えた。",
+     "fx": {
+      "happy": 11,
+      "bond": 4,
+      "money": 150
+     },
+     "job": {
+      "name": "配信者",
+      "income": 800,
+      "grow": 0.05,
+      "kind": "art"
+     }
+    },
+    "miss": {
+     "text": "動画は数十回再生されて止まった。次の企画を考えた。",
+     "fx": {
+      "know": 1,
+      "happy": -1
+     }
+    }
+   }
+  },
+  {
+   "id": "chef",
+   "name": "行列店の料理人",
+   "gate": {
+    "age": [
+     25,
+     55
+    ],
+    "stat_min": {
+     "health": 55,
+     "luck": 70
+    }
+   },
+   "chance": {
+    "name": "口コミの火",
+    "stats": [
+     "luck",
+     "bond"
+    ],
+    "difficulty": 55,
+    "hit": {
+     "text": "開いた小さな店が口コミで評判になり、行列ができた。",
+     "fx": {
+      "happy": 10,
+      "bond": 4,
+      "money": 200
+     },
+     "job": {
+      "name": "店主",
+      "income": 900,
+      "grow": 0.04,
+      "kind": "founder"
+     }
+    },
+    "miss": {
+     "text": "店は静かなままだった。常連が数人、変わらず通ってくれた。",
+     "fx": {
+      "happy": -1,
+      "bond": 1
+     }
+    }
+   }
+  },
+  {
+   "id": "lottery",
+   "name": "高額当選",
+   "gate": {
+    "age": [
+     20,
+     80
+    ],
+    "stat_min": {
+     "luck": 80
+    }
+   },
+   "chance": {
+    "name": "一枚の宝くじ",
+    "stats": [
+     "luck"
+    ],
+    "difficulty": 62,
+    "hit": {
+     "text": "何気なく買った宝くじが当たり、窓口で何度も番号を確かめた。",
+     "fx": {
+      "happy": 10,
+      "money": 5000
+     }
+    },
+    "miss": {
+     "text": "宝くじは三百円しか当たらなかった。",
+     "fx": {
+      "happy": -1
+     }
+    }
+   }
+  }
+ ],
+ "decisions": [
+  {
+   "id": "track_athlete_01",
+   "age": [
+    20,
+    30
+   ],
+   "requires": {
+    "track": "athlete"
+   },
+   "title": "スランプ",
+   "text": "数字が出ない試合が続き、先発から外れた。",
+   "choices": [
+    {
+     "label": "フォームを一から見直す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -2
+     },
+     "roll": {
+      "name": "改造",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "復調",
+       "text": "新しいフォームがはまり、数字が戻ってきた。",
+       "fx": {
+        "happy": 7,
+        "health": 3,
+        "money": 150
+       }
+      },
+      "mid": {
+       "label": "手応えなし",
+       "text": "効果は見えないまま、時間だけが過ぎた。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "崩れる",
+       "text": "体が噛み合わず、二軍に落ちた。",
+       "fx": {
+        "happy": -8,
+        "money": -200
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "休みをもらい頭を空にする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 3
+     },
+     "roll": {
+      "name": "休養",
+      "stats": [
+       "happy",
+       "health"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "気分転換",
+       "text": "海辺で過ごした数日で、体が軽くなった。",
+       "fx": {
+        "happy": 6,
+        "health": 3
+       }
+      },
+      "mid": {
+       "label": "戻るだけ",
+       "text": "元の調子で復帰した。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "遅れる",
+       "text": "焦りだけが残り、出遅れた。",
+       "fx": {
+        "happy": -5,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "師と仰ぐ先輩に弟子入りする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "教え",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "開眼",
+       "text": "先輩の一言で、体の使い方が変わった。",
+       "fx": {
+        "know": 6,
+        "happy": 6,
+        "money": 100
+       }
+      },
+      "mid": {
+       "label": "学びはある",
+       "text": "小さなコツがいくつか身についた。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "空回り",
+       "text": "教わるほど混乱し、迷いが深まった。",
+       "fx": {
+        "happy": -6,
+        "know": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_athlete_02",
+   "age": [
+    22,
+    36
+   ],
+   "requires": {
+    "track": "athlete"
+   },
+   "title": "大きな怪我",
+   "text": "練習中に膝を痛め、長期離脱を告げられた。",
+   "choices": [
+    {
+     "label": "手術してじっくり治す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -3
+     },
+     "roll": {
+      "name": "リハビリ",
+      "stats": [
+       "health",
+       "happy"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "完全復帰",
+       "text": "丁寧な回復を経て、元の動きが戻った。",
+       "fx": {
+        "health": 8,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "七割の体",
+       "text": "動けるが、以前の切れは戻らなかった。",
+       "fx": {
+        "health": -2,
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "再発",
+       "text": "再び痛めて、一年を棒に振った。",
+       "fx": {
+        "health": -10,
+        "money": -400,
+        "happy": -8
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "だましながら出続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2,
+      "health": -4
+     },
+     "roll": {
+      "name": "強行",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "乗り切る",
+       "text": "痛みを抱えたまま好成績を残した。",
+       "fx": {
+        "happy": 6,
+        "money": 250
+       }
+      },
+      "mid": {
+       "label": "騙し騙し",
+       "text": "出場は続くが、膝は悲鳴を上げている。",
+       "fx": {
+        "health": -4
+       }
+      },
+      "bad": {
+       "label": "悪化",
+       "text": "歩くのも辛くなり、シーズンを終えた。",
+       "fx": {
+        "health": -12,
+        "money": -300,
+        "happy": -8
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "リハビリ期間に別の学びを得る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "学び直し",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "視野が広がる",
+       "text": "戦術と栄養を学び、競技の見え方が変わった。",
+       "fx": {
+        "know": 8,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "充実の休養",
+       "text": "穏やかな日々を過ごした。",
+       "fx": {
+        "happy": 1,
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "焦りが勝つ",
+       "text": "仲間の活躍を見るたび、心が荒れた。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_athlete_03",
+   "age": [
+    24,
+    34
+   ],
+   "requires": {
+    "track": "athlete"
+   },
+   "title": "移籍の話",
+   "text": "他球団から、今より高い条件で来てほしいと誘われた。",
+   "choices": [
+    {
+     "label": "移籍を決める",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2,
+      "bond": -2
+     },
+     "roll": {
+      "name": "新天地",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "水が合う",
+       "text": "新しい環境で出場機会が増えた。",
+       "fx": {
+        "happy": 8,
+        "money": 600
+       }
+      },
+      "mid": {
+       "label": "普通の移籍",
+       "text": "環境が変わっただけで、成績は同じだった。",
+       "fx": {
+        "money": 150
+       }
+      },
+      "bad": {
+       "label": "干される",
+       "text": "期待に応えられず、ベンチが定位置になった。",
+       "fx": {
+        "happy": -8,
+        "bond": -4,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "残留する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 4
+     },
+     "roll": {
+      "name": "恩義",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "信頼が実る",
+       "text": "残留を評価され、主将を任された。",
+       "fx": {
+        "bond": 7,
+        "happy": 5,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "変わらず",
+       "text": "今まで通りの毎日が続く。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "出番減",
+       "text": "若手に押され、出番が減っていった。",
+       "fx": {
+        "happy": -5
+       }
+      }
+     }
+    },
+    {
+     "label": "代理人を立てて条件交渉する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "交渉",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "好条件",
+       "text": "交渉がまとまり、契約が大きく伸びた。",
+       "fx": {
+        "money": 800,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "小幅アップ",
+       "text": "少しだけ条件が良くなった。",
+       "fx": {
+        "money": 150
+       }
+      },
+      "bad": {
+       "label": "関係悪化",
+       "text": "強気が裏目に出て、球団との溝ができた。",
+       "fx": {
+        "bond": -6,
+        "happy": -5,
+        "money": -100
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_athlete_04",
+   "age": [
+    26,
+    40
+   ],
+   "requires": {
+    "track": "athlete"
+   },
+   "title": "言葉の行き違い",
+   "text": "取材での冗談が切り取られ、批判の声が広がった。",
+   "choices": [
+    {
+     "label": "すぐに謝罪文を出す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "謝罪",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "すぐ収まる",
+       "text": "素直な言葉が受け入れられ、騒ぎは収まった。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "尾を引く",
+       "text": "しばらく視線が痛かった。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "火に油",
+       "text": "言葉選びが悪く、批判が強まった。",
+       "fx": {
+        "happy": -7,
+        "bond": -5,
+        "money": -150
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "結果で見返す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -2
+     },
+     "roll": {
+      "name": "結果",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "黙らせる",
+       "text": "次の試合で活躍し、風向きが変わった。",
+       "fx": {
+        "happy": 8,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "静観される",
+       "text": "批判は、いつの間にか消えていた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "不発",
+       "text": "結果が出ず、批判が重なった。",
+       "fx": {
+        "happy": -8,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "SNSを閉じて距離を置く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "遮断",
+      "stats": [
+       "happy",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "集中できる",
+       "text": "雑音が消えて、練習に没頭できた。",
+       "fx": {
+        "happy": 5,
+        "health": 3
+       }
+      },
+      "mid": {
+       "label": "ほどほど",
+       "text": "静かな日々が戻ってきた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "孤立感",
+       "text": "情報から離れ、ファンとの距離が開いた。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_athlete_05",
+   "age": [
+    33,
+    48
+   ],
+   "requires": {
+    "track": "athlete"
+   },
+   "title": "引退後の道",
+   "text": "現役を退いた今、次の生き方を考える時が来た。",
+   "choices": [
+    {
+     "label": "指導者として後進を育てる",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "指導",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "教え子が育つ",
+       "text": "教え子がプロ入りし、報告に来てくれた。",
+       "fx": {
+        "happy": 9,
+        "bond": 7,
+        "money": 100
+       }
+      },
+      "mid": {
+       "label": "地道に続く",
+       "text": "若手と向き合う日々が続く。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "伝わらない",
+       "text": "思いが空回りし、人が離れていった。",
+       "fx": {
+        "happy": -6,
+        "bond": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "解説者・講師に転身する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "露出",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "人気解説者",
+       "text": "語り口が好評で、仕事が途切れない。",
+       "fx": {
+        "happy": 7,
+        "money": 600
+       }
+      },
+      "mid": {
+       "label": "たまに呼ばれる",
+       "text": "月に数回の仕事で、細々と続く。",
+       "fx": {
+        "money": 100
+       }
+      },
+      "bad": {
+       "label": "声がかからない",
+       "text": "電話は鳴らず、静かな日が続いた。",
+       "fx": {
+        "happy": -6,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "競技と無関係の仕事に就く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "転身",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "新しい自分",
+       "text": "未経験の仕事で、意外な才能が見つかった。",
+       "fx": {
+        "know": 6,
+        "happy": 7,
+        "money": 150
+       }
+      },
+      "mid": {
+       "label": "手探り",
+       "text": "慣れない職場で、一から学んでいる。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "居場所なし",
+       "text": "「元選手」の肩書きが重荷になった。",
+       "fx": {
+        "happy": -7,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_entertainer_01",
+   "age": [
+    19,
+    40
+   ],
+   "requires": {
+    "track": "entertainer"
+   },
+   "title": "伸び悩み",
+   "text": "出演は増えたが、名前を覚えてもらえない日が続く。",
+   "choices": [
+    {
+     "label": "バラエティで体を張る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -2
+     },
+     "roll": {
+      "name": "体当たり",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "爪痕を残す",
+       "text": "一言が拾われ、翌週から指名が増えた。",
+       "fx": {
+        "happy": 8,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "まずまず",
+       "text": "笑いは取れたが、記憶には残らなかった。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "滑る",
+       "text": "空気が凍り、出番が減った。",
+       "fx": {
+        "happy": -7,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "演技の勉強に打ち込む",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "役作り",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "役に恵まれる",
+       "text": "小さな役が評判を呼び、次の話が来た。",
+       "fx": {
+        "know": 6,
+        "happy": 6,
+        "money": 250
+       }
+      },
+      "mid": {
+       "label": "地力はつく",
+       "text": "結果は見えないが、芝居の幅は広がった。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "空回り",
+       "text": "力みすぎて、現場で浮いてしまった。",
+       "fx": {
+        "happy": -5,
+        "know": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "事務所を替える",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": -3
+     },
+     "roll": {
+      "name": "独立",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "拾われる",
+       "text": "新しい事務所で、自分の売り方が見つかった。",
+       "fx": {
+        "happy": 8,
+        "money": 400
+       }
+      },
+      "mid": {
+       "label": "横ばい",
+       "text": "環境が変わっただけで、仕事は同じだった。",
+       "fx": {
+        "money": -50
+       }
+      },
+      "bad": {
+       "label": "仕事が消える",
+       "text": "前の事務所の力が働かず、仕事が減った。",
+       "fx": {
+        "happy": -8,
+        "money": -300,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_entertainer_02",
+   "age": [
+    20,
+    50
+   ],
+   "requires": {
+    "track": "entertainer"
+   },
+   "title": "言葉が切り取られた",
+   "text": "番組での発言が一部だけ広まり、誤解された。",
+   "choices": [
+    {
+     "label": "生放送で自ら説明する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "説明",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "理解される",
+       "text": "率直な話しぶりに、共感の声が集まった。",
+       "fx": {
+        "bond": 7,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "半々",
+       "text": "納得する人も、しない人もいた。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "逆効果",
+       "text": "言い訳に聞こえ、さらに叩かれた。",
+       "fx": {
+        "happy": -8,
+        "bond": -5,
+        "money": -200
+       },
+       "set": {
+        "press": {
+         "iso": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "しばらく表に出ない",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "沈黙",
+      "stats": [
+       "luck",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "風化する",
+       "text": "騒ぎは、季節とともに静まった。",
+       "fx": {
+        "happy": 3,
+        "health": 3
+       }
+      },
+      "mid": {
+       "label": "忘れ去られ",
+       "text": "騒ぎは消えたが、席も埋まっていた。",
+       "fx": {
+        "money": -150
+       }
+      },
+      "bad": {
+       "label": "居場所を失う",
+       "text": "復帰先が見つからなかった。",
+       "fx": {
+        "happy": -7,
+        "money": -400
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "ファンに手紙を書く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "手紙",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "応援が増える",
+       "text": "味方の声が増え、結束が強まった。",
+       "fx": {
+        "bond": 8,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "伝わる人に",
+       "text": "届いた人だけが、静かに残ってくれた。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "拡散して悪化",
+       "text": "文面が別の形で拡散された。",
+       "fx": {
+        "bond": -5,
+        "happy": -6
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_entertainer_03",
+   "age": [
+    22,
+    45
+   ],
+   "requires": {
+    "track": "entertainer"
+   },
+   "title": "身を削る日々",
+   "text": "睡眠が削られ、現場で立っているのも辛くなった。",
+   "choices": [
+    {
+     "label": "仕事を絞り、休みを取る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": 3
+     },
+     "roll": {
+      "name": "休養",
+      "stats": [
+       "health",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "立て直す",
+       "text": "休んで、顔つきが戻ってきた。",
+       "fx": {
+        "health": 8,
+        "happy": 6,
+        "money": -100
+       }
+      },
+      "mid": {
+       "label": "収入減だけ",
+       "text": "休んだ分、収入が目に見えて減った。",
+       "fx": {
+        "money": -250
+       }
+      },
+      "bad": {
+       "label": "忘れられる",
+       "text": "穴を埋める後輩に、席を奪われた。",
+       "fx": {
+        "happy": -6,
+        "money": -400
+       }
+      }
+     }
+    },
+    {
+     "label": "気合いで走り続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -5,
+      "happy": 2
+     },
+     "roll": {
+      "name": "強行",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "大ブレイク",
+       "text": "連日の露出が実り、時の人になった。",
+       "fx": {
+        "happy": 8,
+        "money": 1200
+       }
+      },
+      "mid": {
+       "label": "稼ぐが疲れる",
+       "text": "稼ぎは増えたが、体は限界に近づく。",
+       "fx": {
+        "money": 400,
+        "health": -4
+       }
+      },
+      "bad": {
+       "label": "倒れる",
+       "text": "現場で倒れ、全ての予定が飛んだ。",
+       "fx": {
+        "health": -12,
+        "money": -500,
+        "happy": -8
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "信頼できる人に相談する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "相談",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "道が開く",
+       "text": "マネージャーが仕事を整理してくれた。",
+       "fx": {
+        "bond": 6,
+        "health": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "話すだけ",
+       "text": "聞いてもらえて、少し楽になった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "空気が悪くなる",
+       "text": "本音を話したが、距離ができた。",
+       "fx": {
+        "bond": -4,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_entertainer_04",
+   "age": [
+    28,
+    55
+   ],
+   "requires": {
+    "track": "entertainer"
+   },
+   "title": "ブームの終わり",
+   "text": "テレビの出演が減り、スケジュール帳に空白が増えた。",
+   "choices": [
+    {
+     "label": "舞台や地方の仕事で腕を磨く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "再起",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "再評価される",
+       "text": "舞台の評判が広がり、再び声がかかった。",
+       "fx": {
+        "happy": 8,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "地道に食える",
+       "text": "小さな舞台で、毎日が回っている。",
+       "fx": {
+        "money": 50
+       }
+      },
+      "bad": {
+       "label": "先細り",
+       "text": "客席は少なく、手取りも減った。",
+       "fx": {
+        "happy": -5,
+        "money": -150
+       }
+      }
+     }
+    },
+    {
+     "label": "プロデュース側に回る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "裏方",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "目利きと呼ばれる",
+       "text": "見出した新人が売れ、評価が高まった。",
+       "fx": {
+        "know": 6,
+        "happy": 7,
+        "money": 500
+       }
+      },
+      "mid": {
+       "label": "仕事は増えた",
+       "text": "裏方の仕事で、静かに稼いでいる。",
+       "fx": {
+        "money": 100
+       }
+      },
+      "bad": {
+       "label": "向いていない",
+       "text": "人を育てる難しさに、ふさぎ込んだ。",
+       "fx": {
+        "happy": -6,
+        "money": -150
+       }
+      }
+     }
+    },
+    {
+     "label": "芸能を離れて別の仕事へ",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "転身",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "意外な適職",
+       "text": "芸能の経験が、営業でそのまま活きた。",
+       "fx": {
+        "happy": 7,
+        "bond": 4,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "地味な再出発",
+       "text": "名刺の肩書きを変え、一から始めた。",
+       "fx": {
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "落差に苦しむ",
+       "text": "注目されない日常が、思いのほか重い。",
+       "fx": {
+        "happy": -7
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_entertainer_05",
+   "age": [
+    35,
+    65
+   ],
+   "requires": {
+    "track": "entertainer"
+   },
+   "title": "後輩の相談",
+   "text": "熱心な後輩が、芸能界で生きていく心得を聞きにきた。",
+   "choices": [
+    {
+     "label": "実体験をすべて話す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "伝える",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "慕われる",
+       "text": "後輩が成長し、恩人と呼んでくれた。",
+       "fx": {
+        "bond": 8,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "感謝される",
+       "text": "礼を言われ、少し気が楽になった。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "重荷にさせる",
+       "text": "話が重すぎて、後輩は怖気づいた。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "事務所の養成に関わる",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "育成",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "星を見出す",
+       "text": "育てた新人が、舞台の中心に立った。",
+       "fx": {
+        "happy": 8,
+        "money": 400,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "手応えは薄い",
+       "text": "指導は続くが、実りはまだ遠い。",
+       "fx": {
+        "money": 80
+       }
+      },
+      "bad": {
+       "label": "摩擦が生じる",
+       "text": "方針の違いから、事務所とぶつかった。",
+       "fx": {
+        "bond": -5,
+        "happy": -5,
+        "money": -200
+       }
+      }
+     }
+    },
+    {
+     "label": "干渉せずに見守る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "静観",
+      "stats": [
+       "luck",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "自分の時間",
+       "text": "穏やかな日々を、自分のために使えた。",
+       "fx": {
+        "happy": 6,
+        "health": 3
+       }
+      },
+      "mid": {
+       "label": "変わらず",
+       "text": "何も起きず、日々が過ぎた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "孤立",
+       "text": "誰とも関わらず、寂しさが募った。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_app_founder_01",
+   "age": [
+    19,
+    56
+   ],
+   "requires": {
+    "track": "app_founder"
+   },
+   "title": "サーバーが落ちた",
+   "text": "利用者が急増し、サービスが丸一日止まってしまった。",
+   "choices": [
+    {
+     "label": "寝ずに復旧作業をする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -4
+     },
+     "roll": {
+      "name": "復旧",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "朝には復旧",
+       "text": "復旧後の誠実な報告が、評判を高めた。",
+       "fx": {
+        "know": 5,
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "昼に復旧",
+       "text": "ひどい一日だったが、なんとか収まった。",
+       "fx": {
+        "health": -2
+       }
+      },
+      "bad": {
+       "label": "傷が深まる",
+       "text": "データの不具合が出て、返金対応に追われた。",
+       "fx": {
+        "money": -300,
+        "happy": -7
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "外部の専門家に頼む",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "外注",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "安定する",
+       "text": "専門家のおかげで、構成が盤石になった。",
+       "fx": {
+        "know": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "費用だけ",
+       "text": "問題は解決したが、費用が重かった。",
+       "fx": {
+        "money": -150
+       }
+      },
+      "bad": {
+       "label": "原因不明",
+       "text": "外注先も原因を特定できず、苦戦した。",
+       "fx": {
+        "money": -300,
+        "happy": -5
+       }
+      }
+     }
+    },
+    {
+     "label": "一時的にサービスを停止する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "停止",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "理解される",
+       "text": "丁寧な告知で、利用者は待ってくれた。",
+       "fx": {
+        "bond": 6,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "離脱が出る",
+       "text": "一部の利用者は、離れていった。",
+       "fx": {
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "炎上気味に",
+       "text": "対応を責める声が、連日届いた。",
+       "fx": {
+        "happy": -7,
+        "bond": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_app_founder_02",
+   "age": [
+    20,
+    58
+   ],
+   "requires": {
+    "track": "app_founder"
+   },
+   "title": "買収の打診",
+   "text": "大手の会社から、会社ごと買い取りたいと打診された。",
+   "choices": [
+    {
+     "label": "売却して一区切りつける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "交渉",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "大型売却",
+       "text": "想定以上の額で売れ、肩の荷が下りた。",
+       "fx": {
+        "money": 1800,
+        "happy": 7
+       }
+      },
+      "mid": {
+       "label": "相場の額",
+       "text": "納得できる額で手放し、次の道を探した。",
+       "fx": {
+        "money": 600
+       }
+      },
+      "bad": {
+       "label": "買い叩かれる",
+       "text": "条件が悪く、後悔の残る売却になった。",
+       "fx": {
+        "money": 150,
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "断って独立を続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "独立",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "さらに成長",
+       "text": "断った判断が正しく、事業は倍に伸びた。",
+       "fx": {
+        "money": 1200,
+        "happy": 8
+       }
+      },
+      "mid": {
+       "label": "現状維持",
+       "text": "事業は続くが、勢いは頭打ちだ。",
+       "fx": {
+        "money": 100
+       }
+      },
+      "bad": {
+       "label": "失速する",
+       "text": "競合が現れ、売上が急に落ちた。",
+       "fx": {
+        "money": -700,
+        "happy": -8
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "出資だけ受けて続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "出資",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "資金で拡大",
+       "text": "資金で人を増やし、新機能が当たった。",
+       "fx": {
+        "money": 700,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "方針が揺れる",
+       "text": "出資元の意向に、方針が揺れた。",
+       "fx": {
+        "bond": -2,
+        "money": 200
+       }
+      },
+      "bad": {
+       "label": "主導権を失う",
+       "text": "経営判断で意見が割れ、居心地が悪くなった。",
+       "fx": {
+        "happy": -7,
+        "bond": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_app_founder_03",
+   "age": [
+    22,
+    60
+   ],
+   "requires": {
+    "track": "app_founder"
+   },
+   "title": "人が辞めていく",
+   "text": "創業メンバーが「ついていけない」と退職を申し出た。",
+   "choices": [
+    {
+     "label": "引き止めて役割を見直す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "慰留",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "結束が戻る",
+       "text": "話し合いの末、チームがまとまった。",
+       "fx": {
+        "bond": 8,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "残るが距離",
+       "text": "残ってくれたが、以前の熱は戻らない。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "結局辞める",
+       "text": "説得は届かず、仲間が去った。",
+       "fx": {
+        "bond": -6,
+        "happy": -7
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "潔く送り出し、採用を強化する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "採用",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "良い人材",
+       "text": "新しい人材が入り、開発が加速した。",
+       "fx": {
+        "know": 5,
+        "happy": 5,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "穴埋め",
+       "text": "新しい人を迎えたが、馴染むには時間がかかる。",
+       "fx": {
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "人が定着せず",
+       "text": "採用が難航し、現場は疲弊していった。",
+       "fx": {
+        "happy": -6,
+        "health": -4,
+        "money": -200
+       }
+      }
+     }
+    },
+    {
+     "label": "自分で全部こなす",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -4
+     },
+     "roll": {
+      "name": "抱え込み",
+      "stats": [
+       "health",
+       "know"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "やり切る",
+       "text": "全部を自分で回し、事業を立て直した。",
+       "fx": {
+        "happy": 6,
+        "know": 4,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "ぎりぎり",
+       "text": "限界の近くで、なんとか回し続けた。",
+       "fx": {
+        "health": -3
+       }
+      },
+      "bad": {
+       "label": "体を壊す",
+       "text": "無理が祟って倒れ、医者に止められた。",
+       "fx": {
+        "health": -10,
+        "happy": -7,
+        "money": -300
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_app_founder_04",
+   "age": [
+    25,
+    62
+   ],
+   "requires": {
+    "track": "app_founder"
+   },
+   "title": "ブームの終わり",
+   "text": "競合の登場で、アプリの利用者が目に見えて減ってきた。",
+   "choices": [
+    {
+     "label": "新機能に賭ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "新機能",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "再び当たる",
+       "text": "新機能が受け、利用者が戻ってきた。",
+       "fx": {
+        "money": 900,
+        "happy": 8
+       }
+      },
+      "mid": {
+       "label": "ほどほど",
+       "text": "一部の利用者が戻り、ひと息ついた。",
+       "fx": {
+        "money": 100
+       }
+      },
+      "bad": {
+       "label": "空振り",
+       "text": "開発費だけがかさみ、手元が苦しくなった。",
+       "fx": {
+        "money": -600,
+        "happy": -7
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "事業を小さく畳んで守る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "縮小",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "身軽になる",
+       "text": "規模を絞り、黒字で安定した。",
+       "fx": {
+        "money": 300,
+        "happy": 4,
+        "health": 3
+       }
+      },
+      "mid": {
+       "label": "縮むだけ",
+       "text": "人も売上も減り、静かな日々になった。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "反発を受ける",
+       "text": "社員との話し合いが難航した。",
+       "fx": {
+        "bond": -6,
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "別のアプリをゼロから作る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 3
+     },
+     "roll": {
+      "name": "再挑戦",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "二作目も好調",
+       "text": "初心に返った二作目が、ほどよく当たった。",
+       "fx": {
+        "money": 500,
+        "happy": 9,
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "趣味に戻る",
+       "text": "収益にはならないが、作ることは楽しい。",
+       "fx": {
+        "happy": 4,
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "燃え尽きる",
+       "text": "作る気力が湧かなくなった。",
+       "fx": {
+        "happy": -8,
+        "know": -3
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_app_founder_05",
+   "age": [
+    28,
+    70
+   ],
+   "requires": {
+    "track": "app_founder"
+   },
+   "title": "次の世代へ",
+   "text": "若い開発者が、自分のアプリを見てもらいたいと訪ねてきた。",
+   "choices": [
+    {
+     "label": "出資して支援する",
+     "cost": {
+      "money": -200
+     },
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "支援",
+      "stats": [
+       "luck",
+       "know"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "次の星に",
+       "text": "支援先のアプリが芽を出した。",
+       "fx": {
+        "money": 600,
+        "happy": 8,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "実らない",
+       "text": "アプリは広まらず、出資金は戻らなかった。",
+       "fx": {
+        "money": -200
+       }
+      },
+      "bad": {
+       "label": "騒動に巻き込まれ",
+       "text": "運営方針でもめ、仲裁に追われた。",
+       "fx": {
+        "money": -400,
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "時間を割いて助言だけする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "助言",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "慕われる",
+       "text": "相談相手として、慕われるようになった。",
+       "fx": {
+        "bond": 7,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "世間話に",
+       "text": "結局は、雑談に終わってしまった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "時間だけ過ぎる",
+       "text": "自分の仕事が進まず、焦りが出た。",
+       "fx": {
+        "happy": -4,
+        "know": -1
+       }
+      }
+     }
+    },
+    {
+     "label": "会社を任せて身を引く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "継承",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "気楽な日々",
+       "text": "後継が会社を伸ばし、配当が入った。",
+       "fx": {
+        "money": 500,
+        "happy": 8,
+        "health": 3
+       }
+      },
+      "mid": {
+       "label": "寂しさ",
+       "text": "手放したあとの時間を、持て余している。",
+       "fx": {
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "方針が割れる",
+       "text": "後継と考えが合わず、関係が悪化した。",
+       "fx": {
+        "bond": -6,
+        "happy": -6
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_author_01",
+   "age": [
+    20,
+    75
+   ],
+   "requires": {
+    "track": "author"
+   },
+   "title": "二作目の壁",
+   "text": "デビュー作が好評で、次作への期待が重くのしかかる。",
+   "choices": [
+    {
+     "label": "前作の路線を踏襲する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "路線",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "安定のヒット",
+       "text": "読者の期待に応え、重版がかかった。",
+       "fx": {
+        "money": 300,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "似て非なる",
+       "text": "悪くないが、驚きがないと言われた。",
+       "fx": {
+        "money": 50
+       }
+      },
+      "bad": {
+       "label": "マンネリ批判",
+       "text": "「また同じ話か」と、辛口の書評が出た。",
+       "fx": {
+        "happy": -6,
+        "money": -80
+       }
+      }
+     }
+    },
+    {
+     "label": "まったく違う題材に挑む",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "挑戦",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "新境地",
+       "text": "新しい作風が評価され、読者層が広がった。",
+       "fx": {
+        "know": 6,
+        "happy": 8,
+        "money": 400
+       }
+      },
+      "mid": {
+       "label": "評価は割れる",
+       "text": "賛否が分かれ、販売は伸びなかった。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "書けなくなる",
+       "text": "筆が進まず、締切を延ばしてもらった。",
+       "fx": {
+        "happy": -8,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "編集者と徹底的に話し合う",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "打合せ",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "方向が定まる",
+       "text": "編集者の指摘で、物語の芯が見えてきた。",
+       "fx": {
+        "bond": 6,
+        "know": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "少し前進",
+       "text": "話し合ううちに、いくつか案が浮かんだ。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "すれ違う",
+       "text": "意見が合わず、関係がぎくしゃくした。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_author_02",
+   "age": [
+    22,
+    80
+   ],
+   "requires": {
+    "track": "author"
+   },
+   "title": "書評の言葉",
+   "text": "手厳しい書評に、人格まで否定されたような気がした。",
+   "choices": [
+    {
+     "label": "反論を書き、記事にする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "反論",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "共感を呼ぶ",
+       "text": "率直な反論が共感を呼び、読者が増えた。",
+       "fx": {
+        "happy": 6,
+        "bond": 5,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "応酬が続く",
+       "text": "議論が長引き、疲れだけが残った。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "大炎上",
+       "text": "言葉が荒れ、読者が離れていった。",
+       "fx": {
+        "happy": -8,
+        "bond": -6,
+        "money": -200
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "読まなかったことにして書く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "無視",
+      "stats": [
+       "happy",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "集中できる",
+       "text": "雑音を断ち、一つの作品に没頭できた。",
+       "fx": {
+        "know": 5,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "普通に過ぎる",
+       "text": "いつもの原稿の日々に戻った。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "気になって",
+       "text": "忘れたはずが、頭から離れなかった。",
+       "fx": {
+        "happy": -5,
+        "know": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "批判を読み込み、糧にする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "分析",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "文章が変わる",
+       "text": "指摘を受け止めると、文章に深みが出た。",
+       "fx": {
+        "know": 8,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "学びは少し",
+       "text": "ひとつだけ、使える指摘があった。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "自信喪失",
+       "text": "批判が頭に残り、筆が重くなった。",
+       "fx": {
+        "happy": -6,
+        "know": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_author_03",
+   "age": [
+    25,
+    80
+   ],
+   "requires": {
+    "track": "author"
+   },
+   "title": "専業になるか",
+   "text": "書く量が増え、会社勤めとの両立が難しくなってきた。",
+   "choices": [
+    {
+     "label": "会社を辞めて専業になる",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 3
+     },
+     "roll": {
+      "name": "専業",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "書くだけの生活",
+       "text": "書くことに専念し、作品の質が上がった。",
+       "fx": {
+        "happy": 9,
+        "know": 5,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "ぎりぎり暮らす",
+       "text": "書く時間は増えたが、収入は心もとない。",
+       "fx": {
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "収入が途絶える",
+       "text": "売れ行きが落ち、貯金を食いつぶした。",
+       "fx": {
+        "money": -600,
+        "happy": -8
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "兼業を続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -2
+     },
+     "roll": {
+      "name": "兼業",
+      "stats": [
+       "health",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "両立できる",
+       "text": "限られた時間が、文章に緊張感を与えた。",
+       "fx": {
+        "know": 4,
+        "happy": 4,
+        "money": 150
+       }
+      },
+      "mid": {
+       "label": "疲れが溜まる",
+       "text": "どちらも中途半端な気がして、眠りが浅い。",
+       "fx": {
+        "health": -4
+       }
+      },
+      "bad": {
+       "label": "どちらも崩れる",
+       "text": "仕事も原稿も遅れて、信頼を失った。",
+       "fx": {
+        "health": -6,
+        "bond": -4,
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "時短勤務に切り替える",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "折衷",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "ちょうどいい",
+       "text": "生活と執筆の釣り合いが取れた。",
+       "fx": {
+        "happy": 7,
+        "health": 3,
+        "money": 100
+       }
+      },
+      "mid": {
+       "label": "無難",
+       "text": "収入は減ったが、時間にゆとりができた。",
+       "fx": {
+        "money": -80
+       }
+      },
+      "bad": {
+       "label": "理解されない",
+       "text": "職場で白い目で見られるようになった。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_author_04",
+   "age": [
+    30,
+    80
+   ],
+   "requires": {
+    "track": "author"
+   },
+   "title": "ブームの終わり",
+   "text": "書店の平台から、自分の本の姿が消えた。",
+   "choices": [
+    {
+     "label": "電子書籍で直接読者に届ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "自主出版",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "固定読者がつく",
+       "text": "根強い読者が、毎回買ってくれるようになった。",
+       "fx": {
+        "money": 300,
+        "bond": 6,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "細々と",
+       "text": "売れ行きは少ないが、続けてはいる。",
+       "fx": {
+        "money": 40
+       }
+      },
+      "bad": {
+       "label": "埋もれる",
+       "text": "大量の本に埋もれ、ほとんど読まれなかった。",
+       "fx": {
+        "happy": -6,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "ジャンルを変えて書き直す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "転向",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "再ヒット",
+       "text": "新ジャンルで再び注目を浴びた。",
+       "fx": {
+        "money": 600,
+        "happy": 8
+       }
+      },
+      "mid": {
+       "label": "手探り",
+       "text": "新ジャンルは難しく、手探りが続いた。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "定まらない",
+       "text": "作風が定まらず、依頼が減った。",
+       "fx": {
+        "happy": -6,
+        "money": -200
+       }
+      }
+     }
+    },
+    {
+     "label": "筆を休み、旅に出る",
+     "cost": {
+      "money": -40
+     },
+     "fx": {
+      "happy": 3
+     },
+     "roll": {
+      "name": "充電",
+      "stats": [
+       "happy",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "着想を得る",
+       "text": "旅先の出会いが、次の作品の種になった。",
+       "fx": {
+        "happy": 8,
+        "know": 5
+       }
+      },
+      "mid": {
+       "label": "気分転換",
+       "text": "ゆっくり休めたが、特に収穫はなかった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "書けない",
+       "text": "帰ってきても、筆が進まなかった。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_author_05",
+   "age": [
+    35,
+    85
+   ],
+   "requires": {
+    "track": "author"
+   },
+   "title": "若い書き手",
+   "text": "新人賞に応募する若者が、原稿を読んでほしいと頼んできた。",
+   "choices": [
+    {
+     "label": "丁寧に読み、感想を伝える",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "講評",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "才能開花",
+       "text": "若者はデビューし、礼状を送ってくれた。",
+       "fx": {
+        "bond": 7,
+        "happy": 7
+       }
+      },
+      "mid": {
+       "label": "喜ばれる",
+       "text": "感謝されたが、結果は出なかった。",
+       "fx": {
+        "bond": 3
+       }
+      },
+      "bad": {
+       "label": "厳しすぎた",
+       "text": "指摘がきつく、若者は書くのをやめた。",
+       "fx": {
+        "happy": -6,
+        "bond": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "講座を開き教える",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "講座",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "講座が盛況",
+       "text": "受講者が増え、収入の柱になった。",
+       "fx": {
+        "money": 400,
+        "happy": 6,
+        "bond": 5
+       }
+      },
+      "mid": {
+       "label": "ほどほど",
+       "text": "少人数の教室が、細く続いている。",
+       "fx": {
+        "money": 80
+       }
+      },
+      "bad": {
+       "label": "赤字になる",
+       "text": "会場代がかさみ、受講者も集まらなかった。",
+       "fx": {
+        "money": -200,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "断って自分の執筆に専念する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "専念",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "名作に近づく",
+       "text": "時間をかけた新作が、静かな評判を呼んだ。",
+       "fx": {
+        "know": 6,
+        "happy": 6,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "一歩前進",
+       "text": "少しずつ、いい文が増えていった。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "孤独になる",
+       "text": "誰とも話さず、日々が過ぎていった。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_researcher_01",
+   "age": [
+    26,
+    55
+   ],
+   "requires": {
+    "track": "researcher"
+   },
+   "title": "結果が出ない",
+   "text": "半年かけた実験が、思うように再現できない。",
+   "choices": [
+    {
+     "label": "条件を疑い、実験を作り直す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -2
+     },
+     "roll": {
+      "name": "再実験",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "新発見",
+       "text": "偶然の失敗から、予想外の現象を見つけた。",
+       "fx": {
+        "know": 8,
+        "happy": 7
+       }
+      },
+      "mid": {
+       "label": "やはり再現",
+       "text": "時間はかかったが、同じ結論に戻った。",
+       "fx": {
+        "know": 2,
+        "health": -2
+       }
+      },
+      "bad": {
+       "label": "泥沼",
+       "text": "原因が見つからず、数ヶ月を失った。",
+       "fx": {
+        "happy": -7,
+        "know": -2
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "共同研究者を探す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "共同",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "道が開ける",
+       "text": "他分野の研究者が、突破口を示してくれた。",
+       "fx": {
+        "know": 6,
+        "bond": 6,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "議論が進む",
+       "text": "話し合うことで、問題が整理された。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "手柄で揉める",
+       "text": "成果の取り分で、ぎくしゃくした。",
+       "fx": {
+        "bond": -6,
+        "happy": -5
+       }
+      }
+     }
+    },
+    {
+     "label": "テーマを変える",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "転向",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "水が合う",
+       "text": "新テーマに熱中し、論文がまとまった。",
+       "fx": {
+        "know": 6,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "やり直し",
+       "text": "蓄積が活かせず、一から始めることになった。",
+       "fx": {
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "中途半端",
+       "text": "どちらも成果が出ず、評価が下がった。",
+       "fx": {
+        "happy": -6,
+        "know": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_researcher_02",
+   "age": [
+    28,
+    60
+   ],
+   "requires": {
+    "track": "researcher"
+   },
+   "title": "研究費の審査",
+   "text": "大型の研究費に応募するか、締切が迫っている。",
+   "choices": [
+    {
+     "label": "大型の枠に挑む",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -3
+     },
+     "roll": {
+      "name": "審査",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "採択",
+       "text": "大型予算が採択され、研究室が潤った。",
+       "fx": {
+        "money": 500,
+        "happy": 8,
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "不採択",
+       "text": "書類作りに時間を費やし、疲れが残った。",
+       "fx": {
+        "health": -2,
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "全て落ちる",
+       "text": "他の応募も見送り、研究費が尽きた。",
+       "fx": {
+        "money": -300,
+        "happy": -7
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "小さな枠を確実に狙う",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "確実",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "着実に採択",
+       "text": "堅実な計画が評価され、研究が続けられる。",
+       "fx": {
+        "money": 150,
+        "happy": 4,
+        "know": 3
+       }
+      },
+      "mid": {
+       "label": "満額ではない",
+       "text": "減額され、実験の規模を絞った。",
+       "fx": {
+        "money": 60
+       }
+      },
+      "bad": {
+       "label": "審査に落ちる",
+       "text": "書類の不備で、不採択になった。",
+       "fx": {
+        "happy": -5,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "企業との共同研究を結ぶ",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "産学",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "実用化へ",
+       "text": "企業が成果を気に入り、予算が大きく伸びた。",
+       "fx": {
+        "money": 700,
+        "happy": 6,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "制約が増える",
+       "text": "成果の公開に、制限がかかるようになった。",
+       "fx": {
+        "money": 200,
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "方針が合わない",
+       "text": "企業の都合に振り回され、研究が停滞した。",
+       "fx": {
+        "happy": -6,
+        "know": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_researcher_03",
+   "age": [
+    30,
+    62
+   ],
+   "requires": {
+    "track": "researcher"
+   },
+   "title": "指導学生の悩み",
+   "text": "教え子の大学院生が、研究を続ける自信をなくしている。",
+   "choices": [
+    {
+     "label": "時間をかけて個別に面談する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "面談",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "立ち直る",
+       "text": "学生が自信を取り戻し、成果を出した。",
+       "fx": {
+        "bond": 8,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "話を聞く",
+       "text": "聞いたことで、学生の表情が和らいだ。",
+       "fx": {
+        "bond": 3
+       }
+      },
+      "bad": {
+       "label": "負担になる",
+       "text": "自分の研究が止まり、焦りが募った。",
+       "fx": {
+        "know": -2,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "厳しく論文の質を求める",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "叱咤",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "奮起する",
+       "text": "学生は奮起し、立派な論文を書き上げた。",
+       "fx": {
+        "know": 5,
+        "happy": 4,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "成果は出る",
+       "text": "論文は仕上がったが、関係は冷えた。",
+       "fx": {
+        "bond": -3
+       }
+      },
+      "bad": {
+       "label": "研究室を去る",
+       "text": "学生は研究室を去り、評判が落ちた。",
+       "fx": {
+        "bond": -6,
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "学生の進路を一緒に考える",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "進路",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "道が見える",
+       "text": "企業への就職を選び、学生は笑顔になった。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "納得した",
+       "text": "学生は納得して、研究室を巣立った。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "後悔が残る",
+       "text": "本当にそれでよかったのか、気になった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_researcher_04",
+   "age": [
+    34,
+    68
+   ],
+   "requires": {
+    "track": "researcher"
+   },
+   "title": "発表への疑義",
+   "text": "学会発表の解析方法に、他の研究者が疑問を投げかけた。",
+   "choices": [
+    {
+     "label": "データを再解析して公開する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "再解析",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "信頼が増す",
+       "text": "誤りのない解析が、評価を高めた。",
+       "fx": {
+        "know": 6,
+        "bond": 5,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "軽微な修正",
+       "text": "小さな誤りを認め、訂正した。",
+       "fx": {
+        "know": 1,
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "大きな誤り",
+       "text": "重大な誤りが見つかり、論文を取り下げた。",
+       "fx": {
+        "know": -5,
+        "happy": -9,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "公開討論で正面から反論する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "討論",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "議論に勝つ",
+       "text": "理路整然とした反論が、会場を納得させた。",
+       "fx": {
+        "happy": 7,
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "平行線",
+       "text": "議論は決着せず、後味が残った。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "言い負かされ",
+       "text": "準備不足が露呈し、評判を落とした。",
+       "fx": {
+        "happy": -8,
+        "bond": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "静かに追実験を重ねる",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "追試",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "確証を得る",
+       "text": "追実験で結果が確かめられ、疑義は消えた。",
+       "fx": {
+        "know": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "時間がかかる",
+       "text": "追実験に年を費やし、結論はまだ出ない。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "評判に傷",
+       "text": "沈黙が、疑いを深めたと取られた。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_researcher_05",
+   "age": [
+    40,
+    75
+   ],
+   "requires": {
+    "track": "researcher"
+   },
+   "title": "退官後の研究",
+   "text": "定年が近づき、研究室の将来を考える時期になった。",
+   "choices": [
+    {
+     "label": "後継者に研究室を託す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "継承",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "実を結ぶ",
+       "text": "後継者が成果を挙げ、名前を連ねてくれた。",
+       "fx": {
+        "happy": 8,
+        "bond": 6
+       }
+      },
+      "mid": {
+       "label": "無事に引継ぐ",
+       "text": "研究室は、静かに次の代へと移った。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "縮小する",
+       "text": "後継者がつかず、研究室は閉じられた。",
+       "fx": {
+        "happy": -6,
+        "know": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "退官後も個人で研究を続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "独り研究",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "遅咲きの成果",
+       "text": "自宅の研究が、ついに論文になった。",
+       "fx": {
+        "know": 6,
+        "happy": 7,
+        "money": 100
+       }
+      },
+      "mid": {
+       "label": "趣味として",
+       "text": "研究は趣味となり、穏やかに続いた。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "bad": {
+       "label": "孤立する",
+       "text": "研究仲間から離れ、孤独を感じた。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "一般向けの本を書く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "啓蒙",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "ベストセラー",
+       "text": "分かりやすい解説が評判になり、増刷を重ねた。",
+       "fx": {
+        "money": 600,
+        "happy": 8,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "静かに売れる",
+       "text": "堅実な売れ行きで、小遣いが入った。",
+       "fx": {
+        "money": 80
+       }
+      },
+      "bad": {
+       "label": "専門家から批判",
+       "text": "簡略化した表現を、同僚から咎められた。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_streamer_01",
+   "age": [
+    17,
+    45
+   ],
+   "requires": {
+    "track": "streamer"
+   },
+   "title": "再生数が伸びない",
+   "text": "投稿を続けても、再生数が頭打ちになっている。",
+   "choices": [
+    {
+     "label": "企画を大きく変える",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "路線変更",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "当たり企画",
+       "text": "新企画が受け、再生数が三倍になった。",
+       "fx": {
+        "happy": 8,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "手応え半分",
+       "text": "一部のファンは付いてきてくれた。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "ファンが離れる",
+       "text": "古参ファンが離れ、数字が落ちた。",
+       "fx": {
+        "happy": -7,
+        "bond": -4,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "毎日投稿で量を稼ぐ",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -4
+     },
+     "roll": {
+      "name": "量産",
+      "stats": [
+       "health",
+       "happy"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "数字が伸びる",
+       "text": "更新の速さが評価され、登録者が増えた。",
+       "fx": {
+        "happy": 6,
+        "money": 250
+       }
+      },
+      "mid": {
+       "label": "疲れだけ",
+       "text": "続けたが、数字はほぼ変わらなかった。",
+       "fx": {
+        "health": -3
+       }
+      },
+      "bad": {
+       "label": "燃え尽き",
+       "text": "眠れない日が続き、更新が止まった。",
+       "fx": {
+        "health": -8,
+        "happy": -7
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "他の配信者とコラボする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "コラボ",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "相乗効果",
+       "text": "互いのファンが行き来し、数字が伸びた。",
+       "fx": {
+        "bond": 6,
+        "happy": 7,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "ぼちぼち",
+       "text": "仲は深まったが、数字は少し伸びただけ。",
+       "fx": {
+        "bond": 3
+       }
+      },
+      "bad": {
+       "label": "埋没する",
+       "text": "相手の存在感に押され、影が薄くなった。",
+       "fx": {
+        "happy": -5
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_streamer_02",
+   "age": [
+    18,
+    50
+   ],
+   "requires": {
+    "track": "streamer"
+   },
+   "title": "発言が切り取られた",
+   "text": "配信中の一言が一部だけ拡散し、誤解を招いた。",
+   "choices": [
+    {
+     "label": "次の配信で丁寧に説明する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "説明",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "誤解が解ける",
+       "text": "真摯な説明に、擁護の声が広がった。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "半信半疑",
+       "text": "納得しない視聴者も、一定数いた。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "更に叩かれる",
+       "text": "言い方が悪く、より強い批判を受けた。",
+       "fx": {
+        "happy": -8,
+        "bond": -5,
+        "money": -150
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "該当の動画を削除し、一週間休む",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "休止",
+      "stats": [
+       "luck",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "自然に収まる",
+       "text": "休んでいる間に、話題は流れていった。",
+       "fx": {
+        "happy": 3,
+        "health": 3
+       }
+      },
+      "mid": {
+       "label": "じわり減る",
+       "text": "離れた視聴者が、戻ってこなかった。",
+       "fx": {
+        "money": -120
+       }
+      },
+      "bad": {
+       "label": "勢いを失う",
+       "text": "アルゴリズムの波に乗れなくなった。",
+       "fx": {
+        "happy": -6,
+        "money": -250
+       }
+      }
+     }
+    },
+    {
+     "label": "何も言わずに投稿を続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "続行",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "流される",
+       "text": "騒ぎは、別の話題に流されていった。",
+       "fx": {
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "じりじり減る",
+       "text": "コメント欄が荒れ、疲れがたまった。",
+       "fx": {
+        "happy": -3
+       }
+      },
+      "bad": {
+       "label": "燻り続ける",
+       "text": "対応が不誠実だと、批判が続いた。",
+       "fx": {
+        "happy": -7,
+        "bond": -5
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_streamer_03",
+   "age": [
+    20,
+    50
+   ],
+   "requires": {
+    "track": "streamer"
+   },
+   "title": "事務所からの誘い",
+   "text": "配信者を束ねる事務所から、所属しないかと誘われた。",
+   "choices": [
+    {
+     "label": "所属して仕事を広げる",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": -1
+     },
+     "roll": {
+      "name": "所属",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "仕事が増える",
+       "text": "案件が次々と舞い込み、収入が跳ね上がった。",
+       "fx": {
+        "money": 700,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "手数料が重い",
+       "text": "仕事は増えたが、取り分は減った。",
+       "fx": {
+        "money": 150,
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "縛りがきつい",
+       "text": "企画に縛りが増え、自由を失った。",
+       "fx": {
+        "happy": -7,
+        "money": -150
+       }
+      }
+     }
+    },
+    {
+     "label": "断って一人で続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "個人",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "自由に稼ぐ",
+       "text": "自分のペースで、納得のいく動画を撮れた。",
+       "fx": {
+        "happy": 7,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "変わらない",
+       "text": "自由はあるが、収入は変わらない。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "孤独な戦い",
+       "text": "事務作業まで全部やり、疲れ果てた。",
+       "fx": {
+        "health": -5,
+        "happy": -5
+       }
+      }
+     }
+    },
+    {
+     "label": "仲間と共同で事務所を作る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "独立",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "共同体が育つ",
+       "text": "仲間と作った事務所が、軌道に乗った。",
+       "fx": {
+        "bond": 8,
+        "money": 500,
+        "happy": 7
+       }
+      },
+      "mid": {
+       "label": "赤字ぎりぎり",
+       "text": "運営は苦しいが、仲間と笑えている。",
+       "fx": {
+        "bond": 4,
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "仲間割れ",
+       "text": "お金の分け方で揉め、仲間が去った。",
+       "fx": {
+        "bond": -8,
+        "happy": -8,
+        "money": -300
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_streamer_04",
+   "age": [
+    22,
+    55
+   ],
+   "requires": {
+    "track": "streamer"
+   },
+   "title": "熱の冷めた視聴者",
+   "text": "人気が落ち着き、新規の登録者も増えなくなった。",
+   "choices": [
+    {
+     "label": "ジャンルを広げて新規を狙う",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "拡張",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "再ブレイク",
+       "text": "新ジャンルが好評で、数字が戻った。",
+       "fx": {
+        "happy": 8,
+        "money": 400
+       }
+      },
+      "mid": {
+       "label": "まずまず",
+       "text": "新しいファンが少し付いた。",
+       "fx": {
+        "money": 60
+       }
+      },
+      "bad": {
+       "label": "拡散せず",
+       "text": "手広くなり、焦点がぼやけた。",
+       "fx": {
+        "happy": -5,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "古参ファンを大事にする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "定着",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "絆が深まる",
+       "text": "古参との集まりが、新たな活力になった。",
+       "fx": {
+        "bond": 7,
+        "happy": 6,
+        "money": 100
+       }
+      },
+      "mid": {
+       "label": "安定する",
+       "text": "数字は横ばいで、穏やかな日が続く。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "先細り",
+       "text": "ファンも年を取り、見る人が減っていった。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "会社員として働き、趣味に戻す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "兼業",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "いいバランス",
+       "text": "安定した収入で、のびのび創作できる。",
+       "fx": {
+        "happy": 7,
+        "money": 150
+       }
+      },
+      "mid": {
+       "label": "手探り",
+       "text": "時間が足りず、投稿は月に一本になった。",
+       "fx": {
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "消える",
+       "text": "更新できず、チャンネルは止まったままになった。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_streamer_05",
+   "age": [
+    25,
+    60
+   ],
+   "requires": {
+    "track": "streamer"
+   },
+   "title": "後進のクリエイター",
+   "text": "配信者を目指す若者が、動画を見てくれと頼んできた。",
+   "choices": [
+    {
+     "label": "企画を一緒に考える",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "伴走",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "星が育つ",
+       "text": "若者の動画が伸び、感謝された。",
+       "fx": {
+        "bond": 8,
+        "happy": 7
+       }
+      },
+      "mid": {
+       "label": "手応え小",
+       "text": "一緒に楽しんだが、数字は伸びなかった。",
+       "fx": {
+        "bond": 3
+       }
+      },
+      "bad": {
+       "label": "意見が割れる",
+       "text": "方向性で揉め、関係が冷えた。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "経験談を配信で話す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "語り",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "共感を呼ぶ",
+       "text": "話が反響を呼び、仕事の依頼が増えた。",
+       "fx": {
+        "money": 300,
+        "happy": 6,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "まあまあ",
+       "text": "普段の配信と同じくらいの反応だった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "内輪ネタに",
+       "text": "視聴者に伝わらず、反応が薄かった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "忙しいと断る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "断る",
+      "stats": [
+       "happy",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "自分の時間",
+       "text": "創作に集中でき、一本傑作ができた。",
+       "fx": {
+        "know": 4,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "何も起きず",
+       "text": "何も変わらない日々が過ぎた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "後味が悪い",
+       "text": "その後、若者の消息は聞こえてこなかった。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_chef_01",
+   "age": [
+    26,
+    60
+   ],
+   "requires": {
+    "track": "chef"
+   },
+   "title": "行列の悲鳴",
+   "text": "行列が毎日続き、仕込みが回らなくなってきた。",
+   "choices": [
+    {
+     "label": "席数と人手を増やす",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": -1
+     },
+     "roll": {
+      "name": "拡大",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "利益が伸びる",
+       "text": "店を広げ、客を捌けるようになった。",
+       "fx": {
+        "money": 600,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "手が回らない",
+       "text": "忙しさは増えたが、利益は伸びなかった。",
+       "fx": {
+        "money": 100,
+        "health": -3
+       }
+      },
+      "bad": {
+       "label": "味が落ちる",
+       "text": "手が足りず、味が落ちたと言われた。",
+       "fx": {
+        "happy": -7,
+        "money": -300
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "予約制にして量を絞る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "限定",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "価値が上がる",
+       "text": "限定の希少さで、予約が半年待ちになった。",
+       "fx": {
+        "money": 400,
+        "happy": 7
+       }
+      },
+      "mid": {
+       "label": "客が減る",
+       "text": "静かになったが、売上も減った。",
+       "fx": {
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "客が離れる",
+       "text": "常連が不便だと言い、足が遠のいた。",
+       "fx": {
+        "bond": -5,
+        "money": -250
+       }
+      }
+     }
+    },
+    {
+     "label": "現状のまま踏ん張る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": -3
+     },
+     "roll": {
+      "name": "継続",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "走り抜ける",
+       "text": "忙しさを乗り越え、店が名物になった。",
+       "fx": {
+        "happy": 6,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "疲れが溜まる",
+       "text": "毎日立ちっぱなしで、腰が悲鳴を上げた。",
+       "fx": {
+        "health": -4,
+        "money": 100
+       }
+      },
+      "bad": {
+       "label": "倒れる",
+       "text": "過労で倒れ、一週間店を閉めた。",
+       "fx": {
+        "health": -10,
+        "money": -400,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_chef_02",
+   "age": [
+    28,
+    62
+   ],
+   "requires": {
+    "track": "chef"
+   },
+   "title": "レシピの模倣",
+   "text": "看板メニューによく似た品が、近所の店に並んだ。",
+   "choices": [
+    {
+     "label": "正面から話をしに行く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "対話",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "解決する",
+       "text": "話し合いの末、相手が品を変えてくれた。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "曖昧に終わる",
+       "text": "お互い気まずいまま、日が過ぎた。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "関係が悪化",
+       "text": "言い争いになり、近所で噂になった。",
+       "fx": {
+        "bond": -6,
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "新作で差をつける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "新作",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "唯一無二に",
+       "text": "新作が評判になり、模倣を寄せつけなくなった。",
+       "fx": {
+        "know": 6,
+        "happy": 8,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "無事に定着",
+       "text": "新作は定番となり、日々が続いた。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "伸びない",
+       "text": "新作は不評で、客足が鈍った。",
+       "fx": {
+        "happy": -6,
+        "money": -200
+       }
+      }
+     }
+    },
+    {
+     "label": "気にせず自分の味を守る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "定番",
+      "stats": [
+       "happy",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "ぶれない",
+       "text": "常連が支持を示し、店の味が愛された。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "じわり減る",
+       "text": "客の一部が、あちらの店に流れた。",
+       "fx": {
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "悔しさが残る",
+       "text": "気にしないふりが、心にこたえた。",
+       "fx": {
+        "happy": -5
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_chef_03",
+   "age": [
+    30,
+    65
+   ],
+   "requires": {
+    "track": "chef"
+   },
+   "title": "取材のオファー",
+   "text": "人気番組から、店を紹介したいと依頼が来た。",
+   "choices": [
+    {
+     "label": "受けて店を宣伝する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "メディア",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "全国区に",
+       "text": "放映後、遠方から客が詰めかけた。",
+       "fx": {
+        "money": 900,
+        "happy": 8
+       }
+      },
+      "mid": {
+       "label": "一時的な人気",
+       "text": "放送後の数週間だけ、店が賑わった。",
+       "fx": {
+        "money": 200
+       }
+      },
+      "bad": {
+       "label": "客層が変わる",
+       "text": "冷やかしの客が増え、常連が離れた。",
+       "fx": {
+        "bond": -5,
+        "happy": -5,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "断って常連を大事にする",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "断る",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "信頼が増す",
+       "text": "常連が涙を流して喜んでくれた。",
+       "fx": {
+        "bond": 8,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "変わらない",
+       "text": "いつもの客と、いつもの味の日々だ。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "機会を逃す",
+       "text": "同業の店に先を越されたと知った。",
+       "fx": {
+        "happy": -4,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "二号店を出す",
+     "cost": {
+      "money": -500
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "出店",
+      "stats": [
+       "luck",
+       "know"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "二号店も繁盛",
+       "text": "二店目も行列となり、収益が倍になった。",
+       "fx": {
+        "money": 1200,
+        "happy": 9
+       }
+      },
+      "mid": {
+       "label": "苦戦の経営",
+       "text": "二号店は伸びず、本店の収益が支えた。",
+       "fx": {
+        "money": -200,
+        "health": -3
+       }
+      },
+      "bad": {
+       "label": "店が傾く",
+       "text": "立地を誤り、借金が積み上がった。",
+       "fx": {
+        "money": -1000,
+        "happy": -9
+       },
+       "set": {
+        "press": {
+         "poor": 2
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_chef_04",
+   "age": [
+    35,
+    68
+   ],
+   "requires": {
+    "track": "chef"
+   },
+   "title": "ブームの終わり",
+   "text": "行列が消え、席が埋まらない夜が増えてきた。",
+   "choices": [
+    {
+     "label": "メニューを刷新する",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "刷新",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "再び人気に",
+       "text": "新しい看板が評判を呼び、客が戻った。",
+       "fx": {
+        "money": 500,
+        "happy": 8
+       }
+      },
+      "mid": {
+       "label": "手応え半分",
+       "text": "新しい客と常連が、同じくらいの数に落ち着いた。",
+       "fx": {
+        "money": 50
+       }
+      },
+      "bad": {
+       "label": "迷走する",
+       "text": "変えすぎて、常連に違和感を持たれた。",
+       "fx": {
+        "happy": -6,
+        "money": -250
+       }
+      }
+     }
+    },
+    {
+     "label": "規模を縮め、手堅く営む",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "縮小",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "心地よい店",
+       "text": "小さく整え、居心地のよい店になった。",
+       "fx": {
+        "happy": 7,
+        "health": 3,
+        "money": 100
+       }
+      },
+      "mid": {
+       "label": "静かに続く",
+       "text": "客足は戻らないが、経営は安定している。",
+       "fx": {
+        "money": 30
+       }
+      },
+      "bad": {
+       "label": "閉店寸前",
+       "text": "売上が回らず、閉店を考える日が増えた。",
+       "fx": {
+        "happy": -7,
+        "money": -300
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "通販や弁当に販路を広げる",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "販路",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "意外な当たり",
+       "text": "通販が当たり、店の外でも収入が伸びた。",
+       "fx": {
+        "money": 600,
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "小さな収入",
+       "text": "通販は細々と、副収入になった。",
+       "fx": {
+        "money": 120
+       }
+      },
+      "bad": {
+       "label": "在庫の山",
+       "text": "売れ残りが出て、赤字を抱えた。",
+       "fx": {
+        "money": -350,
+        "happy": -5
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_chef_05",
+   "age": [
+    40,
+    72
+   ],
+   "requires": {
+    "track": "chef"
+   },
+   "title": "弟子の独立",
+   "text": "長く働いてきた弟子が、独立して店を持ちたいと言い出した。",
+   "choices": [
+    {
+     "label": "喜んで送り出し、資金も出す",
+     "cost": {
+      "money": -300
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "支援",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "兄弟店に",
+       "text": "弟子の店が繁盛し、互いに客を紹介し合った。",
+       "fx": {
+        "bond": 8,
+        "happy": 7,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "感謝される",
+       "text": "店は軌道に乗り、時々挨拶に来てくれる。",
+       "fx": {
+        "bond": 4
+       }
+      },
+      "bad": {
+       "label": "閉店する",
+       "text": "弟子の店は一年で閉まり、資金は戻らなかった。",
+       "fx": {
+        "happy": -5,
+        "money": -100
+       }
+      }
+     }
+    },
+    {
+     "label": "店を任せて自分は一歩引く",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "継承",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "店が若返る",
+       "text": "新しい感性が入り、店が活気づいた。",
+       "fx": {
+        "happy": 7,
+        "bond": 5,
+        "money": 200
+       }
+      },
+      "mid": {
+       "label": "穏やかに引く",
+       "text": "店は変わらず続き、自分は時間を得た。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "bad": {
+       "label": "味が変わる",
+       "text": "店の味が変わり、常連が戸惑った。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "引き止めて店に残ってもらう",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": -1
+     },
+     "roll": {
+      "name": "慰留",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "右腕として",
+       "text": "弟子が副店主になり、店が安定した。",
+       "fx": {
+        "bond": 5,
+        "money": 150,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "気まずくなる",
+       "text": "弟子はそのまま残ったが、距離を感じる。",
+       "fx": {
+        "bond": -3
+       }
+      },
+      "bad": {
+       "label": "弟子が去る",
+       "text": "弟子は黙って去り、店が回らなくなった。",
+       "fx": {
+        "bond": -7,
+        "happy": -6,
+        "money": -150
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_lottery_01",
+   "age": [
+    20,
+    85
+   ],
+   "requires": {
+    "track": "lottery"
+   },
+   "title": "親戚が集まる",
+   "text": "当選の噂を聞きつけた親戚が、次々と連絡を寄こす。",
+   "choices": [
+    {
+     "label": "頼まれた分を貸す",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "貸与",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "感謝される",
+       "text": "借りた親戚が、約束通り返してくれた。",
+       "fx": {
+        "bond": 6,
+        "happy": 4,
+        "money": -100
+       }
+      },
+      "mid": {
+       "label": "返ってこない",
+       "text": "貸したお金は、少しずつ曖昧になっていった。",
+       "fx": {
+        "money": -600,
+        "bond": -3
+       }
+      },
+      "bad": {
+       "label": "縁が切れる",
+       "text": "金額が増え、親戚と絶縁状態になった。",
+       "fx": {
+        "money": -1500,
+        "bond": -9,
+        "happy": -8
+       },
+       "set": {
+        "press": {
+         "iso": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "全員の誘いを断る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": -3
+     },
+     "roll": {
+      "name": "拒否",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "距離を保つ",
+       "text": "きっぱり断り、後腐れなく過ごせた。",
+       "fx": {
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "陰口を言われる",
+       "text": "冷たい人だと、親戚の間で噂になった。",
+       "fx": {
+        "bond": -4
+       }
+      },
+      "bad": {
+       "label": "孤立する",
+       "text": "親戚との付き合いが、完全になくなった。",
+       "fx": {
+        "bond": -8,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "弁護士に相談し、窓口を一つにする",
+     "cost": {
+      "money": -50
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "窓口",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "穏やかに収まる",
+       "text": "窓口を通し、親戚の誘いは落ち着いた。",
+       "fx": {
+        "know": 4,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "費用がかかる",
+       "text": "安心は買えたが、費用が重かった。",
+       "fx": {
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "不信が残る",
+       "text": "事務的な対応に、親戚が不信感を抱いた。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_lottery_02",
+   "age": [
+    21,
+    85
+   ],
+   "requires": {
+    "track": "lottery"
+   },
+   "title": "浪費の誘惑",
+   "text": "通帳の桁に慣れてしまい、財布の紐が緩んでいる。",
+   "choices": [
+    {
+     "label": "ほしいものを買い、旅に出る",
+     "cost": {
+      "money": -300
+     },
+     "fx": {
+      "happy": 4
+     },
+     "roll": {
+      "name": "散財",
+      "stats": [
+       "happy",
+       "know"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "思い出が残る",
+       "text": "一生の思い出が、いくつもできた。",
+       "fx": {
+        "happy": 8,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "使いすぎ",
+       "text": "気づけば、数百万が消えていた。",
+       "fx": {
+        "money": -400,
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "底が見える",
+       "text": "後悔と焦りが同時にやってきた。",
+       "fx": {
+        "money": -1200,
+        "happy": -8
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "信頼できる資産運用に任せる",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "運用",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "資産が増える",
+       "text": "堅実な運用で、資産がゆっくり増えた。",
+       "fx": {
+        "money": 800,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "元本維持",
+       "text": "特に増えも減りもしなかった。",
+       "fx": {
+        "money": 50
+       }
+      },
+      "bad": {
+       "label": "損失が出る",
+       "text": "相場が崩れ、資産が目減りした。",
+       "fx": {
+        "money": -900,
+        "happy": -6
+       }
+      }
+     }
+    },
+    {
+     "label": "使い道を決め、残りは寝かせる",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "計画",
+      "stats": [
+       "know",
+       "happy"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "計画通り",
+       "text": "必要なだけ使い、残りは安心の貯えになった。",
+       "fx": {
+        "money": 300,
+        "happy": 6,
+        "know": 3
+       }
+      },
+      "mid": {
+       "label": "無難",
+       "text": "大きな出来事もなく、時が過ぎた。",
+       "fx": {
+        "money": 20
+       }
+      },
+      "bad": {
+       "label": "決められない",
+       "text": "決めきれず、毎月の通帳を眺めるだけだった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_lottery_03",
+   "age": [
+    22,
+    75
+   ],
+   "requires": {
+    "track": "lottery"
+   },
+   "title": "仕事を辞めるか",
+   "text": "当選のお金があれば、辞めても暮らせると気づいた。",
+   "choices": [
+    {
+     "label": "辞めて、好きなことに打ち込む",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 4
+     },
+     "roll": {
+      "name": "退職",
+      "stats": [
+       "happy",
+       "bond"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "のびのび生きる",
+       "text": "朝の寝坊と昼の散歩が、生活の中心になった。",
+       "fx": {
+        "happy": 9,
+        "health": 4,
+        "money": -100
+       }
+      },
+      "mid": {
+       "label": "暇を持て余す",
+       "text": "自由すぎて、何をしていいか分からなくなった。",
+       "fx": {
+        "happy": -2,
+        "bond": -3
+       }
+      },
+      "bad": {
+       "label": "後悔する",
+       "text": "辞めたあと、仕事の意味に気づいた。",
+       "fx": {
+        "happy": -7,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "今の仕事を続ける",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "継続",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "余裕が生まれる",
+       "text": "お金の不安がない分、仕事に集中できた。",
+       "fx": {
+        "happy": 5,
+        "bond": 4,
+        "money": 100
+       }
+      },
+      "mid": {
+       "label": "変わらない",
+       "text": "日々の営みは、以前と変わらなかった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "宙ぶらりん",
+       "text": "辞められない自分に、もやもやが残った。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "半年休んでから決める",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "health": 3
+     },
+     "roll": {
+      "name": "休職",
+      "stats": [
+       "happy",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "答えが出る",
+       "text": "半年の休みで、納得できる道が見えてきた。",
+       "fx": {
+        "happy": 8,
+        "health": 4,
+        "know": 3
+       }
+      },
+      "mid": {
+       "label": "あっという間",
+       "text": "休暇は短く、答えは出なかった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "居場所を失う",
+       "text": "休んでいる間に、職場の席がなくなった。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_lottery_04",
+   "age": [
+    25,
+    85
+   ],
+   "requires": {
+    "track": "lottery"
+   },
+   "title": "寄付の相談",
+   "text": "地元の団体から、活動のために寄付を頼まれた。",
+   "choices": [
+    {
+     "label": "まとまった額を寄付する",
+     "cost": {
+      "money": -500
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "寄付",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "感謝の輪",
+       "text": "寄付で整備された広場が、人々で賑わった。",
+       "fx": {
+        "bond": 8,
+        "happy": 8
+       }
+      },
+      "mid": {
+       "label": "静かな満足",
+       "text": "名前は出さず、気持ちが楽になった。",
+       "fx": {
+        "happy": 4
+       }
+      },
+      "bad": {
+       "label": "次々に依頼",
+       "text": "噂が広がり、依頼が相次いだ。",
+       "fx": {
+        "happy": -4,
+        "bond": -3,
+        "money": -500
+       }
+      }
+     }
+    },
+    {
+     "label": "少額だけ応援する",
+     "cost": {
+      "money": -50
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "少額",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "丁度いい",
+       "text": "無理のない額で、気持ちよく応援できた。",
+       "fx": {
+        "bond": 4,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "そっけない",
+       "text": "形だけの関わりで、すれ違いが残った。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "けちと言われる",
+       "text": "金額が少ないと、陰で言われてしまった。",
+       "fx": {
+        "bond": -4,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "基金を作り、使い道を見守る",
+     "cost": {
+      "money": -600
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "基金",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "地域が潤う",
+       "text": "基金が長く続き、地域の誇りとなった。",
+       "fx": {
+        "bond": 7,
+        "happy": 8
+       }
+      },
+      "mid": {
+       "label": "運営が大変",
+       "text": "基金の管理に、手間と時間がかかった。",
+       "fx": {
+        "money": -200,
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "もめ事が起きる",
+       "text": "運営でもめて、自分が矢面に立った。",
+       "fx": {
+        "bond": -6,
+        "happy": -7,
+        "money": -400
+       }
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "track_lottery_05",
+   "age": [
+    30,
+    90
+   ],
+   "requires": {
+    "track": "lottery"
+   },
+   "title": "当選のその後",
+   "text": "数年たち、あのお金が人生をどう変えたかを考えた。",
+   "choices": [
+    {
+     "label": "家族に分けて使う",
+     "cost": {
+      "money": -400
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "分与",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "温かい家庭",
+       "text": "家族で旅をし、毎年の集まりが楽しみになった。",
+       "fx": {
+        "bond": 8,
+        "happy": 8
+       }
+      },
+      "mid": {
+       "label": "感謝は薄い",
+       "text": "受け取って当然、という空気が漂った。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "不満が出る",
+       "text": "金額の差で揉めてしまった。",
+       "fx": {
+        "bond": -6,
+        "happy": -6,
+        "money": -300
+       }
+      }
+     }
+    },
+    {
+     "label": "新しい事業を興す",
+     "cost": {
+      "money": -500
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "起業",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "事業が成功",
+       "text": "小さな事業が軌道に乗り、雇用が生まれた。",
+       "fx": {
+        "money": 1200,
+        "happy": 9,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "とんとん",
+       "text": "事業は続くが、利益は出ない。",
+       "fx": {
+        "money": -100
+       }
+      },
+      "bad": {
+       "label": "事業が失敗",
+       "text": "事業は一年で行き詰まり、資金が尽きた。",
+       "fx": {
+        "money": -1500,
+        "happy": -9
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "元の暮らしに戻る",
+     "cost": {
+      "money": 0
+     },
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "原点",
+      "stats": [
+       "happy",
+       "health"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "穏やかな日々",
+       "text": "派手に暮らさず、気持ちが落ち着いている。",
+       "fx": {
+        "happy": 7,
+        "health": 3
+       }
+      },
+      "mid": {
+       "label": "日常のまま",
+       "text": "特別なことは何もなく、日々が過ぎていく。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "物足りない",
+       "text": "贅沢を知り、日常が少し色褪せて見えた。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "events": [
+  {
+   "id": "track_athlete_ev_01",
+   "age": [
+    18,
+    36
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "athlete"
+   },
+   "text": "遠征先の夜、ファンから手作りの横断幕を渡された。",
+   "fx": {
+    "happy": 3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "track_athlete_ev_02",
+   "age": [
+    18,
+    36
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "athlete"
+   },
+   "text": "月間の優秀選手に選ばれ、賞金が出た。",
+   "fx": {
+    "happy": 3,
+    "health": 1,
+    "money": 120
+   }
+  },
+  {
+   "id": "track_athlete_ev_03",
+   "age": [
+    18,
+    38
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "athlete"
+   },
+   "text": "連戦続きで体は重いが、勝利の味は格別だった。",
+   "fx": {
+    "happy": 3,
+    "health": -3
+   }
+  },
+  {
+   "id": "track_athlete_ev_04",
+   "age": [
+    20,
+    38
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "athlete"
+   },
+   "text": "契約更改で年俸は上がったが、拘束も増えた。",
+   "fx": {
+    "money": 200,
+    "bond": -2,
+    "happy": 1
+   }
+  },
+  {
+   "id": "track_athlete_ev_05",
+   "age": [
+    18,
+    38
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "athlete"
+   },
+   "text": "遠征が続き、友人との約束を何度か断った。",
+   "fx": {
+    "bond": -3,
+    "happy": 2,
+    "money": 60
+   }
+  },
+  {
+   "id": "track_athlete_ev_06",
+   "age": [
+    20,
+    40
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "athlete"
+   },
+   "text": "試合中の接触で肋骨を痛め、数試合を休んだ。",
+   "fx": {
+    "health": -5,
+    "happy": -3,
+    "money": -40
+   }
+  },
+  {
+   "id": "track_athlete_ev_07",
+   "age": [
+    22,
+    40
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "athlete"
+   },
+   "text": "ミスが続き、ファンから厳しい声が届いた。",
+   "fx": {
+    "happy": -5,
+    "bond": -2
+   }
+  },
+  {
+   "id": "track_athlete_ev_08",
+   "age": [
+    24,
+    40
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "athlete"
+   },
+   "text": "親しい仲間が戦力外となり、見送る夜が重かった。",
+   "fx": {
+    "happy": -4,
+    "bond": -2
+   }
+  },
+  {
+   "id": "track_entertainer_ev_01",
+   "age": [
+    16,
+    50
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "entertainer"
+   },
+   "text": "ロケ先で偶然出会った地元の人に、手料理をふるまわれた。",
+   "fx": {
+    "happy": 3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "track_entertainer_ev_02",
+   "age": [
+    16,
+    50
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "entertainer"
+   },
+   "text": "出演した番組が好評で、再放送の出演料が入った。",
+   "fx": {
+    "happy": 3,
+    "money": 150
+   }
+  },
+  {
+   "id": "track_entertainer_ev_03",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "entertainer"
+   },
+   "text": "街で声をかけられるようになり、気は張るが嬉しい。",
+   "fx": {
+    "happy": 3,
+    "bond": 2,
+    "health": -2
+   }
+  },
+  {
+   "id": "track_entertainer_ev_04",
+   "age": [
+    18,
+    55
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "entertainer"
+   },
+   "text": "収入は増えたが、プライベートの時間が消えた。",
+   "fx": {
+    "money": 200,
+    "bond": -3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "track_entertainer_ev_05",
+   "age": [
+    18,
+    55
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "entertainer"
+   },
+   "spend": true,
+   "text": "衣装代や美容に、多くの出費がかさんだ。",
+   "fx": {
+    "happy": 2,
+    "money": -60
+   }
+  },
+  {
+   "id": "track_entertainer_ev_06",
+   "age": [
+    18,
+    55
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "entertainer"
+   },
+   "text": "根拠のない噂がネットに載り、友人から心配された。",
+   "fx": {
+    "happy": -5,
+    "bond": -2
+   }
+  },
+  {
+   "id": "track_entertainer_ev_07",
+   "age": [
+    20,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "entertainer"
+   },
+   "text": "オーディションに立て続けに落ち、自信を失った。",
+   "fx": {
+    "happy": -5,
+    "know": -1
+   }
+  },
+  {
+   "id": "track_entertainer_ev_08",
+   "age": [
+    20,
+    60
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "entertainer"
+   },
+   "text": "過密なスケジュールで風邪をこじらせ、数日寝込んだ。",
+   "fx": {
+    "health": -5,
+    "money": -60
+   }
+  },
+  {
+   "id": "track_app_founder_ev_01",
+   "age": [
+    18,
+    65
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "app_founder"
+   },
+   "text": "新機能への口コミが広まり、利用者数が伸びた。",
+   "fx": {
+    "happy": 4,
+    "know": 1,
+    "money": 120
+   }
+  },
+  {
+   "id": "track_app_founder_ev_02",
+   "age": [
+    18,
+    65
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "app_founder"
+   },
+   "text": "テレビで取り上げられ、問い合わせが殺到した。",
+   "fx": {
+    "happy": 3,
+    "bond": 2,
+    "money": 200
+   }
+  },
+  {
+   "id": "track_app_founder_ev_03",
+   "age": [
+    18,
+    65
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "app_founder"
+   },
+   "text": "売上は伸びたが、毎晩のように障害対応に追われた。",
+   "fx": {
+    "money": 150,
+    "health": -3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "track_app_founder_ev_04",
+   "age": [
+    20,
+    65
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "app_founder"
+   },
+   "text": "社員が増え、オフィスを広げたが、固定費も膨らんだ。",
+   "fx": {
+    "bond": 2,
+    "money": -80,
+    "happy": 2,
+    "health": -1
+   }
+  },
+  {
+   "id": "track_app_founder_ev_05",
+   "age": [
+    20,
+    65
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "app_founder"
+   },
+   "spend": true,
+   "text": "広告収入が安定し、休日に趣味の開発ができた。",
+   "fx": {
+    "know": 3,
+    "happy": 2,
+    "health": -2,
+    "money": -30
+   }
+  },
+  {
+   "id": "track_app_founder_ev_06",
+   "age": [
+    18,
+    65
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "app_founder"
+   },
+   "text": "配信ストアの規約が変わり、収益が一気に落ちた。",
+   "fx": {
+    "money": -300,
+    "happy": -4
+   }
+  },
+  {
+   "id": "track_app_founder_ev_07",
+   "age": [
+    20,
+    65
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "app_founder"
+   },
+   "text": "低評価の書き込みが並び、数日手につかなかった。",
+   "fx": {
+    "happy": -5,
+    "know": -1
+   }
+  },
+  {
+   "id": "track_app_founder_ev_08",
+   "age": [
+    20,
+    65
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "app_founder"
+   },
+   "text": "取引先との行き違いで、契約を失った。",
+   "fx": {
+    "money": -500,
+    "bond": -3,
+    "happy": -3
+   }
+  },
+  {
+   "id": "track_author_ev_01",
+   "age": [
+    20,
+    85
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "author"
+   },
+   "text": "読者から届いた手紙に、本棚の写真が添えられていた。",
+   "fx": {
+    "happy": 3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "track_author_ev_02",
+   "age": [
+    20,
+    85
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "author"
+   },
+   "text": "地元の書店でサイン会を開き、行列ができた。",
+   "fx": {
+    "happy": 3,
+    "bond": 2,
+    "money": 60
+   }
+  },
+  {
+   "id": "track_author_ev_03",
+   "age": [
+    20,
+    85
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "author"
+   },
+   "text": "連載の締切に追われ、食事の時間が不規則になった。",
+   "fx": {
+    "know": 3,
+    "health": -3,
+    "money": 100
+   }
+  },
+  {
+   "id": "track_author_ev_04",
+   "age": [
+    20,
+    85
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "author"
+   },
+   "spend": true,
+   "text": "取材旅行で見聞が広がったが、出費も多かった。",
+   "fx": {
+    "know": 3,
+    "happy": 2,
+    "health": -2,
+    "money": -60
+   }
+  },
+  {
+   "id": "track_author_ev_05",
+   "age": [
+    20,
+    85
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "author"
+   },
+   "text": "映像化の話が持ち上がり、期待と不安が入り混じった。",
+   "fx": {
+    "money": 150,
+    "happy": 2,
+    "bond": -2
+   }
+  },
+  {
+   "id": "track_author_ev_06",
+   "age": [
+    20,
+    85
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "author"
+   },
+   "text": "原稿のデータが消え、一章分を書き直すことになった。",
+   "fx": {
+    "happy": -5,
+    "know": -1,
+    "health": -2
+   }
+  },
+  {
+   "id": "track_author_ev_07",
+   "age": [
+    20,
+    85
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "author"
+   },
+   "text": "売れ行きの不調を告げられ、重版が見送られた。",
+   "fx": {
+    "happy": -5,
+    "money": -150
+   }
+  },
+  {
+   "id": "track_author_ev_08",
+   "age": [
+    20,
+    85
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "author"
+   },
+   "text": "根を詰めすぎて、肩と腰を痛めた。",
+   "fx": {
+    "health": -5,
+    "happy": -2,
+    "money": -30
+   }
+  },
+  {
+   "id": "track_researcher_ev_01",
+   "age": [
+    24,
+    75
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "researcher"
+   },
+   "text": "論文が査読を通り、雑誌に掲載された。",
+   "fx": {
+    "know": 2,
+    "happy": 3
+   }
+  },
+  {
+   "id": "track_researcher_ev_02",
+   "age": [
+    24,
+    75
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "researcher"
+   },
+   "text": "学会で発表を終えると、見知らぬ研究者に握手を求められた。",
+   "fx": {
+    "happy": 3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "track_researcher_ev_03",
+   "age": [
+    24,
+    75
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "researcher"
+   },
+   "text": "共同研究が進み、夜の実験室で議論が盛り上がった。",
+   "fx": {
+    "know": 3,
+    "health": -3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "track_researcher_ev_04",
+   "age": [
+    24,
+    75
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "researcher"
+   },
+   "spend": true,
+   "text": "海外の学会に参加し、発表も交流も刺激になった。",
+   "fx": {
+    "know": 3,
+    "happy": 2,
+    "health": -2,
+    "money": -40
+   }
+  },
+  {
+   "id": "track_researcher_ev_05",
+   "age": [
+    24,
+    75
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "researcher"
+   },
+   "text": "授業と事務作業に追われ、研究時間が削られた。",
+   "fx": {
+    "know": -2,
+    "bond": 3,
+    "money": 40
+   }
+  },
+  {
+   "id": "track_researcher_ev_06",
+   "age": [
+    24,
+    75
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "researcher"
+   },
+   "text": "装置が壊れ、実験が数週間止まった。",
+   "fx": {
+    "happy": -4,
+    "money": -100
+   }
+  },
+  {
+   "id": "track_researcher_ev_07",
+   "age": [
+    24,
+    75
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "researcher"
+   },
+   "text": "査読者から厳しい指摘を受け、書き直しになった。",
+   "fx": {
+    "happy": -5,
+    "know": 1
+   }
+  },
+  {
+   "id": "track_researcher_ev_08",
+   "age": [
+    24,
+    75
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "researcher"
+   },
+   "text": "競合する研究室に、先に論文を出されてしまった。",
+   "fx": {
+    "happy": -6,
+    "know": -2
+   }
+  },
+  {
+   "id": "track_streamer_ev_01",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "streamer"
+   },
+   "text": "視聴者から届いたファンレターに、手描きのイラストがあった。",
+   "fx": {
+    "happy": 3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "track_streamer_ev_02",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "streamer"
+   },
+   "text": "投稿した動画が検索の上位に出て、広告収益が伸びた。",
+   "fx": {
+    "happy": 3,
+    "money": 150
+   }
+  },
+  {
+   "id": "track_streamer_ev_03",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "streamer"
+   },
+   "spend": true,
+   "text": "機材を買い替え、画質が上がったが貯金は減った。",
+   "fx": {
+    "happy": 3,
+    "know": 2,
+    "bond": -1,
+    "money": -60
+   }
+  },
+  {
+   "id": "track_streamer_ev_04",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "streamer"
+   },
+   "text": "生配信が盛り上がり、深夜まで話し続けた。",
+   "fx": {
+    "bond": 3,
+    "happy": 2,
+    "health": -3
+   }
+  },
+  {
+   "id": "track_streamer_ev_05",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "streamer"
+   },
+   "text": "企業の案件が舞い込んだが、台本の制約が多かった。",
+   "fx": {
+    "money": 200,
+    "happy": -2
+   }
+  },
+  {
+   "id": "track_streamer_ev_06",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "streamer"
+   },
+   "text": "編集中にデータが消え、徹夜で撮り直すことになった。",
+   "fx": {
+    "health": -4,
+    "happy": -4
+   }
+  },
+  {
+   "id": "track_streamer_ev_07",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "streamer"
+   },
+   "text": "見知らぬ人の中傷が続き、コメント欄を閉じた。",
+   "fx": {
+    "happy": -5,
+    "bond": -2
+   }
+  },
+  {
+   "id": "track_streamer_ev_08",
+   "age": [
+    16,
+    55
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "streamer"
+   },
+   "text": "長時間の撮影で腰を痛め、数日寝込んだ。",
+   "fx": {
+    "health": -5,
+    "money": -30
+   }
+  },
+  {
+   "id": "track_chef_ev_01",
+   "age": [
+    25,
+    70
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "chef"
+   },
+   "text": "卒業した学生が親を連れて来店し、涙ぐみながら食べてくれた。",
+   "fx": {
+    "happy": 3,
+    "bond": 2
+   }
+  },
+  {
+   "id": "track_chef_ev_02",
+   "age": [
+    25,
+    70
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "chef"
+   },
+   "text": "いつもの農家が、規格外の旬の野菜を持ってきてくれた。",
+   "fx": {
+    "happy": 3,
+    "bond": 2,
+    "money": 40
+   }
+  },
+  {
+   "id": "track_chef_ev_03",
+   "age": [
+    25,
+    70
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "chef"
+   },
+   "text": "大きな予約が入り、準備に追われたが売上は上がった。",
+   "fx": {
+    "money": 150,
+    "health": -3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "track_chef_ev_04",
+   "age": [
+    25,
+    70
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "chef"
+   },
+   "text": "食材が高騰して原価率が悪化し、値上げを決めた。",
+   "fx": {
+    "money": -60,
+    "bond": -2,
+    "know": 2
+   }
+  },
+  {
+   "id": "track_chef_ev_05",
+   "age": [
+    25,
+    70
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "chef"
+   },
+   "spend": true,
+   "text": "休みの日に他店を食べ歩き、刺激を受けた。",
+   "fx": {
+    "know": 3,
+    "happy": 2,
+    "health": -1,
+    "money": -30
+   }
+  },
+  {
+   "id": "track_chef_ev_06",
+   "age": [
+    25,
+    70
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "chef"
+   },
+   "text": "厨房の冷蔵庫が壊れ、仕込みが全部だめになった。",
+   "fx": {
+    "money": -100,
+    "happy": -4
+   }
+  },
+  {
+   "id": "track_chef_ev_07",
+   "age": [
+    25,
+    70
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "chef"
+   },
+   "text": "やけどと腱鞘炎が重なり、しばらく包丁が握れなかった。",
+   "fx": {
+    "health": -5,
+    "happy": -3,
+    "money": -40
+   }
+  },
+  {
+   "id": "track_chef_ev_08",
+   "age": [
+    25,
+    70
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "chef"
+   },
+   "text": "口コミサイトに事実と異なる酷評が載り、客足が遠のいた。",
+   "fx": {
+    "happy": -5,
+    "money": -100
+   }
+  },
+  {
+   "id": "track_lottery_ev_01",
+   "age": [
+    20,
+    90
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "lottery"
+   },
+   "spend": true,
+   "text": "当選を内緒にして、親に温泉旅行をプレゼントした。",
+   "fx": {
+    "happy": 3,
+    "bond": 2,
+    "money": -60
+   }
+  },
+  {
+   "id": "track_lottery_ev_02",
+   "age": [
+    20,
+    90
+   ],
+   "tier": "good",
+   "requires": {
+    "track": "lottery"
+   },
+   "text": "利息が入り、働かなくても通帳が増えていた。",
+   "fx": {
+    "happy": 3,
+    "money": 150
+   }
+  },
+  {
+   "id": "track_lottery_ev_03",
+   "age": [
+    20,
+    90
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "lottery"
+   },
+   "spend": true,
+   "text": "高い買い物をして、ふと我に返る。",
+   "fx": {
+    "happy": 3,
+    "money": -200,
+    "know": -1
+   }
+  },
+  {
+   "id": "track_lottery_ev_04",
+   "age": [
+    20,
+    90
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "lottery"
+   },
+   "text": "知らない人からの営業電話が増え、番号を変えた。",
+   "fx": {
+    "bond": -2,
+    "happy": -1,
+    "know": 3
+   }
+  },
+  {
+   "id": "track_lottery_ev_05",
+   "age": [
+    20,
+    90
+   ],
+   "tier": "normal",
+   "requires": {
+    "track": "lottery"
+   },
+   "spend": true,
+   "text": "友人との外食を全部おごり、感謝されたが少し複雑だった。",
+   "fx": {
+    "bond": 3,
+    "happy": 2,
+    "know": -1,
+    "money": -40
+   }
+  },
+  {
+   "id": "track_lottery_ev_06",
+   "age": [
+    20,
+    90
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "lottery"
+   },
+   "text": "投資話に乗せられそうになり、あやうく手を引いた。",
+   "fx": {
+    "happy": -4,
+    "money": -200
+   }
+  },
+  {
+   "id": "track_lottery_ev_07",
+   "age": [
+    20,
+    90
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "lottery"
+   },
+   "text": "金遣いの噂が広まり、昔の友人との距離が開いた。",
+   "fx": {
+    "bond": -5,
+    "happy": -3
+   }
+  },
+  {
+   "id": "track_lottery_ev_08",
+   "age": [
+    20,
+    90
+   ],
+   "tier": "bad",
+   "requires": {
+    "track": "lottery"
+   },
+   "text": "税金の手続きを誤り、追加の納付が必要になった。",
+   "fx": {
+    "money": -500,
+    "happy": -4
+   }
+  }
+ ]
+}

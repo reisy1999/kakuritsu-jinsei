@@ -1,0 +1,6102 @@
+{
+ "decisions": [
+  {
+   "id": "young_circle_01",
+   "age": [
+    19,
+    21
+   ],
+   "title": "サークル",
+   "text": "新歓で三つのサークルに誘われた。週の予定は限られている。",
+   "choices": [
+    {
+     "label": "音楽サークル",
+     "fx": {
+      "bond": 3,
+      "know": -1
+     },
+     "roll": {
+      "name": "ライブ本番",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "大成功",
+       "text": "学園祭のステージで、客席が最後まで手拍子をくれた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "楽しく続く",
+       "text": "週二回の練習が、授業の合間の居場所になった。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "幽霊部員",
+       "text": "練習に行けなくなり、気まずさだけが残った。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "学習系の勉強会",
+     "fx": {
+      "know": 4,
+      "bond": -1
+     },
+     "roll": {
+      "name": "研究発表",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "先輩に認められる",
+       "text": "発表のあと、先輩が研究室に誘ってくれた。",
+       "fx": {
+        "know": 7,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "勉強にはなった",
+       "text": "資料づくりに追われたが、知識は残った。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "空回り",
+       "text": "準備不足で質問に答えられず、しばらく落ち込んだ。",
+       "fx": {
+        "happy": -4,
+        "know": 1
+       }
+      }
+     }
+    },
+    {
+     "label": "どこにも入らない",
+     "fx": {
+      "health": 1,
+      "happy": -1
+     },
+     "roll": {
+      "name": "自由な時間",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "一人の時間が充実",
+       "text": "映画館と図書館を巡る、静かな一年になった。",
+       "fx": {
+        "happy": 5,
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "平穏",
+       "text": "特に何も起きない一年だった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "孤立気味",
+       "text": "知り合いが増えないまま、昼食はいつも一人だった。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "college"
+    ]
+   }
+  },
+  {
+   "id": "young_baito_01",
+   "age": [
+    19,
+    21
+   ],
+   "title": "バイトと学業",
+   "text": "生活費が足りない。バイトを増やせば授業に響く。",
+   "choices": [
+    {
+     "label": "バイトを増やす",
+     "fx": {
+      "health": -2,
+      "know": -2
+     },
+     "roll": {
+      "name": "稼ぎ時",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "貯金ができた",
+       "text": "居酒屋の店長に重宝され、時給が上がった。",
+       "fx": {
+        "money": 80,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "まあ回る",
+       "text": "睡眠は削れたが、生活費は確保できた。",
+       "fx": {
+        "money": 50,
+        "health": -2
+       }
+      },
+      "bad": {
+       "label": "体を壊す",
+       "text": "単位を落とし、冬は寝込んで終わった。",
+       "fx": {
+        "health": -6,
+        "know": -5,
+        "money": 20
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "授業優先でやりくり",
+     "fx": {
+      "know": 3,
+      "happy": -2
+     },
+     "roll": {
+      "name": "節約生活",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "成績優秀",
+       "text": "特待の枠に滑り込み、授業料の一部が免除された。",
+       "fx": {
+        "know": 7,
+        "money": 40
+       }
+      },
+      "mid": {
+       "label": "ぎりぎり",
+       "text": "学食の定食を我慢して、なんとか乗り切った。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "手元が尽きる",
+       "text": "月末に所持金が数百円になる日が続いた。",
+       "fx": {
+        "happy": -5,
+        "money": -20
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "親に頭を下げる",
+     "fx": {
+      "bond": -1,
+      "happy": -2
+     },
+     "roll": {
+      "name": "仕送り交渉",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "増額してもらえた",
+       "text": "母が黙って、仕送りを月二万円増やしてくれた。",
+       "fx": {
+        "money": 60,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "少しだけ援助",
+       "text": "「今回だけよ」と、一度だけ振り込みがあった。",
+       "fx": {
+        "money": 15
+       }
+      },
+      "bad": {
+       "label": "気まずくなる",
+       "text": "電話が切れたあと、実家に連絡しにくくなった。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "college"
+    ]
+   }
+  },
+  {
+   "id": "young_abroad_01",
+   "age": [
+    20,
+    22
+   ],
+   "title": "交換留学",
+   "text": "大学の交換留学に応募できる。一年間、日本を離れることになる。",
+   "choices": [
+    {
+     "label": "留学する",
+     "cost": {
+      "money": -120
+     },
+     "fx": {
+      "know": 3,
+      "happy": 2
+     },
+     "roll": {
+      "name": "異国の一年",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "世界が広がる",
+       "text": "現地の友人と旅をして、考え方がまるで変わった。",
+       "fx": {
+        "know": 8,
+        "bond": 6,
+        "happy": 5
+       },
+       "set": {
+        "flags": [
+         "abroad"
+        ]
+       }
+      },
+      "mid": {
+       "label": "それなりに学ぶ",
+       "text": "言葉に苦労しつつ、一年を終えて帰ってきた。",
+       "fx": {
+        "know": 4
+       },
+       "set": {
+        "flags": [
+         "abroad"
+        ]
+       }
+      },
+      "bad": {
+       "label": "孤独に終わる",
+       "text": "日本人同士で固まり、孤独な部屋で過ごす日が多かった。",
+       "fx": {
+        "happy": -5,
+        "know": 2
+       },
+       "set": {
+        "flags": [
+         "abroad"
+        ]
+       }
+      }
+     }
+    },
+    {
+     "label": "短期の語学研修",
+     "cost": {
+      "money": -40
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "二週間の研修",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "刺激を受ける",
+       "text": "最終日、ホストファミリーが手作りの食事で見送ってくれた。",
+       "fx": {
+        "know": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "いい思い出",
+       "text": "観光が主で、語学は少し進んだだけだった。",
+       "fx": {
+        "happy": 2,
+        "know": 1
+       }
+      },
+      "bad": {
+       "label": "体調不良",
+       "text": "到着早々に体調を崩し、寝て過ごした。",
+       "fx": {
+        "health": -4,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "国内で打ち込む",
+     "fx": {
+      "know": 2,
+      "bond": 1
+     },
+     "roll": {
+      "name": "研究室で",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "論文が評価される",
+       "text": "ゼミの発表が学内の賞に選ばれた。",
+       "fx": {
+        "know": 6,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "地道に積む",
+       "text": "日々の課題が、静かに積み上がった。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "目標を見失う",
+       "text": "周りが旅立つなか、何をしたいのか分からなくなった。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "college"
+    ],
+    "money_min": 80,
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_shukatsu_01",
+   "age": [
+    21,
+    22
+   ],
+   "title": "就職活動",
+   "text": "就活が解禁された。説明会の予定が毎日のように入ってくる。",
+   "choices": [
+    {
+     "label": "大手を狙う",
+     "cost": {
+      "money": -5
+     },
+     "fx": {
+      "know": 2,
+      "health": -2
+     },
+     "roll": {
+      "name": "大手の選考",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "大手に内定",
+       "text": "最終面接の帰り道、携帯に内定の電話が入った。",
+       "fx": {
+        "happy": 8,
+        "bond": 2
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "大手メーカー社員",
+         "income": 480,
+         "grow": 0.025,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "中堅に決まる",
+       "text": "第一志望には届かず、中堅企業に落ち着いた。",
+       "fx": {
+        "happy": 1
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "中堅企業の会社員",
+         "income": 360,
+         "grow": 0.02,
+         "kind": "corp"
+        }
+       }
+      },
+      "bad": {
+       "label": "全滅",
+       "text": "お祈りメールが続き、卒業後の予定が真っ白になった。",
+       "fx": {
+        "happy": -8,
+        "know": -2
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "地元の公務員を受ける",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "公務員試験",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "合格",
+       "text": "合格通知を、郵便受けで何度も読み返した。",
+       "fx": {
+        "happy": 6,
+        "know": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "市役所職員",
+         "income": 340,
+         "grow": 0.02,
+         "kind": "public"
+        }
+       }
+      },
+      "mid": {
+       "label": "民間に流れる",
+       "text": "試験に落ち、慌てて民間の説明会を回った。",
+       "fx": {
+        "happy": -2
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "地元企業の会社員",
+         "income": 300,
+         "grow": 0.015,
+         "kind": "corp"
+        }
+       }
+      },
+      "bad": {
+       "label": "どこも決まらず",
+       "text": "本番で頭が真っ白になり、全ての試験に落ちた。",
+       "fx": {
+        "happy": -7
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "早めに妥協して決める",
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "中小の面接",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "いい職場に当たる",
+       "text": "面接官の人柄に惹かれて入った会社は、居心地がよかった。",
+       "fx": {
+        "happy": 5,
+        "bond": 4
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "中小企業の営業",
+         "income": 320,
+         "grow": 0.02,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "普通に入社",
+       "text": "条件は並だが、とりあえず社会人になった。",
+       "fx": {},
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "中小企業の事務",
+         "income": 290,
+         "grow": 0.015,
+         "kind": "corp"
+        }
+       }
+      },
+      "bad": {
+       "label": "ブラックに入る",
+       "text": "入社前に聞いた話と、働き方がまるで違っていた。",
+       "fx": {
+        "health": -3,
+        "happy": -4
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "営業職",
+         "income": 270,
+         "grow": 0.005,
+         "kind": "corp"
+        },
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "college"
+    ]
+   }
+  },
+  {
+   "id": "young_daigakuin_01",
+   "age": [
+    21,
+    23
+   ],
+   "title": "大学院進学",
+   "text": "研究が面白くなってきた。院に進むか、就職するか。",
+   "choices": [
+    {
+     "label": "院に進学する",
+     "cost": {
+      "money": -100
+     },
+     "fx": {
+      "know": 4,
+      "happy": 1
+     },
+     "roll": {
+      "name": "修士の二年",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "研究が実る",
+       "text": "学会で声をかけられ、研究職への道が見えてきた。",
+       "fx": {
+        "know": 8,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "学位を得る",
+       "text": "地道な二年を終え、修士の肩書が残った。",
+       "fx": {
+        "know": 4
+       }
+      },
+      "bad": {
+       "label": "研究が行き詰まる",
+       "text": "結果が出ず、教授の顔を避けるようになった。",
+       "fx": {
+        "happy": -6,
+        "know": 1
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "就職する",
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "新社会人",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "早く馴染む",
+       "text": "同期とすぐに打ち解け、仕事の見通しが立った。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "会社員",
+         "income": 350,
+         "grow": 0.02,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "無難に始める",
+       "text": "特別なことはないが、社会人生活が始まった。",
+       "fx": {},
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "会社員",
+         "income": 320,
+         "grow": 0.02,
+         "kind": "corp"
+        }
+       }
+      },
+      "bad": {
+       "label": "理想と違う",
+       "text": "毎日同じ作業の繰り返しで、気持ちが晴れない。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "会社員",
+         "income": 300,
+         "grow": 0.01,
+         "kind": "corp"
+        },
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "休学して考える",
+     "fx": {
+      "happy": -1,
+      "bond": -1
+     },
+     "roll": {
+      "name": "休学の一年",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "やりたいこと発見",
+       "text": "旅先の農家で働き、進みたい道が見えた。",
+       "fx": {
+        "happy": 6,
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "ゆっくり休む",
+       "text": "朝寝坊の毎日で、気力が少し戻った。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "空白期間",
+       "text": "何もしないまま日が過ぎ、焦りだけが募った。",
+       "fx": {
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "college"
+    ],
+    "money_min": 50
+   }
+  },
+  {
+   "id": "young_taigaku_01",
+   "age": [
+    19,
+    21
+   ],
+   "title": "大学に行けない",
+   "text": "朝、起きられない日が増えた。授業に出ていない単位が積もる。",
+   "choices": [
+    {
+     "label": "学生相談室に行く",
+     "fx": {
+      "bond": 2,
+      "happy": 1
+     },
+     "roll": {
+      "name": "相談の効果",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "気持ちが軽くなる",
+       "text": "話を聞いてもらい、履修の組み直しで道が開けた。",
+       "fx": {
+        "happy": 6,
+        "bond": 4
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少し楽になる",
+       "text": "週に一度通う場所ができた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "足が向かない",
+       "text": "予約の日にも、結局行けなかった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "休学する",
+     "fx": {
+      "happy": 1,
+      "know": -2
+     },
+     "roll": {
+      "name": "休学",
+      "stats": [
+       "happy",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "立て直せる",
+       "text": "半年の休みで、また教室に座れるようになった。",
+       "fx": {
+        "health": 5,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子見",
+       "text": "休学中も、先のことはまだ見えない。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "休み癖がつく",
+       "text": "復学の期限だけが、重く近づいてくる。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "中退して働く",
+     "fx": {
+      "happy": -2,
+      "know": -3
+     },
+     "roll": {
+      "name": "中退後の仕事",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "職場に拾われる",
+       "text": "バイト先の社員が、正社員の話を持ちかけてくれた。",
+       "fx": {
+        "happy": 5,
+        "bond": 4
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "店舗スタッフ",
+         "income": 260,
+         "grow": 0.015,
+         "kind": "corp"
+        },
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "非正規で働く",
+       "text": "条件は悪いが、毎日出る場所ができた。",
+       "fx": {
+        "happy": 1
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "契約社員",
+         "income": 230,
+         "grow": 0.005,
+         "kind": "irregular"
+        }
+       }
+      },
+      "bad": {
+       "label": "仕事も続かない",
+       "text": "数か月で辞めてしまい、また部屋で過ごすようになった。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "college"
+    ],
+    "cond_min": {
+     "apathy": 1
+    }
+   }
+  },
+  {
+   "id": "young_ichininmae_01",
+   "age": [
+    22,
+    25
+   ],
+   "title": "初めての賞与",
+   "text": "初めてのボーナスが出た。使い道を考えている。",
+   "choices": [
+    {
+     "label": "貯金する",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "貯金の安心",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "安心感",
+       "text": "通帳の数字を眺めると、不思議と気持ちが落ち着いた。",
+       "fx": {
+        "happy": 4,
+        "money": 30
+       }
+      },
+      "mid": {
+       "label": "着実に増える",
+       "text": "毎月の積み立てが、少しずつ形になっていく。",
+       "fx": {
+        "money": 10
+       }
+      },
+      "bad": {
+       "label": "急な出費",
+       "text": "積み立てた分が、突然の出費で消えた。",
+       "fx": {
+        "money": -20,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "親にプレゼントを贈る",
+     "cost": {
+      "money": -15
+     },
+     "fx": {
+      "bond": 3,
+      "happy": 2
+     },
+     "roll": {
+      "name": "親孝行",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "涙ぐまれる",
+       "text": "父が箱を開けたまま、しばらく何も言わなかった。",
+       "fx": {
+        "bond": 6,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "喜ばれる",
+       "text": "「無理しなくていいのに」と言いながら、母が笑った。",
+       "fx": {
+        "bond": 3
+       }
+      },
+      "bad": {
+       "label": "空回り",
+       "text": "好みに合わず、箱は押し入れにしまわれた。",
+       "fx": {
+        "bond": -1,
+        "happy": -1
+       }
+      }
+     }
+    },
+    {
+     "label": "自分への褒美に使う",
+     "cost": {
+      "money": -30
+     },
+     "fx": {
+      "happy": 4,
+      "bond": -1
+     },
+     "roll": {
+      "name": "高い買い物",
+      "stats": [
+       "happy",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "大満足",
+       "text": "毎日使う腕時計を見るたび、背筋が伸びた。",
+       "fx": {
+        "happy": 6
+       }
+      },
+      "mid": {
+       "label": "まあ満足",
+       "text": "数週間で慣れて、特別でもなくなった。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "後悔する",
+       "text": "使わずに引き出しの奥に入ったままになった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "money_min": 0
+   }
+  },
+  {
+   "id": "young_hitorigurashi_01",
+   "age": [
+    19,
+    27
+   ],
+   "title": "初めての部屋",
+   "text": "家を出て一人暮らしをするか、実家から通うか迷っている。",
+   "choices": [
+    {
+     "label": "一人暮らしを始める",
+     "cost": {
+      "money": -30
+     },
+     "fx": {
+      "happy": 3,
+      "bond": -1
+     },
+     "roll": {
+      "name": "新生活",
+      "stats": [
+       "happy",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "自由を満喫",
+       "text": "自分の部屋で夜更かしして、友人を泊める日が増えた。",
+       "fx": {
+        "happy": 7,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "慣れが必要",
+       "text": "家事に追われつつ、少しずつ生活が回り始めた。",
+       "fx": {
+        "know": 2,
+        "health": -1
+       }
+      },
+      "bad": {
+       "label": "孤独と出費",
+       "text": "食費と光熱費が思ったより重く、夜が長かった。",
+       "fx": {
+        "money": -20,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "実家から通う",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "実家暮らし",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "貯金が増える",
+       "text": "家賃がない分、通帳の数字が着実に増えた。",
+       "fx": {
+        "money": 60,
+        "bond": 2
+       }
+      },
+      "mid": {
+       "label": "安定した日々",
+       "text": "食事があるありがたさを、改めて感じた。",
+       "fx": {
+        "money": 30
+       }
+      },
+      "bad": {
+       "label": "干渉が窮屈",
+       "text": "帰宅時間を毎回聞かれ、息が詰まりそうになった。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "シェアハウスに入る",
+     "cost": {
+      "money": -15
+     },
+     "fx": {
+      "bond": 3,
+      "happy": 1
+     },
+     "roll": {
+      "name": "共同生活",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "仲間ができる",
+       "text": "住人と鍋を囲む夜が、何よりの楽しみになった。",
+       "fx": {
+        "bond": 7,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "可もなく不可もなく",
+       "text": "挨拶程度の付き合いで、一年が過ぎた。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "生活音に悩む",
+       "text": "夜中の物音で眠れず、早々に出たくなった。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "college",
+     "work"
+    ],
+    "money_min": 30,
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_black_01",
+   "age": [
+    22,
+    30
+   ],
+   "title": "終わらない残業",
+   "text": "残業が月百時間を超えた。上司は「みんなやっている」と言う。",
+   "choices": [
+    {
+     "label": "耐えて続ける",
+     "fx": {
+      "health": -3,
+      "happy": -2
+     },
+     "roll": {
+      "name": "持ちこたえる",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "成果が認められる",
+       "text": "繁忙期を越えると、評価が上がり昇給した。",
+       "fx": {
+        "happy": 5,
+        "know": 4,
+        "income_mul": 1.1
+       }
+      },
+      "mid": {
+       "label": "なんとか越える",
+       "text": "春が来るころ、仕事量が少し落ち着いた。",
+       "fx": {
+        "health": -2
+       }
+      },
+      "bad": {
+       "label": "体が悲鳴を上げる",
+       "text": "駅のホームで立てなくなり、救急に運ばれた。",
+       "fx": {
+        "health": -8,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "上司や窓口に相談する",
+     "fx": {
+      "bond": -1,
+      "happy": 1
+     },
+     "roll": {
+      "name": "相談の行方",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "業務が減る",
+       "text": "人事が動き、担当が分けられて残業が半分になった。",
+       "fx": {
+        "health": 5,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子見に終わる",
+       "text": "「善処する」と言われたが、大きくは変わらない。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "居づらくなる",
+       "text": "面談のあと、周囲の視線が冷たくなった。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "退職する",
+     "fx": {
+      "health": 2,
+      "happy": 2
+     },
+     "roll": {
+      "name": "退職後",
+      "stats": [
+       "happy",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "休んで回復",
+       "text": "睡眠が戻り、味覚まで戻ってきた気がした。",
+       "fx": {
+        "health": 7,
+        "happy": 4
+       },
+       "set": {
+        "status": "jobless",
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "貯金を崩す",
+       "text": "しばらく無職の日々が続いた。",
+       "fx": {
+        "money": -15
+       },
+       "set": {
+        "status": "jobless"
+       }
+      },
+      "bad": {
+       "label": "焦りが募る",
+       "text": "辞めたことへの後ろめたさが消えない。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 1
+    }
+   }
+  },
+  {
+   "id": "young_tenshoku_01",
+   "age": [
+    25,
+    33
+   ],
+   "title": "転職の誘い",
+   "text": "知人から「うちに来ないか」と声をかけられた。給料は上がるが、安定は不明。",
+   "choices": [
+    {
+     "label": "転職する",
+     "fx": {
+      "happy": 2,
+      "bond": -1
+     },
+     "roll": {
+      "name": "新しい職場",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "大当たり",
+       "text": "裁量が増え、仕事の面白さを思い出した。",
+       "fx": {
+        "happy": 7,
+        "know": 6
+       },
+       "set": {
+        "job": {
+         "name": "転職先の会社員",
+         "income": 520,
+         "grow": 0.03,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "普通に馴染む",
+       "text": "給料は少し上がり、仕事の中身は似たようなものだった。",
+       "fx": {
+        "happy": 1
+       },
+       "set": {
+        "job": {
+         "name": "転職先の会社員",
+         "income": 400,
+         "grow": 0.02,
+         "kind": "corp"
+        }
+       }
+      },
+      "bad": {
+       "label": "条件が違う",
+       "text": "聞いた話と違い、前の職場が恋しくなった。",
+       "fx": {
+        "happy": -5,
+        "bond": -3
+       },
+       "set": {
+        "job": {
+         "name": "転職先の会社員",
+         "income": 330,
+         "grow": 0.01,
+         "kind": "corp"
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "今の会社に残る",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "残る選択",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "昇進する",
+       "text": "残ったことが評価され、新しい役職がついた。",
+       "fx": {
+        "happy": 4,
+        "bond": 3,
+        "income_mul": 1.1
+       }
+      },
+      "mid": {
+       "label": "変わらない日常",
+       "text": "毎日同じ席で、同じ仕事が続く。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "閉塞感",
+       "text": "同期が辞めていき、自分だけ残された気分になった。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "エージェントに相談",
+     "cost": {
+      "money": -5
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "情報収集",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "条件のいい求人",
+       "text": "希望に近い求人が見つかり、面接で話が弾んだ。",
+       "fx": {
+        "happy": 5,
+        "know": 3
+       },
+       "set": {
+        "job": {
+         "name": "転職先の会社員",
+         "income": 460,
+         "grow": 0.025,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "参考になる",
+       "text": "市場価値が分かり、現職の見方が少し変わった。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "時間を取られる",
+       "text": "面談ばかり重ねて、疲れだけが残った。",
+       "fx": {
+        "happy": -3,
+        "health": -1
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_fukugyo_01",
+   "age": [
+    24,
+    34
+   ],
+   "title": "副業を始める",
+   "text": "週末に使える時間がある。副業で稼ぐか、体を休めるか。",
+   "choices": [
+    {
+     "label": "ネットで受注する",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "know": 2,
+      "health": -2
+     },
+     "roll": {
+      "name": "副業の成果",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "軌道に乗る",
+       "text": "常連のお客さんがつき、月の収入が増えていった。",
+       "fx": {
+        "money": 120,
+        "know": 5
+       }
+      },
+      "mid": {
+       "label": "小遣い程度",
+       "text": "月に数万円、通帳に振り込まれた。",
+       "fx": {
+        "money": 30,
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "稼げず疲れる",
+       "text": "単価が安く、時給換算すると数百円だった。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "週末は休む",
+     "fx": {
+      "health": 3,
+      "happy": 2
+     },
+     "roll": {
+      "name": "休息の週末",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "元気になる",
+       "text": "日曜の午後に昼寝して、月曜が楽になった。",
+       "fx": {
+        "health": 6,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "特に何もなし",
+       "text": "変わらない週末が過ぎていった。",
+       "fx": {
+        "health": 1
+       }
+      },
+      "bad": {
+       "label": "ぼんやりと過ぎる",
+       "text": "何もしないまま、日曜の夜が来て落ち込んだ。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "趣味を仕事にしてみる",
+     "cost": {
+      "money": -10
+     },
+     "fx": {
+      "happy": 3
+     },
+     "roll": {
+      "name": "趣味の販売",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "ファンがつく",
+       "text": "手作りの品がSNSで広まり、注文が殺到した。",
+       "fx": {
+        "money": 90,
+        "happy": 8,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "少し売れる",
+       "text": "知人が数点買ってくれた。",
+       "fx": {
+        "money": 10,
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "ほぼ売れない",
+       "text": "材料費だけが残り、押し入れが在庫で埋まった。",
+       "fx": {
+        "money": -15,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_shikaku_01",
+   "age": [
+    22,
+    32
+   ],
+   "title": "資格の勉強",
+   "text": "仕事に役立つ資格に挑戦するか、そのまま過ごすか。",
+   "choices": [
+    {
+     "label": "難関資格に挑む",
+     "cost": {
+      "money": -10
+     },
+     "fx": {
+      "know": 4,
+      "happy": -2
+     },
+     "roll": {
+      "name": "資格試験",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "一発合格",
+       "text": "合格証を手にして、年収の話をする場面が増えた。",
+       "fx": {
+        "know": 8,
+        "happy": 6,
+        "income_mul": 1.15
+       }
+      },
+      "mid": {
+       "label": "もう一年",
+       "text": "惜しくも不合格。次の試験に向けて続けることにした。",
+       "fx": {
+        "know": 4
+       }
+      },
+      "bad": {
+       "label": "挫折する",
+       "text": "仕事との両立ができず、参考書が机の隅に積まれた。",
+       "fx": {
+        "happy": -4,
+        "health": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "実務に近い資格",
+     "cost": {
+      "money": -5
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "実務資格",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "すぐ役立つ",
+       "text": "資格手当がつき、任される仕事の幅が広がった。",
+       "fx": {
+        "know": 6,
+        "happy": 3,
+        "money": 20
+       }
+      },
+      "mid": {
+       "label": "合格する",
+       "text": "基礎が身につき、自信が少しついた。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "あと一歩届かず",
+       "text": "点数がわずかに足りず、悔しさが残った。",
+       "fx": {
+        "happy": -3,
+        "know": 1
+       }
+      }
+     }
+    },
+    {
+     "label": "勉強はしない",
+     "fx": {
+      "happy": 2,
+      "health": 1
+     },
+     "roll": {
+      "name": "今の暮らし",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "趣味を楽しむ",
+       "text": "仕事のあとに、好きなことだけで過ごす夜が増えた。",
+       "fx": {
+        "happy": 5,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "変わらない",
+       "text": "特に成長も後退もない一年だった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "取り残される",
+       "text": "同僚が資格を取っていくのを、横目で見ていた。",
+       "fx": {
+        "happy": -3,
+        "know": -2
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "money_min": 10
+   }
+  },
+  {
+   "id": "young_car_01",
+   "age": [
+    22,
+    34
+   ],
+   "title": "車を買うか",
+   "text": "通勤や遠出に車があれば便利だ。維持費も重い。",
+   "choices": [
+    {
+     "label": "中古車を買う",
+     "cost": {
+      "money": -150
+     },
+     "fx": {
+      "happy": 3,
+      "bond": 1
+     },
+     "roll": {
+      "name": "車のある暮らし",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "便利で楽しい",
+       "text": "休日にドライブへ出かけ、行動範囲がぐっと広がった。",
+       "fx": {
+        "happy": 6,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "普通に使う",
+       "text": "通勤とまとめ買いで、そこそこ役立っている。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "故障続き",
+       "text": "車検前に故障が重なり、修理代がかさんだ。",
+       "fx": {
+        "money": -60,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "新車を買う",
+     "cost": {
+      "money": -300
+     },
+     "fx": {
+      "happy": 4
+     },
+     "roll": {
+      "name": "新車の見栄",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "満足する",
+       "text": "納車の日、ぴかぴかのボディに思わず笑みがこぼれた。",
+       "fx": {
+        "happy": 8,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "満足は薄れる",
+       "text": "三か月で、新しさへの感動は消えた。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "ローンが重い",
+       "text": "毎月の支払いで、他の出費を削る日が続いた。",
+       "fx": {
+        "money": -40,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "買わずに電車で",
+     "fx": {
+      "health": 2
+     },
+     "roll": {
+      "name": "車なし生活",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "身軽に暮らす",
+       "text": "歩く距離が増えて、体が軽くなった。",
+       "fx": {
+        "health": 5,
+        "money": 30
+       }
+      },
+      "mid": {
+       "label": "不便は少し",
+       "text": "大きな荷物のときだけ、車が欲しくなる。",
+       "fx": {
+        "money": 15
+       }
+      },
+      "bad": {
+       "label": "行動が狭まる",
+       "text": "終電を気にして、誘いを断る日が増えた。",
+       "fx": {
+        "bond": -3,
+        "happy": -2
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "money_min": 150,
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_shogakukin_01",
+   "age": [
+    24,
+    30
+   ],
+   "title": "奨学金の返済",
+   "text": "毎月の奨学金の返済が続いている。繰り上げ返済も考えられる。",
+   "choices": [
+    {
+     "label": "繰り上げ返済する",
+     "cost": {
+      "money": -80
+     },
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "完済への道",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "早く完済",
+       "text": "最後の返済通知を見て、肩の荷がすっと降りた。",
+       "fx": {
+        "happy": 7,
+        "money": 30
+       }
+      },
+      "mid": {
+       "label": "着実に減る",
+       "text": "残高が減っていくのが、毎月の励みになった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "手元が薄くなる",
+       "text": "返済直後に急な出費があり、貯金ゼロになった。",
+       "fx": {
+        "money": -30,
+        "happy": -3
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "毎月の返済を続ける",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "月々の返済",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "余裕が生まれる",
+       "text": "その分を投資に回したら、少し増えた。",
+       "fx": {
+        "money": 30,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "淡々と払う",
+       "text": "引き落とし日がくるたび、少しだけ憂うつになる。",
+       "fx": {
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "返済に追われる",
+       "text": "生活費がきつくなり、外食を控えた。",
+       "fx": {
+        "happy": -4,
+        "money": -10
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "返済猶予を申請する",
+     "fx": {
+      "happy": 1,
+      "know": 1
+     },
+     "roll": {
+      "name": "猶予の申請",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "楽になる",
+       "text": "審査が通り、月々の負担が軽くなった。",
+       "fx": {
+        "happy": 5,
+        "health": 2
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "一時的に安心",
+       "text": "期限が来るまで、先送りにできた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "利息が増える",
+       "text": "結局、総額が増えると知って気が重くなった。",
+       "fx": {
+        "happy": -3,
+        "money": -20
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "flags_any": [
+     "uni"
+    ],
+    "status": [
+     "work",
+     "jobless"
+    ]
+   }
+  },
+  {
+   "id": "young_tenkin_01",
+   "age": [
+    26,
+    34
+   ],
+   "title": "転勤の辞令",
+   "text": "遠方への転勤を告げられた。断れば評価に響くかもしれない。",
+   "choices": [
+    {
+     "label": "受け入れて赴任する",
+     "cost": {
+      "money": -30
+     },
+     "fx": {
+      "know": 2,
+      "bond": -3
+     },
+     "roll": {
+      "name": "新天地",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "充実した赴任",
+       "text": "土地の人に歓迎され、仕事が大きく広がった。",
+       "fx": {
+        "know": 6,
+        "happy": 5,
+        "income_mul": 1.1
+       }
+      },
+      "mid": {
+       "label": "単身で淡々と",
+       "text": "慣れない町で、仕事と寝るだけの日々が続いた。",
+       "fx": {
+        "bond": -2
+       }
+      },
+      "bad": {
+       "label": "孤立する",
+       "text": "休日に話す相手もなく、部屋で過ごす日が増えた。",
+       "fx": {
+        "happy": -5,
+        "bond": -5
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "断る",
+     "fx": {
+      "happy": 1,
+      "bond": 2
+     },
+     "roll": {
+      "name": "辞令を断る",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "理解される",
+       "text": "事情を話すと、上司が別の人を探してくれた。",
+       "fx": {
+        "bond": 3,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "評価が下がる",
+       "text": "出世の道は遠のいたが、地元での暮らしは変わらない。",
+       "fx": {
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "居づらくなる",
+       "text": "陰で何か言われている気がして、居づらくなった。",
+       "fx": {
+        "happy": -5,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "退職して地元に残る",
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "退職と再出発",
+      "stats": [
+       "luck",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "よい再就職",
+       "text": "知人の紹介で、地元の会社にすんなり決まった。",
+       "fx": {
+        "happy": 5,
+        "bond": 3
+       },
+       "set": {
+        "job": {
+         "name": "地元企業の会社員",
+         "income": 340,
+         "grow": 0.02,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "無職になる",
+       "text": "次を決めずに辞め、再就職先を探す日が続いた。",
+       "fx": {
+        "happy": -2
+       },
+       "set": {
+        "status": "jobless"
+       }
+      },
+      "bad": {
+       "label": "条件が下がる",
+       "text": "年収が下がり、生活を見直さざるを得なくなった。",
+       "fx": {
+        "happy": -4,
+        "money": -20
+       },
+       "set": {
+        "job": {
+         "name": "パート勤務",
+         "income": 200,
+         "grow": 0.005,
+         "kind": "irregular"
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_kigyo_01",
+   "age": [
+    26,
+    34
+   ],
+   "title": "起業の誘い",
+   "text": "学生時代の友人が「一緒に会社をやろう」と言ってくる。",
+   "choices": [
+    {
+     "label": "会社を辞めて参加する",
+     "cost": {
+      "money": -100
+     },
+     "fx": {
+      "happy": 3,
+      "health": -2
+     },
+     "roll": {
+      "name": "スタートアップ",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "事業が当たる",
+       "text": "最初の大口の取引が決まり、徹夜が報われた。",
+       "fx": {
+        "happy": 10,
+        "bond": 4
+       },
+       "set": {
+        "job": {
+         "name": "共同経営者",
+         "income": 700,
+         "grow": 0.05,
+         "kind": "founder"
+        }
+       }
+      },
+      "mid": {
+       "label": "細々と続く",
+       "text": "役員報酬は少なく、それでも毎日が忙しい。",
+       "fx": {
+        "happy": 2
+       },
+       "set": {
+        "job": {
+         "name": "共同経営者",
+         "income": 300,
+         "grow": 0.01,
+         "kind": "founder"
+        }
+       }
+      },
+      "bad": {
+       "label": "資金が尽きる",
+       "text": "半年で資金が尽き、友人とも距離ができた。",
+       "fx": {
+        "money": -150,
+        "happy": -8,
+        "bond": -5
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "poor": 2
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "副業として関わる",
+     "cost": {
+      "money": -10
+     },
+     "fx": {
+      "know": 2,
+      "health": -2
+     },
+     "roll": {
+      "name": "週末の開発",
+      "stats": [
+       "know",
+       "health"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "収益化できる",
+       "text": "週末の働きで、最初の売り上げが立った。",
+       "fx": {
+        "money": 80,
+        "know": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "少し手伝う",
+       "text": "役に立てたが、本格的には進まなかった。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "疲れて揉める",
+       "text": "本業との板挟みで、友人と口論になった。",
+       "fx": {
+        "health": -4,
+        "bond": -5
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "断って今の会社に残る",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "安定を選ぶ",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "順調に昇給",
+       "text": "安定した給料で、貯金が堅実に増えた。",
+       "fx": {
+        "money": 40,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "変わらない",
+       "text": "同じ毎日が続いていく。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "後悔する",
+       "text": "友人の会社が伸びたと聞き、複雑な気持ちになった。",
+       "fx": {
+        "happy": -5
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "money_min": 100,
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_toushi_01",
+   "age": [
+    23,
+    34
+   ],
+   "title": "投資を始める",
+   "text": "同僚が積立投資の話をしている。始めてみたいが、元本は保証されない。",
+   "choices": [
+    {
+     "label": "積立投資を始める",
+     "cost": {
+      "money": -30
+     },
+     "fx": {
+      "know": 3
+     },
+     "roll": {
+      "name": "長期投資",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "資産が育つ",
+       "text": "数年後、評価額が元本をはっきり上回っていた。",
+       "fx": {
+        "money": 90,
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "ほどほどに増える",
+       "text": "大きくは増えないが、続ける習慣がついた。",
+       "fx": {
+        "money": 20,
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "暴落に遭う",
+       "text": "相場が崩れ、評価額が三割も下がった。",
+       "fx": {
+        "money": -30,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "個別株で勝負する",
+     "cost": {
+      "money": -60
+     },
+     "fx": {
+      "know": 2,
+      "happy": 1
+     },
+     "roll": {
+      "name": "株の大勝負",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "大きく儲かる",
+       "text": "話題の銘柄が急騰し、口座の数字が跳ね上がった。",
+       "fx": {
+        "money": 250,
+        "happy": 7
+       }
+      },
+      "mid": {
+       "label": "横ばいで終わる",
+       "text": "増えも減りもせず、時間だけが過ぎた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "大きく損する",
+       "text": "損切りが遅れ、貯金の大半を失った。",
+       "fx": {
+        "money": -80,
+        "happy": -8,
+        "health": -2
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "貯金で十分",
+     "fx": {
+      "happy": 1
+     },
+     "roll": {
+      "name": "現金で持つ",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "安心して眠る",
+       "text": "口座の数字が減らないだけで、気持ちは穏やかだった。",
+       "fx": {
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "物価に追われる",
+       "text": "物価が上がり、貯金の価値が静かに目減りした。",
+       "fx": {
+        "money": -10
+       }
+      },
+      "bad": {
+       "label": "急な出費で助かる",
+       "text": "ちょうど病気で入院し、現金が役立った。",
+       "fx": {
+        "money": -10,
+        "happy": 2
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "money_min": 50,
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_wedding_01",
+   "age": [
+    26,
+    33
+   ],
+   "title": "結婚式ラッシュ",
+   "text": "友人の結婚式の招待状が三通届いた。ご祝儀とスケジュールが重なる。",
+   "choices": [
+    {
+     "label": "全部出席する",
+     "cost": {
+      "money": -15
+     },
+     "fx": {
+      "bond": 3,
+      "happy": 1
+     },
+     "roll": {
+      "name": "祝いの席",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "再会が弾む",
+       "text": "旧友と再会し、二次会が朝まで続いた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "祝って帰る",
+       "text": "ご祝儀は痛いが、いい時間だった。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "疲れる",
+       "text": "連続した出費と移動で、気持ちが擦り減った。",
+       "fx": {
+        "money": -15,
+        "health": -3,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "近い友人だけ出る",
+     "cost": {
+      "money": -5
+     },
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "取捨選択",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "親しい仲が深まる",
+       "text": "スピーチを頼まれ、友人の涙に思わずもらい泣きした。",
+       "fx": {
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "丁度いい",
+       "text": "無理せず、気持ちのいい距離を保てた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "疎遠になる",
+       "text": "行かなかった友人から、連絡が来なくなった。",
+       "fx": {
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "お祝いだけ贈る",
+     "fx": {
+      "bond": -1
+     },
+     "roll": {
+      "name": "祝電とお祝い",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "喜ばれる",
+       "text": "あとで届いたお礼の手紙に、一筆添えてあった。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "あっさり済む",
+       "text": "出費も手間も、最小限で済んだ。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "距離が空く",
+       "text": "式の写真に自分だけ写っていないのを見て、寂しくなった。",
+       "fx": {
+        "bond": -4,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "money_min": 30
+   }
+  },
+  {
+   "id": "young_deai_01",
+   "age": [
+    19,
+    30
+   ],
+   "title": "気になる人",
+   "text": "バイト先や職場で、気になる人ができた。話す機会はたまにある。",
+   "choices": [
+    {
+     "label": "思い切って誘う",
+     "cost": {
+      "money": -5
+     },
+     "fx": {
+      "bond": 2,
+      "happy": 1
+     },
+     "roll": {
+      "name": "告白の行方",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "付き合い始める",
+       "text": "食事に誘うと、相手も同じ気持ちだと分かった。",
+       "fx": {
+        "happy": 8,
+        "bond": 5
+       }
+      },
+      "mid": {
+       "label": "友達でいる",
+       "text": "やんわり断られたが、気まずさは長引かなかった。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "気まずくなる",
+       "text": "断られたあと、顔を合わせるのがつらくなった。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "友達として距離を縮める",
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "ゆっくり近づく",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "自然に近づく",
+       "text": "共通の趣味で盛り上がり、気づけば毎週会っていた。",
+       "fx": {
+        "bond": 6,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "今のまま",
+       "text": "仲はいいが、それ以上は進まなかった。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "他の人と付き合う",
+       "text": "ある日、相手に恋人ができたと聞かされた。",
+       "fx": {
+        "happy": -5,
+        "bond": -1
+       }
+      }
+     }
+    },
+    {
+     "label": "仕事や勉強に集中する",
+     "fx": {
+      "know": 3,
+      "happy": -1
+     },
+     "roll": {
+      "name": "自分磨き",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "成果が出る",
+       "text": "打ち込んだ分、仕事も勉強も認められた。",
+       "fx": {
+        "know": 6,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "充実はする",
+       "text": "忙しさに紛れて、気持ちはそのままだった。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "寂しさが残る",
+       "text": "打ち込むほど、夜の静けさが身にしみた。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "married": false
+   }
+  },
+  {
+   "id": "young_doukyo_01",
+   "age": [
+    23,
+    32
+   ],
+   "title": "同棲の提案",
+   "text": "付き合っている相手から、一緒に暮らさないかと言われた。",
+   "choices": [
+    {
+     "label": "同棲を始める",
+     "cost": {
+      "money": -40
+     },
+     "fx": {
+      "happy": 3,
+      "bond": 2
+     },
+     "roll": {
+      "name": "二人暮らし",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "毎日が楽しい",
+       "text": "帰宅すると灯りがついていて、それだけで疲れが取れた。",
+       "fx": {
+        "happy": 8,
+        "bond": 6
+       }
+      },
+      "mid": {
+       "label": "生活のズレ",
+       "text": "洗い物の順番で、小さな喧嘩が増えた。",
+       "fx": {
+        "happy": -1,
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "すれ違い",
+       "text": "生活のリズムが合わず、会話が減っていった。",
+       "fx": {
+        "happy": -6,
+        "bond": -6
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "結婚するまで待つ",
+     "fx": {
+      "bond": -1
+     },
+     "roll": {
+      "name": "待つ時間",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "気持ちが固まる",
+       "text": "時間をかけるうち、お互いの気持ちが静かに固まった。",
+       "fx": {
+        "bond": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "今のまま続く",
+       "text": "会う頻度は変わらず、関係も変わらない。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "気持ちが冷める",
+       "text": "話が進まないまま、お互いの熱が冷めていった。",
+       "fx": {
+        "happy": -5,
+        "bond": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "まず別れを考える",
+     "fx": {
+      "happy": -3
+     },
+     "roll": {
+      "name": "関係を見直す",
+      "stats": [
+       "happy",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "すっきりする",
+       "text": "別れたあと、自分の時間が戻って気持ちが楽になった。",
+       "fx": {
+        "happy": 4,
+        "bond": -2
+       }
+      },
+      "mid": {
+       "label": "距離を置く",
+       "text": "連絡の回数が減り、そのまま遠くなった。",
+       "fx": {
+        "happy": -2,
+        "bond": -2
+       }
+      },
+      "bad": {
+       "label": "引きずる",
+       "text": "別れてからも、夜に思い出してしまう日が続いた。",
+       "fx": {
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "married": false,
+    "status": [
+     "work"
+    ],
+    "money_min": 40
+   }
+  },
+  {
+   "id": "young_proposal_01",
+   "age": [
+    25,
+    34
+   ],
+   "title": "プロポーズ",
+   "text": "付き合って三年。結婚を意識するようになった。",
+   "choices": [
+    {
+     "label": "プロポーズする",
+     "cost": {
+      "money": -60
+     },
+     "fx": {
+      "happy": 2,
+      "bond": 2
+     },
+     "roll": {
+      "name": "結婚の申し込み",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "受け入れられる",
+       "text": "指輪を差し出すと、相手が泣きながらうなずいた。",
+       "fx": {
+        "happy": 10,
+        "bond": 6
+       },
+       "set": {
+        "married": true
+       }
+      },
+      "mid": {
+       "label": "少し待たされる",
+       "text": "「少し考えさせて」と言われ、返事を待つことになった。",
+       "fx": {
+        "happy": -1,
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "断られる",
+       "text": "別の道を考えていると告げられ、帰り道が長かった。",
+       "fx": {
+        "happy": -9,
+        "bond": -4
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "婚約・同居から進める",
+     "cost": {
+      "money": -20
+     },
+     "fx": {
+      "bond": 2
+     },
+     "roll": {
+      "name": "段階を踏む",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "順調に進む",
+       "text": "両家に挨拶をして、式の日取りが決まった。",
+       "fx": {
+        "happy": 7,
+        "bond": 5
+       },
+       "set": {
+        "married": true
+       }
+      },
+      "mid": {
+       "label": "ゆっくり進む",
+       "text": "日程の調整に時間がかかり、年が変わった。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "話がこじれる",
+       "text": "親同士の条件が折り合わず、話が止まった。",
+       "fx": {
+        "happy": -5,
+        "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "まだ結婚しない",
+     "fx": {
+      "happy": -1,
+      "know": 1
+     },
+     "roll": {
+      "name": "独身の選択",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "自由を満喫",
+       "text": "自分の時間と稼ぎを、思う存分に使えた。",
+       "fx": {
+        "happy": 5,
+        "know": 3
+       }
+      },
+      "mid": {
+       "label": "今のまま",
+       "text": "同じ暮らしが続き、年齢だけが増える。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "相手が離れていく",
+       "text": "結論を出さないうちに、相手の気持ちが離れた。",
+       "fx": {
+        "happy": -6,
+        "bond": -4
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "married": false,
+    "money_min": 80,
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_kodomo_01",
+   "age": [
+    27,
+    34
+   ],
+   "title": "子どもを持つか",
+   "text": "結婚して数年。子どもを持つか、二人の暮らしを続けるか話し合っている。",
+   "choices": [
+    {
+     "label": "子どもを望む",
+     "cost": {
+      "money": -30
+     },
+     "fx": {
+      "happy": 2,
+      "bond": 2
+     },
+     "roll": {
+      "name": "授かる日",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "授かる",
+       "text": "検査薬の二本線を見て、二人で長く黙っていた。",
+       "fx": {
+        "happy": 10,
+        "bond": 5
+       },
+       "set": {
+        "kids_delta": 1
+       }
+      },
+      "mid": {
+       "label": "様子を見る",
+       "text": "授からないまま、時間だけが過ぎる。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "つらい時期",
+       "text": "うまくいかない日々が、二人の間に重く沈んだ。",
+       "fx": {
+        "happy": -6,
+        "bond": -3
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "二人の時間を優先",
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "二人の暮らし",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "充実する",
+       "text": "休日はいつも旅先で、写真が溜まっていった。",
+       "fx": {
+        "happy": 6,
+        "bond": 5
+       }
+      },
+      "mid": {
+       "label": "穏やかに暮らす",
+       "text": "波風の立たない日々が続く。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "意見が割れる",
+       "text": "どちらかが、本当は子どもが欲しかったと打ち明けた。",
+       "fx": {
+        "happy": -5,
+        "bond": -5
+       }
+      }
+     }
+    },
+    {
+     "label": "もう少し貯金してから",
+     "fx": {
+      "know": 1
+     },
+     "roll": {
+      "name": "先送り",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "余裕ができる",
+       "text": "貯金が増え、気持ちにも余裕が戻ってきた。",
+       "fx": {
+        "money": 50,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "決めきれない",
+       "text": "結論の出ないまま、一年が過ぎた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "機会を逃す",
+       "text": "話し合いを重ねるうち、タイミングが過ぎていった。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "married": true,
+    "money_min": 50
+   }
+  },
+  {
+   "id": "young_furusato_01",
+   "age": [
+    24,
+    34
+   ],
+   "title": "地元に戻るか",
+   "text": "親が年をとってきた。地元に戻れば家賃は浮くが、仕事は減る。",
+   "choices": [
+    {
+     "label": "地元に戻る",
+     "cost": {
+      "money": -20
+     },
+     "fx": {
+      "bond": 3,
+      "happy": 1
+     },
+     "roll": {
+      "name": "Uターン",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "よい仕事に就く",
+       "text": "地元の企業に採用され、親の顔がほころんだ。",
+       "fx": {
+        "happy": 7,
+        "bond": 6
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "地元企業の会社員",
+         "income": 330,
+         "grow": 0.02,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "のんびり暮らす",
+       "text": "収入は減ったが、家賃のない暮らしは楽だった。",
+       "fx": {
+        "bond": 3,
+        "happy": 2
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "地元の契約社員",
+         "income": 240,
+         "grow": 0.01,
+         "kind": "irregular"
+        }
+       }
+      },
+      "bad": {
+       "label": "仕事が見つからない",
+       "text": "面接を重ねても決まらず、実家で肩身が狭くなった。",
+       "fx": {
+        "happy": -6,
+        "bond": -2
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "今の街に残る",
+     "fx": {
+      "happy": 1,
+      "bond": -2
+     },
+     "roll": {
+      "name": "都会の暮らし",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "充実している",
+       "text": "仕事も友人も増え、街に居場所ができた。",
+       "fx": {
+        "happy": 5,
+        "know": 4
+       }
+      },
+      "mid": {
+       "label": "忙しい日々",
+       "text": "帰省の回数だけが、少しずつ減っていく。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "親と疎遠に",
+       "text": "電話もしないまま、実家が遠くなった。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "リモートで折衷",
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "二拠点の暮らし",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "両立できる",
+       "text": "在宅勤務に切り替えて、月の半分を実家で過ごせた。",
+       "fx": {
+        "happy": 6,
+        "bond": 5
+       }
+      },
+      "mid": {
+       "label": "半端になる",
+       "text": "どちらの街でも、落ち着かない日が続いた。",
+       "fx": {
+        "happy": -1
+       }
+      },
+      "bad": {
+       "label": "職場に難色",
+       "text": "出社を求められ、話は流れてしまった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work",
+     "jobless"
+    ]
+   }
+  },
+  {
+   "id": "young_workhol_01",
+   "age": [
+    22,
+    30
+   ],
+   "title": "ワーキングホリデー",
+   "text": "一年間、海外で働きながら暮らす制度がある。出発するか迷っている。",
+   "choices": [
+    {
+     "label": "一年間行ってみる",
+     "cost": {
+      "money": -100
+     },
+     "fx": {
+      "know": 3,
+      "happy": 2
+     },
+     "roll": {
+      "name": "海外での一年",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "人生が変わる",
+       "text": "現地の仕事で出会った仲間が、一生の友になった。",
+       "fx": {
+        "know": 8,
+        "bond": 6,
+        "happy": 6
+       },
+       "set": {
+        "flags": [
+         "abroad"
+        ]
+       }
+      },
+      "mid": {
+       "label": "いい経験",
+       "text": "語学は伸び、帰国後の就職は少し苦戦した。",
+       "fx": {
+        "know": 4,
+        "happy": 2
+       },
+       "set": {
+        "flags": [
+         "abroad"
+        ]
+       }
+      },
+      "bad": {
+       "label": "お金が尽きる",
+       "text": "仕事が見つからず、貯金を切り崩して帰ってきた。",
+       "fx": {
+        "money": -60,
+        "happy": -6
+       },
+       "set": {
+        "flags": [
+         "abroad"
+        ],
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "短期で旅行に行く",
+     "cost": {
+      "money": -30
+     },
+     "fx": {
+      "happy": 3
+     },
+     "roll": {
+      "name": "短い旅",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "心が晴れる",
+       "text": "朝市の屋台で食べた朝食が、忘れられない味になった。",
+       "fx": {
+        "happy": 6,
+        "bond": 2
+       }
+      },
+      "mid": {
+       "label": "楽しく終わる",
+       "text": "写真は増えたが、日常に戻ると色あせた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "体調を崩す",
+       "text": "現地で熱を出し、観光は半分で終わった。",
+       "fx": {
+        "health": -4,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "行かずに働く",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "日本で積む",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "貯金が増える",
+       "text": "一年分の収入がそのまま貯金になった。",
+       "fx": {
+        "money": 80,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "変わらない",
+       "text": "去年と同じ季節が巡ってくるだけだった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "機会を惜しむ",
+       "text": "SNSに流れる友人の旅先の写真を、複雑な気持ちで眺めた。",
+       "fx": {
+        "happy": -4
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work",
+     "jobless"
+    ],
+    "money_min": 80
+   }
+  },
+  {
+   "id": "young_seishain_01",
+   "age": [
+    22,
+    34
+   ],
+   "title": "正社員の求人",
+   "text": "非正規やバイトを続けている。正社員の求人に応募してみる。",
+   "choices": [
+    {
+     "label": "正社員に応募する",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "採用面接",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "採用される",
+       "text": "面接で正直に話したことが、採用につながった。",
+       "fx": {
+        "happy": 8,
+        "know": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "会社員",
+         "income": 330,
+         "grow": 0.02,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "非正規で採用",
+       "text": "条件は正社員でなく、契約社員として雇われた。",
+       "fx": {
+        "happy": 2
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "契約社員",
+         "income": 240,
+         "grow": 0.01,
+         "kind": "irregular"
+        }
+       }
+      },
+      "bad": {
+       "label": "不採用が続く",
+       "text": "書類の段階で落ちる日が続き、応募の手が止まった。",
+       "fx": {
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "資格を取ってから",
+     "cost": {
+      "money": -10
+     },
+     "fx": {
+      "know": 4,
+      "happy": -1
+     },
+     "roll": {
+      "name": "資格講座",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "武器になる",
+       "text": "資格が決め手になり、思い通りの会社に決まった。",
+       "fx": {
+        "know": 6,
+        "happy": 6
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "専門職の会社員",
+         "income": 380,
+         "grow": 0.025,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "勉強にはなった",
+       "text": "資格は取れたが、仕事はまだ決まらない。",
+       "fx": {
+        "know": 5
+       }
+      },
+      "bad": {
+       "label": "時間だけ過ぎる",
+       "text": "勉強中に貯金が減り、焦りが増した。",
+       "fx": {
+        "money": -10,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "今の仕事を続ける",
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "今の暮らし",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "店長に推される",
+       "text": "働きぶりを買われ、正社員の話が来た。",
+       "fx": {
+        "happy": 6,
+        "bond": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "店舗社員",
+         "income": 290,
+         "grow": 0.015,
+         "kind": "corp"
+        }
+       }
+      },
+      "mid": {
+       "label": "変わらない",
+       "text": "時給は上がらないが、日々は静かに続く。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "契約が切られる",
+       "text": "更新時期に、シフトを大幅に減らされた。",
+       "fx": {
+        "money": -20,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "jobless"
+    ]
+   }
+  },
+  {
+   "id": "young_kyushoku_01",
+   "age": [
+    20,
+    34
+   ],
+   "title": "外に出る一歩",
+   "text": "部屋にいる時間が長くなった。外に出る気力が、なかなか湧かない。",
+   "choices": [
+    {
+     "label": "支援窓口に相談する",
+     "fx": {
+      "bond": 2,
+      "happy": 1
+     },
+     "roll": {
+      "name": "相談の一歩",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "光が見える",
+       "text": "担当者の落ち着いた声に、肩の力が抜けた。",
+       "fx": {
+        "happy": 6,
+        "bond": 5
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "通い始める",
+       "text": "週に一度、外に出る日ができた。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "足が重い",
+       "text": "申込書だけ受け取って、部屋に戻った。",
+       "fx": {
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "短時間のバイトをする",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "health": 1
+     },
+     "roll": {
+      "name": "最初の仕事",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "居場所ができる",
+       "text": "店長が「また来てね」と言ってくれた。",
+       "fx": {
+        "happy": 6,
+        "bond": 4,
+        "money": 20
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "アルバイト",
+         "income": 120,
+         "grow": 0.005,
+         "kind": "irregular"
+        },
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少しずつ慣れる",
+       "text": "数時間の勤務が、生活に張りを与えた。",
+       "fx": {
+        "happy": 2,
+        "money": 10
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "アルバイト",
+         "income": 100,
+         "grow": 0.005,
+         "kind": "irregular"
+        }
+       }
+      },
+      "bad": {
+       "label": "三日で行けなくなる",
+       "text": "朝になると足が動かず、連絡も返せなかった。",
+       "fx": {
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "散歩から始める",
+     "fx": {
+      "health": 3
+     },
+     "roll": {
+      "name": "小さな習慣",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "体が軽くなる",
+       "text": "川沿いを歩くうち、季節の変化に気づくようになった。",
+       "fx": {
+        "health": 6,
+        "happy": 4
+       },
+       "set": {
+        "cond": {
+         "apathy": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "続かない日も",
+       "text": "歩けた日と歩けない日が、交互に来た。",
+       "fx": {
+        "health": 1
+       }
+      },
+      "bad": {
+       "label": "三日坊主",
+       "text": "雨の日が続いて、そのまま外に出なくなった。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "jobless",
+     "hikikomori"
+    ],
+    "cond_min": {
+     "apathy": 1
+    }
+   }
+  },
+  {
+   "id": "young_hosho_01",
+   "age": [
+    24,
+    34
+   ],
+   "title": "保証人",
+   "text": "親しい友人から「家を借りるので連帯保証人になってほしい」と頼まれた。",
+   "choices": [
+    {
+     "label": "引き受ける",
+     "fx": {
+      "bond": 4,
+      "happy": 1
+     },
+     "roll": {
+      "name": "友人の信用",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "無事に済む",
+       "text": "友人は毎月きちんと払い、ビールの差し入れが届いた。",
+       "fx": {
+        "bond": 5,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "問題なく続く",
+       "text": "特に何もなく、書類のことは忘れていった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "滞納される",
+       "text": "友人が支払いを滞納し、数十万円を肩代わりした。",
+       "fx": {
+        "money": -100,
+        "bond": -6,
+        "happy": -6
+       },
+       "set": {
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "理由を話して断る",
+     "fx": {
+      "bond": -3
+     },
+     "roll": {
+      "name": "断る誠実さ",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "理解される",
+       "text": "事情を話すと、友人は「こっちこそ悪い」と頭を下げた。",
+       "fx": {
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "少し気まずい",
+       "text": "笑顔の裏に、微妙な距離ができた。",
+       "fx": {
+        "bond": -2
+       }
+      },
+      "bad": {
+       "label": "関係が切れる",
+       "text": "「冷たいな」と言われ、それきり連絡が途絶えた。",
+       "fx": {
+        "bond": -6,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "保証会社を勧める",
+     "cost": {
+      "money": -3
+     },
+     "fx": {
+      "bond": 1,
+      "know": 1
+     },
+     "roll": {
+      "name": "代わりの案",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "喜ばれる",
+       "text": "費用は友人が負担し、無事に契約が済んだ。",
+       "fx": {
+        "bond": 4,
+        "know": 3
+       }
+      },
+      "mid": {
+       "label": "渋々了承",
+       "text": "友人は不満げだったが、他に方法はなかった。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "頼れないと思われる",
+       "text": "「そっちに頼む気はなかった」と言われた。",
+       "fx": {
+        "bond": -4,
+        "happy": -2
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_house_01",
+   "age": [
+    30,
+    34
+   ],
+   "title": "家を買う",
+   "text": "住宅の頭金が貯まってきた。賃貸を続けるか、家を買うか。",
+   "choices": [
+    {
+     "label": "中古の戸建を買う",
+     "cost": {
+      "money": -400
+     },
+     "fx": {
+      "happy": 3,
+      "bond": 2
+     },
+     "roll": {
+      "name": "住宅ローンの日々",
+      "stats": [
+       "luck",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "理想の家に出会う",
+       "text": "庭つきの家で、休日の朝が楽しみになった。",
+       "fx": {
+        "happy": 9,
+        "bond": 4
+       },
+       "set": {
+        "flags": [
+         "house"
+        ]
+       }
+      },
+      "mid": {
+       "label": "普通に暮らす",
+       "text": "ローンは重いが、自分の家という安心感があった。",
+       "fx": {
+        "happy": 2
+       },
+       "set": {
+        "flags": [
+         "house"
+        ]
+       }
+      },
+      "bad": {
+       "label": "修繕が重い",
+       "text": "購入直後に雨漏りが見つかり、修繕費がかさんだ。",
+       "fx": {
+        "money": -150,
+        "happy": -6
+       },
+       "set": {
+        "flags": [
+         "house"
+        ],
+        "press": {
+         "poor": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "賃貸を続ける",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "身軽な賃貸",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "貯蓄が増える",
+       "text": "家賃以外の出費が少なく、貯金に余裕が出た。",
+       "fx": {
+        "money": 80,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "そのまま続く",
+       "text": "更新料を払いながら、同じ部屋で暮らす。",
+       "fx": {
+        "money": -10
+       }
+      },
+      "bad": {
+       "label": "家賃が上がる",
+       "text": "更新のたびに家賃が上がり、予算を圧迫した。",
+       "fx": {
+        "money": -40,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "頭金を投資に回す",
+     "cost": {
+      "money": -100
+     },
+     "fx": {
+      "know": 2
+     },
+     "roll": {
+      "name": "運用に賭ける",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "資産が増える",
+       "text": "運用が伸び、頭金が一年で目に見えて増えた。",
+       "fx": {
+        "money": 300,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "元本程度",
+       "text": "ほぼ元本のまま、一年が過ぎた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "目減りする",
+       "text": "相場が崩れ、頭金の三割が消えた。",
+       "fx": {
+        "money": -60,
+        "happy": -5
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "married": true,
+    "money_min": 300,
+    "flags_none": [
+     "bankrupt",
+     "house"
+    ]
+   }
+  },
+  {
+   "id": "young_debt_01",
+   "age": [
+    22,
+    34
+   ],
+   "title": "増えていく借金",
+   "text": "カードの支払いが膨らみ、毎月の返済で手元に何も残らない。",
+   "choices": [
+    {
+     "label": "相談窓口に行く",
+     "fx": {
+      "know": 2,
+      "happy": 1
+     },
+     "roll": {
+      "name": "債務整理の相談",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "返済計画が立つ",
+       "text": "専門家と返済計画を組み、毎月の負担が軽くなった。",
+       "fx": {
+        "happy": 6,
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少し楽になる",
+       "text": "利息が止まり、心が少し軽くなった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "手続きに疲れる",
+       "text": "書類集めに追われ、気持ちが擦り減った。",
+       "fx": {
+        "happy": -3,
+        "health": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "自己破産する",
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "自己破産",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "再出発",
+       "text": "借金がなくなり、夜よく眠れるようになった。",
+       "fx": {
+        "happy": 6,
+        "health": 3
+       },
+       "set": {
+        "bankrupt": true,
+        "cond": {
+         "poor": -2
+        }
+       }
+      },
+      "mid": {
+       "label": "手続きが終わる",
+       "text": "しばらく制限はあるが、生活はやり直せる。",
+       "fx": {
+        "happy": 1
+       },
+       "set": {
+        "bankrupt": true,
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "bad": {
+       "label": "周囲に知られる",
+       "text": "噂が広がり、気まずい思いをした。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       },
+       "set": {
+        "bankrupt": true,
+        "cond": {
+         "poor": -1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "副業で返す",
+     "fx": {
+      "health": -2,
+      "happy": -1
+     },
+     "roll": {
+      "name": "完済を目指す",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "完済する",
+       "text": "夜間の仕事を一年続け、借金を完済した。",
+       "fx": {
+        "happy": 6,
+        "know": 2,
+        "money": 200
+       },
+       "set": {
+        "cond": {
+         "poor": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "少しずつ減る",
+       "text": "減るペースは遅いが、確実に残高は下がった。",
+       "fx": {
+        "health": -2,
+        "money": 40
+       }
+      },
+      "bad": {
+       "label": "体を壊す",
+       "text": "睡眠不足がたたり、本業にも影響が出た。",
+       "fx": {
+        "health": -7,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "tired": 2
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "money_max": 0,
+    "cond_min": {
+     "poor": 1
+    },
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_oya_01",
+   "age": [
+    28,
+    34
+   ],
+   "title": "親の入院",
+   "text": "親が大きな病気で入院した。仕事を調整して付き添うか迷っている。",
+   "choices": [
+    {
+     "label": "休みを取って付き添う",
+     "fx": {
+      "bond": 4,
+      "health": -2
+     },
+     "roll": {
+      "name": "看病の日々",
+      "stats": [
+       "bond",
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "親子の絆が深まる",
+       "text": "病室で、聞いたことのない昔話を聞いた。",
+       "fx": {
+        "bond": 8,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "無事に退院",
+       "text": "疲れたが、退院の日に笑って迎えられた。",
+       "fx": {
+        "bond": 3,
+        "health": -2
+       }
+      },
+      "bad": {
+       "label": "職場で孤立する",
+       "text": "休みが重なり、職場で肩身が狭くなった。",
+       "fx": {
+        "bond": -3,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "週末だけ通う",
+     "cost": {
+      "money": -5
+     },
+     "fx": {
+      "bond": 1
+     },
+     "roll": {
+      "name": "週末の見舞い",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "ちょうどよい支え",
+       "text": "週末の訪問を、親も楽しみにしてくれていた。",
+       "fx": {
+        "bond": 4,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "無難に過ぎる",
+       "text": "見舞いと仕事で、慌ただしく過ぎた。",
+       "fx": {
+        "health": -1
+       }
+      },
+      "bad": {
+       "label": "後悔が残る",
+       "text": "間に合わず、もっと通えばよかったと悔やんだ。",
+       "fx": {
+        "happy": -5,
+        "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "兄弟に任せる",
+     "fx": {
+      "happy": -1,
+      "bond": -3
+     },
+     "roll": {
+      "name": "家族の分担",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "感謝される",
+       "text": "兄弟が引き受けてくれ、お互いに礼を言い合った。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "不満が残る",
+       "text": "負担の偏りで、兄弟と気まずくなった。",
+       "fx": {
+        "bond": -4
+       }
+      },
+      "bad": {
+       "label": "関係が悪化",
+       "text": "「何もしなかった」と言われ、口をきかなくなった。",
+       "fx": {
+        "bond": -7,
+        "happy": -5
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "parents_alive": true,
+    "status": [
+     "work",
+     "jobless"
+    ]
+   }
+  },
+  {
+   "id": "young_oshi_01",
+   "age": [
+    20,
+    34
+   ],
+   "title": "推し活の沼",
+   "text": "好きなアーティストの遠征ライブがある。チケットと交通費は決して安くない。",
+   "choices": [
+    {
+     "label": "遠征する",
+     "cost": {
+      "money": -15
+     },
+     "fx": {
+      "happy": 4,
+      "bond": 2
+     },
+     "roll": {
+      "name": "遠征ライブ",
+      "stats": [
+       "happy",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "最高の夜",
+       "text": "最前列近くで、目が合った気がして一晩眠れなかった。",
+       "fx": {
+        "happy": 9,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "楽しい遠征",
+       "text": "物販に並び疲れたが、帰りの新幹線で余韻に浸った。",
+       "fx": {
+        "happy": 4
+       }
+      },
+      "bad": {
+       "label": "財布が悲鳴",
+       "text": "遠征が重なり、月末の食事がもやしになった。",
+       "fx": {
+        "money": -20,
+        "happy": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "配信で応援する",
+     "cost": {
+      "money": -2
+     },
+     "fx": {
+      "happy": 2
+     },
+     "roll": {
+      "name": "家で応援",
+      "stats": [
+       "happy"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "おなじみになる",
+       "text": "配信のコメント欄で、顔なじみの仲間ができた。",
+       "fx": {
+        "bond": 4,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "ほどほど",
+       "text": "満足感はあるが、物足りなさも少し。",
+       "fx": {
+        "happy": 1
+       }
+      },
+      "bad": {
+       "label": "ひとり寂しい",
+       "text": "画面の向こうの歓声を聞きながら、夜が更けた。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "貯金に回す",
+     "fx": {
+      "happy": -2
+     },
+     "roll": {
+      "name": "我慢の選択",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "貯金が増える",
+       "text": "次の機会に備えて、貯金が少し増えた。",
+       "fx": {
+        "money": 40,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "やや後悔",
+       "text": "SNSで感想を見て、行けばよかったと思った。",
+       "fx": {
+        "happy": -2
+       }
+      },
+      "bad": {
+       "label": "チケットが完売",
+       "text": "結局どのみち手に入らず、悔しさが残った。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "money_min": 30
+   }
+  },
+  {
+   "id": "young_kyuushoku_02",
+   "age": [
+    24,
+    34
+   ],
+   "title": "休職するか",
+   "text": "朝になると体が動かない日が増えた。仕事を休むか、続けるか。",
+   "choices": [
+    {
+     "label": "休職する",
+     "fx": {
+      "health": 3,
+      "happy": 1
+     },
+     "roll": {
+      "name": "休職期間",
+      "stats": [
+       "health",
+       "happy"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "回復して復帰",
+       "text": "半年の休みで、少しずつ笑えるようになった。",
+       "fx": {
+        "health": 8,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "tired": -2
+        }
+       }
+      },
+      "mid": {
+       "label": "ゆっくり回復",
+       "text": "復帰の時期は決まらないが、体は少し楽になった。",
+       "fx": {
+        "health": 3
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "bad": {
+       "label": "復職できず退職",
+       "text": "復帰できないまま、会社を辞めることになった。",
+       "fx": {
+        "happy": -4
+       },
+       "set": {
+        "status": "jobless",
+        "press": {
+         "apathy": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "そのまま働き続ける",
+     "fx": {
+      "health": -3
+     },
+     "roll": {
+      "name": "無理を重ねる",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "山を越える",
+       "text": "繁忙期が終わり、徐々に気力が戻った。",
+       "fx": {
+        "health": 4,
+        "happy": 3
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "なんとか踏ん張る",
+       "text": "限界を感じつつ、日々が続いた。",
+       "fx": {
+        "health": -2
+       }
+      },
+      "bad": {
+       "label": "倒れてしまう",
+       "text": "出勤途中で動けなくなり、そのまま入院となった。",
+       "fx": {
+        "health": -9,
+        "happy": -5,
+        "money": -30
+       },
+       "set": {
+        "press": {
+         "tired": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "異動を願い出る",
+     "fx": {
+      "bond": -1,
+      "happy": 1
+     },
+     "roll": {
+      "name": "環境を変える",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "環境が変わる",
+       "text": "新しい部署で、定時に帰れる日が増えた。",
+       "fx": {
+        "health": 6,
+        "happy": 5
+       },
+       "set": {
+        "cond": {
+         "tired": -1
+        }
+       }
+      },
+      "mid": {
+       "label": "様子を見る",
+       "text": "異動の返事を待つだけで、時間が過ぎた。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "希望は通らない",
+       "text": "「今は人手が足りない」の一言で終わった。",
+       "fx": {
+        "happy": -5
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "cond_min": {
+     "tired": 2
+    }
+   }
+  },
+  {
+   "id": "young_gakuhi_01",
+   "age": [
+    19,
+    22
+   ],
+   "title": "奨学金を借りる",
+   "text": "学費が苦しい。奨学金を借りるか、バイトで稼ぐか。",
+   "choices": [
+    {
+     "label": "奨学金を借りる",
+     "fx": {
+      "know": 2,
+      "happy": -1
+     },
+     "roll": {
+      "name": "奨学金",
+      "stats": [
+       "know"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "学業に専念",
+       "text": "返す額は重いが、学業に集中できる時間が増えた。",
+       "fx": {
+        "know": 6,
+        "happy": 3,
+        "money": 100
+       }
+      },
+      "mid": {
+       "label": "借りて安心",
+       "text": "毎月の振込が、生活を支えてくれた。",
+       "fx": {
+        "money": 100,
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "借金感が重い",
+       "text": "卒業時の残高を見て、気が遠くなった。",
+       "fx": {
+        "money": 100,
+        "happy": -4
+       },
+       "set": {
+        "flags": [
+         "uni"
+        ]
+       }
+      }
+     }
+    },
+    {
+     "label": "バイトで学費を稼ぐ",
+     "fx": {
+      "health": -2,
+      "bond": 1
+     },
+     "roll": {
+      "name": "働きながら学ぶ",
+      "stats": [
+       "health"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "自立できる",
+       "text": "自分で稼いだ学費を払い、誇らしさがあった。",
+       "fx": {
+        "happy": 5,
+        "bond": 3,
+        "money": 50
+       }
+      },
+      "mid": {
+       "label": "ぎりぎりで回る",
+       "text": "授業とバイトの往復で、時間が足りない。",
+       "fx": {
+        "health": -2,
+        "money": 30
+       }
+      },
+      "bad": {
+       "label": "単位を落とす",
+       "text": "バイトが忙しく、数科目の単位を落とした。",
+       "fx": {
+        "know": -5,
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "親に頼る",
+     "fx": {
+      "bond": -1
+     },
+     "roll": {
+      "name": "家族の援助",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "援助を受けられる",
+       "text": "親が「しっかり学んで」と、満額を出してくれた。",
+       "fx": {
+        "bond": 3,
+        "happy": 3,
+        "money": 80
+       }
+      },
+      "mid": {
+       "label": "条件つき",
+       "text": "援助は受けたが、結果を厳しく求められた。",
+       "fx": {
+        "happy": -1,
+        "money": 50
+       }
+      },
+      "bad": {
+       "label": "援助を断られる",
+       "text": "家計も苦しく、望むほどの援助は得られなかった。",
+       "fx": {
+        "bond": -3,
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "college"
+    ],
+    "flags_none": [
+     "bankrupt"
+    ]
+   }
+  },
+  {
+   "id": "young_hobby_01",
+   "age": [
+    22,
+    34
+   ],
+   "title": "趣味に投資する",
+   "text": "収入が安定してきた。趣味の道具を買うか、スキルを磨くか迷っている。",
+   "choices": [
+    {
+     "label": "高い道具を買う",
+     "cost": {
+      "money": -30
+     },
+     "fx": {
+      "happy": 4
+     },
+     "roll": {
+      "name": "道具選び",
+      "stats": [
+       "happy",
+       "luck"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "夢中になる",
+       "text": "毎週末、道具を手に外へ出るのが習慣になった。",
+       "fx": {
+        "happy": 8,
+        "bond": 3
+       }
+      },
+      "mid": {
+       "label": "まあ使う",
+       "text": "気分は上がったが、頻度は少しずつ減った。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "飽きて放置",
+       "text": "二か月で飽きて、部屋の隅で埃をかぶっている。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "習い事に通う",
+     "cost": {
+      "money": -15
+     },
+     "fx": {
+      "know": 3,
+      "bond": 2
+     },
+     "roll": {
+      "name": "教室通い",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "仲間と上達",
+       "text": "発表会で拍手を浴び、仲間との帰り道が楽しかった。",
+       "fx": {
+        "know": 6,
+        "bond": 5,
+        "happy": 4
+       }
+      },
+      "mid": {
+       "label": "ゆっくり上達",
+       "text": "週に一度の教室が、生活の区切りになった。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "通えなくなる",
+       "text": "仕事が忙しく、月謝だけが引き落とされた。",
+       "fx": {
+        "happy": -3,
+        "money": -10
+       }
+      }
+     }
+    },
+    {
+     "label": "貯金して様子を見る",
+     "fx": {
+      "happy": -1
+     },
+     "roll": {
+      "name": "我慢のとき",
+      "stats": [
+       "luck"
+      ],
+      "difficulty": 10,
+      "good": {
+       "label": "余裕ができる",
+       "text": "貯金が増え、気持ちにも余裕が出た。",
+       "fx": {
+        "money": 40,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "変わらない",
+       "text": "特に何も変わらない一年だった。",
+       "fx": {}
+      },
+      "bad": {
+       "label": "物足りなさ",
+       "text": "何かを始めたい気持ちが、日に日に膨らんだ。",
+       "fx": {
+        "happy": -3
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "status": [
+     "work"
+    ],
+    "money_min": 60
+   }
+  },
+  {
+   "id": "young_kashi_01",
+   "age": [
+    20,
+    34
+   ],
+   "title": "お金を貸してほしい",
+   "text": "仲のいい友人から、急ぎで十万円貸してほしいと連絡が来た。",
+   "choices": [
+    {
+     "label": "貸す",
+     "cost": {
+      "money": -10
+     },
+     "fx": {
+      "bond": 3
+     },
+     "roll": {
+      "name": "貸したお金",
+      "stats": [
+       "luck",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "きちんと返ってくる",
+       "text": "翌月、お礼の手紙と一緒に全額が返ってきた。",
+       "fx": {
+        "bond": 6,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "少しずつ返る",
+       "text": "返済は遅れたが、最後には戻ってきた。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "返ってこない",
+       "text": "連絡が取れなくなり、貸した金も友人も失った。",
+       "fx": {
+        "money": -10,
+        "bond": -6,
+        "happy": -4
+       },
+       "set": {
+        "press": {
+         "iso": 1
+        }
+       }
+      }
+     }
+    },
+    {
+     "label": "断る",
+     "fx": {
+      "bond": -2
+     },
+     "roll": {
+      "name": "断った後",
+      "stats": [
+       "bond"
+      ],
+      "difficulty": 15,
+      "good": {
+       "label": "理解される",
+       "text": "事情を話すと、友人は別の手段を見つけたと笑った。",
+       "fx": {
+        "bond": 2,
+        "happy": 2
+       }
+      },
+      "mid": {
+       "label": "距離ができる",
+       "text": "返事は短く、それきり連絡が減った。",
+       "fx": {
+        "bond": -3
+       }
+      },
+      "bad": {
+       "label": "関係が壊れる",
+       "text": "「頼りにならないな」と言われ、縁が切れた。",
+       "fx": {
+        "bond": -6,
+        "happy": -4
+       }
+      }
+     }
+    },
+    {
+     "label": "相談窓口を紹介する",
+     "fx": {
+      "know": 2,
+      "bond": 1
+     },
+     "roll": {
+      "name": "別の助け",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "感謝される",
+       "text": "窓口に同行し、友人は無事に生活を立て直した。",
+       "fx": {
+        "bond": 5,
+        "know": 3
+       }
+      },
+      "mid": {
+       "label": "微妙な顔",
+       "text": "「そういうことじゃない」と言われつつ、窓口には行ってくれた。",
+       "fx": {
+        "bond": -1
+       }
+      },
+      "bad": {
+       "label": "突き放されたと感じる",
+       "text": "友人は黙って席を立ち、その後は返信がなかった。",
+       "fx": {
+        "bond": -5,
+        "happy": -2
+       }
+      }
+     }
+    }
+   ],
+   "requires": {
+    "money_min": 30
+   }
+  }
+ ],
+ "events": [
+  {
+   "id": "young_ev_bonus_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "good",
+   "text": "冬の賞与が少し多く出て、同期と焼肉に行った。",
+   "fx": {
+    "happy": 2,
+    "bond": 1,
+    "money": 40
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_onsen_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "good",
+   "text": "大学の友人と、日帰りの温泉に出かけた。",
+   "fx": {
+    "happy": 3,
+    "bond": 2,
+    "money": -15
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_live_01",
+   "age": [
+    20,
+    34
+   ],
+   "tier": "good",
+   "text": "推しのライブで、最後の曲に涙が出た。",
+   "fx": {
+    "happy": 4,
+    "bond": 1,
+    "money": -12
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_allnight_01",
+   "age": [
+    19,
+    22
+   ],
+   "tier": "good",
+   "text": "友人の部屋で、朝まで将来の夢を語り合った。",
+   "fx": {
+    "bond": 3,
+    "happy": 2
+   },
+   "requires": {
+    "status": [
+     "college"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_praise_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "good",
+   "text": "資料を褒められ、上司が昼食をおごってくれた。",
+   "fx": {
+    "happy": 3,
+    "know": 1
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_yakitori_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "good",
+   "text": "同僚と行った焼き鳥屋で、仕事の愚痴を笑い合った。",
+   "fx": {
+    "bond": 3,
+    "happy": 1,
+    "money": -5
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_kyufu_01",
+   "age": [
+    19,
+    22
+   ],
+   "tier": "good",
+   "text": "成績優秀で給付型の奨学金に選ばれた。",
+   "fx": {
+    "know": 3,
+    "happy": 1,
+    "money": 30
+   },
+   "requires": {
+    "status": [
+     "college"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_shokyu_01",
+   "age": [
+    23,
+    34
+   ],
+   "tier": "good",
+   "text": "昇給の通知が届き、その夜は少し高いワインを開けた。",
+   "fx": {
+    "happy": 2,
+    "know": 1,
+    "money": 30
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_fukubiki_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "good",
+   "text": "商店街の福引で、温泉旅行のペア券が当たった。",
+   "fx": {
+    "luck": 3,
+    "happy": 1,
+    "money": 20
+   }
+  },
+  {
+   "id": "young_ev_reunion_01",
+   "age": [
+    20,
+    34
+   ],
+   "tier": "good",
+   "text": "駅でばったり、高校の旧友に再会した。",
+   "fx": {
+    "bond": 3,
+    "happy": 2
+   }
+  },
+  {
+   "id": "young_ev_jog_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "good",
+   "text": "朝のジョギングが習慣になり、体が軽くなった。",
+   "fx": {
+    "health": 3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "young_ev_walk_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "good",
+   "text": "子どもが初めて立って、数歩歩いた。",
+   "fx": {
+    "happy": 4,
+    "bond": 1
+   },
+   "requires": {
+    "kids_min": 1
+   }
+  },
+  {
+   "id": "young_ev_anniv_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "good",
+   "text": "結婚記念日に、二人で小さなレストランに行った。",
+   "fx": {
+    "happy": 3,
+    "bond": 2,
+    "money": -12
+   },
+   "requires": {
+    "married": true
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_rice_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "good",
+   "text": "実家から米と野菜が届き、母の字のメモがついていた。",
+   "fx": {
+    "bond": 2,
+    "happy": 1,
+    "money": 10
+   },
+   "requires": {
+    "parents_alive": true
+   }
+  },
+  {
+   "id": "young_ev_study_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "good",
+   "text": "資格の勉強が進み、模試で初めて合格点を超えた。",
+   "fx": {
+    "know": 4
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_camera_01",
+   "age": [
+    20,
+    34
+   ],
+   "tier": "good",
+   "text": "中古カメラを買い、休日に街を撮り歩くようになった。",
+   "fx": {
+    "happy": 3,
+    "know": 1,
+    "money": -8
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_neighbor_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "good",
+   "text": "隣の部屋の人と挨拶し、おすそ分けをもらった。",
+   "fx": {
+    "bond": 3,
+    "happy": 1
+   }
+  },
+  {
+   "id": "young_ev_hire_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "good",
+   "text": "面接で話が弾み、採用の連絡をもらえた。",
+   "fx": {
+    "happy": 3,
+    "know": 1
+   },
+   "requires": {
+    "status": [
+     "jobless"
+    ]
+   },
+   "set": {
+    "status": "work",
+    "job": {
+     "name": "会社員",
+     "income": 300,
+     "grow": 0.02,
+     "kind": "corp"
+    }
+   }
+  },
+  {
+   "id": "young_ev_move_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "normal",
+   "text": "引っ越しの荷造りで部屋は片づき、財布は軽くなった。",
+   "fx": {
+    "happy": 2,
+    "health": -2,
+    "money": -30
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_nomi_01",
+   "age": [
+    20,
+    34
+   ],
+   "tier": "normal",
+   "text": "飲み会が続いて、人間関係は広がったが翌朝がつらい。",
+   "fx": {
+    "bond": 3,
+    "health": -2,
+    "money": -8
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_zangyo_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "normal",
+   "text": "忙しい月が続き、残業代は増えたが体が重い。",
+   "fx": {
+    "know": 2,
+    "health": -3,
+    "money": 20
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_wedding_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "normal",
+   "text": "友人の結婚式で泣いたが、帰りの電車で少し寂しくなった。",
+   "fx": {
+    "bond": 3,
+    "happy": -1,
+    "money": -10
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_shukatsu_01",
+   "age": [
+    21,
+    22
+   ],
+   "tier": "normal",
+   "text": "説明会を回り、知識は増えたが気持ちは沈んだ。",
+   "fx": {
+    "know": 3,
+    "happy": -2
+   },
+   "requires": {
+    "status": [
+     "college"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_reunion_02",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "normal",
+   "text": "同窓会で近況を聞き、少し焦りも感じた。",
+   "fx": {
+    "bond": 2,
+    "happy": -1,
+    "money": -5
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_sns_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "normal",
+   "text": "SNSで友人の近況を眺め、つい自分と比べてしまった。",
+   "fx": {
+    "know": 1,
+    "happy": -2
+   }
+  },
+  {
+   "id": "young_ev_yonaki_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "normal",
+   "text": "夜泣きが続いて寝不足だが、寝顔に救われた。",
+   "fx": {
+    "happy": 1,
+    "health": -3,
+    "bond": 2
+   },
+   "requires": {
+    "kids_min": 1
+   }
+  },
+  {
+   "id": "young_ev_oyawa_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "normal",
+   "text": "親から結婚の話を振られ、気まずい食卓になった。",
+   "fx": {
+    "happy": -1,
+    "bond": 1
+   },
+   "requires": {
+    "parents_alive": true,
+    "married": false
+   }
+  },
+  {
+   "id": "young_ev_fukugyo_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "normal",
+   "text": "休日の内職で小遣いが増えたが、疲れも溜まった。",
+   "fx": {
+    "health": -2,
+    "know": 1,
+    "money": 15
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_katsudo_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "normal",
+   "text": "転職サイトを眺め、市場を知ったが決めきれなかった。",
+   "fx": {
+    "know": 2,
+    "happy": -1
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_yachin_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "normal",
+   "text": "更新で家賃が上がり、部屋探しを考え始めた。",
+   "fx": {
+    "happy": -1,
+    "know": 1,
+    "money": -15
+   }
+  },
+  {
+   "id": "young_ev_kenshu_01",
+   "age": [
+    22,
+    25
+   ],
+   "tier": "normal",
+   "text": "新人研修で技術を学んだが、緊張で胃が痛かった。",
+   "fx": {
+    "know": 3,
+    "health": -1
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_baito_01",
+   "age": [
+    19,
+    22
+   ],
+   "tier": "normal",
+   "text": "バイトで稼げた一方、レポートの提出が遅れた。",
+   "fx": {
+    "know": -2,
+    "bond": 2,
+    "money": 20
+   },
+   "requires": {
+    "status": [
+     "college"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_game_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "normal",
+   "text": "休日にゲームで一日が溶けたが、気持ちは晴れた。",
+   "fx": {
+    "happy": 3,
+    "health": -2,
+    "money": -5
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_kisei_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "normal",
+   "text": "義実家に帰省し、気疲れしたが、手料理に救われた。",
+   "fx": {
+    "bond": 2,
+    "happy": -1,
+    "money": -15
+   },
+   "requires": {
+    "married": true
+   },
+   "spend": true
+  },
+  {
+   "id": "young_ev_haizoku_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "normal",
+   "text": "部署が変わり、新しい仕事を覚えたが、見知った顔が減った。",
+   "fx": {
+    "know": 3,
+    "bond": -2
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_jisui_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "normal",
+   "text": "自炊に挑戦し、節約はできたが、片づけで手間取った。",
+   "fx": {
+    "know": 2,
+    "happy": -1,
+    "money": 10
+   }
+  },
+  {
+   "id": "young_ev_kaze_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "bad",
+   "text": "高熱が出て、三日間寝込んだ。",
+   "fx": {
+    "health": -4,
+    "happy": -1,
+    "money": -5
+   }
+  },
+  {
+   "id": "young_ev_phone_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "bad",
+   "text": "スマホの画面が割れて、修理に出すことになった。",
+   "fx": {
+    "happy": -2,
+    "money": -12
+   }
+  },
+  {
+   "id": "young_ev_fraud_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "bad",
+   "text": "宅配便を装うメールのリンクを押し、被害が出た。",
+   "fx": {
+    "luck": -2,
+    "happy": -3,
+    "money": -30
+   }
+  },
+  {
+   "id": "young_ev_harass_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "bad",
+   "text": "上司の叱責が続き、日曜の夜から胃が重くなった。",
+   "fx": {
+    "happy": -4,
+    "health": -2
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   },
+   "set": {
+    "press": {
+     "tired": 1
+    }
+   }
+  },
+  {
+   "id": "young_ev_shitsuren_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "bad",
+   "text": "付き合っていた相手から、別れを切り出された。",
+   "fx": {
+    "happy": -5,
+    "bond": -2
+   },
+   "requires": {
+    "married": false
+   }
+  },
+  {
+   "id": "young_ev_risutora_01",
+   "age": [
+    23,
+    34
+   ],
+   "tier": "bad",
+   "text": "会社が事業縮小を決め、退職することになった。",
+   "fx": {
+    "happy": -4,
+    "luck": -2
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   },
+   "set": {
+    "status": "jobless"
+   }
+  },
+  {
+   "id": "young_ev_chari_01",
+   "age": [
+    19,
+    34
+   ],
+   "tier": "bad",
+   "text": "自転車が壊れ、通勤が少し不便になった。",
+   "fx": {
+    "happy": -1,
+    "money": -10
+   }
+  },
+  {
+   "id": "young_ev_tani_01",
+   "age": [
+    19,
+    22
+   ],
+   "tier": "bad",
+   "text": "必修の単位を落とし、一年留年の危機になった。",
+   "fx": {
+    "know": -4,
+    "happy": -2
+   },
+   "requires": {
+    "status": [
+     "college"
+    ]
+   }
+  },
+  {
+   "id": "young_ev_sokai_01",
+   "age": [
+    20,
+    34
+   ],
+   "tier": "bad",
+   "text": "仲の良かった友人と、気づけば連絡が途絶えていた。",
+   "fx": {
+    "bond": -4,
+    "happy": -1
+   },
+   "set": {
+    "press": {
+     "iso": 1
+    }
+   }
+  },
+  {
+   "id": "young_ev_yotsu_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "bad",
+   "text": "デスクワークが続き、腰を痛めて整体に通った。",
+   "fx": {
+    "health": -5,
+    "money": -10
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   },
+   "set": {
+    "press": {
+     "tired": 1
+    }
+   }
+  },
+  {
+   "id": "young_ev_disease_01",
+   "age": [
+    25,
+    34
+   ],
+   "tier": "bad",
+   "text": "健康診断で再検査となり、大きな病気が見つかった。",
+   "fx": {
+    "health": -6,
+    "luck": -2,
+    "money": -50
+   }
+  },
+  {
+   "id": "young_ev_human_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "bad",
+   "text": "職場の人間関係がこじれ、昼食を一人で食べるようになった。",
+   "fx": {
+    "bond": -4,
+    "happy": -3
+   },
+   "requires": {
+    "status": [
+     "work"
+    ]
+   },
+   "set": {
+    "press": {
+     "apathy": 1
+    }
+   }
+  },
+  {
+   "id": "young_ev_fuufu_01",
+   "age": [
+    24,
+    34
+   ],
+   "tier": "bad",
+   "text": "些細なことで夫婦喧嘩になり、口をきかない夜が続いた。",
+   "fx": {
+    "bond": -4,
+    "happy": -3
+   },
+   "requires": {
+    "married": true
+   }
+  },
+  {
+   "id": "young_ev_mensetsu_01",
+   "age": [
+    22,
+    34
+   ],
+   "tier": "bad",
+   "text": "面接に十社連続で落ち、履歴書を書く手が止まった。",
+   "fx": {
+    "happy": -4,
+    "know": -1
+   },
+   "requires": {
+    "status": [
+     "jobless"
+    ]
+   },
+   "set": {
+    "press": {
+     "apathy": 1
+    }
+   }
+  }
+ ]
+}
