@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
-"""バランス確認用シミュレーション。data/*.json を template.html に埋め込み、ランダムに選ぶ人生を N 回回して集計する。
+"""バランス確認用シミュレーション。data/*.json を template.html に埋め込み、N 回の人生を回して集計する。
 
 使い方:
-  python3 tools/sim.py                 # 2000回
+  python3 tools/sim.py                      # 2000回 × 2方針（random / smart）を並べて表示
   python3 tools/sim.py -n 5000 --seed 1
-  python3 tools/sim.py --unused        # 一度も出なかった生成分岐の id も表示
-  python3 tools/sim.py --json          # 集計を JSON で出力（比較・記録用）
+  python3 tools/sim.py --policy smart       # 方針を1つだけ
+  python3 tools/sim.py --unused             # 一度も出なかった生成分岐を、年齢と条件つきで表示
+  python3 tools/sim.py --template old.html  # 別の template.html で回す（before / after 比較用）
+  python3 tools/sim.py --json               # 集計を JSON で出力（比較・記録用）
+
+方針:
+  random … 払える選択肢からランダムに選ぶ
+  smart  … 資金不足（22歳以上で資産が生活費1年分未満）や傾き2段以上のときは損失の期待値が最小の選択肢、
+           余裕があるときは期待値（能力値の合計 + お金/20）が最大の選択肢を選ぶ
 """
-import argparse, json, os, subprocess, sys, tempfile
+import argparse, glob, json, os, subprocess, sys, tempfile
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,17 +27,33 @@ SEEDED = '''{let a=%d>>>0;Math.random=function(){a=(a+0x6D2B79F5)>>>0;let t=a;t=
 '''
 
 
-def build_js(tmp, seed):
-    html = os.path.join(tmp, "built.html")
-    subprocess.run([sys.executable, os.path.join(ROOT, "build.py"), html], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
-    t = open(html, encoding="utf-8").read()
+def build_js(tmp, seed, template):
+    G = {"decisions": [], "events": [], "tracks": []}
+    for p in sorted(glob.glob(os.path.join(ROOT, "data", "*.json"))):
+        d = json.load(open(p, encoding="utf-8"))
+        for k in G:
+            G[k] += d.get(k, [])
+    t = open(template, encoding="utf-8").read()
     js = t[t.index("<script>") + 8:t.rindex("</script>")].rstrip()
     assert js.endswith("newLife();"), "template.html の末尾が newLife(); で終わっていない"
     js = js[:-len("newLife();")]
+    blob = "const GEN=" + json.dumps(G, ensure_ascii=False, separators=(",", ":")) + ";"
+    a, b = js.index("/*GEN_START*/"), js.index("/*GEN_END*/")
+    js = js[:a] + blob + js[b:]
     harness = open(os.path.join(ROOT, "tools", "sim_harness.js"), encoding="utf-8").read()
     path = os.path.join(tmp, "sim.js")
     open(path, "w", encoding="utf-8").write((SEEDED % seed if seed is not None else "") + STUB + js + harness)
-    return path
+    return path, G
+
+
+def run(n, seed, policy, template):
+    with tempfile.TemporaryDirectory() as tmp:
+        js, G = build_js(tmp, seed, template)
+        out = subprocess.run(["node", js], cwd=tmp, env={**os.environ, "SIM_N": str(n), "SIM_POLICY": policy},
+                             capture_output=True, text=True)
+    if out.returncode:
+        sys.exit(out.stderr)
+    return json.loads(out.stdout), G
 
 
 def pct(a, p):
@@ -42,62 +65,85 @@ def summarize(r):
     ages = sorted(x["age"] for x in L)
     money = sorted(x["money"] for x in L)
     rate = lambda f: sum(1 for x in L if f(x)) / N * 100
-    tracks = Counter(x["track"] for x in L if x["track"])
     used = r["used"]
-    unused = [i for i in r["decIds"] if i not in used]
     return {
-        "N": N,
+        "N": N, "policy": r["policy"],
         "age": {"avg": sum(ages) / N, "p10": pct(ages, .1), "med": pct(ages, .5), "p90": pct(ages, .9)},
-        "money": {"p10": pct(money, .1), "p25": pct(money, .25), "med": pct(money, .5), "p75": pct(money, .75),
-                  "p90": pct(money, .9), "neg%": rate(lambda x: x["money"] < 0), "1億以上%": rate(lambda x: x["money"] >= 10000)},
+        "money": {"p10": pct(money, .1), "med": pct(money, .5), "p90": pct(money, .9)},
         "rate%": {
-            "虹ルート": rate(lambda x: x["rainbow"]),
+            "資産マイナスで死ぬ": rate(lambda x: x["money"] < 0),
             "自己破産": rate(lambda x: x["bankrupt"]),
+            "結婚経験": rate(lambda x: x["everMarried"]),
+            "子どもあり": rate(lambda x: x["kids"] > 0),
+            "虹ルート": rate(lambda x: x["rainbow"]),
             "ひきこもり(1年以上)": rate(lambda x: x["hikiAny"]),
             "ひきこもり(10年以上)": rate(lambda x: x["hiki"]),
             "不登校": rate(lambda x: x["futoko"]),
-            "最終時点で既婚": rate(lambda x: x["married"]),
-            "子あり": rate(lambda x: x["kids"] > 0),
         },
-        "cond_end_avg": {k: sum(x["cd"].get(k, 0) for x in L) / N for k in ("iso", "tired", "poor", "apathy")},
         "forks_avg": sum(x["forks"] for x in L) / N,
         "gen_decisions_per_life": r["genUse"] / N,
-        "tracks%": {k: v / N * 100 for k, v in tracks.most_common()},
-        "gen_decisions": {"total": len(r["decIds"]), "unused": len(unused)},
-        "_unused_ids": unused,
+        "generic_to_track": r["generic"]["track"],
+        "generic_to_pro_art_founder": r["generic"]["special"],
+        "tracks%": {k: v / N * 100 for k, v in Counter(x["track"] for x in L if x["track"]).most_common()},
+        "gen_total": len(r["decIds"]),
+        "unused_ids": [i for i in r["decIds"] if i not in used],
     }
+
+
+ROWS = [
+    ("寿命 平均", lambda s: f"{s['age']['avg']:.1f}"),
+    ("最終資産 中央値(万円)", lambda s: f"{s['money']['med']:,.0f}"),
+    ("最終資産 p10 / p90", lambda s: f"{s['money']['p10']:,.0f} / {s['money']['p90']:,.0f}"),
+    *[(k, (lambda k: lambda s: f"{s['rate%'][k]:.1f}%")(k)) for k in
+      ("資産マイナスで死ぬ", "自己破産", "結婚経験", "子どもあり", "虹ルート", "ひきこもり(1年以上)", "ひきこもり(10年以上)", "不登校")],
+    ("分岐/人生（うち生成）", lambda s: f"{s['forks_avg']:.1f}（{s['gen_decisions_per_life']:.1f}）"),
+    ("生成分岐 未出現", lambda s: f"{len(s['unused_ids'])} / {s['gen_total']}"),
+    ("虹ルートの人に汎用の働き方分岐", lambda s: f"{s['generic_to_track']}回"),
+    ("（参考）プロ・表現者・経営者に汎用分岐", lambda s: f"{s['generic_to_pro_art_founder']}回"),
+]
+
+
+def table(cols):
+    """cols: [(見出し, summary)]"""
+    w0 = max(len(r[0]) for r in ROWS) + 2
+    head = "| 指標 | " + " | ".join(h for h, _ in cols) + " |"
+    print(head)
+    print("|---|" + "---|" * len(cols))
+    for name, f in ROWS:
+        print(f"| {name} | " + " | ".join(f(s) for _, s in cols) + " |")
+
+
+def unused_report(ids, G):
+    by = {x["id"]: x for x in G["decisions"]}
+    for i in ids:
+        x = by[i]
+        print(f"  {i:<28} age {x['age'][0]}-{x['age'][1]}  requires {json.dumps(x.get('requires') or {}, ensure_ascii=False)}")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("-n", type=int, default=2000)
     ap.add_argument("--seed", type=int)
+    ap.add_argument("--policy", choices=["random", "smart", "both"], default="both")
+    ap.add_argument("--template", default=os.path.join(ROOT, "template.html"))
     ap.add_argument("--unused", action="store_true")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
-    with tempfile.TemporaryDirectory() as tmp:
-        js = build_js(tmp, a.seed)
-        out = subprocess.run(["node", js], cwd=tmp, env={**os.environ, "SIM_N": str(a.n)},
-                             capture_output=True, text=True)
-    if out.returncode:
-        sys.exit(out.stderr)
-    s = summarize(json.loads(out.stdout))
+    pols = ["random", "smart"] if a.policy == "both" else [a.policy]
+    res = []
+    for p in pols:
+        r, G = run(a.n, a.seed, p, a.template)
+        res.append(summarize(r))
     if a.json:
-        if not a.unused: s.pop("_unused_ids")
-        print(json.dumps(s, ensure_ascii=False, indent=1)); return
-    ag, m = s["age"], s["money"]
-    print(f"人生 {s['N']} 回" + (f"  (seed={a.seed})" if a.seed is not None else ""))
-    print(f"寿命      平均 {ag['avg']:.1f}  p10 {ag['p10']}  中央 {ag['med']}  p90 {ag['p90']}")
-    print(f"最終資産  p10 {m['p10']:,.0f}  p25 {m['p25']:,.0f}  中央 {m['med']:,.0f}  p75 {m['p75']:,.0f}  p90 {m['p90']:,.0f} 万円")
-    print(f"          マイナス {m['neg%']:.1f}%  1億以上 {m['1億以上%']:.1f}%")
-    for k, v in s["rate%"].items():
-        print(f"{k:<16}{v:5.1f}%")
-    print("最期の傾き(平均段) " + "  ".join(f"{k} {v:.2f}" for k, v in s["cond_end_avg"].items()))
-    print(f"分岐/人生 {s['forks_avg']:.1f}（うち生成分岐 {s['gen_decisions_per_life']:.1f}）  "
-          f"生成分岐 {s['gen_decisions']['total']} 件中 未出現 {s['gen_decisions']['unused']} 件")
-    print("虹の内訳  " + "  ".join(f"{k} {v:.1f}%" for k, v in s["tracks%"].items()))
+        print(json.dumps(res, ensure_ascii=False, indent=1)); return
+    print(f"人生 {a.n} 回" + (f"  seed={a.seed}" if a.seed is not None else "") + f"  template={os.path.relpath(a.template, ROOT)}\n")
+    table([(s["policy"], s) for s in res])
+    for s in res:
+        print(f"\n[{s['policy']}] 虹の内訳  " + "  ".join(f"{k} {v:.1f}%" for k, v in s["tracks%"].items()))
     if a.unused:
-        print("未出現: " + " ".join(s["_unused_ids"]))
+        both = set.intersection(*(set(s["unused_ids"]) for s in res))
+        print(f"\nどの方針でも一度も出なかった生成分岐: {len(both)} 件")
+        unused_report([i for i in res[0]["unused_ids"] if i in both], G)
 
 
 if __name__ == "__main__":
