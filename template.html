@@ -804,7 +804,7 @@ const BANKRUPT_MAX=2;   /* 生涯の上限。2回目は前回から7年以上空
 function genDecision(x){
   const chs=x.choices.filter(c=>!isBankruptChoice(c)||s.money<=BANKRUPT_LINE&&!s.flags.bankrupt&&(s.bankruptCount||0)<BANKRUPT_MAX);
   return{id:x.id,title:x.title,text:fill(x.text),gen:1,choices:(chs.length?chs:x.choices).map(c=>{const r=c.roll,av=()=>avgOf(s,r.stats);
-    const mk=(k,w)=>{const z=r[k];return o(z.label,w,genFx(z.fx),fill(z.text),z.set?()=>applySet(z.set):undefined)};
+    const mk=(k,w)=>{const z=r[k];return{...o(z.label,w,genFx(z.fx),fill(z.text),z.set?()=>applySet(z.set):undefined),rank:{good:2,mid:1,bad:0}[k]}};
     return{l:c.label,cost:-(c.cost&&c.cost.money||0),fx:genFx(c.fx),roll:{q:r.name,why:r.stats,o:[
       mk("good",()=>Math.max(1,av()-r.difficulty)),mk("mid",45),mk("bad",()=>Math.max(1,(100-av())*.45))]}}})};
 }
@@ -1167,23 +1167,32 @@ function showDecision(d){
     const c=d.choices[+b.dataset.i];if(c.cost)s.money-=c.cost;applyFx(c.fx||{});if(c.set)c.set(s);render();roll(d,c,c.roll)});
   sc.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
 }
+/* ルーレットの並び：左が悪い結果、右が良い結果。生成分岐は good/mid/bad の順位、手書きは効果の大きさで並べる
+   （効果がすべて同じなら書かれた順のまま。表示の順番だけで、確率は変わらない） */
+const outcomeScore=x=>{let v=0;for(const k in x.fx||{}){const a=x.fx[k];v+=k==="money"?a/20:k==="incMul"?(a-1)*100:a}return v};
+function dispOrder(os){
+  const idx=os.map((_,i)=>i);
+  if(os.every(x=>x.rank!==undefined))return idx.sort((a,b)=>os[a].rank-os[b].rank);
+  const sc=os.map(outcomeScore);if(sc.every(v=>v===sc[0]))return idx;
+  return idx.sort((a,b)=>sc[a]-sc[b]||b-a);
+}
 function roll(d,c,r){
   const ws=r.o.map(x=>Math.max(.5,typeof x.w==="function"?x.w(s):x.w)),tot=ws.reduce((a,b)=>a+b,0);
-  const ps=ws.map(w=>w/tot*100),res=pickW(ws,x=>x);
+  const ps=ws.map(w=>w/tot*100),res=pickW(ws,x=>x),ord=dispOrder(r.o),pos=ord.indexOf(res);
   const why=r.note||("影響："+(r.why||[]).map(k=>`${SN[k]} ${s[k]}`).join("・")),e=era(s);
   const box=document.createElement("div");box.className="roll";
   box.innerHTML=`<span class="q"><span>${r.q}</span><span class="why">${why}${r.era&&e.n?` ／ 時代：${e.n}`:""}</span></span>
-   <div class="strip">${ps.map((p,j)=>`<div class="seg" style="width:${p}%;--s:${10+(j*60/Math.max(1,ps.length-1))|0}%"></div>`).join("")}<div class="needle"></div></div>
-   <div class="legend">${r.o.map((x,j)=>`<span><span>${x.l}</span><b class="num">${ps[j]<1?"<1":Math.round(ps[j])}%</b></span>`).join("")}</div>`;
+   <div class="strip">${ord.map((i,j)=>`<div class="seg" style="width:${ps[i]}%;--s:${10+(j*60/Math.max(1,ps.length-1))|0}%"></div>`).join("")}<div class="needle"></div></div>
+   <div class="legend">${ord.map(i=>`<span><span>${r.o[i].l}</span><b class="num">${ps[i]<1?"<1":Math.round(ps[i])}%</b></span>`).join("")}</div>`;
   $("slot").appendChild(box);
-  let st=0;for(let j=0;j<res;j++)st+=ps[j];const target=st+ps[res]*(.2+Math.random()*.6);
+  let st=0;for(let j=0;j<pos;j++)st+=ps[ord[j]];const target=st+ps[res]*(.2+Math.random()*.6);
   const nd=box.querySelector(".needle"),Dur=reduce?0:1600/Math.sqrt(speed),S=400+target,t0=performance.now();
   const tri=v=>{const m=v%200;return m<100?m:200-m};
-  (function f(t){const k=Dur?Math.min(1,(t-t0)/Dur):1,ez=1-Math.pow(1-k,3);nd.style.left=tri(S*ez)+"%";if(k<1)requestAnimationFrame(f);else land(d,c,r,box,res,ps)})(t0);
+  (function f(t){const k=Dur?Math.min(1,(t-t0)/Dur):1,ez=1-Math.pow(1-k,3);nd.style.left=tri(S*ez)+"%";if(k<1)requestAnimationFrame(f);else land(d,c,r,box,res,ps,pos)})(t0);
 }
-function land(d,c,r,box,res,ps){
+function land(d,c,r,box,res,ps,pos){
   const x=r.o[res];
-  box.querySelectorAll(".seg")[res].classList.add("hit");box.querySelectorAll(".legend > span")[res].classList.add("hit");
+  box.querySelectorAll(".seg")[pos].classList.add("hit");box.querySelectorAll(".legend > span")[pos].classList.add("hit");
   applyFx(x.fx);if(x.set)x.set(s);
   const out=document.createElement("p");out.className="outcome";out.innerHTML=echo(tx(x.t,s)||x.l)+chips(x.fx);box.appendChild(out);
   const pr=ps[res]<1?"<1":Math.round(ps[res]);
