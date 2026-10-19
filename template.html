@@ -854,9 +854,9 @@ function econ(){
   if(s.money<0&&s.age>=22)s.happy=clamp(s.happy-1);
 }
 /* 結婚している42歳未満の人には、毎年少しの確率で子どもが生まれる（子2人まで。「二人の時間」を選んだ人と、借金・困窮中の人は除く） */
-const BIRTH_RATE=.17;
+const BIRTH_RATE=.19;
 /* 25〜40歳の独身の人には、毎年少しの確率で結婚が起きる（「ひとりで生きると決める」を選んだ人と、ひきこもり中の人は除く） */
-const MARRY_RATE=.01;
+const MARRY_RATE=.013;
 function marryCheck(){
   if(s.married||s.age<25||s.age>40||s.flags.solo||s.status==="hikikomori"||Math.random()>=MARRY_RATE)return;
   s.married=true;applyFx({happy:6,bond:4});
