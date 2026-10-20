@@ -4148,6 +4148,9 @@
         "happy": -3
        }
       }
+     },
+     "requires": {
+      "kids_min": 1
      }
     },
     {
@@ -5612,6 +5615,9 @@
         "bond": -2
        }
       }
+     },
+     "requires": {
+      "kids_min": 1
      }
     },
     {

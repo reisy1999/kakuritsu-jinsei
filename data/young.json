@@ -317,6 +317,9 @@
         "happy": -3
        }
       }
+     },
+     "requires": {
+      "parents_alive": true
      }
     },
     {
@@ -1293,6 +1296,9 @@
         "happy": -1
        }
       }
+     },
+     "requires": {
+      "parents_alive": true
      }
     },
     {
@@ -5562,6 +5568,9 @@
         "happy": -3
        }
       }
+     },
+     "requires": {
+      "parents_alive": true
      }
     },
     {

@@ -96,8 +96,8 @@ def main(paths):
             chk_req(w, x.get("requires")); chk_text(w + ".title", x.get("title"), 16); chk_text(w + ".text", x.get("text"), 70)
             ch = x.get("choices", [])
             if not (3 <= len(ch) <= 4): E(w, f"choices must be 3-4 (got {len(ch)})")
-            gated = sum(1 for c in ch if c.get("requires"))
-            if gated > 1: E(w, "条件つきの選択肢は1つまで")
+            gated = sum(1 for c in ch if (c.get("requires") or {}).get("stat_min"))
+            if gated > 1: E(w, "能力値の条件つきの選択肢は1つまで")
             if len(ch) - gated < 2: E(w, "条件なしの選択肢が2つ以上必要")
             labels = set()
             for j, c in enumerate(ch):
@@ -111,7 +111,7 @@ def main(paths):
                 fx = c.get("fx", {}); chk_fx(cw, fx, "choice")
                 cr = c.get("requires")
                 if cr is not None:
-                    if set(cr) - {"stat_min"}: E(cw, "choice.requires は stat_min だけ")
+                    if set(cr) - {"stat_min", "kids_min", "married", "parents_alive"}: E(cw, "choice.requires は stat_min・kids_min・married・parents_alive だけ")
                     for k, v in (cr.get("stat_min") or {}).items():
                         if k not in STATS | {"skill"}: E(cw, f"choice.requires unknown stat {k}")
                         elif not (30 <= v <= 85): E(cw, "choice.requires の値は 30〜85")

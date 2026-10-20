@@ -884,7 +884,8 @@ const BANKRUPT_LINE=-700;
 const isBankruptChoice=c=>["good","mid","bad"].some(k=>c.roll[k].set&&c.roll[k].set.bankrupt);
 const BANKRUPT_MAX=2;   /* 生涯の上限。2回目は前回から7年以上空いたとき（bankrupt フラグが消えてから） */
 function genDecision(x){
-  const chs=x.choices.filter(c=>!isBankruptChoice(c)||s.money<=BANKRUPT_LINE&&!s.flags.bankrupt&&(s.bankruptCount||0)<BANKRUPT_MAX);
+  const sit=c=>{const{stat_min,...r}=c.requires||{};return req(r)};   /* 状況の条件（子どもがいる・結婚している・親が健在など）を満たさない選択肢は出さない */
+  const chs=x.choices.filter(c=>sit(c)&&(!isBankruptChoice(c)||s.money<=BANKRUPT_LINE&&!s.flags.bankrupt&&(s.bankruptCount||0)<BANKRUPT_MAX));
   return{id:x.id,title:x.title,text:fill(x.text),gen:1,choices:(chs.length?chs:x.choices).map(c=>{const r=c.roll,av=()=>avgOf(s,r.stats);
     const mk=(k,w)=>{const z=r[k];return{...o(z.label,w,genFx(z.fx),fill(z.text),z.set?()=>applySet(z.set):undefined),rank:{good:2,mid:1,bad:0}[k]}};
     return{l:c.label,req:c.requires&&c.requires.stat_min,cost:-(c.cost&&c.cost.money||0),fx:genFx(c.fx),roll:{q:r.name,why:r.stats,o:[
@@ -1781,7 +1782,7 @@ function step(){
   updateConds();trackCurve();trackEnd();noBorrow();
   if(deathCheck()){die();return}
   snap();render();
-  const d=nextDecision();if(d){s.lastDec=s.age;s.nextGap=Math.random()<.5?2:3;   /* きっかけの分岐は、この間隔と関係なく出る */showDecision(d);return}
+  const d=nextDecision();if(d){s.lastDec=s.age;s.nextGap=Math.random()<.5?2:3;   /* きっかけの分岐は、この間隔と関係なく出る */showDecision(prepSupport(d));return}
   if(auto)timer=setTimeout(step,SPEED[speed]);
 }
 
@@ -1839,6 +1840,17 @@ $("speed").onclick=()=>{speed=speed===1?2:speed===2?4:1;$("speed").textContent=`
 /* ========== 分岐カード ========== */
 /* 選択肢の条件（c.req = {能力値: 最低値}）。足りなければ「人間関係60以上で選べる」を返す */
 function reqLack(c){const r=c.req;if(!r)return"";const k=Object.keys(r).find(k=>(k==="skill"?s.skill:s[k])<r[k]);return k?`${SN[k]}${r[k]}以上で選べる`:""}
+/* 支援を頼る選択肢（相談・窓口・支援・専門家など）は、選ぶたびに次から一番良い結果が出やすくなる（2回目+10、最大+40）。
+   相談を重ねるうちに担当者がつき、使える制度が見つかる */
+const SUPPORT_RE=/相談|窓口|支援|専門家|地域包括|ハローワーク|弁護士|カウンセ|受診|民生委員/,SUPPORT_NOT=/相談役|相談に乗|支援しない|資料を見て/;
+const SUPPORT={step:10,max:40};
+function prepSupport(d){if(!d||!d.choices)return d;
+  for(const c of d.choices){if(!SUPPORT_RE.test(c.l)||SUPPORT_NOT.test(c.l)||!c.roll||c._sup)continue;c._sup=1;
+    const n=s.supportTries||0,os=c.roll.o,best=os[dispOrder(os).at(-1)],w0=best.w;
+    best.w=s=>(typeof w0==="function"?w0(s):w0)+Math.min(SUPPORT.max,((s.supportTries||1)-1)*SUPPORT.step);
+    const set0=c.set;c.set=s=>{s.supportTries=(s.supportTries||0)+1;if(set0)set0(s)};
+    if(n)c.info=(c.info?c.info+"・":"")+`相談するほど通りやすくなる（これまで${n}回）`}
+  return d}
 function showDecision(d){
   pending=true;clearTimeout(timer);
   const need=c=>(c.cost||0)+Math.max(0,-((c.fx||{}).money||0));

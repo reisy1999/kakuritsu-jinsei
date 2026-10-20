@@ -1354,6 +1354,9 @@
         "happy": -5
        }
       }
+     },
+     "requires": {
+      "kids_min": 1
      }
     },
     {
@@ -1394,6 +1397,9 @@
         "happy": -3
        }
       }
+     },
+     "requires": {
+      "married": true
      }
     }
    ]
@@ -2624,6 +2630,9 @@
         "happy": -4
        }
       }
+     },
+     "requires": {
+      "kids_min": 1
      }
     }
    ]
