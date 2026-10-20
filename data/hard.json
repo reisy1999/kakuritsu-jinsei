@@ -5347,7 +5347,10 @@
     "cond_min": {
      "poor": 2
     },
-    "money_max": 0
+    "money_max": 0,
+    "flags_none": [
+     "house"
+    ]
    },
    "title": "家賃の滞納",
    "text": "家賃を二か月滞納している。管理会社から、書面が届いた。",
