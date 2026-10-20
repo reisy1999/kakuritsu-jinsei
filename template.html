@@ -882,7 +882,7 @@ function applySet(st){
 const prioOf=x=>{const r=x.requires||{},st=r.status||[];
   return st.length>0&&st.every(v=>v==="hikikomori"||v==="jobless"||v==="futoko")||Object.values(r.cond_min||{}).some(v=>v>=2)||r.money_max!==undefined&&r.money_max<0};
 /* 自己破産の選択肢は、資産が −500万円以下のときだけ選べる */
-const BANKRUPT_LINE=-600;
+const BANKRUPT_LINE=-700;
 const isBankruptChoice=c=>["good","mid","bad"].some(k=>c.roll[k].set&&c.roll[k].set.bankrupt);
 const BANKRUPT_MAX=2;   /* 生涯の上限。2回目は前回から7年以上空いたとき（bankrupt フラグが消えてから） */
 function genDecision(x){
@@ -1043,7 +1043,7 @@ function yearlyEvent(){
 const TAKE=[[0,.82],[300,.8],[500,.78],[700,.75],[1000,.72],[1500,.68],[2000,.64]];
 function takeRate(inc){for(let i=1;i<TAKE.length;i++){const[a,ra]=TAKE[i-1],[b,rb]=TAKE[i];if(inc<=b)return ra+(rb-ra)*(inc-a)/(b-a)}return TAKE[TAKE.length-1][1]}
 const takeHome=inc=>inc*takeRate(inc);
-const ECON={adaptLo:.42,adaptHi:.62,adaptFrom:400,adaptSpan:800,liveMin:85,minPartner:50,minKid:35,liveMax:900,liveHome:100,retLive:105,retKeep:.75,priceK:.2,rentBase:55,rentPartner:25,rentKids:20};
+const ECON={adaptLo:.38,adaptHi:.62,adaptFrom:400,adaptSpan:800,liveMin:85,minPartner:50,minKid:35,liveMax:900,liveHome:100,retLive:105,retKeep:.75,priceK:.2,rentBase:55,rentPartner:25,rentKids:20};
 /* 住んでいる県の地域係数（家賃は係数の2乗、家賃以外の物価は priceK の分だけ効く） */
 const CITY={"東京都":1.35,"神奈川県":1.2,"大阪府":1.15,"愛知県":1.1,"埼玉県":1.1,"千葉県":1.1,"兵庫県":1.05,"福岡県":1.05};
 const METRO=Object.keys(CITY);
@@ -1093,7 +1093,7 @@ function kidYear(){
    prior は sim の割合（中学受験の塾は約2〜3割、私立中は約1割、私立高は約3割、大学は私立が国公立の約3倍、専門・就職がそれぞれ約2割） */
 function eduCard9(k,who){
   return{title:"塾",text:`${who}が小学4年生になった。周りでは、中学受験の塾に通いはじめる子もいる。`,choices:[
-   {l:"中学受験の塾に通わせる",prior:.25,info:`年${man(EDUC.juku)}・3年間`,fx:{happy:-1},set:()=>{k.juku=1},roll:{q:"塾",why:["bond"],o:[
+   {l:"中学受験の塾に通わせる",prior:.25,cost:10,info:`入塾金10万・年${man(EDUC.juku)}・3年間`,fx:{happy:-1},set:()=>{k.juku=1},roll:{q:"塾",why:["bond"],o:[
      o("塾を嫌がる",D("bond",.4),{happy:-3},`${who}は、塾のある日に腹痛を訴えるようになった。`,()=>{k.grow=Math.max(0,k.grow-4)}),
      o("黙々と通う",45,{},`${who}は、大きなリュックを背負って塾に通った。`),
      o("勉強が好きになる",U("bond",15),{happy:3},`${who}は、塾のテストの点を自慢しに来た。`,()=>{k.grow=Math.min(100,k.grow+5)})]}},
@@ -1243,7 +1243,7 @@ const assetLine=()=>{const A=assetsOf().filter(x=>x.v>=1);if(!A.length)return s.
 /* 積み立て投資・不動産投資の分岐（候補プールに入る） */
 function houseDecision(){
   const P=housePrice(),hh=(s.job?s.job.inc:0)+(s.partner&&s.partner.works?s.partner.inc:0),down=Math.max(0,Math.round(Math.min(s.money*.5,P*.2)));
-  const can=used=>P*(used?HOUSE.used:1)-down<=hh*HOUSE.loanX&&s.money>=0;   /* 頭金なし（フルローン）でも買える */
+  const can=used=>P*(used?HOUSE.used:1)-down<=hh*HOUSE.loanX&&s.money>=0&&!(s.welfareAge!=null&&s.age-s.welfareAge<WELFARE.noLoanYears)&&!s.flags.welfare;   /* 頭金なし（フルローン）でも買える */
   const where=s.livePref||s.pref;
   const ch=[];
   if(can(false))ch.push({l:`新築を買う（${man(P)}）`,prior:.45,cost:down,info:`35年ローン 年${man(loanPay(P-down))}`,fx:{happy:4},set:s=>buyHouse(false,down,true),roll:{q:"新しい家",why:["luck"],o:[
@@ -1332,9 +1332,11 @@ function careCost(){let c=0;
   for(const p of s.parents||[])if(p.alive&&p.care)c+=parentShare(p.care==="facility"?CARE.facility:CARE.home);
   if(s.selfCare)c+=s.selfCare==="facility"?CARE.facility*priceF():s.selfCare==="home"?CARE.home:0;
   return c}
+/* rentCap：住宅扶助の上限の目安（東京で月約8万、地方で月約4万） */
+const WELFARE={rentCap:80,noLoanYears:7};
 function welfareDecision(){const fam=s.parentsAlive||s.kids>0;
   return{title:"生活保護",text:`貯えが尽きた。${s.status==="retired"?"年金だけでは暮らせない。":"収入だけでは、最低限の暮らしにも届かない。"}役所の窓口に行けば、生活保護を申請できる。`,choices:[
-   {l:"生活保護を申請する",prior:.25,info:"借金を整理し、最低限の暮らしが保障される",fx:{happy:-4,fatigue:-10},set:s=>{s.flags.welfare=1;s.sch=0;s.money=Math.max(0,s.money)},roll:{q:"窓口",why:["bond"],o:[
+   {l:"生活保護を申請する",prior:.25,info:"借金を整理し、最低限の暮らしが保障される",fx:{happy:-4,fatigue:-10},set:s=>{s.flags.welfare=1;s.welfareAge=s.age;s.sch=0;s.money=Math.max(0,s.money)},roll:{q:"窓口",why:["bond"],o:[
      o("後ろめたさが残る",D("happy",.4),{happy:-3},"近所の人に知られないか、いつも気にしていた。"),o("暮らしが落ち着く",50,{},"借金は法テラスで整理し、毎月の暮らしが回るようになった。"),o("担当者に助けられる",U("bond",15),{happy:3},"ケースワーカーが、仕事探しも手伝ってくれた。")]}},
    ...(fam?[{l:"家族や親戚に頼る",prior:.25,fx:{bond:-3,happy:-2},set:s=>{s.money+=40+s.fam*40},roll:{q:"家族",why:["bond"],o:[
      o("気まずくなる",D("bond",.4),{bond:-3},"それ以来、家族の集まりに顔を出しにくくなった。"),o("少し助けてもらう",50,{},"黙って、まとまったお金を貸してくれた。"),o("快く支えてくれる",U("bond",15),{happy:3},"「困ったときはお互いさま」と言われた。",s=>{s.money+=50})]}}]:[]),
@@ -1374,8 +1376,9 @@ function econ(){
       +careCost();   /* 介護（親と自分） */
     /* 生活保護：貯えが尽き、世帯の収入が最低限の生活費（下限の生活水準＋住居＋子ども）に届かないときは、
        足りない分が保護されて、それ以上は借金が増えない。引退後は収入の多少にかかわらず同じ */
-    const hh=net+partnerNet(),floor=(ECON.liveMin+(s.married?ECON.minPartner:0)+kidsAtHome()*ECON.minKid)*priceF()+(atHome?0:rentOf())+kidCost();
-    s.welfareOk=s.money<0&&(s.status==="retired"||hh<floor);   /* 生活保護を受けられる状態（申請するかは分岐で選ぶ） */
+    /* 生活保護の基準：生活費の下限＋住宅扶助（家賃の補助には上限がある）。教育費は含まない */
+    const hh=net+partnerNet(),floor=(ECON.liveMin+(s.married?ECON.minPartner:0)+kidsAtHome()*ECON.minKid)*priceF()+(atHome?0:Math.min(rentOf(),WELFARE.rentCap*cityF()*cityF()));
+    s.welfareOk=s.money<0&&!s.flags.house&&(s.status==="retired"||hh<floor);   /* 受けられる状態（申請するかは分岐で選ぶ）。持ち家があるうちは受けられない */
     if(s.flags.welfare&&s.money<=0&&(s.status==="retired"||hh<floor)){cost=Math.min(cost,hh);s.money=0}
     else if(s.flags.welfare&&s.money>0&&hh>=floor)delete s.flags.welfare;   /* 収入が戻ったら保護を抜ける */
     else if(s.status!=="work"&&s.money<0)cost=Math.min(cost,net+20);
