@@ -911,6 +911,17 @@ function gateOk(t){const g=t.gate||{};if(s.track||s.trackTried[t.id]>=1||Object.
 function rainbowDecision(t){
   const c=t.chance,av=()=>avgOf(s,c.stats);
   s.trackTried[t.id]=(s.trackTried[t.id]||0)+1;
+  const enter=adj=>()=>{if(c.hit.job)setJob(s,c.hit.job.name,c.hit.job.income,c.hit.job.grow,c.hit.job.kind);s.track=t.id;s.trackSince=s.age;s.rainbow++;s.tvStartAdj=adj};
+  /* 宝くじ以外：挑めば必ずその道に入る。ルーレットはスタートの勢い（最初の値の±10）を決める。断れば才能の能力値が少し伸びる */
+  if(t.curve)return{rainbow:1,title:"★ 虹の兆し",text:`${t.name}への道が、一瞬だけ開いている。`,choices:[
+    {l:"才能を信じて道を切り開く",prior:.6,fx:{fatigue:10},roll:{q:"スタート",why:c.stats,o:[
+      o("手探りで始める",()=>Math.max(5,(100-av())*.4),{},`${t.name}の道に入った。右も左も分からないところからの出発だった。`,enter(-10)),
+      o("道が開く",45,genFx(c.hit.fx),c.hit.text,enter(0)),
+      o("一気に注目される",()=>Math.max(3,(av()-c.difficulty)*.5),{...genFx(c.hit.fx),happy:((c.hit.fx||{}).happy||0)+3},c.hit.text+"最初から、多くの人の目に留まった。",enter(10))]}},
+    {l:"今の生活を続ける",prior:.4,fx:{happy:1,...Object.fromEntries(c.stats.map(k=>[k,2]))},roll:{q:"見送る",why:["happy"],o:[
+      o("ときどき思い出す",D("happy",.4),{happy:-2},"あのとき選んでいたら、とときどき考えた。"),
+      o("いつもの暮らしへ",50,{},"誘いを断り、いつもの暮らしに戻った。"),
+      o("糧にする",U("happy",15),{happy:2},"その経験を、今の仕事に活かした。")]}}]};
   return{rainbow:1,title:"★ 虹の兆し",text:`${t.name}への道が、一瞬だけ開いている。`,choices:[
     {l:"運命に身を任せる",fx:{},roll:{q:c.name,why:c.stats,o:[
       o("道が開く",()=>Math.max(.5,(av()-c.difficulty)*.45),genFx(c.hit.fx),c.hit.text,()=>{if(c.hit.job)setJob(s,c.hit.job.name,c.hit.job.income,c.hit.job.grow,c.hit.job.kind);s.track=t.id;s.trackSince=s.age;s.rainbow++}),
@@ -930,7 +941,7 @@ function trackCurve(){
   const t=TRACKS[s.track];if(!t||!t.curve||s.trackEnded)return;
   const c=t.curve,hit=t.chance.hit.job;
   if(s.tv!==undefined&&!(s.status==="work"&&s.job&&s.job.legacy)){s.trackEnded=1;s.trackEndKind="end";s.trackEndAge=s.age;return}
-  if(s.tv===undefined){s.tv=Math.max(10,Math.min(90,(c.start??40)+(avgOf(s,t.chance.stats)-50)/2));s.tvLow=0;return}
+  if(s.tv===undefined){s.tv=Math.max(10,Math.min(90,(c.start??40)+(avgOf(s,t.chance.stats)-50)/2+(s.tvStartAdj||0)));s.tvLow=0;return}
   let d=CURVE_STEP[c.type](s,c)+(c.drift||0);
   if(c.type==="buzz"&&Math.random()<BOOM_RATE){d+=20;addRow("rainbow","★ ブーム","急に名前が知られるようになった。街で声をかけられた。")}
   s.tv=Math.max(0,Math.min(100,s.tv+d));s.tvMax=Math.max(s.tvMax||0,s.tv);if(s.tv>=(s.tvPeak||0)){s.tvPeak=s.tv;s.tvPeakAge=s.age}
@@ -1042,9 +1053,10 @@ function applyFx(fx){for(const k in fx){const v=fx[k];
   if(k==="money")s.money+=v;else if(k==="incMul")jobMul(s,v);else if(k==="fatigue")addFatigue(v);else if(k==="skill"){if(onCurve(s))s.tv=Math.max(0,Math.min(100,s.tv+v));else if(s.job)s.job.skill=Math.max(0,Math.min(100,s.job.skill+v))}else s[k]=clamp(s[k]+(v>0?v*gainF(s[k]):v))}}
 const totalLv=()=>s.cd.iso+s.cd.tired+s.cd.poor+s.cd.apathy;
 /* 虹の兆しが出る年あたりの基準確率（運が高いほど上がる） */
-const RAINBOW_RATE=.062;
+const RAINBOW_RATE=.0085;
+const RAINBOW_TIER=.062;   /* 毎年の出来事の割り振り上の「虹」の枠。良い・普通・悪いの割合をこの値で決める */
 function tierOf(){const l=(s.luck-50)/100,sl=totalLv()*.025;
-  const rb=RAINBOW_RATE*(0.4+s.luck/83),good=Math.max(.1,.35+l*.2-sl),normal=.4;const r=Math.random();
+  const rb=RAINBOW_TIER*(0.4+s.luck/83),good=Math.max(.1,.35+l*.2-sl),normal=.4;const r=Math.random();
   if(r<rb)return"rainbow";if(r<rb+good)return"good";if(r<rb+good+normal)return"normal";return"bad"}
 function stageKey(){const st=s.status;
   if(st==="hikikomori"||st==="futoko")return"hiki";
@@ -1052,6 +1064,7 @@ function stageKey(){const st=s.status;
 const used=new Set();
 function yearlyEvent(){
   let tier=tierOf();
+  if(tier==="rainbow"&&Math.random()>RAINBOW_RATE/RAINBOW_TIER)tier="good";   /* 兆しになるのは一部だけ。残りは良い出来事 */
   if(tier==="rainbow"){
     const ts=(GEN.tracks||[]).filter(gateOk);
     if(ts.length){s.pendingRainbow=ts[R(0,ts.length-1)];addRow("rainbow","★ 虹","何かが起こりそうな予感がする。");return}
