@@ -13,13 +13,13 @@ const POLICY=process.env.SIM_POLICY||"random";
 /* 会社員前提の汎用分岐（workDecision / genericLife）を、最初の選択肢のラベルで見分ける */
 const GENERIC_FIRST=new Set(["上を目指してがむしゃらに働く","正社員を目指して就職活動","学び直す"]);
 /* 状態の価値：能力値の合計 + お金/20 + 年収/5 + 家族 − 傾き。outcome の set は関数なので、状態を複製して実際に当てて測る */
-const worth=t=>t.health+t.happy+t.know+t.bond+t.luck+t.money/20+(t.status==="work"&&t.job?t.job.inc/5:0)
+const worth=t=>-(t.fatigue||0)/2+t.health+t.happy+t.know+t.bond+t.luck+t.money/20+(t.status==="work"&&t.job?t.job.inc/5:0)
   +(t.married?8:0)+t.kids*8-(t.flags.bankrupt?10:0)
   +Object.values(t.cd).reduce((a,v)=>a-v*4,0)+Object.values(t.press).reduce((a,v)=>a-v*2,0);
 function tryOut(c,x){
   const keep=s,logLen=LOG.length,keepUsed=new Set(used);
   const{hist,forks,...rest}=keep;s=structuredClone(rest);s.hist=[];s.forks=[];
-  try{if(c.cost)s.money-=c.cost;applyFx(c.fx||{});if(c.set)c.set(s);applyFx(x.fx);if(x.set)x.set(s);return worth(s)-worth(keep)}
+  try{if(c.cost)s.money-=c.cost;applyFx(fxNow(c.fx));if(c.set)c.set(s);applyFx(x.fx);if(x.set)x.set(s);c._settled=0;settleChoice(c,c.roll,x);c._settled=0;return worth(s)-worth(keep)}
   finally{s=keep;LOG.length=logLen;used.clear();keepUsed.forEach(v=>used.add(v))}
 }
 function evalChoice(c){
@@ -42,10 +42,10 @@ function showDecision(d){
     if(s.track&&s.trackEndKind!=="fail")GENERIC.track++;
     else if(s.job&&["pro","art","founder"].includes(s.job.kind))GENERIC.special++;}
   const need=c=>(c.cost||0)+Math.max(0,-((c.fx||{}).money||0));
-  let ok=d.choices.filter(c=>!(need(c)>0&&s.money<need(c)));if(!ok.length)ok=d.choices;
+  let ok=d.choices.filter(c=>!(need(c)>0&&s.money<need(c))&&!reqLack(c));if(!ok.length)ok=d.choices;
   const c=choose(d,ok);
   if(!c.roll)throw new Error("no roll "+d.title+" "+c.l);
-  if(c.cost)s.money-=c.cost;applyFx(c.fx||{});if(c.set)c.set(s);doRoll(c.roll);if(c.then)doRoll(c.then(s));
+  if(c.cost)s.money-=c.cost;applyFx(fxNow(c.fx));if(c.set)c.set(s);const xr=doRoll(c.roll);settleChoice(c,c.roll,xr);if(c.then)doRoll(c.then(s));
   if(!d.birth&&!d.rainbow){s.forks.push(1);if(d.gen){GENUSE++;if(d.id)USED[d.id]=(USED[d.id]||0)+1}}snap();pending=false;
   if(typeof afterDecision==="function")afterDecision();
 }

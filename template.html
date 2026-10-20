@@ -44,7 +44,8 @@ h1{font-family:var(--f-story);font-size:1.5rem;margin:0;letter-spacing:.04em}
 .money .big{font-family:var(--f-num);font-size:1.35rem;font-weight:600}
 .money .big.neg{color:var(--minus)}
 .money .lbl{font-size:.75rem;color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.stat.fatigue .bar i{background:var(--minus)}
 @media (max-width:480px){.stats{grid-template-columns:repeat(3,1fr)}}
 .stat label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted)}
 .stat label b{font-family:var(--f-num);font-weight:600;color:var(--ink)}
@@ -159,7 +160,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 <script>
 /* ========== 基本 ========== */
 const STATS=[["health","健康"],["happy","幸福"],["know","知識"],["bond","人間関係"],["luck","運"]];
-const SN={...Object.fromEntries(STATS),skill:"熟練"};
+const SN={...Object.fromEntries(STATS),skill:"熟練",fatigue:"疲労"};
 const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
 const clamp=v=>Math.max(0,Math.min(100,Math.round(v)));
 const $=id=>document.getElementById(id);
@@ -248,7 +249,7 @@ function growSkill(){
   const j=s.status==="work"&&s.job;
   for(const k in s.exp)if(!j||k!==j.type)s.exp[k]*=.97;
   if(!j)return;
-  if(s.effort&&s.effort.hard&&s.age<=s.effort.until)s.press.tired+=1;   /* がむしゃらの間は疲れがたまる */
+  if(s.effort&&s.effort.hard&&s.age<=s.effort.until)addFatigue(12);   /* がむしゃらの間は疲れがたまる */
   const eff=(s.effort&&s.age<=s.effort.until?s.effort.m:1)*(1-.4*(s.careerSlow||0)),cm=Math.max(.4,1-.15*(s.cd.tired+s.cd.apathy));
   const b=j.skill;j.skill=Math.min(100,j.skill+SKILL_RATE*(100-j.skill)/100*(.6+aptOf(s,j.type)/125)*eff*cm);
   for(const[v,txt]of SKILL_STEPS)if(b<v&&j.skill>=v)addRow("life","仕事",txt);
@@ -477,15 +478,15 @@ function workDecision(s,title){
   const j=s.job,yrs=s.age-(s.jobSince??s.age);
   const since=yrs<2?"働きはじめたばかり":yrs<10?"働いて数年":"働いて十数年";
   return{generic:1,title:title||"働き方",text:`${j.name}として${since}。年収は${man(j.inc)}。`,choices:[
-   {l:"上を目指してがむしゃらに働く",fx:{know:4,health:-5,happy:-2},set:s=>{s.effort={m:1+.6*hunger(s),until:s.age+3,hard:1}},roll:{q:"評価",why:["know","skill","happy"],o:[
+   {l:"上を目指してがむしゃらに働く",fx:{know:4,health:-3,happy:-2,fatigue:15},set:s=>{s.effort={m:1+.6*hunger(s),until:s.age+3,hard:1}},roll:{q:"評価",why:["know","skill","happy"],o:[
      o("抜擢される",s=>UA("know","skill",20)(s)*(.4+.6*hunger(s)),{happy:5,incMul:1.25},"同期で一番早く役職がついた。"),
      o("順当に評価される",40,{incMul:1.08},"評価は悪くなかった。"),
      o("体を壊す",D("health",.5),{health:-10,happy:-5},"ある朝、起き上がれなかった。3か月休職した。")]}},
-   {l:"定時で帰り、生活を大事にする",fx:{happy:5,health:3},set:s=>{s.effort={m:.7,until:s.age+3}},roll:{q:"暮らし",why:["luck"],o:[
+   {l:"定時で帰り、生活を大事にする",fx:{happy:5,health:3,fatigue:-15},set:s=>{s.effort={m:.7,until:s.age+3}},roll:{q:"暮らし",why:["luck"],o:[
      o("趣味が広がる",U("luck"),{happy:5,bond:3},"平日の夜にできる趣味が三つ増えた。"),
      o("穏やかな日々",50,{happy:2},"穏やかな一年だった。"),
      o("評価が下がる",D("luck",.4),{incMul:.95,happy:-2},"評価面談で「物足りない」と言われた。")]}},
-   {l:"副業を始める",fx:{know:3,health:-2},roll:{q:"副業",why:["know","luck"],o:[
+   {l:"副業を始める",fx:{know:3,health:-2,fatigue:12},roll:{q:"副業",why:["know","luck"],o:[
      o("副業が軌道に乗る",UA("know","luck",30),{money:300,happy:5},"副業の収入が本業のボーナスを超えた。"),
      o("小遣い程度",45,{money:40},"月に数万円。悪くない。"),
      o("赤字で終わる",DA("know","luck",.4),{money:-60,happy:-3},"機材代だけが残った。")]}},
@@ -498,10 +499,10 @@ function workDecision(s,title){
 
 function genericLife(s,title){
   return{generic:1,title:title||"これからの暮らし",text:`${s.age}歳。これからの数年を、何に使うか。`,choices:[
-   {l:"学び直す",fx:{know:5,money:-30},roll:{q:"学びの成果",why:["know"],o:[o("新しい道が開ける",U("know",20),{happy:5,incMul:1.05},"学んだことが思わぬところで役に立った。"),o("教養として身につく",50,{happy:2},"知らなかった世界を知った。"),o("続かない",D("know",.3),{happy:-2},"教材は本棚の飾りになった。")]}},
+   {l:"学び直す",fx:{know:5,money:-30,fatigue:6},roll:{q:"学びの成果",why:["know"],o:[o("新しい道が開ける",U("know",20),{happy:5,incMul:1.05},"学んだことが思わぬところで役に立った。"),o("教養として身につく",50,{happy:2},"知らなかった世界を知った。"),o("続かない",D("know",.3),{happy:-2},"教材は本棚の飾りになった。")]}},
    {l:"地域とつながる",fx:{bond:5},roll:{q:"地域",why:["bond"],o:[o("頼られる存在に",U("bond",20),{bond:5,happy:4},"町内で知らない人はいなくなった。"),o("顔見知りが増える",50,{bond:2},"挨拶する相手が増えた。"),o("人間関係に疲れる",D("bond",.3),{happy:-3},"役員を押しつけられた。")]}},
-   {l:"体を鍛える",fx:{health:5},roll:{q:"体",why:["health"],o:[o("見違えるほど元気に",U("health",20),{health:6,happy:3},"階段で息が切れなくなった。"),o("少し調子が良い",50,{health:2},"朝の目覚めが少し良くなった。"),o("張り切りすぎて故障",D("health",.3),{health:-5},"膝を痛めた。")]}},
-   {l:"今を楽しむ",fx:{happy:5,money:-50},roll:{q:"楽しみ",why:["luck"],o:[o("最高の一年",U("luck"),{happy:6},"何年経っても話したくなる一年だった。"),o("楽しかった",50,{happy:2},"いい時間だった。"),o("使いすぎた",D("luck",.3),{money:-100,happy:-2},"カードの明細を見て青ざめた。")]}}]};
+   {l:"体を鍛える",fx:{health:5,fatigue:4},roll:{q:"体",why:["health"],o:[o("見違えるほど元気に",U("health",20),{health:6,happy:3},"階段で息が切れなくなった。"),o("少し調子が良い",50,{health:2},"朝の目覚めが少し良くなった。"),o("張り切りすぎて故障",D("health",.3),{health:-5},"膝を痛めた。")]}},
+   {l:"今を楽しむ",fx:{happy:5,money:-50,fatigue:-12},roll:{q:"楽しみ",why:["luck"],o:[o("最高の一年",U("luck"),{happy:6},"何年経っても話したくなる一年だった。"),o("楽しかった",50,{happy:2},"いい時間だった。"),o("使いすぎた",D("luck",.3),{money:-100,happy:-2},"カードの明細を見て青ざめた。")]}}]};
 }
 
 function pickDecision(s,a=s.age){
@@ -510,7 +511,7 @@ function pickDecision(s,a=s.age){
   case 6:return{title:"放課後の過ごし方",text:"小学校に入学した。放課後の時間をどう使うか。",choices:[
     {l:"外で友達と遊ぶ",fx:{bond:6,health:4,know:-2},roll:{q:"クラスでの立ち位置",why:["bond"],o:[o("クラスの人気者",U("bond",30),{bond:5,happy:4},"休み時間になると、いつも誰かに呼ばれた。"),o("仲の良い友達がいる",40,{happy:3},"毎日同じ3人で帰った。"),o("少し浮いている",D("bond",.5),{happy:-3,bond:-2},"遊びの輪に入るタイミングが、いつも少し遅れた。")]}},
     {l:"スイミングに通う",fx:{health:8,bond:2},roll:{q:"上達",why:["health"],o:[o("選手コースに選ばれる",U("health",40),{health:5,happy:4},"選手コースに上がった。",s=>{s.flags.sport=1}),o("楽しく続ける",50,{happy:2},"級が上がるたびに帽子の色が変わった。"),o("嫌になってやめる",D("health",.4),{happy:-1},"冬の水の冷たさに耐えられず、やめた。")]}},
-    {l:"本と図鑑に没頭する",fx:{know:8,bond:-3},set:s=>{s.flags.book=1},roll:{q:"学校の成績",why:["know"],o:[o("クラスで一番",U("know",10),{know:4,happy:2},"テストはいつも満点だった。"),o("得意科目がある",50,{know:2},"理科だけは誰にも負けなかった。"),o("本の虫と呼ばれる",D("bond",.4),{bond:-3},"「本の虫」と呼ばれた。悪口だと気づいたのは少しあとだった。")]}},
+    {l:"本と図鑑に没頭する",fx:{know:8,bond:-3,fatigue:5},set:s=>{s.flags.book=1},roll:{q:"学校の成績",why:["know"],o:[o("クラスで一番",U("know",10),{know:4,happy:2},"テストはいつも満点だった。"),o("得意科目がある",50,{know:2},"理科だけは誰にも負けなかった。"),o("本の虫と呼ばれる",D("bond",.4),{bond:-3},"「本の虫」と呼ばれた。悪口だと気づいたのは少しあとだった。")]}},
     {l:"ゲームとひとり遊び",fx:{happy:5,bond:-5,know:1},roll:{q:"友達",why:["bond"],o:[o("ゲーム仲間ができる",U("bond",20),{bond:5},"同じゲームの子と攻略情報を交換するようになった。"),o("ひとりでも平気",40,{happy:2},"ひとりの時間がいちばん落ち着いた。"),o("誘われなくなる",D("bond",.6),{bond:-4,happy:-2},"気づくと、誰も誘いに来なくなっていた。")]}}]};
   case 9:return{title:"上履き",text:"クラスで、ひとりの子の上履きが何度も隠されている。",choices:[
     {l:"止めに入る",fx:{bond:2},roll:{q:"その後",why:["bond"],o:[o("その子と親友になる",U("bond",30),{bond:6,happy:3},"止めたことで、その子と親友になった。"),o("何も変わらない",40,{happy:-1},"隠されるのは止まったが、空気は変わらなかった。"),o("自分が標的になる",s=>D("bond",.5)(s)+10,{bond:-6,happy:-6},"次の週から、自分の上履きがなくなった。",s=>{s.flags.bullied=1})]}},
@@ -534,7 +535,7 @@ function pickDecision(s,a=s.age){
       {l:"進学しない",fx:{happy:2},roll:{q:"家での日々",why:["luck"],o:[o("家の手伝いをする",U("luck"),{bond:2},"昼間は祖母の通院に付き添った。",s=>{s.status="hikikomori"}),o("部屋にこもる",D("luck"),{happy:-3,bond:-3},"部屋の鍵を内側から閉めるようになった。",s=>{s.status="hikikomori"})]}}]};
     if(st==="school")return{title:"高校受験",text:"受験の季節が来た。",choices:[
       ...(s.flags.private?[{l:"付属の高校に内部進学",fx:{happy:2},roll:{q:"内部進学",why:["know"],o:[o("上位クラスに進む",U("know",5),{know:4,happy:3},"内部進学の上位クラスに入った。",s=>{s.flags.hs=2}),o("普通クラスに進む",D("know",.5),{},"普通クラスに進んだ。",s=>{s.flags.hs=1})]}}]:[]),
-      {l:"進学校を受験する",fx:{know:3,happy:-2},roll:{q:"合否",why:["know"],o:[o("合格",U("know",15),{happy:6,know:3},"掲示板に自分の番号を見つけた。",s=>{s.flags.hs=2}),o("滑り止めの高校へ",D("know",.6),{happy:-4},"第一志望には届かなかった。",s=>{s.flags.hs=1})]}},
+      {l:"進学校を受験する",fx:{know:3,happy:-2,fatigue:10},roll:{q:"合否",why:["know"],o:[o("合格",U("know",15),{happy:6,know:3},"掲示板に自分の番号を見つけた。",s=>{s.flags.hs=2}),o("滑り止めの高校へ",D("know",.6),{happy:-4},"第一志望には届かなかった。",s=>{s.flags.hs=1})]}},
       {l:"地元の普通高校に進む",fx:{bond:2},roll:{q:"合否",why:["know"],o:[o("上位で合格",U("know",10),{know:3,happy:3},"入試の点数は学年で十番以内だった。",s=>{s.flags.hs=1}),o("合格",50,{happy:2},"友達と同じ高校に受かった。",s=>{s.flags.hs=1})]}},
       {l:"工業・商業高校に進む",fx:{know:1,health:1},roll:{q:"合否",why:["know"],o:[o("合格",U("know"),{happy:3},"実習のある高校に進んだ。",s=>{s.flags.hs=0;s.flags.voc=1}),o("第二志望の学科へ",D("know",.3),{happy:-2},"第二志望の学科になった。",s=>{s.flags.hs=0;s.flags.voc=1})]}},
       s.goal==="sport"?{l:"スポーツ推薦を狙う",fx:{health:3},roll:{q:"推薦",why:["health"],o:[o("強豪校から推薦",s=>Math.max(1,s.health-30+(s.flags.sport||0)*10),{happy:6},"強豪校の監督から電話がかかってきた。",s=>{s.flags.hs=1;s.flags.sport=(s.flags.sport||0)+1}),o("推薦を逃し一般入試",D("health",.7),{happy:-3},"推薦は届かなかった。地元の高校に進んだ。",s=>{s.flags.hs=1})]}}:
@@ -542,9 +543,9 @@ function pickDecision(s,a=s.age){
     break;
   case 16:
     if(st==="school")return{title:"高校生活",text:"高校2年の春。時間の使い道を決める。",choices:[
-      {l:"部活に打ち込む",fx:{health:5,bond:3,know:-1},roll:{q:"大会",why:["health"],o:[o("全国大会に出る",U("health",40),{happy:6,health:3},"全国大会のスタンドで、自分の名前が呼ばれた。",s=>{s.flags.sport=(s.flags.sport||0)+1}),o("県大会止まり",45,{happy:2},"県大会の二回戦で負けた。悔しかった。"),o("補欠のまま",D("health",.4),{happy:-3},"ベンチから最後の試合を見た。")]}},
+      {l:"部活に打ち込む",fx:{health:5,bond:3,know:-1,fatigue:10},roll:{q:"大会",why:["health"],o:[o("全国大会に出る",U("health",40),{happy:6,health:3},"全国大会のスタンドで、自分の名前が呼ばれた。",s=>{s.flags.sport=(s.flags.sport||0)+1}),o("県大会止まり",45,{happy:2},"県大会の二回戦で負けた。悔しかった。"),o("補欠のまま",D("health",.4),{happy:-3},"ベンチから最後の試合を見た。")]}},
       {l:"アルバイトで稼ぐ",fx:{money:30,bond:2,know:-2},roll:{q:"職場",why:["bond"],o:[o("可愛がられる",U("bond"),{bond:4,money:30},"店長に「卒業しても来いよ」と言われた。"),o("普通に続ける",45,{money:20},"週3日、レジに立った。"),o("人間関係で辞める",D("bond",.4),{happy:-3},"先輩と合わずに辞めた。")]}},
-      {l:"受験勉強を始める",fx:{know:6,happy:-3},roll:{q:"模試",why:["know"],o:[o("A判定",U("know",30),{know:4,happy:3},"初めてのA判定。"),o("B〜C判定",45,{know:1},"判定はC。まだ間に合う。"),o("伸び悩む",D("know",.4),{happy:-3},"偏差値が三か月動かなかった。")]}},
+      {l:"受験勉強を始める",fx:{know:6,happy:-3,fatigue:15},roll:{q:"模試",why:["know"],o:[o("A判定",U("know",30),{know:4,happy:3},"初めてのA判定。"),o("B〜C判定",45,{know:1},"判定はC。まだ間に合う。"),o("伸び悩む",D("know",.4),{happy:-3},"偏差値が三か月動かなかった。")]}},
       {l:"友達と遊ぶ",fx:{bond:5,happy:4,know:-2},roll:{q:"思い出",why:["luck"],o:[o("一生の思い出",U("luck"),{bond:4,happy:4},"夏の夜、自転車で海まで走った。"),o("楽しい日々",50,{happy:2},"毎日がそれなりに楽しかった。"),o("成績が下がる",D("know",.3),{know:-4},"通知表を見た親がため息をついた。")]}}]};
     if(hiki)return hikiDecision(s);
     return genericLife(s,"16歳");
@@ -560,7 +561,7 @@ function pickDecision(s,a=s.age){
     if(st==="school"){const sp=s.goal==="sport"&&(s.flags.sport||0)>=2;
       const senmon={tech:"IT専門学校",sport:"スポーツ専門学校",art:"美術・音楽の専門学校",stable:"医療系の専門学校"}[s.goal||"stable"];
       const ch=[
-      {l:"難関大学を受ける",fx:{know:3,happy:-2},roll:{q:"入試",why:["know"],o:[
+      {l:"難関大学を受ける",fx:{know:3,happy:-2,fatigue:12},roll:{q:"入試",why:["know"],o:[
         o("合格",s=>Math.max(1,s.know-45+(s.flags.hs||0)*8),{happy:8},"難関大学に合格した。",s=>{s.status="college";s.collegeStart=s.age;s.flags.uni=2;payTuition(TU.hard)}),
         o("中堅大学に進む",40,{},"第二志望の大学に進んだ。",s=>{s.status="college";s.collegeStart=s.age;s.flags.uni=1;payTuition(TU.mid)}),
         o("浪人する",D("know",.4),{happy:-5},"第一志望には届かなかった。予備校に通って、もう一年がんばることにした。",s=>{s.flags.ronin=1;s.wasRonin=1;s.edu-=EDU.yobiko}),...giveUp(TU.hard)]}},
@@ -580,9 +581,9 @@ function pickDecision(s,a=s.age){
   case 20:
     if(st==="college"&&s.flags.senmon)return null;   /* 卒業は入学からの年数で決まる（nextDecision） */
     if(st==="college")return{title:"学生生活",text:"大学生活も折り返し。何に時間を使うか。",choices:[
-      {l:"研究・勉強に没頭する",fx:{know:6},roll:{q:"ゼミ",why:["know"],o:[o("教授に見込まれる",U("know",30),{know:5,happy:3},"教授に大学院を勧められた。"),o("普通に単位を取る",45,{know:1},"成績は真ん中あたり。"),o("ついていけない",D("know",.4),{happy:-4},"ゼミの発表で何も答えられなかった。")]}},
+      {l:"研究・勉強に没頭する",fx:{know:6,fatigue:12},roll:{q:"ゼミ",why:["know"],o:[o("教授に見込まれる",U("know",30),{know:5,happy:3},"教授に大学院を勧められた。"),o("普通に単位を取る",45,{know:1},"成績は真ん中あたり。"),o("ついていけない",D("know",.4),{happy:-4},"ゼミの発表で何も答えられなかった。")]}},
       {l:"サークルで仲間をつくる",fx:{bond:6,happy:3},roll:{q:"仲間",why:["bond"],o:[o("生涯の友を得る",U("bond",25),{bond:5,happy:3},"夜通し語り合える友人が3人できた。"),o("楽しく過ごす",45,{happy:2},"合宿と飲み会の2年間だった。"),o("揉めて抜ける",D("bond",.4),{bond:-4},"代替わりで揉めて、サークルを抜けた。")]}},
-      {l:"アルバイト漬け",fx:{money:80,health:-2,know:-2},roll:{q:"稼ぎ",why:["luck"],o:[o("時給の良い仕事",U("luck"),{money:60},"家庭教師の口が3件まわってきた。"),o("普通に稼ぐ",50,{money:20},"居酒屋のシフトに毎週入った。"),o("ブラックバイト",D("luck",.4),{health:-5,happy:-4},"テスト期間にもシフトを入れられた。")]}},
+      {l:"アルバイト漬け",fx:{money:80,health:-2,know:-2,fatigue:12},roll:{q:"稼ぎ",why:["luck"],o:[o("時給の良い仕事",U("luck"),{money:60},"家庭教師の口が3件まわってきた。"),o("普通に稼ぐ",50,{money:20},"居酒屋のシフトに毎週入った。"),o("ブラックバイト",D("luck",.4),{health:-5,happy:-4},"テスト期間にもシフトを入れられた。")]}},
       {l:"留学する",fx:{know:5,bond:2,money:-150},roll:{q:"留学先で",why:["bond","know"],o:[o("世界が広がる",UA("bond","know",25),{know:6,bond:4,happy:4},"帰国したとき、空港の日本語が少し遠く聞こえた。"),o("語学で苦労する",45,{know:2},"最初の三か月は、授業の半分しか分からなかった。"),o("ホームシックで帰国",DA("bond","know",.3),{happy:-4},"予定より早く帰国した。")]}}]};
     if(hiki)return hikiDecision(s);
     return workDecision(s,"20歳の働き方");
@@ -618,7 +619,7 @@ function pickDecision(s,a=s.age){
     if(hiki)return hikiDecision(s);
     if(s.money<100)return{title:"家計",text:`貯金は${man(s.money)}。老後の不安が頭をよぎる。`,choices:[
       {l:"家計を徹底的に見直す",fx:{happy:-3},roll:{q:"節約",why:["know"],o:[o("年100万円浮く",U("know",30),{money:100,happy:2},"固定費を洗い直し、年100万円が浮いた。"),o("少し改善",50,{money:30},"保険を一つ解約した。"),o("続かない",D("know",.4),{happy:-2},"家計簿は二か月で止まった。")]}},
-      {l:"副業を始める",fx:{health:-3},roll:{q:"副業",why:["know","luck"],o:[o("軌道に乗る",UA("know","luck",30),{money:250,happy:4},"副業が本業並みの収入になった。"),o("小遣い程度",45,{money:40},"月に数万円。"),o("赤字",DA("know","luck",.4),{money:-50},"始めるための出費だけが残った。")]}},
+      {l:"副業を始める",fx:{health:-3,fatigue:12},roll:{q:"副業",why:["know","luck"],o:[o("軌道に乗る",UA("know","luck",30),{money:250,happy:4},"副業が本業並みの収入になった。"),o("小遣い程度",45,{money:40},"月に数万円。"),o("赤字",DA("know","luck",.4),{money:-50},"始めるための出費だけが残った。")]}},
       {l:"気にしない",fx:{happy:3},roll:{q:"お金",why:["luck"],o:[o("なんとかなる",U("luck"),{},"なんとかなった。"),o("不安が募る",D("luck"),{happy:-5},"夜中に家計の計算をする日が増えた。")]}}]};
     {const inv=Math.max(0,s.money)*.5;return{title:"お金の使い道",text:`資産は${man(s.money)}。半分を何かに回すか考えている。`,choices:[
       {l:"預金しておく",fx:{},roll:{q:"10年後",why:["luck"],o:[o("物価が安定",U("luck"),{money:Math.round(inv*.02)},"利息はわずかだが、減りもしなかった。"),o("物価上昇で目減り",D("luck"),{money:-Math.round(inv*.1)},"物価が上がり、預金の価値が目減りした。")]}},
@@ -631,7 +632,7 @@ function pickDecision(s,a=s.age){
       {l:"地域の支援窓口に電話する",fx:{happy:-2},roll:{q:"電話",why:["luck","bond"],o:[o("就労支援が始まる",UA("luck","bond",15),{happy:8},"担当者がついた。月に一度、家に来てくれる。",s=>setJob(s,"作業所",100,.005,"irregular")),o("定期的な訪問が始まる",45,{bond:3,happy:2},"訪問員と話すのが、月に一度の外との接点になった。"),o("電話がつながらない",DA("luck","bond",.4),{happy:-3},"何度かけても、最後の番号が押せなかった。")]}},
       {l:"このまま暮らす",fx:{happy:2},roll:{q:"この先",why:["luck"],o:[o("穏やかに過ぎる",U("luck"),{},"親と並んでテレビを見る夜が続いた。"),o("将来への不安が募る",D("luck"),{happy:-6},"親がいなくなったあとのことを、考えないようにした。")]}}]};
     return{title:"親の介護",text:"親が体調を崩し、介護が必要になった。",choices:[
-      {l:"自分で介護する",fx:{bond:5,happy:-6,health:-4,incMul:.85},roll:{q:"介護の日々",why:["health"],o:[o("穏やかに見送る",U("health",20),{bond:4},"最後の1年、毎日話ができた。"),o("長期化する",40,{money:-200,health:-6},"介護は7年続いた。"),o("介護離職する",D("health",.4),{happy:-6},"仕事を辞めた。",s=>{if(s.status==="work"){s.status="jobless";s.job=null}})]}},
+      {l:"自分で介護する",fx:{bond:5,happy:-6,health:-2,incMul:.85,fatigue:20},roll:{q:"介護の日々",why:["health"],o:[o("穏やかに見送る",U("health",20),{bond:4},"最後の1年、毎日話ができた。"),o("長期化する",40,{money:-200,health:-6},"介護は7年続いた。"),o("介護離職する",D("health",.4),{happy:-6},"仕事を辞めた。",s=>{if(s.status==="work"){s.status="jobless";s.job=null}})]}},
       {l:"施設に入ってもらう",fx:{money:-300},roll:{q:"施設",why:["luck"],o:[o("良い施設に出会う",U("luck"),{happy:3},"職員の人が親の昔話を覚えていてくれた。"),o("普通の施設",45,{},"月に二度、面会に行った。"),o("罪悪感が残る",D("bond",.4),{happy:-5},"帰りの車の中で、毎回泣いた。")]}},
       {l:"実家に戻って同居する",fx:{bond:6,incMul:.8},roll:{q:"同居",why:["bond"],o:[o("親子の時間を取り戻す",U("bond",15),{happy:5},"子どもの頃の話を、初めてゆっくり聞いた。"),o("なんとか回る",45,{health:-3},"仕事と介護で、自分の時間はなくなった。"),o("共倒れしかける",D("bond",.4),{health:-8,happy:-6},"自分の体調が先に崩れた。")]}},
       {l:"兄弟に任せる",fx:{happy:2,bond:-6},roll:{q:"兄弟との関係",why:["bond"],o:[o("お金で支えて感謝される",U("bond",20),{money:-150,bond:4},"仕送りを続け、礼を言われた。"),o("距離ができる",45,{bond:-3},"兄弟との連絡が減った。"),o("揉める",D("bond",.5),{bond:-8,happy:-5},"葬儀の席で、兄弟と口をきかなかった。")]}}]};
@@ -814,12 +815,13 @@ function futokoDecision(s){
 /* ========== 傾き：マイナスの積み重ねで少しずつ深まる状態 ========== */
 const CONDS={
  iso:{n:"孤立",gap:s=>31-s.bond,up:["","誰とも深く話さない日が増えてきた。","誘いを断るのが、いつの間にか癖になった。","人と自分のあいだに、薄い膜があるように感じる。"],down:"少しずつ、人と話すのが苦ではなくなってきた。",drain:{happy:-1}},
- tired:{n:"疲弊",gap:s=>s.age>=65?-99:33-s.health+(s.status==="work"&&s.job&&s.job.inc>500?5:0),up:["","朝起きても、疲れが抜けなくなってきた。","休日はほとんど寝て過ごすようになった。","体が鉛のように重い。"],down:"体が少し軽くなった。",drain:{happy:-.5,health:-.5}},
+ tired:{n:"疲弊",gap:s=>s.age>=65?s.fatigue-55:Math.max(s.fatigue-55,33-s.health),up:["","朝起きても、疲れが抜けなくなってきた。","休日はほとんど寝て過ごすようになった。","体が鉛のように重い。"],down:"体が少し軽くなった。",drain:{happy:-.5,health:-.5}},
  poor:{n:"困窮",gap:s=>s.age<18||(s.status==="hikikomori"&&s.parentsAlive)?-99:s.money<-300?Math.min(40,(-s.money-300)/25):s.money<30&&(!s.job||s.job.inc<220)&&s.status!=="college"&&s.status!=="retired"?3:-10,up:["","支払いの日が近づくと、胃が重くなる。","カードの支払いを、別のカードで回すようになった。","通帳を開くのが怖い。"],down:"家計に、少し余裕が戻ってきた。",drain:{happy:-1,health:-.5}},
  apathy:{n:"無気力",gap:s=>26-s.happy,up:["","好きだったことに、前ほど心が動かない。","何をしても楽しいと思えない日が増えた。","一日が、色のない時間として過ぎていく。"],down:"久しぶりに、心から笑った。",drain:{know:-.5,bond:-.5}}
 };
 const PRESS_MAP={bond:"iso",health:"tired",money:"poor",happy:"apathy"};
 function updateConds(){
+  if(s.press.tired){addFatigue(s.press.tired*8);s.press.tired=0}
   for(const k in CONDS){const c=CONDS[k],g=c.gap(s),lv=s.cd[k];
     if(g>0&&lv<3){const p=Math.min(.6,.03+g/70+s.press[k]*.05);
       if(Math.random()<p){s.cd[k]++;addRow("slope","傾き",c.up[s.cd[k]]);lv3(k)}}
@@ -885,7 +887,7 @@ function genDecision(x){
   const chs=x.choices.filter(c=>!isBankruptChoice(c)||s.money<=BANKRUPT_LINE&&!s.flags.bankrupt&&(s.bankruptCount||0)<BANKRUPT_MAX);
   return{id:x.id,title:x.title,text:fill(x.text),gen:1,choices:(chs.length?chs:x.choices).map(c=>{const r=c.roll,av=()=>avgOf(s,r.stats);
     const mk=(k,w)=>{const z=r[k];return{...o(z.label,w,genFx(z.fx),fill(z.text),z.set?()=>applySet(z.set):undefined),rank:{good:2,mid:1,bad:0}[k]}};
-    return{l:c.label,cost:-(c.cost&&c.cost.money||0),fx:genFx(c.fx),roll:{q:r.name,why:r.stats,o:[
+    return{l:c.label,req:c.requires&&c.requires.stat_min,cost:-(c.cost&&c.cost.money||0),fx:genFx(c.fx),roll:{q:r.name,why:r.stats,o:[
       mk("good",()=>Math.max(1,av()-r.difficulty)),mk("mid",45),mk("bad",()=>Math.max(1,(100-av())*.45))]}}})};
 }
 function genEligible(x){
@@ -975,7 +977,7 @@ function newLife(){
   const by=R(1975,2000);
   s={age:0,year:by,birthYear:by,sex:Math.random()<.5?"m":"f",pref:PREFS[pickW(PREFS,p=>p[1])][0],fam:2,parent:"",
     health:clamp(50+R(0,30)),happy:clamp(45+R(-10,10)),know:clamp(10+R(0,12)),bond:clamp(33+R(-12,22)),luck:clamp(25+R(0,50)),
-    money:0,edu:0,sch:0,status:"school",job:null,jobs:[],goal:null,married:false,kids:0,flags:{},hist:[],forks:[],rainbow:0,peak:0,minMoney:0,hikiYears:0,alive:true,
+    money:0,edu:0,sch:0,fatigue:10,status:"school",job:null,jobs:[],goal:null,married:false,kids:0,flags:{},hist:[],forks:[],rainbow:0,peak:0,minMoney:0,hikiYears:0,alive:true,
     cd:{iso:0,tired:0,poor:0,apathy:0},press:{iso:0,tired:0,poor:0,apathy:0},decUsed:{},lastDec:0,nextGap:2,lastCat:null,parentsAlive:true,slopeMax:0,track:null,trackTried:{},pendingRainbow:null,exp:{},typeYears:{},effort:null,lastType:null};
   Object.defineProperty(s,"skill",{enumerable:true,configurable:true,get(){return onCurve(this)?Math.round(this.tv):this.job?Math.round(this.job.skill):0},set(v){if(this.job)this.job.skill=Math.max(0,Math.min(100,v))}});
   {const m=R(22,38);s.parents=[{n:"母",a:m,alive:1},{n:"父",a:m+R(-1,5),alive:1}]}
@@ -985,11 +987,19 @@ function newLife(){
 }
 
 /* ========== 1年の処理 ========== */
+/* 能力値は高いほど上がりにくい（50で1倍、80で0.7倍、95で0.55倍）。疲労はそのまま増減する */
+const gainF=x=>Math.max(.3,1.5-x/100);
+/* 家庭の支え：配偶者との愛情と、家にいる子どもの育ちが良いほど疲れにくく、悪いと疲れやすい（疲労が増えるときだけ。0.5〜1.5倍） */
+function famFatF(){let f=1;
+  if(s.married&&s.partner)f-=(s.partner.love-50)/100;
+  if(s.kids&&s.kidList){const ks=s.kidList.filter(k=>kidAge(k)>0&&kidHome(k));if(ks.length)f-=(ks.reduce((a,k)=>a+k.grow,0)/ks.length-50)/200}
+  return Math.max(.5,Math.min(1.5,f))}
+const addFatigue=v=>{s.fatigue=clamp(s.fatigue+(v>0?v*famFatF():v))};
 function applyFx(fx){for(const k in fx){const v=fx[k];
-  if(k==="money")s.money+=v;else if(k==="incMul")jobMul(s,v);else s[k]=clamp(s[k]+v)}}
+  if(k==="money")s.money+=v;else if(k==="incMul")jobMul(s,v);else if(k==="fatigue")addFatigue(v);else s[k]=clamp(s[k]+(v>0?v*gainF(s[k]):v))}}
 const totalLv=()=>s.cd.iso+s.cd.tired+s.cd.poor+s.cd.apathy;
 /* 虹の兆しが出る年あたりの基準確率（運が高いほど上がる） */
-const RAINBOW_RATE=.02;
+const RAINBOW_RATE=.03;
 function tierOf(){const l=(s.luck-50)/100,sl=totalLv()*.025;
   const rb=RAINBOW_RATE*(0.4+s.luck/83),good=Math.max(.1,.35+l*.2-sl),normal=.4;const r=Math.random();
   if(r<rb)return"rainbow";if(r<rb+good)return"good";if(r<rb+good+normal)return"normal";return"bad"}
@@ -1030,7 +1040,7 @@ function yearlyEvent(){
 const TAKE=[[0,.82],[300,.8],[500,.78],[700,.75],[1000,.72],[1500,.68],[2000,.64]];
 function takeRate(inc){for(let i=1;i<TAKE.length;i++){const[a,ra]=TAKE[i-1],[b,rb]=TAKE[i];if(inc<=b)return ra+(rb-ra)*(inc-a)/(b-a)}return TAKE[TAKE.length-1][1]}
 const takeHome=inc=>inc*takeRate(inc);
-const ECON={adaptLo:.42,adaptHi:.56,adaptFrom:400,adaptSpan:800,liveMin:55,minPartner:35,minKid:20,liveMax:900,liveHome:100,retLive:115,retKeep:.75,priceK:.2,rentBase:55,rentPartner:25,rentKids:20};
+const ECON={adaptLo:.41,adaptHi:.56,adaptFrom:400,adaptSpan:800,liveMin:50,minPartner:35,minKid:20,liveMax:900,liveHome:100,retLive:105,retKeep:.75,priceK:.2,rentBase:55,rentPartner:25,rentKids:20};
 /* 住んでいる県の地域係数（家賃は係数の2乗、家賃以外の物価は priceK の分だけ効く） */
 const CITY={"東京都":1.35,"神奈川県":1.2,"大阪府":1.15,"愛知県":1.1,"埼玉県":1.1,"千葉県":1.1,"兵庫県":1.05,"福岡県":1.05};
 const METRO=Object.keys(CITY);
@@ -1160,7 +1170,7 @@ function partnerYear(){
   const p=s.partner;
   if(p.works&&!p.stall&&s.age<55)p.inc=Math.round(p.inc*1.01);
   if(!p.works&&s.kids&&s.kidList&&Math.min(...s.kidList.map(kidAge))>=6&&Math.random()<.08){p.works=true;p.inc=100;addRow("life","家族","配偶者がパートに出はじめた。")}
-  loveAdd(s,-3.8+((p.charm??50)-50)/40+(s.bond-50)/15+(s.happy-50)/25-(s.cd.poor>=2?3:0)-(s.cd.tired>=2?2:0)+gauss(4));
+  loveAdd(s,-2.2+((p.charm??50)-50)/40+(s.bond-50)/15+(s.happy-50)/25-(s.cd.poor>=2?3:0)-(s.cd.tired>=2?2:0)+gauss(4));
   if(p.love<LOVE.line&&Math.random()<LOVE.divorceP)divorce(s,"話し合いの末、別々の道を歩くことにした。");
 }
 const partnerNet=()=>!s.partner?0:s.age<PARTNER.retireAge?(s.partner.works?takeHome(s.partner.inc)*(s.sex==="m"?momF():1):0):(s.partner.works?pensionOf(s.partner.inc):PARTNER.pension)*PENSION_TAKE;
@@ -1319,7 +1329,7 @@ function parentCareDecision(p){const pa=p.a+s.age,fac=parentShare(CARE.facility)
   return{title:"親の介護",text:`${p.n}（${pa}歳）が体調を崩し、介護が必要になった。${rich?"親の貯えで、費用はまかなえそうだ。":fac>=CARE.facility?"親に貯えは、ほとんどない。":"親の年金だけでは、足りない分がある。"}`,choices:[
    {l:"施設に入ってもらう",prior:.45,info:fac?`自分の負担 年${man(fac)}`:"費用は親の資産でまかなえる",fx:{},set:()=>{p.care="facility"},roll:{q:"施設",why:["luck"],o:[
      o("罪悪感が残る",D("bond",.4),{happy:-5},"面会の帰り道、毎回泣いた。"),o("普通の施設",45,{},"月に二度、面会に行った。"),o("良い施設に出会う",U("luck"),{happy:3},"職員の人が、親の昔話を覚えていてくれた。")]}},
-   {l:"自分が通って在宅で介護する",prior:.35,info:`自分の負担 年${man(hm)}・仕事は減らす`,fx:{bond:4,happy:-4,health:-3,incMul:.9},set:()=>{p.care="home"},roll:{q:"介護の日々",why:["health"],o:[
+   {l:"自分が通って在宅で介護する",prior:.35,info:`自分の負担 年${man(hm)}・仕事は減らす`,fx:{bond:4,happy:-4,health:-1,incMul:.9,fatigue:18},set:()=>{p.care="home"},roll:{q:"介護の日々",why:["health"],o:[
      o("介護疲れ",D("health",.4),{health:-5,happy:-5},"自分の体調まで崩した。",s=>{s.press.tired+=2}),o("なんとか回す",45,{},"ヘルパーさんと交代で、なんとか回した。"),o("穏やかな時間",U("health",20),{bond:4,happy:2},"昔の話を、初めてゆっくり聞いた。")]}},
    {l:"兄弟に任せて、お金を出す",prior:.2,cost:Math.round(fac/2),info:fac?`一度に${man(Math.round(fac/2))}`:"親の資産でまかなえる",fx:{bond:-3},set:()=>{p.care="sibling"},roll:{q:"兄弟との関係",why:["bond"],o:[
      o("揉める",D("bond",.5),{bond:-6,happy:-5},"葬儀の席で、兄弟と口をきかなかった。"),o("距離ができる",45,{bond:-2},"兄弟との連絡が減った。"),o("感謝される",U("bond",20),{bond:3},"兄弟から、礼の電話があった。")]}}]};
@@ -1491,7 +1501,7 @@ function promoDecision(){const lv=promoLvOf(s.skill),title=PROMO_TITLE[lv-1],mul
 /* 3年働いても熟練が伸びない */
 function misfitDecision(){
   return{title:"向いていない？",text:`${s.job.name}として3年。思うように上達しない。`,choices:[
-   {l:"踏ん張って腕を磨く",fx:{know:3,happy:-2},set:s=>{s.effort={m:1+.6*hunger(s),until:s.age+3,hard:1}},roll:{q:"そのあと",why:["know"],o:[
+   {l:"踏ん張って腕を磨く",fx:{know:3,happy:-2,fatigue:12},set:s=>{s.effort={m:1+.6*hunger(s),until:s.age+3,hard:1}},roll:{q:"そのあと",why:["know"],o:[
      o("やはり伸びない",D("know",.4),{happy:-4},"努力の割に、結果がついてこなかった。"),o("少しずつ伸びる",45,{},"できることが、少しずつ増えた。"),o("コツをつかむ",U("know",20),{happy:5},"ある日、急に仕事が楽になった。")]}},
    {l:"別の職種に移る",fx:{happy:1},set:s=>{s.pendingHunt="change"},roll:{q:"仕事探し",why:["bond"],o:[o("求人を探しはじめる",1,{},"自分に向いている仕事を、探しはじめた。")]}},
    {l:"割り切って働く",fx:{happy:2},roll:{q:"割り切る",why:["happy"],o:[
@@ -1502,7 +1512,7 @@ function misfitDecision(){
    18歳からは、人間関係と幸福が高いほど、選ばなくても恋人ができることがある（学生時代を含む）。
    働きはじめてからは「出会い」の分岐で、候補（東京4人・大都市3人・地方2人）の年齢・年収・愛嬌を見て選ぶ。
    愛嬌が高い相手ほど愛情が深まりやすく結婚しやすいが、付き合える確率は下がる */
-const LOVE_EVENT=.35;
+const LOVE_EVENT=.45;
 const MEET_SRC=["職場の同僚","取引先の人","友人の紹介","趣味の仲間","マッチングアプリ","学生時代の知り合い","近所の店の常連"];
 function genLover(src){
   const age=Math.max(18,s.age+R(-4,4)),part=age>=22&&otherSex()==="f"&&!WORK_SRC.includes(src)&&Math.random()<F_PART,inc=part?R(100,200):incFor(age,src);
@@ -1593,8 +1603,19 @@ function birthCheck(){
 /* 子どもの節目 */
 const KID_STEPS={6:"子どもがランドセルを背負って、初めて登校した。",12:"子どもが中学生になった。制服が少し大きい。",15:"子どもが高校に上がった。"};
 function kidSteps(){syncKids();kidYear();s.kidBorn.forEach((b,i)=>{const a=s.age-b,txt=KID_STEPS[a];if(txt)addRow("life","家族",s.kidBorn.length>1?txt.replace("子どもが",["上の子が","下の子が","末の子が"][Math.min(i,2)]):txt)})}
+/* 毎年：幸福と人間関係は、50より高ければ少しずつ50に戻る。知識は50歳から、健康が低いほど早く衰える。
+   疲労は休めば抜け、働いていれば少したまる。疲労が60を超えると健康と幸福を削る */
+const DRIFT={mean:.03,knowMean:.012,knowAge:50,fatRest:6,fatRecover:.15,fatWork:9};   /* 働く人の疲労は20前後で落ち着く */
+function statYear(){
+  for(const k of["happy","bond"])if(s[k]>50)s[k]=clamp(s[k]+(50-s[k])*DRIFT.mean);   /* 高い値だけを戻す（低い側の傾きの仕組みは変えない） */
+  if(s.know>50)s.know=clamp(s.know+(50-s.know)*DRIFT.knowMean);
+  if(s.age>=DRIFT.knowAge)s.know=clamp(s.know-(.2+Math.max(0,60-s.health)/40));
+  const work=s.status==="work"||s.status==="college"||s.status==="school"&&s.age>=12;
+  if(work)addFatigue(DRIFT.fatWork);s.fatigue=clamp(s.fatigue-DRIFT.fatRest-s.fatigue*DRIFT.fatRecover);
+  if(s.fatigue>60){s.health=clamp(s.health-(s.fatigue-60)/20);s.happy=clamp(s.happy-(s.fatigue-60)/30)}
+}
 function passive(){
-  kidSteps();
+  kidSteps();statYear();
   if(s.age>=6&&s.age<=18&&(s.status==="school")){s.know=clamp(s.know+2+(s.flags.private?1:0)+EDU.knowByFam[s.fam]);if(s.flags.private)s.edu-=EDU.private}
   if(s.age<18&&s.money<0)s.money=0;   /* 子どもの赤字は親がかぶる */
   if(s.status==="college")s.know=clamp(s.know+1.5);
@@ -1785,7 +1806,7 @@ function render(){
   $("age").innerHTML=`${s.age}<small>歳</small>`;$("status").textContent=statusLabel();
   $("meta").textContent=`${s.year}年 · ${s.sex==="f"?"女性":"男性"} · ${s.pref}`+(s.livePref&&s.livePref!==s.pref?` · ${s.livePref}在住`:"")+(s.goal?` · 夢：${GOALS[s.goal]}`:"")+(s.track&&TRACKS[s.track]?` · ★${TRACKS[s.track].name}`+(onCurve(s)?` ${TRACKS[s.track].curve.label}${Math.round(s.tv)}`:""):"")+(s.job&&!s.job.legacy?` · ${JT[s.job.type].n} 熟練${s.skill}`:"")+(s.flags.bankrupt?" · 自己破産から再出発中":"");
   $("household").innerHTML=householdHTML();
-  $("stats").innerHTML=STATS.map(([k,n])=>`<div class="stat"><label>${n}<b>${s[k]}</b></label><div class="bar"><i style="width:${s[k]}%"></i></div></div>`).join("");
+  $("stats").innerHTML=[...STATS,["fatigue","疲労"]].map(([k,n])=>`<div class="stat ${k}"><label>${n}<b>${s[k]}</b></label><div class="bar"><i style="width:${s[k]}%"></i></div></div>`).join("");
   const nw=netWorth(),m=$("money");m.textContent=man(nw);m.classList.toggle("neg",nw<0);$("assets").textContent=assetLine();
   {const f=s.flow;$("flow").textContent=f&&s.age>=18&&(f.net||f.cost)?`去年の収支 ${f.net-f.cost>=0?"+":"−"}${man(Math.abs(f.net-f.cost))}（手取り ${man(f.net)}・生活費 −${man(f.cost-f.house-f.kid-(f.care||0))}・住居 −${man(f.house)}${f.kid?`・子ども −${man(f.kid)}`:""}${f.care?`・介護 −${man(f.care)}`:""}）`:""}
   $("mlbl").textContent="資産 ";
@@ -1801,22 +1822,35 @@ $("step").onclick=()=>{if(!s.alive)return;setAuto(false);step()};
 $("speed").onclick=()=>{speed=speed===1?2:speed===2?4:1;$("speed").textContent=`速度 ×${speed}`};
 
 /* ========== 分岐カード ========== */
+/* 選択肢の条件（c.req = {能力値: 最低値}）。足りなければ「人間関係60以上で選べる」を返す */
+function reqLack(c){const r=c.req;if(!r)return"";const k=Object.keys(r).find(k=>(k==="skill"?s.skill:s[k])<r[k]);return k?`${SN[k]}${r[k]}以上で選べる`:""}
 function showDecision(d){
   pending=true;clearTimeout(timer);
   const need=c=>(c.cost||0)+Math.max(0,-((c.fx||{}).money||0));
-  let off=d.choices.map(c=>need(c)>0&&s.money<need(c));if(off.every(Boolean))off=off.map(()=>false);
+  const lock=d.choices.map(c=>reqLack(c));
+  let off=d.choices.map((c,i)=>need(c)>0&&s.money<need(c)||!!lock[i]);if(off.every(Boolean))off=off.map(()=>false);
   const sc=$("scene");sc.hidden=false;
   sc.innerHTML=`<div class="scene-head"><span class="yr">${s.year}年 · ${s.age}歳</span><h2>${d.title}</h2></div>
    <p class="story">${echo(tx(d.text,s))}</p>
-   <span class="q">選択</span><div class="opts${d.choices.length===1?" one":""}" id="opts">${d.choices.map((c,i)=>`<button class="opt" data-i="${i}"${off[i]?" disabled":""}><span class="lbl">${c.l}</span>${c.info?`<span class="info">${c.info}</span>`:""}${chips(Object.assign({},c.cost?{money:-c.cost}:{},c.fx||{}))}${off[i]?'<span class="short">資金が足りない</span>':""}</button>`).join("")}</div>
+   <span class="q">選択</span><div class="opts${d.choices.length===1?" one":""}" id="opts">${d.choices.map((c,i)=>`<button class="opt" data-i="${i}"${off[i]?" disabled":""}><span class="lbl">${c.l}</span>${c.info?`<span class="info">${c.info}</span>`:""}${chips(Object.assign({},c.cost?{money:-c.cost}:{},c.fx||{}))}${off[i]?`<span class="short">${lock[i]||"資金が足りない"}</span>`:""}</button>`).join("")}</div>
    <div id="slot"></div>`;
   sc.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
     sc.querySelectorAll(".opt").forEach(x=>{x.disabled=true;x.classList.add("done")});b.classList.add("picked");
-    const c=d.choices[+b.dataset.i];if(c.cost)s.money-=c.cost;applyFx(c.fx||{});if(c.set)c.set(s);render();roll(d,c,c.roll)});
+    const c=d.choices[+b.dataset.i];if(c.cost)s.money-=c.cost;applyFx(fxNow(c.fx));if(c.set)c.set(s);render();roll(d,c,c.roll)});
   sc.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
 }
 /* ルーレットの並び：左が悪い結果、右が良い結果。生成分岐は good/mid/bad の順位、手書きは効果の大きさで並べる
    （効果がすべて同じなら書かれた順のまま。表示の順番だけで、確率は変わらない） */
+/* 選択の効果のうち、お金と年収倍率は選んだ時点で、能力値・疲労は結果が出てから当てる。
+   良い結果ならプラスが1.5倍、悪い結果ならプラスが半分・マイナスが1.5倍。疲れているときに悪い結果が出ると、落ち込みが大きい */
+const NOW_KEYS=["money","incMul"];
+const fxNow=fx=>Object.fromEntries(Object.entries(fx||{}).filter(([k])=>NOW_KEYS.includes(k)));
+function outTier(r,x){const ord=dispOrder(r.o),n=ord.length,pos=ord.indexOf(r.o.indexOf(x));return n<2?1:pos===0?0:pos===n-1?2:1}
+function fxLater(fx,tier){const m={};for(const k in fx||{}){if(NOW_KEYS.includes(k))continue;const v=fx[k],up=k==="fatigue"?v<0:v>0;
+  m[k]=Math.round(v*(up?[.5,1,1.5][tier]:[1.5,1,1][tier]))}return m}
+function settleChoice(c,r,x){if(!c||c._settled)return null;c._settled=1;const tier=outTier(r,x),m=fxLater(c.fx,tier);
+  if(tier===0&&s.fatigue>40)m.happy=(m.happy||0)-Math.round((s.fatigue-40)/10);
+  applyFx(m);return m}
 const outcomeScore=x=>{let v=0;for(const k in x.fx||{}){const a=x.fx[k];v+=k==="money"?a/20:k==="incMul"?(a-1)*100:a}return v};
 function dispOrder(os){
   const idx=os.map((_,i)=>i);
@@ -1841,8 +1875,8 @@ function roll(d,c,r){
 function land(d,c,r,box,res,ps,pos){
   const x=r.o[res];
   box.querySelectorAll(".seg")[pos].classList.add("hit");box.querySelectorAll(".legend > span")[pos].classList.add("hit");
-  applyFx(x.fx);if(x.set)x.set(s);
-  const out=document.createElement("p");out.className="outcome";out.innerHTML=echo(tx(x.t,s)||x.l)+chips(x.fx);box.appendChild(out);
+  applyFx(x.fx);if(x.set)x.set(s);const cm=r===c.roll?settleChoice(c,r,x):null;
+  const out=document.createElement("p");out.className="outcome";out.innerHTML=echo(tx(x.t,s)||x.l)+chips({...(cm||{}),...x.fx});box.appendChild(out);
   const pr=ps[res]<1?"<1":Math.round(ps[res]);
   if(d.rainbow){addRow("rainbow","★ 虹",`${r.q}：${x.l}（${pr}%）`)}
   else if(d.birth){addRow("life","誕生",`${r.q}：${x.l}（${pr}%）`)}

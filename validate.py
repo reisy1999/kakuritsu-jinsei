@@ -3,7 +3,8 @@
 import json, sys, re
 
 STATS = {"health", "happy", "know", "bond", "luck"}
-FX_KEYS = STATS | {"money", "income_mul"}
+FX_KEYS = STATS | {"money", "income_mul", "fatigue"}
+WARN = []   # 規則違反だがデータの見直しが終わるまでは警告にとどめるもの
 STATUS = {"school", "futoko", "college", "work", "jobless", "hikikomori", "retired"}
 CONDS = {"iso", "tired", "poor", "apathy"}
 GOALS = {"tech", "sport", "art", "stable"}
@@ -38,6 +39,7 @@ def main(paths):
             if kind == "normal" and st and (all(v > 0 for v in st.values()) or all(v < 0 for v in st.values())) and len(st) > 1:
                 E(where, "normal event should mix up and down")
             if kind in ("choice", "outcome") and any(abs(v) > 15 for v in st.values()): E(where, "stat change > 15")
+            if abs(fx.get("fatigue", 0)) > 20: E(where, "fatigue change > 20")
             if "income_mul" in fx and not (0.5 <= fx["income_mul"] <= 2.0): E(where, "income_mul out of 0.5-2.0")
 
         def chk_req(where, r):
@@ -94,6 +96,9 @@ def main(paths):
             chk_req(w, x.get("requires")); chk_text(w + ".title", x.get("title"), 16); chk_text(w + ".text", x.get("text"), 70)
             ch = x.get("choices", [])
             if not (3 <= len(ch) <= 4): E(w, f"choices must be 3-4 (got {len(ch)})")
+            gated = sum(1 for c in ch if c.get("requires"))
+            if gated > 1: E(w, "条件つきの選択肢は1つまで")
+            if len(ch) - gated < 2: E(w, "条件なしの選択肢が2つ以上必要")
             labels = set()
             for j, c in enumerate(ch):
                 cw = f"{w}.choice[{j}]"
@@ -104,6 +109,18 @@ def main(paths):
                 if cost > 0: E(cw, "cost must be <= 0")
                 if cost and age[1] < 18: E(cw, "children cannot pay cost")
                 fx = c.get("fx", {}); chk_fx(cw, fx, "choice")
+                cr = c.get("requires")
+                if cr is not None:
+                    if set(cr) - {"stat_min"}: E(cw, "choice.requires は stat_min だけ")
+                    for k, v in (cr.get("stat_min") or {}).items():
+                        if k not in STATS | {"skill"}: E(cw, f"choice.requires unknown stat {k}")
+                        elif not (30 <= v <= 85): E(cw, "choice.requires の値は 30〜85")
+                # 代償：能力値が上がるだけで、お金も疲労も下がる能力値もない選択肢は「得しかない」
+                st = {k: v for k, v in fx.items() if k in STATS}
+                if sum(st.values()) > 0 and not any(v < 0 for v in st.values()) and not cost and fx.get("fatigue", 0) <= 0:
+                    WARN.append(f"[{p}] {cw}: 代償がない（能力値が上がるだけ）")
+                if sum(st.values()) < 0 and not any(v > 0 for v in st.values()) and fx.get("fatigue", 0) >= 0 and not fx.get("income_mul", 1) > 1:
+                    WARN.append(f"[{p}] {cw}: 得がない（下がるだけ）")
                 if fx.get("money", 0) < 0: E(cw, "spending must go in cost, not fx")
                 r = c.get("roll")
                 if not r: E(cw, "missing roll"); continue
@@ -154,7 +171,11 @@ def main(paths):
         for e in errs[:80]: print("  -", e)
         if len(errs) > 80: print(f"  ... and {len(errs)-80} more")
         total_err += len(errs)
+    if WARN:
+        print(f"warnings={len(WARN)}（--warn で一覧）")
+        if "--warn" in sys.argv:
+            for w in WARN: print("  !", w)
     sys.exit(1 if total_err else 0)
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main([a for a in sys.argv[1:] if not a.startswith('--')])
