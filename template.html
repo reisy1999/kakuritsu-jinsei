@@ -145,7 +145,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     <button class="btn" id="play">▶ 自動で進める</button>
     <button class="btn ghost" id="step">1年進める</button>
     <button class="btn ghost" id="speed">速度 ×1</button>
-    <span class="hint" id="hint">選択は2〜3年に1回</span>
+    <span class="hint" id="hint">選択は2〜3年に1回＋きっかけがあったとき</span>
   </div>
 
   <section class="scene" id="scene" hidden aria-live="polite"></section>
@@ -240,7 +240,7 @@ function setJob(s,name,inc,grow,kind,jtype){
   s.job={name,inc,grow,kind,type,form,skill,mul:1,legacy};
   if(!legacy&&inc==null)s.job.inc=jobInc(s.job);
   if(!legacy&&inc!=null){const[lo,hi]=WAGE[type][form];s.job.mul=Math.max(.8,Math.min(1.25,Math.max(lo,Math.min(hi,inc))/wageAt(s.job,skill)));s.job.inc=jobInc(s.job)}
-  if(!keep)s.jobSince=s.age;s.lastType=type;s.status="work";s.jobs.push(name);if(kind==="pro"&&!s.track&&typeof TRACKS!=="undefined"&&TRACKS.athlete){s.track="athlete";s.trackSince=s.age}}
+  if(!keep){s.jobSince=s.age;s.promoLv=promoLvOf(skill)}if(s.workStart==null&&s.age>=18)s.workStart=s.age;if(s.firstJobAge==null&&s.age>=18&&["large","small","public"].includes(form))s.firstJobAge=s.age;s.lastType=type;s.status="work";s.jobs.push(name);if(kind==="pro"&&!s.track&&typeof TRACKS!=="undefined"&&TRACKS.athlete){s.track="athlete";s.trackSince=s.age}}
 const SKILL_RATE=3.2;
 /* 毎年：熟練が伸びる（伸び ∝ 100−熟練。適性・頑張り・傾きで変わる）。職歴は使わないと少しずつ減る */
 const SKILL_STEPS=[[30,"仕事の段取りが、体で分かるようになってきた。"],[60,"職場で頼られることが増えた。"],[90,"この道で、名前を知られるようになった。"]];
@@ -363,7 +363,7 @@ function huntTypes(mode){
   return mode==="hs"||!s.flags.senmon?HUNT_TYPES.hs:HUNT_TYPES.senmon;
 }
 /* 候補6つ：夢の職種 ＋ 適性の高い2つ ＋ 残りはランダム（人生ごとに少し変わる） */
-const REGION={tokyo:{cands:6,large:1.3,meet:1.25,marry:.85,birth:.8},metro:{cands:5,large:1,meet:1.05,marry:1,birth:.95},rural:{cands:4,large:.5,meet:.85,marry:1.1,birth:1.1}};
+const REGION={tokyo:{people:4,cands:6,large:1.3,meet:1.25,marry:.85,birth:.8},metro:{people:3,cands:5,large:1,meet:1.05,marry:1,birth:.95},rural:{people:2,cands:4,large:.5,meet:.85,marry:1.1,birth:1.1}};
 const region=()=>{const f=cityF();return REGION[f>=1.3?"tokyo":f>=1.05?"metro":"rural"]};
 function huntCands(mode){
   /* 競技は夢がスポーツか競技経験のある人だけ、転職では選べない */
@@ -1071,7 +1071,7 @@ function kidDecision(){syncKids();const n=s.kidList.length;
    結婚した年に、パートナーの年収を自分の年収の近くから1回だけ決める（年収の近い人どうしが結婚しやすい）。
    愛情（0〜100）は毎年、人間関係・幸福・傾きで動き、低い年が続くと離婚が起きることがある */
 const PARTNER={workRate:.75,spread:.35,minInc:120,maxInc:1500,retireAge:65,pension:80,live:80,retLive:90,kidShareAfterDivorce:.6};  /* 離婚後の養育費は元パートナーと分担 */
-const LOVE={start:[60,80],line:25,divorceP:.35};
+const LOVE={start:[60,80],line:25,divorceP:.35,propose:55};   /* propose：この愛情を超えると結婚の話が出る */
 function makePartner(){
   const own=s.job?s.job.inc:250,works=Math.random()<PARTNER.workRate;
   s.partner={works,inc:works?Math.round(Math.max(PARTNER.minInc,Math.min(PARTNER.maxInc,own*Math.exp(gauss(PARTNER.spread))))):0,love:R(...LOVE.start),since:s.age};
@@ -1085,11 +1085,11 @@ function divorce(s,text){
 }
 function partnerYear(){
   if(!s.married){s.partner=null;return}           /* 死別・離婚の分岐で独身に戻った */
-  if(!s.partner){const love=s.lover?s.lover.love:null;s.lover=null;makePartner();if(love!=null)s.partner.love=love;return}
+  if(!s.partner){const love=s.lover?s.lover.love:null;partnerFromLover();if(love!=null)s.partner.love=love;return}
   const p=s.partner;
   if(p.works&&s.age<55)p.inc=Math.round(p.inc*1.01);
   if(!p.works&&s.kids&&s.kidList&&Math.min(...s.kidList.map(kidAge))>=6&&Math.random()<.08){p.works=true;p.inc=100;addRow("life","家族","配偶者がパートに出はじめた。")}
-  loveAdd(s,-3.2+(s.bond-50)/15+(s.happy-50)/25-(s.cd.poor>=2?3:0)-(s.cd.tired>=2?2:0)+gauss(4));
+  loveAdd(s,-3.8+((p.charm??50)-50)/40+(s.bond-50)/15+(s.happy-50)/25-(s.cd.poor>=2?3:0)-(s.cd.tired>=2?2:0)+gauss(4));
   if(p.love<LOVE.line&&Math.random()<LOVE.divorceP)divorce(s,"話し合いの末、別々の道を歩くことにした。");
 }
 const partnerNet=()=>!s.partner?0:s.age<PARTNER.retireAge?(s.partner.works?s.partner.inc*ECON.take:0):s.partner.works?pensionOf(s.partner.inc):PARTNER.pension;
@@ -1197,7 +1197,7 @@ function lifeLevel(hh){const n=kidsAtHome(),lo=ECON.liveMin+(s.married?ECON.minP
   const target=Math.min(hi,Math.max(lo,hh*ECON.adapt));
   if(s.lifeLv==null)s.lifeLv=target;s.lifeLv+=(target-s.lifeLv)*(target>s.lifeLv?LIFE.up:LIFE.down);return s.lifeLv}
 /* まとまったお金が動く出来事（働いている25〜64歳） */
-const SHOCK={layoff:.003,promote:.03,spend:.025,windfall:.02};
+const SHOCK={layoff:.003,spend:.025,windfall:.02};
 const SPEND_TXT=["車が壊れて、買い替えることになった。","親戚の冠婚葬祭が続いた。","家の給湯器と屋根を直した。","親の入院費を出した。"];
 const WIND_TXT=["会社の業績が良く、ボーナスが跳ねた。","副業がたまたま当たった。","昔買った株を整理したら、思ったより残った。"];
 function shockYear(){
@@ -1205,7 +1205,6 @@ function shockYear(){
   const r=Math.random();let c=0;
   if(r<(c+=SHOCK.layoff*(2-era(s).m))){const sev=Math.round(s.job.inc*(s.job.form==="large"||s.job.form==="public"?.5:.15));s.money+=sev;s.lastType=s.job.type;
     addRow("life","失業",`会社が人員削減に踏み切った。対象になった。退職金は${man(sev)}。`,{money:sev});s.status="jobless";s.job=null;s.happy=clamp(s.happy-8);return}
-  if(r<(c+=SHOCK.promote)&&s.skill>=55){jobMul(s,1.12);addRow("life","昇進","昇進の内示が出た。机が窓際から、少し奥に移った。",{incMul:1.12});s.happy=clamp(s.happy+3);return}
   if(r<(c+=SHOCK.spend)){const v=-R(60,250);s.money+=v;addRow("life","出費",SPEND_TXT[R(0,SPEND_TXT.length-1)],{money:v});return}
   if(r<(c+=SHOCK.windfall)){const v=R(50,300);s.money+=v;addRow("life","臨時収入",WIND_TXT[R(0,WIND_TXT.length-1)],{money:v})}
 }
@@ -1236,53 +1235,115 @@ function econ(){
   if(s.money<0&&s.age>=22)s.happy=clamp(s.happy-1);
 }
 /* 結婚している42歳未満の人には、毎年少しの確率で子どもが生まれる（子3人まで、3人目は生まれにくい。「二人の時間」を選んだ人と、借金・困窮中の人は除く） */
-const BIRTH_RATE=.42;
+const BIRTH_RATE=.6;
 const THIRD_KID=.25;   /* 3人目は生まれにくい */
-/* 23〜45歳の独身の人には、毎年少しの確率で結婚が起きる（「ひとりで生きると決める」を選んだ人と、ひきこもり中の人は除く） */
-const MARRY_RATE=.033;
 /* ========== 人生の形の意思（恋人・結婚・子ども・家） ==========
-   25〜35歳は、まだ決まっていない話題を毎年聞く（ほしい／今はまだ／いらない（今後も））。「いらない」はもう聞かない。
-   36歳以降は「今はまだ」の人に5年おき（「ほしい」の人は2年おき）。意思を決めても、叶うかどうかはルーレット。
-   prior は sim のランダム方針が選ぶ割合（出生動向基本調査など、実際の意識調査の概数） */
-const WANT_END={partner:45,marry:45,kids:42,house:50};
+   「ほしい／今はまだ／いらない（今後も）」で聞く。「いらない」と答えた話題は二度と出ない。
+   意思を決めても、叶うかどうかはルーレット。prior は sim のランダム方針が選ぶ割合（実際の意識調査の概数） */
 const wantOf=k=>(s.want||(s.want={}))[k]??null;
 const setWant=(k,v)=>{(s.want||(s.want={}))[k]=v};
-function intentTopics(){
-  const a=s.age,T=[];if(a<25||s.status==="hikikomori"||s.status==="futoko")return T;
-  if(!s.married&&!s.lover&&wantOf("partner")!=="never")T.push("partner");
-  if(!s.married&&s.lover&&wantOf("marry")!=="never")T.push("marry");
-  if(s.married&&!s.flags.dink&&wantOf("kids")!=="never"&&s.kids<3&&(s.lastBirth===undefined||a-s.lastBirth>=2))T.push("kids");
-  if(!s.flags.house&&wantOf("house")!=="never"&&s.status==="work"&&s.money>=0&&!s.flags.bankrupt)T.push("house");
-  const ask=s.wantAsk||(s.wantAsk={});
-  return T.filter(k=>{if(a>WANT_END[k])return false;if(a<=35)return ask[k]!==a;const g=wantOf(k)==="yes"?2:5;return ask[k]===undefined||a-ask[k]>=g});
-}
-function intentDecision(){
-  const T=intentTopics();if(!T.length)return null;
-  if(s.age<=35&&s.lastIntent===s.age-1&&Math.random()<.4)return null;   /* 続いた翌年は、ときどき別の分岐に譲る */
-  const ask=s.wantAsk,k=T.slice().sort((x,y)=>(ask[x]??-1)-(ask[y]??-1))[0];
-  ask[k]=s.age;s.lastIntent=s.age;
-  return{partner:partnerCard,marry:marryCard,kids:kidsCard,house:houseCard}[k]();
-}
 const W3=(yes,later,never)=>[yes,later,never];
-function partnerCard(){const r=region(),[py,pl,pn]=W3(.75,.18,.07);
-  return{title:"恋人",text:`${s.age}歳。${s.flags.divorced?"離婚して、ひとりに戻った。":"休日は、ひとりで過ごすことが多い。"}恋人がほしいか。`,choices:[
-   {l:"ほしい",prior:py,fx:{},set:s=>setWant("partner","yes"),roll:{q:"出会い",why:["bond","luck"],o:[
-     o("空回りする",DA("bond","luck",.35),{happy:-3},"会うたびに、話がかみ合わなかった。"),
-     o("いい人がいない",40,{},"何人かと会ったが、ピンとこなかった。"),
-     o("恋人ができる",s=>Math.max(3,((s.bond+s.luck)/2-5)*r.meet),{happy:8,bond:3},"友人の紹介で出会った人と、付き合うことになった。",s=>{s.lover={love:R(55,80),since:s.age}})]}},
-   {l:"今はいらない",prior:pl,fx:{},set:s=>setWant("partner","later"),roll:{q:"ひとりの時間",why:["happy"],o:[
+
+/* ========== きっかけで起きる分岐 ==========
+   年齢の枠ではなく、状態の変化（就職2年目・熟練の伸び・恋人との愛情・出産・貯金など）で分岐が来る。
+   毎年、上から順に条件を見て、最初に当てはまったものを1つ出す。きっかけがない年は、これまでどおり候補から2〜3年おきに出す */
+const trigAt=()=>s.trig||(s.trig={});
+const cool=(id,gap)=>trigAt()[id]===undefined||s.age-trigAt()[id]>=gap;
+const PROMO=[30,60,80],PROMO_TITLE=["主任","課長","部長"];
+const workingNormal=()=>s.status==="work"&&s.job&&!s.job.legacy&&!special()&&["large","small","public"].includes(s.job.form);
+const promoLvOf=sk=>PROMO.filter(v=>sk>=v).length;
+function houseEvent(){
+  const at=trigAt().house,newKid=s.lastBirth!=null&&s.age-s.lastBirth<=1&&(at===undefined||s.lastBirth>at);
+  const saved=s.age>=30&&s.money>=housePrice()*.1,raise=s.job&&s.houseAskInc&&s.job.inc>=s.houseAskInc*1.2;
+  if(at===undefined)return newKid||saved;
+  return newKid||raise||s.age-at>=(wantOf("house")==="yes"?2:5)&&saved;
+}
+const TRIGGERS=[
+  /* 恋愛・家族（人生の形が決まる時期を優先） */
+  {id:"propose",when:()=>s.lover&&!s.married&&s.age>=20&&wantOf("marry")!=="never"&&s.lover.love>=LOVE.propose&&s.age-s.lover.since>=1&&cool("propose",wantOf("marry")==="later"?3:1),make:()=>marryCard()},
+  {id:"meet",when:()=>s.status==="work"&&!s.married&&!s.lover&&wantOf("partner")!=="never"&&s.age>=22&&s.age<=45&&s.workStart!=null&&s.age>s.workStart&&cool("meet",wantOf("partner")==="later"?4:2),make:()=>meetDecision()},
+  {id:"kids",when:()=>s.married&&!s.flags.dink&&!["never","yes"].includes(wantOf("kids"))&&s.kids<3&&s.age<=42&&(s.kids?s.age-s.lastBirth>=2:!!s.partner&&s.age-s.partner.since>=1)&&cool("kids",wantOf("kids")==="later"?2:1),make:()=>kidsCard()},
+  /* 仕事 */
+  {id:"effort",when:()=>workingNormal()&&s.firstJobAge!=null&&s.age-s.firstJobAge===1,make:()=>effortDecision()},
+  {id:"promo",when:()=>workingNormal()&&promoLvOf(s.skill)>(s.promoLv||0),make:()=>promoDecision()},
+  {id:"misfit",when:()=>workingNormal()&&s.age-s.jobSince>=3&&s.skill<30&&s.misfitFor!==s.jobSince,make:()=>{s.misfitFor=s.jobSince;return misfitDecision()}},
+  {id:"lowpay",when:()=>workingNormal()&&s.job.mul<.92&&cool("lowpay",5),make:()=>{const d=workDecision(s,"給料が上がらない");d.generic=0;return d}},
+  /* 住まい */
+  {id:"house",when:()=>s.status==="work"&&!s.flags.house&&wantOf("house")!=="never"&&s.money>=0&&!s.flags.bankrupt&&s.age>=25&&s.age<=50&&!s.flags.home&&houseEvent(),make:()=>{s.houseAskInc=s.job?s.job.inc:0;return houseCard()}},
+];
+function triggerDecision(){
+  if(s.status==="hikikomori"||s.status==="futoko")return null;
+  for(const g of TRIGGERS)if(g.when()){trigAt()[g.id]=s.age;const d=g.make();if(d)return d}
+  return null;
+}
+/* 社会人2年目：働き方の姿勢 */
+function effortDecision(){const w=workDecision(s),[hard,easy]=w.choices;   /* がむしゃら・定時で帰る */
+  return{title:"社会人2年目",text:`${s.job.name}として2年目。仕事にも少し慣れてきた。これからどう働くか。`,choices:[hard,
+   {l:"ほどほどに、着実に働く",fx:{know:2},set:s=>{s.effort={m:1,until:s.age+3}},roll:{q:"評価",why:["know","skill"],o:[
+     o("ミスが続く",D("know",.3),{happy:-2},"確認不足で、同じミスを二度した。"),o("順当に覚える",50,{},"仕事の流れが、少しずつ見えてきた。"),o("信頼される",UA("know","skill",20),{happy:3,incMul:1.03},"「任せて大丈夫」と言われるようになった。")]}},
+   easy]};
+}
+/* 熟練が節目を超えた：昇進の打診 */
+function promoDecision(){const lv=promoLvOf(s.skill),title=PROMO_TITLE[lv-1],mul=[1.1,1.15,1.25][lv-1];s.promoLv=lv;
+  return{title:"昇進の話",text:`仕事ぶりが認められ、${title}への昇進を打診された。`,choices:[
+   {l:`${title}になる`,fx:{happy:3},set:s=>{s.press.tired+=1},roll:{q:"新しい役職",why:["bond","know"],o:[
+     o("重圧で疲れる",D("health",.4),{happy:-4,health:-3},"部下のミスの後始末で、休日がつぶれた。",s=>jobMul(s,mul)),
+     o("板挟みになる",40,{happy:-1},"上と下の間で、言葉を選ぶ毎日になった。",s=>jobMul(s,mul)),
+     o("うまく回す",UA("bond","know",20),{happy:4,bond:2},"チームの雰囲気が、少し明るくなった。",s=>jobMul(s,mul))]}},
+   {l:"断って、今の仕事を続ける",fx:{happy:2},roll:{q:"そのあと",why:["luck"],o:[
+     o("評価が下がる",D("luck",.4),{happy:-2,incMul:.97},"「やる気がない」と思われた。"),o("変わらない毎日",50,{},"現場の仕事を続けた。"),o("現場で頼られる",U("luck",15),{happy:3},"現場の相談役になった。")]}},
+   {l:"評価を武器に転職する",fx:{},roll:{q:"転職",why:["know","skill"],era:1,o:[
+     o("転職先が合わない",D("know",.4),{happy:-5,incMul:.9},"入って半年で、前の職場が恋しくなった。"),
+     o("条件は横ばい",40,{happy:1},"職場は変わったが、年収は同じだった。"),
+     o("年収が上がる",E(UA("know","skill",20)),{happy:5,incMul:mul+.05},"役職つきで迎えられた。")]}}]};
+}
+/* 3年働いても熟練が伸びない */
+function misfitDecision(){
+  return{title:"向いていない？",text:`${s.job.name}として3年。思うように上達しない。`,choices:[
+   {l:"踏ん張って腕を磨く",fx:{know:3,happy:-2},set:s=>{s.effort={m:1+.6*hunger(s),until:s.age+3,hard:1}},roll:{q:"そのあと",why:["know"],o:[
+     o("やはり伸びない",D("know",.4),{happy:-4},"努力の割に、結果がついてこなかった。"),o("少しずつ伸びる",45,{},"できることが、少しずつ増えた。"),o("コツをつかむ",U("know",20),{happy:5},"ある日、急に仕事が楽になった。")]}},
+   {l:"別の職種に移る",fx:{happy:1},set:s=>{s.pendingHunt="change"},roll:{q:"仕事探し",why:["bond"],o:[o("求人を探しはじめる",1,{},"自分に向いている仕事を、探しはじめた。")]}},
+   {l:"割り切って働く",fx:{happy:2},roll:{q:"割り切る",why:["happy"],o:[
+     o("むなしさが残る",D("happy",.4),{happy:-3},"仕事の話をするのが、少し嫌になった。"),o("生活のためと割り切る",50,{},"仕事は生活の手段だと思うことにした。"),o("趣味に力を注ぐ",U("happy",15),{happy:4},"仕事の外に、楽しみを見つけた。")]}}]};
+}
+
+/* ========== 恋人 ==========
+   18歳からは、人間関係と幸福が高いほど、選ばなくても恋人ができることがある（学生時代を含む）。
+   働きはじめてからは「出会い」の分岐で、候補（東京4人・大都市3人・地方2人）の年齢・年収・愛嬌を見て選ぶ。
+   愛嬌が高い相手ほど愛情が深まりやすく結婚しやすいが、付き合える確率は下がる */
+const LOVE_EVENT=.35;
+const MEET_SRC=["職場の同僚","取引先の人","友人の紹介","趣味の仲間","マッチングアプリ","学生時代の知り合い","近所の店の常連"];
+function genLover(){
+  const age=Math.max(18,s.age+R(-4,4)),own=s.job?s.job.inc:250;
+  const inc=age<22?0:Math.round(Math.max(120,Math.min(1500,own*Math.exp(gauss(.4)))));
+  const charm=R(15,95);
+  return{age,inc,charm,love:Math.round(Math.max(20,Math.min(90,35+charm*.45+gauss(5)))),since:s.age};
+}
+const loverInfo=L=>`${L.age}歳・${L.inc?`年収${man(L.inc)}`:"学生"}・愛嬌${L.charm}`;
+function meetDecision(){
+  const n=region().people,src=MEET_SRC.slice().sort(()=>Math.random()-.5).slice(0,n),own=s.job?s.job.inc:250;
+  const cands=src.map(()=>genLover());
+  return{title:"出会い",text:`${s.age}歳。${s.flags.divorced?"離婚して、ひとりに戻った。":"仕事にも慣れてきた。"}気になる人が${n}人いる。`,choices:[
+   ...cands.map((L,i)=>({l:`${src[i]}（${L.age}歳）`,info:`${L.inc?`年収${man(L.inc)}`:"学生"}・愛嬌${L.charm}`,prior:.9/n,fx:{},set:s=>setWant("partner","yes"),roll:{q:"告白",why:["bond","happy"],o:[
+     o("振られる",s=>Math.max(3,D("bond",.4)(s)+(L.charm-50)/2),{happy:-5},"「ごめんなさい」と言われた。"),
+     o("友達のまま",30,{},"食事には行くが、それ以上にはならなかった。"),
+     o("付き合う",s=>Math.max(3,(s.bond+s.happy)/2-(L.charm-50)/2-Math.max(0,L.inc-own)/25),{happy:8,bond:3},"付き合うことになった。",s=>{s.lover={...L,since:s.age}})]}})),
+   {l:"今は恋人はいらない",prior:.08,fx:{},set:s=>setWant("partner","later"),roll:{q:"ひとりの時間",why:["happy"],o:[
      o("少し寂しい",D("happy",.3),{happy:-2},"友達の結婚式の帰り道、少しだけ寂しくなった。"),o("気楽に過ごす",50,{},"自分のペースで暮らした。"),o("趣味が充実",U("happy",10),{happy:3},"休日は、好きなことに没頭した。")]}},
-   {l:"いらない（今後も）",prior:pn,fx:{},set:s=>{setWant("partner","never");s.flags.solo=1},roll:{q:"ひとりで生きる",why:["happy"],o:[
+   {l:"ずっとひとりでいい",prior:.02,fx:{},set:s=>{setWant("partner","never");s.flags.solo=1},roll:{q:"ひとりで生きる",why:["happy"],o:[
      o("周りの声に疲れる",D("happy",.3),{happy:-3},"「いい人いないの？」に答えるのが面倒になった。"),o("迷いはない",50,{},"ひとりで生きると決めた。"),o("身軽に生きる",U("happy",15),{happy:2},"誰にも気をつかわない暮らしが、性に合っていた。")]}}]};
 }
+/* 恋人がいれば、その人がパートナーになる（年収・愛嬌を引き継ぐ） */
+function partnerFromLover(){const L=s.lover;makePartner();
+  if(L){if(L.inc>0){s.partner.works=true;s.partner.inc=L.inc}s.partner.charm=L.charm;s.partner.age=L.age}s.lover=null}
 function marryWith(text){const love=Math.min(100,Math.max(s.lover?s.lover.love:0,60)+R(0,15));   /* 結婚を決めたときは気持ちが高まっている */
- s.lover=null;s.married=true;makePartner();s.partner.love=love;applyFx({happy:6,bond:4});
+  s.married=true;partnerFromLover();s.partner.love=love;applyFx({happy:6,bond:4});
   addRow("life","結婚",text,{happy:6,bond:4})}
 function marryCard(){const L=s.lover,r=region(),[my,ml,mn]=W3(.8,.15,.05);
-  return{title:"結婚",text:`恋人と付き合って${Math.max(1,s.age-L.since)}年になる。結婚を考えるか。`,choices:[
+  return{title:"結婚",text:`恋人（${loverInfo(L)}）と付き合って${Math.max(1,s.age-L.since)}年。愛情は${Math.round(L.love)}。結婚を考えるか。`,choices:[
    {l:"結婚したい",prior:my,fx:{},set:s=>setWant("marry","yes"),roll:{q:"プロポーズ",why:["bond"],o:[
      o("別れる",s=>Math.max(2,(70-s.lover.love)/2),{happy:-8},"話し合いの末、別れることになった。",s=>{s.lover=null}),
-     o("もう少し先に",30,{},"「もう少し先にしよう」と言われた。"),
+     o("もう少し先に",15,{},"「もう少し先にしよう」と言われた。"),
      o("結婚する",s=>Math.max(3,(s.lover.love-25)*r.marry),{money:-100},"小さな式を挙げた。",s=>marryWith("籍を入れた。区役所の帰りに、二人でうどんを食べた。"))]}},
    {l:"今はまだ",prior:ml,fx:{},set:s=>setWant("marry","later"),roll:{q:"二人の関係",why:["bond"],o:[
      o("すれ違う",D("bond",.3),{happy:-2},"会う回数が少し減った。",s=>{if(s.lover)s.lover.love-=8}),o("今のままで",50,{},"結婚の話は、まだ出なかった。"),o("仲が深まる",U("bond",15),{happy:3},"二人で旅行に行った。",s=>{if(s.lover)s.lover.love+=6})]}},
@@ -1295,7 +1356,7 @@ function giveBirth(){
   if(s.partner&&s.partner.works&&Math.random()<.25){s.partner.inc=Math.round(s.partner.inc*.5);addRow("life","家族","配偶者は、子育てのために働き方をパートに切り替えた。")}
   addRow("life","誕生",s.kids===1?"子どもが生まれた。夜中に何度も起きる日々が始まった。":s.kids===2?"二人目が生まれた。家の中が一気ににぎやかになった。":"三人目が生まれた。車を大きいのに買い替えた。",{happy:6,bond:3});
 }
-function kidsCard(){const r=region(),first=!s.kids,[ky,kl,kn]=first?W3(.8,.12,.08):s.kids===1?W3(.6,.2,.2):W3(.2,.2,.6);
+function kidsCard(){const r=region(),first=!s.kids,[ky,kl,kn]=first?W3(.85,.1,.05):s.kids===1?W3(.6,.2,.2):W3(.2,.2,.6);
   const near=s.parentsAlive&&(s.livePref||s.pref)===s.pref;
   return{title:"子ども",text:first?`結婚して${s.partner?Math.max(1,s.age-s.partner.since):1}年。子どもがほしいか、二人で話し合った。`:`${s.kids===1?"上の子":"下の子"}も少し大きくなった。もう一人ほしいか、話し合った。`,choices:[
    {l:"ほしい",prior:ky,fx:{},set:s=>setWant("kids","yes"),roll:{q:"授かるか",why:["health","luck"],o:[
@@ -1317,9 +1378,15 @@ function houseCard(){const where=s.livePref||s.pref,[hy,hl]=W3(.6,.3,0);
    {l:"ずっと賃貸（身軽に暮らす）",prior:.05,fx:{happy:2},set:s=>setWant("house","never"),roll:{q:"賃貸の暮らし",why:["luck"],o:[
      o("老後が少し不安",D("luck",.3),{happy:-2},"年をとっても部屋を借りられるか、ふと不安になった。"),o("気ままに暮らす",50,{},"気に入らなければ、引っ越せばいい。"),o("住み替えを楽しむ",U("luck",10),{happy:3},"数年ごとに、住む街を変えた。")]}}]};
 }
-/* 恋人との愛情：毎年動き、低いと別れることがある */
-function loverYear(){const L=s.lover;if(!L||s.married)return;
-  L.love=Math.max(0,Math.min(100,L.love-2+(s.bond-50)/20+(s.happy-50)/30+gauss(4)));
+/* 恋人の1年：選ばない出会い（18歳から）と、愛情の変化（愛嬌が高いほど深まりやすい） */
+function loverYear(){
+  if(!s.lover&&!s.married&&wantOf("partner")!=="never"&&s.age>=18&&s.age<=45&&!["hikikomori","futoko"].includes(s.status)){
+    const f=Math.max(0,((s.bond+s.happy)/2-35)/50);
+    if(Math.random()<LOVE_EVENT*f*f*region().meet){s.lover=genLover();
+      addRow("life","恋人",s.status==="college"?"サークルで仲良くなった人と、付き合うことになった。":s.status==="work"?"飲み会で隣の席だった人と、付き合うことになった。":"友達の紹介で会った人と、付き合うことになった。",{happy:6});s.happy=clamp(s.happy+6)}}
+  const L=s.lover;if(!L||s.married)return;
+  L.age++;if(!L.inc&&L.age>=22)L.inc=Math.round(Math.max(150,300*Math.exp(gauss(.3))));
+  L.love=Math.max(0,Math.min(100,L.love-.5+(L.charm-50)/25+(s.bond-50)/25+(s.happy-50)/40+gauss(4)));
   if(L.love<25&&Math.random()<.4){s.lover=null;s.happy=clamp(s.happy-5);addRow("life","別れ","恋人と別れた。部屋に、相手の歯ブラシが残っていた。")}}
 /* 賃貸で浮いた分の積み立て */
 function rentInvestYear(net){if(!s.flags.rentInvest||s.flags.house||s.status!=="work")return;
@@ -1327,13 +1394,11 @@ function rentInvestYear(net){if(!s.flags.rentInvest||s.flags.house||s.status!=="
   s.money-=amt;const st=assetsOf().find(x=>x.k==="stock");if(st)st.v+=amt;else addAsset("stock",amt)}
 function marryCheck(){
   loverYear();
-  if(s.married||s.age<23||s.age>45||s.flags.solo||wantOf("partner")==="never"||wantOf("marry")==="never"||s.status==="hikikomori")return;
-  if(Math.random()>=MARRY_RATE*region().marry*(s.lover?2:.4))return;
-  marryWith(s.lover?"長く付き合った人と、籍を入れた。区役所の帰りに、二人でうどんを食べた。":"出会って半年で、結婚を決めた。自分でも驚いた。");
+  /* 結婚は、恋人との愛情が深まって出る「結婚」の分岐からだけ起きる */
 }
 function birthCheck(){
-  const w=wantOf("kids"),wm=w==="yes"?1:w==="later"?.15:w==="never"?0:.6;   /* 意思で変わる */
-  if(!s.married||s.age<22||s.age>=42||s.kids>=3||s.flags.dink||s.cd.poor>0||s.money<0||Math.random()>=BIRTH_RATE*wm*region().birth*(s.kids>=2?THIRD_KID:1))return;
+  const wm=wantOf("kids")==="yes"?1:0;   /* 「ほしい」と言った人だけに生まれる */
+  if(!s.married||s.age<22||s.age>=42||s.kids>=3||s.flags.dink||s.cd.poor>=2||Math.random()>=BIRTH_RATE*wm*region().birth*(s.kids>=2?THIRD_KID:1))return;
   giveBirth();
 }
 /* 子どもの節目 */
@@ -1422,15 +1487,15 @@ const famRepeat=(k,id)=>k==="kids"?s.married&&s.kids<2&&s.age-s.decUsed[id]>=3:k
 const STRUCT={12:()=>true,15:()=>s.status==="school"||s.status==="futoko",18:()=>s.status==="school",
   20:()=>s.status==="college"&&!!s.flags.senmon,22:()=>s.status==="college",60:()=>s.status==="work"&&["corp","public","irregular"].includes(s.job.kind)};
 /* 節目以外の手書き分岐は、年齢の幅をもった候補になる [節目, 最小, 最大, 追加条件] */
-const HAND=[[6,6,7],[9,8,10],[13,13,14],[16,16,17],[20,19,21],[25,24,27],[31,30,33],
+const HAND=[[6,6,7],[9,8,10],[13,13,14],[16,16,17],[20,19,21],[25,24,27],[31,30,33,()=>!s.flags.house],
   [37,36,40],[41,40,44],[45,44,48],[50,48,54,()=>s.parentsAlive],[55,54,58],[67,66,69],[75,74,79]];
-const handFam=m=>null;   /* 結婚・家族の手書き分岐は、意思の分岐（intentDecision）に置き換えた */
+const handFam=m=>null;   /* 結婚・家族の手書き分岐は、きっかけの分岐（TRIGGERS）に置き換えた */
 function poolCands(){
   const a=s.age,c=[];
   for(const x of GEN.decisions){if(prioOf(x)||(x.requires&&x.requires.track))continue;
     const fam=FAMILY[x.id];
     if(!genEligible(x)||!(s.decUsed[x.id]===undefined||famRepeat(fam,x.id)))continue;
-    if(fam==="marry"&&(wantOf("partner")==="never"||wantOf("marry")==="never")||fam==="kids"&&(wantOf("kids")==="never"||s.flags.dink))continue;
+    if(fam==="marry"&&(!s.lover||wantOf("marry")==="never")||fam==="kids"&&(wantOf("kids")==="never"||s.flags.dink))continue;
     c.push({cat:fam&&famBoost(fam)?"family":x.id.split("_")[0],max:x.age[1],make:()=>fromGen(x)})}
   for(const [m,lo,hi,cond] of HAND){const id="h"+m;
     if(a<lo||a>hi||(cond&&!cond())||(STRUCT[m]&&STRUCT[m]()))continue;
@@ -1462,7 +1527,7 @@ function nextDecision(){
   if(s.pendingRainbow){const t=s.pendingRainbow;s.pendingRainbow=null;return rainbowDecision(t)}
   if(a<6)return null;
   if(STRUCT[a]&&STRUCT[a]()){const d=pickDecision(s,a);if(d)return d}
-  {const kd=illDecision()||kidDecision()||intentDecision();if(kd)return kd}
+  {const kd=illDecision()||kidDecision()||triggerDecision();if(kd)return kd}
   if(a-s.lastDec>=2){
     const g=GEN.decisions.filter(x=>prioOf(x)&&genOk(x,1)),h=DPOOL.filter(p=>p.prio&&eligible(p));
     if(g.length||h.length)return g.length&&(!h.length||Math.random()<.75)?fromGen(pick(g)):fromPool(pick(h))}
@@ -1487,7 +1552,7 @@ function step(){
   updateConds();trackCurve();trackEnd();noBorrow();
   if(deathCheck()){die();return}
   snap();render();
-  const d=nextDecision();if(d){s.lastDec=s.age;s.nextGap=s.age>=24&&s.age<35?1:(Math.random()<.5?2:3);   /* 25〜35歳は毎年選ぶ */showDecision(d);return}
+  const d=nextDecision();if(d){s.lastDec=s.age;s.nextGap=Math.random()<.5?2:3;   /* きっかけの分岐は、この間隔と関係なく出る */showDecision(d);return}
   if(auto)timer=setTimeout(step,SPEED[speed]);
 }
 
@@ -1515,7 +1580,7 @@ function householdHTML(){
   const out=[];
   if(s.married&&s.partner)out.push(`<span>配偶者 <b>愛情${Math.round(s.partner.love)}</b>・${s.partner.works?`共働き（年収${man(s.partner.inc)}）`:"専業"}</span>`);
   else if(s.married)out.push("<span>配偶者 <b>あり</b></span>");
-  else if(s.lover)out.push(`<span>恋人 <b>愛情${Math.round(s.lover.love)}</b></span>`);
+  else if(s.lover)out.push(`<span>恋人 <b>愛情${Math.round(s.lover.love)}</b>（${loverInfo(s.lover)}）</span>`);
   else if(s.flags.divorced)out.push("<span>配偶者 <b>なし</b>（離婚）</span>");
   if(s.kids){syncKids();const n=s.kidList.length;
     out.push("<span>子ども "+s.kidList.map((k,i)=>`<b>${kidName(i,n)} ${kidAge(k)}歳</b>${kidAge(k)<22?`（${growLabel(k.grow)}${k.edu==="elite"?"・私立":""}）`:k.married?"（既婚）":k.path==="stay"&&kidHome(k)?"（実家）":"（独立）"}`).join("・")+"</span>")}
