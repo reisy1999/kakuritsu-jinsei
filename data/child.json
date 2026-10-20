@@ -20,8 +20,9 @@
       "money": 0
      },
      "fx": {
-      "know": 3,
-      "happy": -3
+      "know": 5,
+      "happy": -3,
+      "fatigue": 15
      },
      "roll": {
       "name": "模試の結果",
@@ -58,6 +59,11 @@
         }
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 55
+      }
      }
     },
     {
@@ -66,7 +72,8 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "know": 1,
+      "fatigue": 5
      },
      "roll": {
       "name": "ほどよい塾",
@@ -107,7 +114,8 @@
      },
      "fx": {
       "happy": 2,
-      "bond": 2
+      "bond": 2,
+      "know": -2
      },
      "roll": {
       "name": "近所の仲間",
@@ -163,7 +171,9 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "know": 2,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "発表会",
@@ -202,7 +212,8 @@
       "money": 0
      },
      "fx": {
-      "health": 2
+      "health": 2,
+      "fatigue": 8
      },
      "roll": {
       "name": "進級テスト",
@@ -241,7 +252,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "検定",
@@ -280,8 +293,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 2,
-      "happy": 2
+      "happy": 2,
+      "know": -1,
+      "fatigue": -8
      },
      "roll": {
       "name": "放課後の遊び",
@@ -337,7 +351,8 @@
       "money": 0
      },
      "fx": {
-      "bond": -1
+      "bond": 2,
+      "happy": -2
      },
      "roll": {
       "name": "本音の確認",
@@ -381,7 +396,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1
      },
      "roll": {
       "name": "新しい仲間",
@@ -427,7 +443,8 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "happy": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "様子見",
@@ -487,7 +504,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1
      },
      "roll": {
       "name": "分け方",
@@ -526,8 +544,8 @@
       "money": 0
      },
      "fx": {
-      "happy": 2,
-      "bond": -2
+      "happy": 3,
+      "bond": -3
      },
      "roll": {
       "name": "取っ組み合い",
@@ -565,7 +583,8 @@
       "money": 0
      },
      "fx": {
-      "bond": -1
+      "know": 1,
+      "bond": -2
      },
      "roll": {
       "name": "親の判断",
@@ -619,7 +638,8 @@
       "money": 0
      },
      "fx": {
-      "happy": 3
+      "happy": 3,
+      "bond": -1
      },
      "roll": {
       "name": "親の返事",
@@ -660,7 +680,9 @@
       "money": 0
      },
      "fx": {
-      "health": -1
+      "bond": 2,
+      "health": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "通い続ける",
@@ -700,7 +722,8 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "know": 2,
+      "happy": -1
      },
      "roll": {
       "name": "先生の対応",
@@ -752,7 +775,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "計画の実行",
@@ -792,7 +817,8 @@
      },
      "fx": {
       "health": 2,
-      "happy": 2
+      "happy": 2,
+      "know": -2
      },
      "roll": {
       "name": "真っ黒な夏",
@@ -833,7 +859,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -1,
+      "fatigue": -8
      },
      "roll": {
       "name": "田舎の夏",
@@ -888,8 +916,10 @@
       "money": 0
      },
      "fx": {
-      "bond": 2,
-      "know": 1
+      "bond": 4,
+      "know": 2,
+      "happy": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "学級会",
@@ -929,6 +959,11 @@
         }
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 55
+      }
      }
     },
     {
@@ -937,7 +972,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "補佐役",
@@ -974,7 +1011,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "断ったあと",
@@ -1026,8 +1065,9 @@
       "money": 0
      },
      "fx": {
-      "health": 1,
-      "happy": -1
+      "health": 4,
+      "happy": -1,
+      "fatigue": 14
      },
      "roll": {
       "name": "本番の走り",
@@ -1059,6 +1099,11 @@
         "bond": -2
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "health": 55
+      }
      }
     },
     {
@@ -1067,7 +1112,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "fatigue": 6
      },
      "roll": {
       "name": "応援合戦",
@@ -1105,7 +1151,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 1,
+      "health": -1,
+      "fatigue": -6
      },
      "roll": {
       "name": "席での時間",
@@ -1158,7 +1206,9 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "know": 3,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "読み切れるか",
@@ -1193,6 +1243,11 @@
         "happy": -3
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 55
+      }
      }
     },
     {
@@ -1201,7 +1256,8 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -1
      },
      "roll": {
       "name": "図鑑の知識",
@@ -1245,7 +1301,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 3
+      "happy": 2,
+      "know": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "回し読み",
@@ -1300,7 +1358,8 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 3,
+      "bond": -1
      },
      "roll": {
       "name": "親の返事",
@@ -1340,7 +1399,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -1
      },
      "roll": {
       "name": "友達の家",
@@ -1379,7 +1439,9 @@
       "money": 0
      },
      "fx": {
-      "health": 2
+      "health": 2,
+      "happy": -1,
+      "fatigue": -6
      },
      "roll": {
       "name": "外遊び",
@@ -1434,7 +1496,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -1
      },
      "roll": {
       "name": "田舎の数日",
@@ -1474,7 +1537,8 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 3,
+      "bond": -2
      },
      "roll": {
       "name": "友達との夏",
@@ -1512,7 +1576,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "祖父母の来訪",
@@ -1565,6 +1631,7 @@
       "money": 0
      },
      "fx": {
+      "know": 2,
       "happy": -1
      },
      "roll": {
@@ -1610,7 +1677,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -2
      },
      "roll": {
       "name": "お別れ会",
@@ -1649,7 +1717,8 @@
       "money": 0
      },
      "fx": {
-      "bond": -1
+      "bond": -1,
+      "happy": 2
      },
      "roll": {
       "name": "親との話し合い",
@@ -1704,7 +1773,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "fatigue": 5
      },
      "roll": {
       "name": "基地づくり",
@@ -1742,7 +1812,8 @@
       "money": 0
      },
      "fx": {
-      "health": 1
+      "health": 2,
+      "bond": -2
      },
      "roll": {
       "name": "一人の探検",
@@ -1781,7 +1852,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "health": -1,
+      "fatigue": -8
      },
      "roll": {
       "name": "押し入れの中",
@@ -1833,7 +1906,8 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "bond": 2,
+      "happy": -2
      },
      "roll": {
       "name": "先生への報告",
@@ -1877,7 +1951,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 4,
+      "happy": -1,
+      "fatigue": 10
      },
      "roll": {
       "name": "声かけ",
@@ -1914,6 +1990,11 @@
         }
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 55
+      }
      }
     },
     {
@@ -1922,7 +2003,8 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "happy": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "傍観の日々",
@@ -1978,7 +2060,9 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "know": 2,
+      "happy": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "毎日の記録",
@@ -2016,7 +2100,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 5,
+      "bond": -1,
+      "fatigue": 10
      },
      "roll": {
       "name": "工作の完成",
@@ -2047,6 +2133,11 @@
         "happy": -4
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 55
+      }
      }
     },
     {
@@ -2055,7 +2146,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -1
      },
      "roll": {
       "name": "親子の作業",
@@ -2111,7 +2203,9 @@
       "money": 0
      },
      "fx": {
-      "health": 1
+      "health": 2,
+      "bond": 2,
+      "fatigue": 10
      },
      "roll": {
       "name": "神輿の肩",
@@ -2152,7 +2246,8 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 3,
+      "know": -1
      },
      "roll": {
       "name": "金魚すくい",
@@ -2190,7 +2285,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "health": -1
      },
      "roll": {
       "name": "花火の夜",
@@ -2243,7 +2339,9 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "know": 2,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "買い物",
@@ -2283,7 +2381,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -1
      },
      "roll": {
       "name": "二人連れ",
@@ -2318,7 +2417,11 @@
      "cost": {
       "money": 0
      },
-     "fx": {},
+     "fx": {
+      "happy": 2,
+      "know": -1,
+      "fatigue": -5
+     },
      "roll": {
       "name": "母と並んで",
       "stats": [
@@ -2369,7 +2472,9 @@
       "money": 0
      },
      "fx": {
-      "health": 2
+      "health": 3,
+      "happy": -1,
+      "fatigue": 10
      },
      "roll": {
       "name": "クラブの試合",
@@ -2409,7 +2514,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "health": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "作品づくり",
@@ -2448,7 +2555,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -1,
+      "fatigue": -6
      },
      "roll": {
       "name": "空いた放課後",
@@ -2502,7 +2611,8 @@
       "money": 0
      },
      "fx": {
-      "health": 1
+      "health": 2,
+      "happy": -2
      },
      "roll": {
       "name": "一口の勇気",
@@ -2539,7 +2649,8 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "health": -1
      },
      "roll": {
       "name": "先生の目",
@@ -2575,7 +2686,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "fatigue": 6
      },
      "roll": {
       "name": "早食い競争",
@@ -2633,7 +2745,8 @@
      },
      "fx": {
       "know": 2,
-      "happy": 1
+      "happy": 1,
+      "health": -1
      },
      "roll": {
       "name": "こっそり読書",
@@ -2673,7 +2786,7 @@
      },
      "fx": {
       "happy": 3,
-      "health": -1
+      "health": -2
      },
      "roll": {
       "name": "翌朝の体",
@@ -2718,7 +2831,9 @@
       "money": 0
      },
      "fx": {
-      "health": 2
+      "health": 2,
+      "happy": -1,
+      "fatigue": -10
      },
      "roll": {
       "name": "早寝の朝",
@@ -2773,7 +2888,9 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "know": 2,
+      "bond": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "図書室の常連",
@@ -2818,7 +2935,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "勇気の一言",
@@ -2867,7 +2986,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1
      },
      "roll": {
       "name": "先生の気づき",
@@ -2926,7 +3046,8 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -2
      },
      "roll": {
       "name": "内部の中学",
@@ -2964,8 +3085,9 @@
       "money": 0
      },
      "fx": {
-      "know": 3,
-      "happy": -3
+      "know": 5,
+      "happy": -3,
+      "fatigue": 15
      },
      "roll": {
       "name": "外部受験",
@@ -3002,6 +3124,11 @@
         }
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 55
+      }
      }
     },
     {
@@ -3010,7 +3137,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "保留の一年",
@@ -3065,7 +3194,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -2
      },
      "roll": {
       "name": "先生との話",
@@ -3111,7 +3241,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 1,
+      "bond": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "部屋の中",
@@ -3152,7 +3284,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -1
      },
      "roll": {
       "name": "母との話",
@@ -3213,7 +3346,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1
      },
      "roll": {
       "name": "初めての見学",
@@ -3257,7 +3391,9 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "know": 2,
+      "bond": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "自宅学習",
@@ -3301,7 +3437,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "誰もいない校舎",
@@ -3364,7 +3502,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1
      },
      "roll": {
       "name": "玄関の対面",
@@ -3406,7 +3545,8 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "fatigue": 5
      },
      "roll": {
       "name": "文通",
@@ -3446,7 +3586,8 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "happy": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "ドアの向こう",

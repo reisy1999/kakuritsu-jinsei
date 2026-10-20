@@ -18,7 +18,9 @@
     {
      "label": "自己破産を申し立てる",
      "fx": {
-      "happy": -3
+      "health": 2,
+      "happy": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "弁護士との相談",
@@ -75,7 +77,9 @@
       "money": -5
      },
      "fx": {
-      "happy": -2
+      "know": 3,
+      "happy": -2,
+      "fatigue": 5
      },
      "roll": {
       "name": "交渉の行方",
@@ -116,12 +120,19 @@
         }
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 40
+      }
      }
     },
     {
      "label": "実家に頼る",
      "fx": {
-      "bond": -2
+      "happy": 2,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "親への相談",
@@ -169,7 +180,9 @@
     {
      "label": "働いて返す",
      "fx": {
-      "health": -2
+      "know": 2,
+      "health": -3,
+      "fatigue": 14
      },
      "roll": {
       "name": "返済生活",
@@ -236,7 +249,9 @@
     {
      "label": "窓口で相談する",
      "fx": {
-      "happy": -1
+      "know": 2,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "窓口での面談",
@@ -323,7 +338,9 @@
     {
      "label": "知人に借りてみる",
      "fx": {
-      "bond": -1
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "頼み込む",
@@ -426,7 +443,9 @@
     {
      "label": "支援窓口に電話する",
      "fx": {
-      "happy": -1
+      "bond": 2,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "最初の電話",
@@ -467,7 +486,9 @@
     {
      "label": "短時間のバイトを探す",
      "fx": {
-      "health": -1
+      "know": 2,
+      "health": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "面接の日",
@@ -627,7 +648,9 @@
     {
      "label": "就労支援に申し込む",
      "fx": {
-      "happy": -1
+      "know": 2,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "支援の面談",
@@ -826,7 +849,9 @@
     {
      "label": "自治体の窓口へ行く",
      "fx": {
-      "happy": -1
+      "know": 2,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "窓口の面談",
@@ -866,7 +891,11 @@
     },
     {
      "label": "短時間の仕事に就く",
-     "fx": {},
+     "fx": {
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 10
+     },
      "roll": {
       "name": "仕事の初日",
       "stats": [
@@ -913,6 +942,11 @@
          "apathy": 1
         }
        }
+      }
+     },
+     "requires": {
+      "stat_min": {
+       "health": 40
       }
      }
     },
@@ -1019,7 +1053,9 @@
     {
      "label": "役所と病院に相談",
      "fx": {
-      "health": -1
+      "know": 2,
+      "health": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "手続きの窓口",
@@ -1113,7 +1149,9 @@
     {
      "label": "見舞いに通い仕事を探す",
      "fx": {
-      "health": -1
+      "bond": 3,
+      "health": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "通う日々",
@@ -1163,6 +1201,11 @@
          "tired": 1
         }
        }
+      }
+     },
+     "requires": {
+      "stat_min": {
+       "health": 40
       }
      }
     },
@@ -1432,7 +1475,9 @@
     {
      "label": "近くの店で会う",
      "fx": {
-      "health": -1
+      "bond": 3,
+      "health": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "初めての対面",
@@ -1627,7 +1672,9 @@
       "money": -3
      },
      "fx": {
-      "health": -1
+      "health": 2,
+      "happy": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "診察室",
@@ -1866,7 +1913,9 @@
       "money": -3
      },
      "fx": {
-      "happy": 1
+      "know": 4,
+      "happy": -1,
+      "fatigue": 12
      },
      "roll": {
       "name": "机と教材",
@@ -1905,6 +1954,11 @@
          "apathy": 1
         }
        }
+      }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 40
       }
      }
     },
@@ -2320,7 +2374,11 @@
     },
     {
      "label": "転職サイトに登録する",
-     "fx": {},
+     "fx": {
+      "know": 3,
+      "health": -2,
+      "fatigue": 8
+     },
      "roll": {
       "name": "新しい求人",
       "stats": [
@@ -2354,6 +2412,11 @@
        "fx": {
         "happy": -2
        }
+      }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 45
       }
      }
     },
@@ -2424,7 +2487,9 @@
     {
      "label": "休職して休む",
      "fx": {
-      "happy": -2
+      "health": 2,
+      "happy": -2,
+      "fatigue": -12
      },
      "roll": {
       "name": "休職の初日",
@@ -2516,7 +2581,11 @@
     },
     {
      "label": "退職して一から出直す",
-     "fx": {},
+     "fx": {
+      "happy": 3,
+      "bond": -3,
+      "fatigue": -12
+     },
      "roll": {
       "name": "退職願",
       "stats": [
@@ -2567,6 +2636,11 @@
          "poor": 1
         }
        }
+      }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 40
       }
      }
     },
@@ -3109,7 +3183,9 @@
     {
      "label": "家事を減らす",
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -1,
+      "fatigue": -8
      },
      "roll": {
       "name": "手抜きの夕食",
@@ -3808,7 +3884,11 @@
     },
     {
      "label": "古い友人に連絡",
-     "fx": {},
+     "fx": {
+      "bond": 4,
+      "happy": -2,
+      "fatigue": 6
+     },
      "roll": {
       "name": "スマホの宛先",
       "stats": [
@@ -3843,6 +3923,11 @@
         "happy": -3,
         "bond": -2
        }
+      }
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 35
       }
      }
     },
@@ -4314,7 +4399,9 @@
       "money": -3
      },
      "fx": {
-      "happy": -1
+      "health": 2,
+      "happy": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "診察の予約",
@@ -4500,7 +4587,9 @@
       "money": -3
      },
      "fx": {
-      "happy": -1
+      "health": 2,
+      "happy": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "面談室の椅子",
@@ -4579,7 +4668,11 @@
     },
     {
      "label": "仕事の担当を変える",
-     "fx": {},
+     "fx": {
+      "know": 3,
+      "bond": -2,
+      "fatigue": 8
+     },
      "roll": {
       "name": "配置換えの希望",
       "stats": [
@@ -4614,6 +4707,11 @@
         "happy": -4,
         "bond": -3
        }
+      }
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 40
       }
      }
     },
@@ -4687,7 +4785,9 @@
       "money": -3
      },
      "fx": {
-      "happy": -1
+      "health": 2,
+      "happy": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "診察室の椅子",
@@ -5094,7 +5194,11 @@
     },
     {
      "label": "家計を見直す",
-     "fx": {},
+     "fx": {
+      "know": 3,
+      "happy": -2,
+      "fatigue": 8
+     },
      "roll": {
       "name": "家計の見直し",
       "stats": [
@@ -5129,6 +5233,11 @@
        "fx": {
         "happy": -2
        }
+      }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 40
       }
      }
     },

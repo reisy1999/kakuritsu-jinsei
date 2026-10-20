@@ -24,7 +24,8 @@
       "money": -20
      },
      "fx": {
-      "happy": 2
+      "happy": 2,
+      "fatigue": 5
      },
      "roll": {
       "name": "散歩の日々",
@@ -109,7 +110,9 @@
     {
      "label": "今は見送る",
      "fx": {
-      "know": 1
+      "know": 1,
+      "happy": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "身軽な暮らし",
@@ -170,7 +173,8 @@
       "money": -10
      },
      "fx": {
-      "health": 2
+      "health": 2,
+      "fatigue": 10
      },
      "roll": {
       "name": "通い続ける",
@@ -207,7 +211,9 @@
     {
      "label": "公園で走る",
      "fx": {
-      "health": 1
+      "health": 1,
+      "happy": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "自己流の習慣",
@@ -350,7 +356,8 @@
     {
      "label": "友人に紹介を頼む",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -1
      },
      "roll": {
       "name": "友人の紹介",
@@ -390,7 +397,9 @@
     {
      "label": "今は仕事を優先する",
      "fx": {
-      "know": 2
+      "know": 2,
+      "bond": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "仕事の手応え",
@@ -425,6 +434,53 @@
         "press": {
          "iso": 1
         }
+       }
+      }
+     }
+    },
+    {
+     "label": "趣味の集まりで知り合う",
+     "cost": {
+      "money": -5
+     },
+     "fx": {
+      "bond": 2,
+      "happy": 1,
+      "fatigue": 5
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 55
+      }
+     },
+     "roll": {
+      "name": "趣味の縁",
+      "stats": [
+       "bond",
+       "happy"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "話の合う人に出会う",
+       "text": "写真展で隣になった人と、帰りの電車でも話し込んだ。",
+       "fx": {
+        "bond": 5,
+        "happy": 5
+       }
+      },
+      "mid": {
+       "label": "友人が増える",
+       "text": "連絡先は増えたが、特別な縁には至らなかった。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "気疲れする",
+       "text": "終始聞き役に回り、帰宅後にどっと疲れた。",
+       "fx": {
+        "happy": -3,
+        "health": -1
        }
       }
      }
@@ -651,7 +707,8 @@
       "money": -12
      },
      "fx": {
-      "happy": 2
+      "happy": 2,
+      "fatigue": -10
      },
      "roll": {
       "name": "宿の夜",
@@ -688,7 +745,8 @@
     {
      "label": "旅費を貯めておく",
      "fx": {
-      "know": 1
+      "know": 1,
+      "happy": -1
      },
      "roll": {
       "name": "貯金の増え方",
@@ -738,7 +796,9 @@
     {
      "label": "引き受ける",
      "fx": {
-      "know": 2
+      "know": 2,
+      "happy": -1,
+      "fatigue": 15
      },
      "roll": {
       "name": "リーダーの重み",
@@ -754,7 +814,8 @@
         "know": 5,
         "bond": 4,
         "happy": 4,
-        "money": 30
+        "money": 30,
+        "income_mul": 1.12
        }
       },
       "mid": {
@@ -762,7 +823,8 @@
        "text": "上と下に挟まれながら、なんとか一年が過ぎた。",
        "fx": {
         "know": 3,
-        "happy": -1
+        "happy": -1,
+        "income_mul": 1.05
        }
       },
       "bad": {
@@ -783,7 +845,9 @@
     {
      "label": "条件をつけて受ける",
      "fx": {
-      "bond": 1
+      "bond": 1,
+      "know": 1,
+      "fatigue": 10
      },
      "roll": {
       "name": "条件交渉",
@@ -799,14 +863,16 @@
        "fx": {
         "know": 4,
         "bond": 3,
-        "happy": 3
+        "happy": 3,
+        "income_mul": 1.08
        }
       },
       "mid": {
        "label": "半分だけ通る",
        "text": "希望の半分だけ通った。それでも動き出した。",
        "fx": {
-        "know": 2
+        "know": 2,
+        "income_mul": 1.04
        }
       },
       "bad": {
@@ -822,7 +888,9 @@
     {
      "label": "専門職を続けたい",
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -1,
+      "fatigue": -8
      },
      "roll": {
       "name": "現場の腕",
@@ -861,6 +929,51 @@
        }
       }
      }
+    },
+    {
+     "label": "社内公募に手を挙げる",
+     "fx": {
+      "know": 3,
+      "happy": 1,
+      "fatigue": 15
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 60
+      }
+     },
+     "roll": {
+      "name": "社内公募",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 35,
+      "good": {
+       "label": "新部署に抜擢される",
+       "text": "公募で新規事業の担当に選ばれ、席が窓際に移った。",
+       "fx": {
+        "happy": 6,
+        "know": 5,
+        "income_mul": 1.15
+       }
+      },
+      "mid": {
+       "label": "次の機会に",
+       "text": "最終面接で、次の機会にと言われた。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "上司と気まずくなる",
+       "text": "手を挙げたことを知った上司が、目を合わせなくなった。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       }
+      }
+     }
     }
    ]
   },
@@ -885,7 +998,8 @@
       "money": -45
      },
      "fx": {
-      "know": 3
+      "know": 3,
+      "fatigue": 15
      },
      "roll": {
       "name": "夜の教室",
@@ -933,7 +1047,8 @@
       "money": -15
      },
      "fx": {
-      "know": 2
+      "know": 2,
+      "fatigue": 8
      },
      "roll": {
       "name": "通信の自習",
@@ -970,7 +1085,8 @@
     {
      "label": "今の仕事を深める",
      "fx": {
-      "know": 1
+      "know": 2,
+      "happy": -1
      },
      "roll": {
       "name": "職場の吸収",
@@ -1005,6 +1121,50 @@
         "press": {
          "apathy": 1
         }
+       }
+      }
+     }
+    },
+    {
+     "label": "社内勉強会で講師をする",
+     "fx": {
+      "know": 2,
+      "bond": 2,
+      "fatigue": 10
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 55
+      }
+     },
+     "roll": {
+      "name": "勉強会の講師",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "評判になる",
+       "text": "準備した資料が好評で、他部署からも声がかかった。",
+       "fx": {
+        "know": 5,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "無難に終わる",
+       "text": "質問は少なかったが、最後まで話し切れた。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "準備不足が響く",
+       "text": "質疑でつまずき、顔から火が出る思いをした。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
        }
       }
      }
@@ -1115,7 +1275,9 @@
     {
      "label": "今の部屋で踏ん張る",
      "fx": {
-      "know": 1
+      "know": 1,
+      "happy": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "家計のやりくり",
@@ -1173,7 +1335,9 @@
     {
      "label": "名前を出して投稿",
      "fx": {
-      "happy": 1
+      "happy": -1,
+      "bond": 2,
+      "fatigue": 5
      },
      "roll": {
       "name": "最初の反応",
@@ -1215,7 +1379,8 @@
     {
      "label": "匿名で続ける",
      "fx": {
-      "know": 1
+      "know": 2,
+      "bond": -1
      },
      "roll": {
       "name": "静かな発信",
@@ -1252,7 +1417,9 @@
     {
      "label": "見る専にとどめる",
      "fx": {
-      "happy": -1
+      "happy": -1,
+      "health": 1,
+      "fatigue": -8
      },
      "roll": {
       "name": "眺める日々",
@@ -1317,7 +1484,8 @@
       "money": -6
      },
      "fx": {
-      "health": 2
+      "health": 2,
+      "fatigue": 15
      },
      "roll": {
       "name": "四十二キロ",
@@ -1402,7 +1570,9 @@
     {
      "label": "辞退する",
      "fx": {
-      "happy": -1
+      "happy": -1,
+      "know": 1,
+      "fatigue": -8
      },
      "roll": {
       "name": "別の過ごし方",
@@ -1432,6 +1602,53 @@
        }
       }
      }
+    },
+    {
+     "label": "ペースメーカーを引き受ける",
+     "cost": {
+      "money": -6
+     },
+     "fx": {
+      "health": 2,
+      "bond": 3,
+      "fatigue": 12
+     },
+     "requires": {
+      "stat_min": {
+       "health": 65
+      }
+     },
+     "roll": {
+      "name": "伴走",
+      "stats": [
+       "health",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "全員で完走する",
+       "text": "後ろの三人を引っぱり、全員で笑って完走した。",
+       "fx": {
+        "bond": 6,
+        "health": 4
+       }
+      },
+      "mid": {
+       "label": "自分は完走する",
+       "text": "自分のペースを守り、仲間は先にゴールへ入った。",
+       "fx": {
+        "bond": 2
+       }
+      },
+      "bad": {
+       "label": "脚をつる",
+       "text": "三十キロで脚をつり、歩いてゴールした。",
+       "fx": {
+        "health": -4,
+        "happy": -3
+       }
+      }
+     }
     }
    ]
   },
@@ -1455,7 +1672,9 @@
     {
      "label": "団員になる",
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "health": -1,
+      "fatigue": 12
      },
      "roll": {
       "name": "夜の訓練",
@@ -1498,7 +1717,9 @@
     {
      "label": "町内会の手伝い",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "happy": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "回覧板の役",
@@ -1535,7 +1756,8 @@
     {
      "label": "丁重に断る",
      "fx": {
-      "happy": 1
+      "happy": 1,
+      "bond": -2
      },
      "roll": {
       "name": "断った後",
@@ -1592,7 +1814,9 @@
     {
      "label": "実績を示して交渉",
      "fx": {
-      "know": 2
+      "know": 2,
+      "bond": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "交渉の席",
@@ -1607,7 +1831,7 @@
        "fx": {
         "know": 4,
         "happy": 6,
-        "income_mul": 1.08
+        "income_mul": 1.1
        }
       },
       "mid": {
@@ -1635,7 +1859,8 @@
     {
      "label": "上司に相談する",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -1
      },
      "roll": {
       "name": "面談",
@@ -1650,7 +1875,8 @@
        "fx": {
         "bond": 5,
         "happy": 4,
-        "money": 15
+        "money": 15,
+        "income_mul": 1.04
        }
       },
       "mid": {
@@ -1672,7 +1898,9 @@
     {
      "label": "今は力を溜める",
      "fx": {
-      "know": 1
+      "know": 1,
+      "bond": -1,
+      "fatigue": -6
      },
      "roll": {
       "name": "静かな一年",
@@ -1700,6 +1928,50 @@
        "fx": {
         "happy": -5,
         "bond": -2
+       }
+      }
+     }
+    },
+    {
+     "label": "他社の提示額を材料にする",
+     "fx": {
+      "know": 2,
+      "bond": -2,
+      "fatigue": 10
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 65
+      }
+     },
+     "roll": {
+      "name": "条件交渉",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 40,
+      "good": {
+       "label": "大幅に昇給する",
+       "text": "他社の提示額を見せると、翌月に給与が改められた。",
+       "fx": {
+        "happy": 5,
+        "income_mul": 1.2
+       }
+      },
+      "mid": {
+       "label": "少し上がる",
+       "text": "満額ではないが、手当が一つ付いた。",
+       "fx": {
+        "income_mul": 1.05
+       }
+      },
+      "bad": {
+       "label": "信頼が揺らぐ",
+       "text": "「辞めるつもりか」と言われ、仕事を減らされた。",
+       "fx": {
+        "bond": -5,
+        "happy": -4
        }
       }
      }
@@ -1809,7 +2081,9 @@
     {
      "label": "不参加にする",
      "fx": {
-      "happy": -1
+      "happy": -1,
+      "health": 1,
+      "fatigue": -8
      },
      "roll": {
       "name": "連休の休息",
@@ -1866,7 +2140,9 @@
     {
      "label": "一本化して管理",
      "fx": {
-      "know": 2
+      "know": 2,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "家計の帳簿",
@@ -1904,7 +2180,8 @@
     {
      "label": "生活費だけ共有",
      "fx": {
-      "bond": 1
+      "bond": 1,
+      "know": -1
      },
      "roll": {
       "name": "分け合う家計",
@@ -1941,7 +2218,9 @@
     {
      "label": "相手に任せる",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "お財布の主",
@@ -2086,7 +2365,9 @@
     {
      "label": "取らずに働く",
      "fx": {
-      "happy": -1
+      "happy": -1,
+      "know": 1,
+      "fatigue": 12
      },
      "roll": {
       "name": "仕事と育児",
@@ -2195,7 +2476,9 @@
     {
      "label": "結婚を考える",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "happy": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "覚悟の話",
@@ -2240,7 +2523,9 @@
     {
      "label": "距離を理由に別れる",
      "fx": {
-      "happy": -3
+      "happy": -3,
+      "know": 2,
+      "fatigue": -8
      },
      "roll": {
       "name": "終わりの決断",
@@ -2536,7 +2821,8 @@
     {
      "label": "きっぱり断る",
      "fx": {
-      "happy": 1
+      "happy": 1,
+      "know": -1
      },
      "roll": {
       "name": "断る勇気",
@@ -2589,7 +2875,9 @@
     {
      "label": "ほぼ在宅にする",
      "fx": {
-      "health": 1
+      "health": 1,
+      "bond": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "自宅の机",
@@ -2634,7 +2922,8 @@
      "label": "出社を基本にする",
      "fx": {
       "bond": 2,
-      "health": -2
+      "health": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "オフィスの雑談",
@@ -2738,7 +3027,9 @@
     {
      "label": "生活を見直す",
      "fx": {
-      "health": 2
+      "health": 2,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "夜の習慣",
@@ -2783,7 +3074,8 @@
       "money": -8
      },
      "fx": {
-      "health": 1
+      "health": 1,
+      "fatigue": -5
      },
      "roll": {
       "name": "診察室",
@@ -2827,7 +3119,9 @@
       "money": -4
      },
      "fx": {
-      "happy": 1
+      "happy": 1,
+      "health": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "寝酒",
@@ -2890,7 +3184,8 @@
       "money": -30
      },
      "fx": {
-      "happy": 3
+      "happy": 3,
+      "fatigue": 12
      },
      "roll": {
       "name": "ステージの上",
@@ -2973,7 +3268,8 @@
     {
      "label": "見送る",
      "fx": {
-      "know": 1
+      "know": 1,
+      "happy": -1
      },
      "roll": {
       "name": "過去のもの",
@@ -3005,6 +3301,53 @@
         "press": {
          "apathy": 1
         }
+       }
+      }
+     }
+    },
+    {
+     "label": "仲間の伝手でライブに出る",
+     "cost": {
+      "money": -15
+     },
+     "fx": {
+      "happy": 3,
+      "bond": 2,
+      "fatigue": 10
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 60
+      }
+     },
+     "roll": {
+      "name": "ライブ出演",
+      "stats": [
+       "happy",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "満員のステージ",
+       "text": "対バンの客が残り、アンコールの手拍子が起きた。",
+       "fx": {
+        "happy": 8,
+        "bond": 4
+       }
+      },
+      "mid": {
+       "label": "数人の客",
+       "text": "客は十人ほどで、物販の列はできなかった。",
+       "fx": {
+        "happy": 2
+       }
+      },
+      "bad": {
+       "label": "音を外す",
+       "text": "一曲目で弦が切れ、立て直せないまま終わった。",
+       "fx": {
+        "happy": -5,
+        "bond": -1
        }
       }
      }
@@ -3072,7 +3415,8 @@
     {
      "label": "売却に賛成する",
      "fx": {
-      "know": 1
+      "know": 1,
+      "bond": -3
      },
      "roll": {
       "name": "売却の手続き",
@@ -3147,6 +3491,50 @@
        }
       }
      }
+    },
+    {
+     "label": "親戚の寄り合いをまとめる",
+     "fx": {
+      "bond": 3,
+      "know": 1,
+      "fatigue": 8
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 60
+      }
+     },
+     "roll": {
+      "name": "寄り合い",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 25,
+      "good": {
+       "label": "全員が納得する",
+       "text": "法事のあと座敷で話し合い、全員が納得して判を押した。",
+       "fx": {
+        "bond": 6,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "持ち越しになる",
+       "text": "結論は次の盆に持ち越しになった。",
+       "fx": {
+        "bond": 1
+       }
+      },
+      "bad": {
+       "label": "話がこじれる",
+       "text": "叔父が席を立ち、話し合いはそこで終わった。",
+       "fx": {
+        "bond": -5,
+        "happy": -3
+       }
+      }
+     }
     }
    ]
   },
@@ -3213,7 +3601,8 @@
     {
      "label": "仕事を理由に断る",
      "fx": {
-      "know": 1
+      "know": 1,
+      "bond": -1
      },
      "roll": {
       "name": "丁寧な断り",
@@ -3249,7 +3638,8 @@
     {
      "label": "まず友人から始める",
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1
      },
      "roll": {
       "name": "距離を詰める",
@@ -3302,7 +3692,9 @@
     {
      "label": "人気の研究室を選ぶ",
      "fx": {
-      "know": 2
+      "know": 2,
+      "happy": -1,
+      "fatigue": 12
      },
      "roll": {
       "name": "選考",
@@ -3340,7 +3732,8 @@
     {
      "label": "少人数の穴場を選ぶ",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -1
      },
      "roll": {
       "name": "小さな研究室",
@@ -3377,7 +3770,9 @@
     {
      "label": "友人と同じにする",
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "know": -3,
+      "fatigue": -5
      },
      "roll": {
       "name": "同期の絆",
@@ -3410,6 +3805,50 @@
        }
       }
      }
+    },
+    {
+     "label": "教授の研究室に直談判する",
+     "fx": {
+      "know": 3,
+      "bond": 1,
+      "fatigue": 8
+     },
+     "requires": {
+      "stat_min": {
+       "know": 65
+      }
+     },
+     "roll": {
+      "name": "直談判",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 30,
+      "good": {
+       "label": "研究に加われる",
+       "text": "志望理由を話すと、教授は面白がって席を用意してくれた。",
+       "fx": {
+        "know": 7,
+        "happy": 3
+       }
+      },
+      "mid": {
+       "label": "面談止まり",
+       "text": "話は聞いてもらえたが、定員は埋まっていた。",
+       "fx": {
+        "know": 2
+       }
+      },
+      "bad": {
+       "label": "場違いに終わる",
+       "text": "準備した質問に答えられず、面談は十分で終わった。",
+       "fx": {
+        "happy": -4,
+        "know": -1
+       }
+      }
+     }
     }
    ]
   },
@@ -3432,7 +3871,8 @@
     {
      "label": "管理会社に連絡",
      "fx": {
-      "happy": 1
+      "happy": 1,
+      "bond": -1
      },
      "roll": {
       "name": "匿名の申し入れ",
@@ -3469,7 +3909,9 @@
     {
      "label": "直接話しに行く",
      "fx": {
-      "bond": 1
+      "bond": 1,
+      "happy": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "玄関先",
@@ -3515,7 +3957,8 @@
       "money": -35
      },
      "fx": {
-      "happy": 1
+      "happy": 1,
+      "fatigue": 8
      },
      "roll": {
       "name": "新しい部屋",
@@ -3568,7 +4011,9 @@
     {
      "label": "訓練に通う",
      "fx": {
-      "know": 3
+      "know": 3,
+      "happy": -1,
+      "fatigue": 12
      },
      "roll": {
       "name": "教室の日々",
@@ -3612,7 +4057,9 @@
     {
      "label": "求人に応募し続ける",
      "fx": {
-      "happy": -1
+      "know": 1,
+      "happy": -1,
+      "fatigue": 10
      },
      "roll": {
       "name": "応募の山",
@@ -3664,7 +4111,9 @@
     {
      "label": "短期の仕事で食いつなぐ",
      "fx": {
-      "health": -1
+      "health": -1,
+      "bond": 1,
+      "fatigue": 10
      },
      "roll": {
       "name": "日雇いの現場",
@@ -3686,7 +4135,7 @@
        "label": "生活は回る",
        "text": "日々の生活は回るが、先の見通しは立たない。",
        "fx": {
-        "money": 10
+        "money": 25
        }
       },
       "bad": {
@@ -3700,6 +4149,59 @@
         "press": {
          "tired": 1
         }
+       }
+      }
+     }
+    },
+    {
+     "label": "支援員の紹介で企業実習に入る",
+     "fx": {
+      "bond": 2,
+      "know": 2,
+      "fatigue": 10
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 40
+      }
+     },
+     "roll": {
+      "name": "企業実習",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 20,
+      "good": {
+       "label": "採用の話が出る",
+       "text": "実習先の担当者が、「うちで働きませんか」と声をかけた。",
+       "fx": {
+        "happy": 6,
+        "know": 3
+       },
+       "set": {
+        "status": "work",
+        "job": {
+         "name": "実習先の契約社員",
+         "income": 250,
+         "grow": 0.01,
+         "kind": "irregular"
+        }
+       }
+      },
+      "mid": {
+       "label": "経験を積む",
+       "text": "三週間通い、名刺の渡し方と挨拶を覚えた。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "合わず辞退する",
+       "text": "職場の空気になじめず、二週間で実習を切り上げた。",
+       "fx": {
+        "happy": -4,
+        "bond": -2
        }
       }
      }
@@ -3725,7 +4227,9 @@
     {
      "label": "会議を抜けて迎えに行く",
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "know": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "迎えの道",
@@ -3768,7 +4272,9 @@
     {
      "label": "パートナーに頼む",
      "fx": {
-      "bond": 1
+      "happy": 2,
+      "bond": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "夫婦の役割分担",
@@ -3909,7 +4415,8 @@
     {
      "label": "先輩に相談する",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "happy": -1
      },
      "roll": {
       "name": "段取り",
@@ -3946,7 +4453,9 @@
     {
      "label": "やんわり断る",
      "fx": {
-      "happy": 1
+      "happy": 1,
+      "bond": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "断りの一言",
@@ -4001,7 +4510,9 @@
     {
      "label": "丁寧に付きっきりで",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "happy": -1,
+      "fatigue": 12
      },
      "roll": {
       "name": "指導の毎日",
@@ -4045,7 +4556,9 @@
     {
      "label": "要点だけ伝える",
      "fx": {
-      "know": 2
+      "know": 2,
+      "bond": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "要点の指導",
@@ -4082,7 +4595,9 @@
     {
      "label": "上司に交代を願い出る",
      "fx": {
-      "happy": -1
+      "health": 1,
+      "happy": -1,
+      "fatigue": -10
      },
      "roll": {
       "name": "担当替え",

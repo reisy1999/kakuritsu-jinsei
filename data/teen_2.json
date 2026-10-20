@@ -17,7 +17,9 @@
     {
      "label": "意見書を出す",
      "fx": {
-      "know": 1
+      "know": 3,
+      "bond": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "先生の反応",
@@ -54,7 +56,9 @@
     {
      "label": "みんなで愚痴る",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "happy": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "愚痴の輪",
@@ -90,7 +94,9 @@
     {
      "label": "黙って従う",
      "fx": {
-      "health": 1
+      "health": 2,
+      "happy": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "平穏な日々",
@@ -139,7 +145,9 @@
     {
      "label": "引き受ける",
      "fx": {
-      "bond": 1
+      "know": 4,
+      "bond": 3,
+      "fatigue": 14
      },
      "roll": {
       "name": "教え方",
@@ -171,12 +179,19 @@
         "happy": -3
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 60
+      }
      }
     },
     {
      "label": "断る",
      "fx": {
-      "know": 1
+      "happy": 2,
+      "bond": -3,
+      "fatigue": -6
      },
      "roll": {
       "name": "自分の時間",
@@ -208,7 +223,9 @@
     {
      "label": "友達と交代で引き受ける",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "当番制",
@@ -261,7 +278,9 @@
     {
      "label": "家に連れて帰る",
      "fx": {
-      "bond": 2
+      "happy": 3,
+      "know": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "親の返事",
@@ -303,7 +322,8 @@
     {
      "label": "先生に相談する",
      "fx": {
-      "know": 1
+      "bond": 2,
+      "happy": -2
      },
      "roll": {
       "name": "大人の力",
@@ -338,7 +358,9 @@
     {
      "label": "餌を持って通う",
      "fx": {
-      "health": 1
+      "health": 2,
+      "bond": -1,
+      "fatigue": 10
      },
      "roll": {
       "name": "通い猫",
@@ -390,7 +412,9 @@
     {
      "label": "レシピ通りに作る",
      "fx": {
-      "know": 1
+      "know": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "手際",
@@ -428,7 +452,9 @@
     {
      "label": "簡単なものですませる",
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "health": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "手抜き",
@@ -461,7 +487,10 @@
     {
      "label": "友達に頼って教わる",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "know": 1,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "料理教室",
@@ -515,7 +544,9 @@
     {
      "label": "参加する",
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "happy": -1,
+      "fatigue": 10
      },
      "roll": {
       "name": "地域の輪",
@@ -552,7 +583,9 @@
     {
      "label": "友達を誘って参加する",
      "fx": {
-      "bond": 2
+      "bond": 5,
+      "happy": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "一緒に",
@@ -583,12 +616,19 @@
         "happy": -2
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 55
+      }
      }
     },
     {
      "label": "休日は休む",
      "fx": {
-      "health": 2
+      "health": 2,
+      "bond": -2,
+      "fatigue": -10
      },
      "roll": {
       "name": "休息",
@@ -636,7 +676,9 @@
     {
      "label": "行く",
      "fx": {
-      "health": 1
+      "health": 3,
+      "know": -2,
+      "fatigue": 14
      },
      "roll": {
       "name": "道のり",
@@ -675,7 +717,9 @@
     {
      "label": "近場にする",
      "fx": {
-      "health": 1
+      "happy": 3,
+      "know": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "手前の目的地",
@@ -710,7 +754,9 @@
     {
      "label": "断って勉強する",
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "机に向かう",
@@ -761,7 +807,9 @@
     {
      "label": "書き続ける",
      "fx": {
-      "know": 1
+      "know": 2,
+      "health": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "物語の力",
@@ -797,7 +845,9 @@
     {
      "label": "友達に読ませる",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 5
      },
      "roll": {
       "name": "感想",
@@ -838,7 +888,9 @@
     {
      "label": "人に見せずしまう",
      "fx": {
-      "health": 1
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "自分だけの物語",
@@ -886,7 +938,9 @@
     {
      "label": "行く",
      "fx": {
-      "health": 1
+      "health": 2,
+      "bond": -2,
+      "fatigue": -12
      },
      "roll": {
       "name": "田舎の暮らし",
@@ -923,7 +977,9 @@
     {
      "label": "数日だけ行く",
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "know": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "短い滞在",
@@ -958,7 +1014,9 @@
     {
      "label": "行かず友達と過ごす",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "health": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "夏の予定",
@@ -1016,7 +1074,9 @@
     {
      "label": "勝つために猛勉強する",
      "fx": {
-      "health": -1
+      "know": 6,
+      "health": -3,
+      "fatigue": 18
      },
      "roll": {
       "name": "対抗心",
@@ -1050,12 +1110,19 @@
         "happy": -4
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 65
+      }
      }
     },
     {
      "label": "勉強の仕方を聞く",
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 5
      },
      "roll": {
       "name": "素直さ",
@@ -1092,7 +1159,9 @@
     {
      "label": "気にしないことにする",
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "マイペース",
@@ -1142,7 +1211,9 @@
     {
      "label": "見せる",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "友情",
@@ -1180,7 +1251,9 @@
     {
      "label": "断る",
      "fx": {
-      "know": 1
+      "know": 2,
+      "bond": -3,
+      "fatigue": 5
      },
      "roll": {
       "name": "自分の信念",
@@ -1221,7 +1294,9 @@
     {
      "label": "一緒にやろうと誘う",
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -1,
+      "fatigue": 12
      },
      "roll": {
       "name": "勉強会",
@@ -1274,7 +1349,9 @@
     {
      "label": "夜更かしをやめる",
      "fx": {
-      "health": 2
+      "health": 2,
+      "happy": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "生活リズム",
@@ -1310,7 +1387,9 @@
     {
      "label": "担任に相談する",
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "担任の理解",
@@ -1344,7 +1423,9 @@
     {
      "label": "急いで走って登校する",
      "fx": {
-      "health": 1
+      "health": 2,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "朝の全力疾走",
@@ -1394,7 +1475,9 @@
     {
      "label": "泊まりに行く",
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "health": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "お泊まり",
@@ -1425,12 +1508,19 @@
         "happy": -2
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 55
+      }
      }
     },
     {
      "label": "日帰りで遊ぶ",
      "fx": {
-      "health": 1
+      "happy": 2,
+      "bond": -1,
+      "fatigue": -6
      },
      "roll": {
       "name": "日帰り",
@@ -1468,7 +1558,9 @@
     {
      "label": "断る",
      "fx": {
-      "health": 2
+      "health": 2,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "一人の週末",
@@ -1523,7 +1615,9 @@
     {
      "label": "家から近い高校へ行く",
      "fx": {
-      "health": 1
+      "happy": 2,
+      "know": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "通学の現実",
@@ -1558,7 +1652,9 @@
     {
      "label": "偏差値の高い高校へ行く",
      "fx": {
-      "know": 2
+      "know": 6,
+      "happy": -3,
+      "fatigue": 16
      },
      "roll": {
       "name": "背伸び",
@@ -1590,12 +1686,19 @@
         "happy": -5
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "know": 65
+      }
      }
     },
     {
      "label": "友達と同じ高校へ行く",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "仲間と一緒",
@@ -1647,7 +1750,9 @@
     {
      "label": "引き受ける",
      "fx": {
-      "bond": 2
+      "bond": 4,
+      "health": -2,
+      "fatigue": 14
      },
      "roll": {
       "name": "応援団",
@@ -1685,7 +1790,9 @@
     {
      "label": "辞退する",
      "fx": {
-      "health": 1
+      "health": 2,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "断り方",
@@ -1721,7 +1828,9 @@
     {
      "label": "補佐として手伝う",
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1,
+      "fatigue": 7
      },
      "roll": {
       "name": "裏方",
@@ -1775,7 +1884,9 @@
     {
      "label": "距離をおく",
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "避ける",
@@ -1808,7 +1919,9 @@
     {
      "label": "勇気を出して話しかける",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "対話",
@@ -1846,7 +1959,9 @@
     {
      "label": "信頼できる大人に相談する",
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "know": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "相談",
@@ -1898,7 +2013,9 @@
     {
      "label": "前向きに受け入れる",
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "新天地",
@@ -1940,7 +2057,9 @@
     {
      "label": "友達と連絡を取り続ける",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "know": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "遠距離の友達",
@@ -1976,7 +2095,9 @@
     {
      "label": "新しい学校で部活に入る",
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "部活で打ち解ける",
@@ -2031,7 +2152,9 @@
     {
      "label": "本気で練習する",
      "fx": {
-      "health": -1
+      "know": 3,
+      "health": -2,
+      "fatigue": 14
      },
      "roll": {
       "name": "練習量",
@@ -2071,7 +2194,9 @@
     {
      "label": "楽しく参加する",
      "fx": {
-      "bond": 2
+      "bond": 2,
+      "know": -1,
+      "fatigue": -6
      },
      "roll": {
       "name": "お祭り気分",
@@ -2107,7 +2232,9 @@
     {
      "label": "観戦に回る",
      "fx": {
-      "know": 1
+      "know": 2,
+      "bond": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "観戦",
@@ -2157,7 +2284,9 @@
     {
      "label": "体験会に泊まりで参加する",
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "health": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "寮の一泊",
@@ -2201,7 +2330,9 @@
     {
      "label": "参加せず家で過ごす",
      "fx": {
-      "health": 1
+      "health": 2,
+      "bond": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "休日の過ごし方",
@@ -2236,7 +2367,9 @@
     {
      "label": "親と見学だけする",
      "fx": {
-      "bond": 2
+      "know": 2,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "見学の帰り道",
@@ -2292,7 +2425,10 @@
     {
      "label": "毎日出る",
      "fx": {
-      "health": -1
+      "health": 5,
+      "bond": 2,
+      "know": -3,
+      "fatigue": 18
      },
      "roll": {
       "name": "朝練",
@@ -2326,12 +2462,19 @@
         "happy": -3
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "health": 60
+      }
      }
     },
     {
      "label": "週に何回かだけ出る",
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "happy": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "加減",
@@ -2368,7 +2511,9 @@
     {
      "label": "朝練をやめて放課後に集中する",
      "fx": {
-      "know": 1
+      "know": 3,
+      "bond": -2,
+      "fatigue": 5
      },
      "roll": {
       "name": "夕方の練習",
@@ -2422,7 +2567,9 @@
     {
      "label": "交番に届ける",
      "fx": {
-      "bond": 1
+      "luck": 2,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "届け出",
@@ -2460,7 +2607,9 @@
     {
      "label": "近くのお店に預ける",
      "fx": {
-      "health": 1
+      "happy": 2,
+      "luck": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "手近な方法",
@@ -2493,7 +2642,9 @@
     {
      "label": "友達に相談する",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "know": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "相談",
@@ -2546,7 +2697,9 @@
     {
      "label": "間に入る",
      "fx": {
-      "bond": 2
+      "bond": 5,
+      "happy": -3,
+      "fatigue": 14
      },
      "roll": {
       "name": "勇気",
@@ -2583,12 +2736,19 @@
         }
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 55
+      }
      }
     },
     {
      "label": "先生に伝える",
      "fx": {
-      "bond": 1
+      "know": 2,
+      "bond": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "大人を頼る",
@@ -2625,7 +2785,9 @@
     {
      "label": "声をかけられずに通り過ぎる",
      "fx": {
-      "health": 1
+      "happy": 2,
+      "bond": -3,
+      "fatigue": -6
      },
      "roll": {
       "name": "沈黙",
@@ -2675,7 +2837,9 @@
     {
      "label": "地元の風景だけを撮る",
      "fx": {
-      "know": 1
+      "know": 3,
+      "bond": -1,
+      "fatigue": 10
      },
      "roll": {
       "name": "発信",
@@ -2713,7 +2877,9 @@
     {
      "label": "顔を出して出演する",
      "fx": {
-      "bond": 1
+      "bond": 4,
+      "happy": -3,
+      "fatigue": 12
      },
      "roll": {
       "name": "露出",
@@ -2755,7 +2921,9 @@
     {
      "label": "やらずに見る側に回る",
      "fx": {
-      "know": 1
+      "happy": 2,
+      "know": -1,
+      "fatigue": -8
      },
      "roll": {
       "name": "傍観",
@@ -2806,7 +2974,9 @@
     {
      "label": "素直に補習へ通う",
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "補習",
@@ -2843,7 +3013,9 @@
     {
      "label": "塾に頼る",
      "fx": {
-      "bond": 1
+      "know": 4,
+      "bond": -2,
+      "fatigue": 14
      },
      "roll": {
       "name": "塾の力",
@@ -2880,7 +3052,9 @@
     {
      "label": "友達に教わる",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "仲間の力",
@@ -2934,7 +3108,9 @@
     {
      "label": "商店で接客を体験する",
      "fx": {
-      "bond": 1
+      "bond": 3,
+      "health": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "接客",
@@ -2971,7 +3147,9 @@
     {
      "label": "工場で作業を体験する",
      "fx": {
-      "know": 1
+      "know": 3,
+      "happy": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "ものづくり",
@@ -3008,7 +3186,9 @@
     {
      "label": "役所で事務を体験する",
      "fx": {
-      "know": 2
+      "know": 2,
+      "bond": -2,
+      "fatigue": 5
      },
      "roll": {
       "name": "事務仕事",
@@ -3059,7 +3239,9 @@
     {
      "label": "毎週通う",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "health": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "寄り添う",
@@ -3096,7 +3278,9 @@
     {
      "label": "手紙を書いて届ける",
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "happy": -1,
+      "fatigue": 5
      },
      "roll": {
       "name": "手紙",
@@ -3132,7 +3316,9 @@
     {
      "label": "気になるが行かない",
      "fx": {
-      "health": 1
+      "happy": 2,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "距離をおく",
@@ -3184,7 +3370,9 @@
     {
      "label": "原稿を丸暗記する",
      "fx": {
-      "know": 1
+      "know": 2,
+      "happy": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "暗記",
@@ -3219,7 +3407,10 @@
     {
      "label": "メモだけ持って即興で話す",
      "fx": {
-      "bond": 2
+      "bond": 5,
+      "happy": 2,
+      "know": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "アドリブ",
@@ -3251,12 +3442,19 @@
         "bond": -3
        }
       }
+     },
+     "requires": {
+      "stat_min": {
+       "bond": 60
+      }
      }
     },
     {
      "label": "友達に代わってもらう",
      "fx": {
-      "health": 1
+      "happy": 2,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "辞退",
@@ -3307,7 +3505,9 @@
     {
      "label": "図書委員になる",
      "fx": {
-      "know": 1
+      "know": 3,
+      "bond": -1,
+      "fatigue": 8
      },
      "roll": {
       "name": "本の力",
@@ -3345,7 +3545,8 @@
     {
      "label": "くじ引きで決める",
      "fx": {
-      "luck": 1
+      "luck": 2,
+      "know": -1
      },
      "roll": {
       "name": "運試し",
@@ -3379,7 +3580,9 @@
     {
      "label": "他の委員を譲ってもらう",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 5
      },
      "roll": {
       "name": "交渉",
@@ -3431,7 +3634,9 @@
     {
      "label": "毎晩つきあう",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "know": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "面倒見",
@@ -3471,7 +3676,9 @@
     {
      "label": "できる範囲でつきあう",
      "fx": {
-      "health": 1
+      "happy": 2,
+      "know": -1,
+      "fatigue": -5
      },
      "roll": {
       "name": "加減",
@@ -3508,7 +3715,9 @@
     {
      "label": "断って自分の勉強をする",
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "自分の時間",
@@ -3560,7 +3769,9 @@
     {
      "label": "毎朝走って備える",
      "fx": {
-      "health": 2
+      "health": 3,
+      "happy": -2,
+      "fatigue": 14
      },
      "roll": {
       "name": "練習",
@@ -3597,7 +3808,9 @@
     {
      "label": "友達と並んで走る約束をする",
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "health": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "伴走",
@@ -3634,7 +3847,9 @@
     {
      "label": "手を抜いて歩く",
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "health": -2,
+      "fatigue": -10
      },
      "roll": {
       "name": "マイペース",

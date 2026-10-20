@@ -999,7 +999,7 @@ function applyFx(fx){for(const k in fx){const v=fx[k];
   if(k==="money")s.money+=v;else if(k==="incMul")jobMul(s,v);else if(k==="fatigue")addFatigue(v);else s[k]=clamp(s[k]+(v>0?v*gainF(s[k]):v))}}
 const totalLv=()=>s.cd.iso+s.cd.tired+s.cd.poor+s.cd.apathy;
 /* 虹の兆しが出る年あたりの基準確率（運が高いほど上がる） */
-const RAINBOW_RATE=.03;
+const RAINBOW_RATE=.036;
 function tierOf(){const l=(s.luck-50)/100,sl=totalLv()*.025;
   const rb=RAINBOW_RATE*(0.4+s.luck/83),good=Math.max(.1,.35+l*.2-sl),normal=.4;const r=Math.random();
   if(r<rb)return"rainbow";if(r<rb+good)return"good";if(r<rb+good+normal)return"normal";return"bad"}

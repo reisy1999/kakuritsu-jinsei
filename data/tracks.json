@@ -466,7 +466,9 @@
       "money": 0
      },
      "fx": {
-      "health": -2
+      "know": 3,
+      "health": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "改造",
@@ -512,7 +514,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 3
+      "happy": 2,
+      "know": -2,
+      "fatigue": -12
      },
      "roll": {
       "name": "休養",
@@ -550,7 +554,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "教え",
@@ -605,7 +611,9 @@
       "money": 0
      },
      "fx": {
-      "health": -3
+      "health": 3,
+      "happy": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "リハビリ",
@@ -653,7 +661,8 @@
      },
      "fx": {
       "happy": 2,
-      "health": -4
+      "health": -4,
+      "fatigue": 15
      },
      "roll": {
       "name": "強行",
@@ -699,7 +708,9 @@
       "money": 0
      },
      "fx": {
-      "know": 3
+      "know": 2,
+      "bond": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "学び直し",
@@ -754,8 +765,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2,
-      "bond": -2
+      "happy": 3,
+      "bond": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "新天地",
@@ -796,7 +808,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 4
+      "bond": 2,
+      "happy": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "恩義",
@@ -834,7 +848,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "交渉",
@@ -868,6 +884,56 @@
        }
       }
      }
+    },
+    {
+     "label": "海外リーグに挑戦する",
+     "cost": {
+      "money": -200
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 75
+      }
+     },
+     "fx": {
+      "happy": 4,
+      "bond": -4,
+      "fatigue": 15
+     },
+     "roll": {
+      "name": "海外挑戦",
+      "stats": [
+       "health",
+       "luck"
+      ],
+      "difficulty": 55,
+      "good": {
+       "label": "主力に定着",
+       "text": "言葉の壁を越え、開幕から先発に名を連ねた。",
+       "fx": {
+        "happy": 9,
+        "know": 4,
+        "money": 1500
+       }
+      },
+      "mid": {
+       "label": "控えの日々",
+       "text": "出番は少ないが、見たことのない練習を学んだ。",
+       "fx": {
+        "know": 3,
+        "money": 300
+       }
+      },
+      "bad": {
+       "label": "合わずに帰国",
+       "text": "環境になじめず、一年足らずで帰国した。",
+       "fx": {
+        "happy": -9,
+        "bond": -4,
+        "money": -300
+       }
+      }
+     }
     }
    ]
   },
@@ -890,7 +956,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "bond": 3,
+      "happy": -3,
+      "fatigue": 5
      },
      "roll": {
       "name": "謝罪",
@@ -936,7 +1004,9 @@
       "money": 0
      },
      "fx": {
-      "health": -2
+      "happy": 2,
+      "health": -3,
+      "fatigue": 15
      },
      "roll": {
       "name": "結果",
@@ -979,7 +1049,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -10
      },
      "roll": {
       "name": "遮断",
@@ -1033,7 +1105,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "指導",
@@ -1074,7 +1148,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "露出",
@@ -1114,7 +1190,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "転身",
@@ -1153,6 +1231,54 @@
        }
       }
      }
+    },
+    {
+     "label": "代表チームの指導に招かれる",
+     "cost": {
+      "money": 0
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 70
+      }
+     },
+     "fx": {
+      "bond": 3,
+      "happy": -3,
+      "fatigue": 14
+     },
+     "roll": {
+      "name": "代表の現場",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "結果を出す",
+       "text": "合宿で選手と信頼を築き、大会で結果を残した。",
+       "fx": {
+        "bond": 8,
+        "happy": 6,
+        "money": 300
+       }
+      },
+      "mid": {
+       "label": "任期を終える",
+       "text": "遠征と会議の日々を、無事に務めあげた。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "批判を浴びる",
+       "text": "結果が出ず、報道の矢面に立たされた。",
+       "fx": {
+        "happy": -8,
+        "bond": -4
+       }
+      }
+     }
     }
    ]
   },
@@ -1174,7 +1300,9 @@
       "money": 0
      },
      "fx": {
-      "health": -2
+      "bond": 3,
+      "health": -3,
+      "fatigue": 14
      },
      "roll": {
       "name": "体当たり",
@@ -1214,7 +1342,9 @@
       "money": 0
      },
      "fx": {
-      "know": 3
+      "know": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "役作り",
@@ -1255,7 +1385,9 @@
       "money": 0
      },
      "fx": {
-      "bond": -3
+      "luck": 3,
+      "bond": -3,
+      "fatigue": 6
      },
      "roll": {
       "name": "独立",
@@ -1294,6 +1426,54 @@
        }
       }
      }
+    },
+    {
+     "label": "自主企画の舞台を打つ",
+     "cost": {
+      "money": -150
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 70
+      }
+     },
+     "fx": {
+      "know": 3,
+      "bond": 3,
+      "fatigue": 16
+     },
+     "roll": {
+      "name": "自主公演",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "満席の千秋楽",
+       "text": "口コミが広がり、最終日は立ち見が出た。",
+       "fx": {
+        "happy": 8,
+        "bond": 5,
+        "money": 500
+       }
+      },
+      "mid": {
+       "label": "赤字すれすれ",
+       "text": "客席は半分ほど埋まり、収支はとんとんだった。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "客足が伸びない",
+       "text": "空席の目立つ劇場で、千秋楽を迎えた。",
+       "fx": {
+        "happy": -8,
+        "money": -200
+       }
+      }
+     }
     }
    ]
   },
@@ -1315,7 +1495,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "bond": 3,
+      "happy": -3,
+      "fatigue": 10
      },
      "roll": {
       "name": "説明",
@@ -1361,7 +1543,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "happy": 2,
+      "bond": -3,
+      "fatigue": -12
      },
      "roll": {
       "name": "沈黙",
@@ -1406,7 +1590,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 4,
+      "luck": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "手紙",
@@ -1460,7 +1646,9 @@
       "money": 0
      },
      "fx": {
-      "health": 3
+      "health": 2,
+      "bond": -2,
+      "fatigue": -15
      },
      "roll": {
       "name": "休養",
@@ -1501,8 +1689,9 @@
       "money": 0
      },
      "fx": {
-      "health": -5,
-      "happy": 2
+      "happy": 3,
+      "health": -4,
+      "fatigue": 20
      },
      "roll": {
       "name": "強行",
@@ -1549,7 +1738,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 2,
+      "happy": -1,
+      "fatigue": -6
      },
      "roll": {
       "name": "相談",
@@ -1604,7 +1795,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "know": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "再起",
@@ -1644,7 +1837,10 @@
       "money": 0
      },
      "fx": {
-      "know": 3
+      "know": 2,
+      "luck": 2,
+      "health": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "裏方",
@@ -1685,7 +1881,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "happy": 3,
+      "bond": -3,
+      "fatigue": -10
      },
      "roll": {
       "name": "転身",
@@ -1723,6 +1921,54 @@
        }
       }
      }
+    },
+    {
+     "label": "主演舞台の座長を務める",
+     "cost": {
+      "money": 0
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 75
+      }
+     },
+     "fx": {
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 18
+     },
+     "roll": {
+      "name": "座長",
+      "stats": [
+       "bond",
+       "know"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "評価が一変",
+       "text": "稽古場をまとめ上げ、劇評が大きく取り上げた。",
+       "fx": {
+        "happy": 8,
+        "bond": 6,
+        "money": 600
+       }
+      },
+      "mid": {
+       "label": "無事に完走",
+       "text": "全公演をやりきり、劇団員と打ち上げをした。",
+       "fx": {
+        "bond": 3
+       }
+      },
+      "bad": {
+       "label": "現場が割れる",
+       "text": "意見がまとまらず、稽古場に空気が重く漂った。",
+       "fx": {
+        "happy": -8,
+        "bond": -5
+       }
+      }
+     }
     }
    ]
   },
@@ -1744,7 +1990,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "伝える",
@@ -1784,7 +2032,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "育成",
@@ -1826,7 +2076,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "静観",
@@ -1884,7 +2136,9 @@
       "money": 0
      },
      "fx": {
-      "health": -4
+      "know": 3,
+      "health": -4,
+      "fatigue": 18
      },
      "roll": {
       "name": "復旧",
@@ -1927,10 +2181,11 @@
     {
      "label": "外部の専門家に頼む",
      "cost": {
-      "money": 0
+      "money": -60
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "fatigue": -5
      },
      "roll": {
       "name": "外注",
@@ -1970,7 +2225,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "happy": 2,
+      "bond": -3,
+      "fatigue": -10
      },
      "roll": {
       "name": "停止",
@@ -2003,6 +2260,54 @@
        }
       }
      }
+    },
+    {
+     "label": "全面的に作り直す",
+     "cost": {
+      "money": 0
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 75
+      }
+     },
+     "fx": {
+      "know": 4,
+      "happy": -2,
+      "fatigue": 16
+     },
+     "roll": {
+      "name": "作り直し",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "見違える",
+       "text": "半年かけて作り直し、動作が見違えるほど軽くなった。",
+       "fx": {
+        "know": 7,
+        "happy": 5,
+        "money": 600
+       }
+      },
+      "mid": {
+       "label": "落ち着く",
+       "text": "手間はかかったが、障害はぱたりと減った。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "作り直しが長引く",
+       "text": "移行が遅れ、利用者が少しずつ離れていった。",
+       "fx": {
+        "happy": -8,
+        "money": -300
+       }
+      }
+     }
     }
    ]
   },
@@ -2025,7 +2330,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 3,
+      "know": -3,
+      "fatigue": -12
      },
      "roll": {
       "name": "交渉",
@@ -2065,7 +2372,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "独立",
@@ -2110,7 +2419,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "出資",
@@ -2144,6 +2455,53 @@
        }
       }
      }
+    },
+    {
+     "label": "複数社を競わせて条件を引き出す",
+     "cost": {
+      "money": 0
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 70
+      }
+     },
+     "fx": {
+      "know": 3,
+      "bond": -3,
+      "fatigue": 12
+     },
+     "roll": {
+      "name": "買収交渉",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "好条件で成立",
+       "text": "入札のようになり、提示額が大きく跳ね上がった。",
+       "fx": {
+        "happy": 7,
+        "money": 2000
+       }
+      },
+      "mid": {
+       "label": "相場どおり",
+       "text": "提示額は想定の範囲に収まった。",
+       "fx": {
+        "money": 500
+       }
+      },
+      "bad": {
+       "label": "交渉決裂",
+       "text": "強気が裏目に出て、どの会社も手を引いた。",
+       "fx": {
+        "happy": -8,
+        "bond": -4
+       }
+      }
+     }
     }
    ]
   },
@@ -2166,7 +2524,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "慰留",
@@ -2211,7 +2571,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "know": 3,
+      "bond": -3,
+      "fatigue": 5
      },
      "roll": {
       "name": "採用",
@@ -2253,7 +2615,9 @@
       "money": 0
      },
      "fx": {
-      "health": -4
+      "know": 2,
+      "health": -4,
+      "fatigue": 20
      },
      "roll": {
       "name": "抱え込み",
@@ -2315,7 +2679,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "health": -3,
+      "fatigue": 14
      },
      "roll": {
       "name": "新機能",
@@ -2360,7 +2726,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "happy": 2,
+      "know": -2,
+      "fatigue": -10
      },
      "roll": {
       "name": "縮小",
@@ -2401,7 +2769,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 3
+      "happy": 3,
+      "bond": -3,
+      "fatigue": 12
      },
      "roll": {
       "name": "再挑戦",
@@ -2463,7 +2833,8 @@
       "money": -200
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "know": 2
      },
      "roll": {
       "name": "支援",
@@ -2504,7 +2875,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -1,
+      "fatigue": 6
      },
      "roll": {
       "name": "助言",
@@ -2544,7 +2917,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -12
      },
      "roll": {
       "name": "継承",
@@ -2599,7 +2974,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "happy": 2,
+      "know": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "路線",
@@ -2639,7 +3016,9 @@
       "money": 0
      },
      "fx": {
-      "know": 3
+      "know": 4,
+      "happy": -2,
+      "fatigue": 16
      },
      "roll": {
       "name": "挑戦",
@@ -2685,7 +3064,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "打合せ",
@@ -2719,6 +3100,56 @@
        }
       }
      }
+    },
+    {
+     "label": "大手出版社の企画に乗る",
+     "cost": {
+      "money": 0
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 70
+      }
+     },
+     "fx": {
+      "know": 3,
+      "bond": 3,
+      "happy": -4,
+      "fatigue": 18
+     },
+     "roll": {
+      "name": "大型企画",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "話題作になる",
+       "text": "書店の一番目立つ棚に、新刊が平積みされた。",
+       "fx": {
+        "happy": 8,
+        "bond": 5,
+        "money": 800
+       }
+      },
+      "mid": {
+       "label": "堅実な売れ行き",
+       "text": "部数は伸びなかったが、固定の読者がついた。",
+       "fx": {
+        "know": 3,
+        "money": 100
+       }
+      },
+      "bad": {
+       "label": "企画倒れ",
+       "text": "方針が二転三転し、原稿は日の目を見なかった。",
+       "fx": {
+        "happy": -9,
+        "bond": -4
+       }
+      }
+     }
     }
    ]
   },
@@ -2740,7 +3171,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "happy": 2,
+      "bond": -3,
+      "fatigue": 10
      },
      "roll": {
       "name": "反論",
@@ -2787,7 +3220,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 3,
+      "know": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "無視",
@@ -2825,7 +3260,9 @@
       "money": 0
      },
      "fx": {
-      "know": 3
+      "know": 3,
+      "happy": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "分析",
@@ -2879,7 +3316,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 3
+      "happy": 3,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "専業",
@@ -2925,7 +3364,9 @@
       "money": 0
      },
      "fx": {
-      "health": -2
+      "know": 2,
+      "health": -3,
+      "fatigue": 15
      },
      "roll": {
       "name": "兼業",
@@ -2967,7 +3408,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "bond": 2,
+      "know": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "折衷",
@@ -3023,7 +3466,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "health": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "自主出版",
@@ -3064,7 +3509,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "bond": -3,
+      "fatigue": 14
      },
      "roll": {
       "name": "転向",
@@ -3104,7 +3551,8 @@
       "money": -40
      },
      "fx": {
-      "happy": 3
+      "happy": 2,
+      "fatigue": -12
      },
      "roll": {
       "name": "充電",
@@ -3162,7 +3610,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "health": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "講評",
@@ -3202,7 +3652,10 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 2,
+      "bond": 2,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "講座",
@@ -3243,7 +3696,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -3,
+      "fatigue": -5
      },
      "roll": {
       "name": "専念",
@@ -3303,7 +3758,9 @@
       "money": 0
      },
      "fx": {
-      "health": -2
+      "know": 3,
+      "health": -2,
+      "fatigue": 14
      },
      "roll": {
       "name": "再実験",
@@ -3349,7 +3806,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "know": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "共同",
@@ -3390,7 +3849,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "happy": 2,
+      "know": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "転向",
@@ -3423,6 +3884,53 @@
        }
       }
      }
+    },
+    {
+     "label": "国際会議で発表する",
+     "cost": {
+      "money": -60
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 75
+      }
+     },
+     "fx": {
+      "know": 4,
+      "bond": 3,
+      "fatigue": 15
+     },
+     "roll": {
+      "name": "国際発表",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "注目の的",
+       "text": "質疑が途切れず、海外の研究者から共同研究を誘われた。",
+       "fx": {
+        "know": 8,
+        "bond": 6
+       }
+      },
+      "mid": {
+       "label": "名前を覚えられる",
+       "text": "質問は少なかったが、名刺は何枚も交換できた。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "反応が薄い",
+       "text": "発表は時間切れで終わり、質問も出なかった。",
+       "fx": {
+        "happy": -7,
+        "know": -3
+       }
+      }
+     }
     }
    ]
   },
@@ -3444,7 +3952,9 @@
       "money": 0
      },
      "fx": {
-      "health": -3
+      "know": 3,
+      "health": -3,
+      "fatigue": 16
      },
      "roll": {
       "name": "審査",
@@ -3491,7 +4001,10 @@
       "money": 0
      },
      "fx": {
-      "know": 1
+      "happy": 2,
+      "know": 1,
+      "bond": -2,
+      "fatigue": 5
      },
      "roll": {
       "name": "確実",
@@ -3532,7 +4045,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -3,
+      "fatigue": 10
      },
      "roll": {
       "name": "産学",
@@ -3567,6 +4082,55 @@
        }
       }
      }
+    },
+    {
+     "label": "国際共同プロジェクトの代表になる",
+     "cost": {
+      "money": 0
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 75
+      }
+     },
+     "fx": {
+      "know": 4,
+      "bond": 3,
+      "health": -3,
+      "fatigue": 18
+     },
+     "roll": {
+      "name": "大型代表",
+      "stats": [
+       "know",
+       "bond"
+      ],
+      "difficulty": 55,
+      "good": {
+       "label": "採択される",
+       "text": "複数国をまたぐ大型の予算が採択された。",
+       "fx": {
+        "know": 8,
+        "happy": 6,
+        "money": 700
+       }
+      },
+      "mid": {
+       "label": "規模を縮める",
+       "text": "予算は削られたが、研究会は発足した。",
+       "fx": {
+        "bond": 4
+       }
+      },
+      "bad": {
+       "label": "不採択",
+       "text": "準備に追われた末、不採択の通知が届いた。",
+       "fx": {
+        "happy": -9,
+        "bond": -3
+       }
+      }
+     }
     }
    ]
   },
@@ -3588,7 +4152,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "know": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "面談",
@@ -3628,7 +4194,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "叱咤",
@@ -3669,7 +4237,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "進路",
@@ -3722,7 +4292,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -3,
+      "fatigue": 14
      },
      "roll": {
       "name": "再解析",
@@ -3770,7 +4342,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "bond": 3,
+      "health": -3,
+      "fatigue": 16
      },
      "roll": {
       "name": "討論",
@@ -3810,7 +4384,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "bond": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "追試",
@@ -3864,7 +4440,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 2,
+      "know": -2,
+      "fatigue": -10
      },
      "roll": {
       "name": "継承",
@@ -3904,7 +4482,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "独り研究",
@@ -3950,7 +4530,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 3,
+      "health": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "啓蒙",
@@ -4006,7 +4588,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -2,
+      "fatigue": 12
      },
      "roll": {
       "name": "路線変更",
@@ -4047,7 +4631,9 @@
       "money": 0
      },
      "fx": {
-      "health": -4
+      "luck": 3,
+      "health": -4,
+      "fatigue": 20
      },
      "roll": {
       "name": "量産",
@@ -4092,7 +4678,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "know": -2,
+      "fatigue": 8
      },
      "roll": {
       "name": "コラボ",
@@ -4125,6 +4713,55 @@
        }
       }
      }
+    },
+    {
+     "label": "大型の生配信イベントを打つ",
+     "cost": {
+      "money": -100
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 70
+      }
+     },
+     "fx": {
+      "bond": 3,
+      "luck": 2,
+      "fatigue": 18
+     },
+     "roll": {
+      "name": "生配信イベント",
+      "stats": [
+       "bond",
+       "luck"
+      ],
+      "difficulty": 50,
+      "good": {
+       "label": "大盛況",
+       "text": "開始前から同時視聴が膨らみ、コメントが流れ続けた。",
+       "fx": {
+        "happy": 8,
+        "bond": 6,
+        "money": 500
+       }
+      },
+      "mid": {
+       "label": "そこそこ",
+       "text": "機材の不調はあったが、ほぼ予定どおり終えた。",
+       "fx": {
+        "bond": 3
+       }
+      },
+      "bad": {
+       "label": "配信事故",
+       "text": "途中で音声が途切れ、そのまま終了となった。",
+       "fx": {
+        "happy": -8,
+        "bond": -4,
+        "money": -100
+       }
+      }
+     }
     }
    ]
   },
@@ -4147,7 +4784,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "bond": 3,
+      "happy": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "説明",
@@ -4193,7 +4832,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -12
      },
      "roll": {
       "name": "休止",
@@ -4233,7 +4874,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "luck": 3,
+      "bond": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "続行",
@@ -4287,7 +4930,9 @@
       "money": 0
      },
      "fx": {
-      "bond": -1
+      "luck": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "所属",
@@ -4328,7 +4973,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 3,
+      "bond": -3,
+      "fatigue": 6
      },
      "roll": {
       "name": "個人",
@@ -4366,7 +5013,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "health": -3,
+      "fatigue": 16
      },
      "roll": {
       "name": "独立",
@@ -4429,7 +5078,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "bond": -2,
+      "fatigue": 14
      },
      "roll": {
       "name": "拡張",
@@ -4469,7 +5120,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 2,
+      "know": -2,
+      "fatigue": -5
      },
      "roll": {
       "name": "定着",
@@ -4509,7 +5162,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "health": 2,
+      "know": -2,
+      "fatigue": -10
      },
      "roll": {
       "name": "兼業",
@@ -4568,7 +5223,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "health": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "伴走",
@@ -4608,7 +5265,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -2,
+      "fatigue": 6
      },
      "roll": {
       "name": "語り",
@@ -4646,7 +5305,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "happy": 2,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "断る",
@@ -4698,7 +5359,9 @@
       "money": 0
      },
      "fx": {
-      "bond": -1
+      "luck": 3,
+      "bond": -3,
+      "fatigue": 14
      },
      "roll": {
       "name": "拡大",
@@ -4744,7 +5407,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 2,
+      "luck": -2,
+      "fatigue": -8
      },
      "roll": {
       "name": "限定",
@@ -4784,7 +5449,9 @@
       "money": 0
      },
      "fx": {
-      "health": -3
+      "bond": 3,
+      "health": -4,
+      "fatigue": 20
      },
      "roll": {
       "name": "継続",
@@ -4845,7 +5512,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -2
+      "bond": 3,
+      "happy": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "対話",
@@ -4885,7 +5554,9 @@
       "money": 0
      },
      "fx": {
-      "know": 3
+      "know": 3,
+      "health": -3,
+      "fatigue": 16
      },
      "roll": {
       "name": "新作",
@@ -4926,7 +5597,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "luck": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "定番",
@@ -4979,7 +5652,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 1
+      "luck": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "メディア",
@@ -5020,7 +5695,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 3
+      "bond": 2,
+      "luck": -2,
+      "fatigue": -6
      },
      "roll": {
       "name": "断る",
@@ -5060,7 +5737,9 @@
       "money": -500
      },
      "fx": {
-      "happy": 2
+      "happy": 2,
+      "health": -3,
+      "fatigue": 16
      },
      "roll": {
       "name": "出店",
@@ -5099,6 +5778,55 @@
        }
       }
      }
+    },
+    {
+     "label": "国際的な料理大会に挑む",
+     "cost": {
+      "money": -150
+     },
+     "requires": {
+      "stat_min": {
+       "skill": 75
+      }
+     },
+     "fx": {
+      "know": 4,
+      "luck": 2,
+      "happy": -2,
+      "fatigue": 16
+     },
+     "roll": {
+      "name": "料理大会",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 55,
+      "good": {
+       "label": "入賞する",
+       "text": "審査員の前で皿を出し、表彰台に名を呼ばれた。",
+       "fx": {
+        "know": 8,
+        "happy": 7,
+        "money": 500
+       }
+      },
+      "mid": {
+       "label": "参加に意味がある",
+       "text": "結果は圏外だったが、他国の技を間近で見た。",
+       "fx": {
+        "know": 4
+       }
+      },
+      "bad": {
+       "label": "皿が崩れる",
+       "text": "本番で一つ段取りを誤り、持ち味を出せなかった。",
+       "fx": {
+        "happy": -8,
+        "know": -3
+       }
+      }
+     }
     }
    ]
   },
@@ -5121,7 +5849,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -2,
+      "fatigue": 14
      },
      "roll": {
       "name": "刷新",
@@ -5161,7 +5891,9 @@
       "money": 0
      },
      "fx": {
-      "happy": -1
+      "happy": 2,
+      "know": -2,
+      "fatigue": -10
      },
      "roll": {
       "name": "縮小",
@@ -5207,7 +5939,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 2,
+      "bond": -3,
+      "fatigue": 12
      },
      "roll": {
       "name": "販路",
@@ -5261,7 +5995,8 @@
       "money": -300
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "happy": 2
      },
      "roll": {
       "name": "支援",
@@ -5302,7 +6037,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 2
+      "happy": 2,
+      "bond": -2,
+      "fatigue": -12
      },
      "roll": {
       "name": "継承",
@@ -5343,7 +6080,9 @@
       "money": 0
      },
      "fx": {
-      "bond": -1
+      "know": 3,
+      "bond": -3,
+      "fatigue": 8
      },
      "roll": {
       "name": "慰留",
@@ -5396,10 +6135,11 @@
     {
      "label": "頼まれた分を貸す",
      "cost": {
-      "money": 0
+      "money": -100
      },
      "fx": {
-      "bond": 3
+      "bond": 3,
+      "happy": -2
      },
      "roll": {
       "name": "貸与",
@@ -5447,7 +6187,9 @@
       "money": 0
      },
      "fx": {
-      "bond": -3
+      "happy": 3,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "拒否",
@@ -5491,7 +6233,8 @@
       "money": -50
      },
      "fx": {
-      "know": 2
+      "know": 2,
+      "fatigue": -6
      },
      "roll": {
       "name": "窓口",
@@ -5545,7 +6288,8 @@
       "money": -300
      },
      "fx": {
-      "happy": 4
+      "happy": 2,
+      "fatigue": -8
      },
      "roll": {
       "name": "散財",
@@ -5591,7 +6335,9 @@
       "money": 0
      },
      "fx": {
-      "know": 2
+      "know": 3,
+      "happy": -2,
+      "fatigue": 5
      },
      "roll": {
       "name": "運用",
@@ -5631,7 +6377,8 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "luck": -2
      },
      "roll": {
       "name": "計画",
@@ -5685,7 +6432,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 4
+      "happy": 4,
+      "bond": -3,
+      "fatigue": -8
      },
      "roll": {
       "name": "退職",
@@ -5732,7 +6481,9 @@
       "money": 0
      },
      "fx": {
-      "bond": 2
+      "bond": 3,
+      "happy": -2,
+      "fatigue": 10
      },
      "roll": {
       "name": "継続",
@@ -5770,7 +6521,9 @@
       "money": 0
      },
      "fx": {
-      "health": 3
+      "health": 2,
+      "know": -2,
+      "fatigue": -15
      },
      "roll": {
       "name": "休職",
@@ -5801,6 +6554,55 @@
        "fx": {
         "happy": -6,
         "bond": -3
+       }
+      }
+     }
+    },
+    {
+     "label": "会社を興して経営する",
+     "cost": {
+      "money": 0
+     },
+     "requires": {
+      "stat_min": {
+       "know": 65
+      }
+     },
+     "fx": {
+      "know": 3,
+      "bond": 2,
+      "happy": -3,
+      "fatigue": 15
+     },
+     "roll": {
+      "name": "起業",
+      "stats": [
+       "know",
+       "luck"
+      ],
+      "difficulty": 45,
+      "good": {
+       "label": "軌道に乗る",
+       "text": "数人で始めた会社が、二年目に黒字になった。",
+       "fx": {
+        "happy": 7,
+        "know": 5,
+        "money": 500
+       }
+      },
+      "mid": {
+       "label": "ほどほど",
+       "text": "大きくはならないが、社員の給料は払い続けている。",
+       "fx": {
+        "know": 3
+       }
+      },
+      "bad": {
+       "label": "資金が尽きる",
+       "text": "見込みが甘く、当選金の多くが消えていった。",
+       "fx": {
+        "happy": -9,
+        "money": -1500
        }
       }
      }
@@ -6047,7 +6849,9 @@
       "money": 0
      },
      "fx": {
-      "happy": 1
+      "happy": 2,
+      "know": -2,
+      "fatigue": -10
      },
      "roll": {
       "name": "原点",

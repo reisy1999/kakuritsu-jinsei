@@ -119,7 +119,10 @@ def main(paths):
                 st = {k: v for k, v in fx.items() if k in STATS}
                 if sum(st.values()) > 0 and not any(v < 0 for v in st.values()) and not cost and fx.get("fatigue", 0) <= 0:
                     WARN.append(f"[{p}] {cw}: 代償がない（能力値が上がるだけ）")
-                if sum(st.values()) < 0 and not any(v > 0 for v in st.values()) and fx.get("fatigue", 0) >= 0 and not fx.get("income_mul", 1) > 1:
+                if "income_mul" in fx: E(cw, "income_mul は選択肢の fx に書かない（結果の outcome 側に書く）")
+                if fx.get("fatigue", 0) < 0 and sum(v for v in st.values() if v > 0) >= 3 and sum(v for v in st.values() if v < 0) > -3:
+                    WARN.append(f"[{p}] {cw}: 休む選択が得すぎる（疲労が減るうえに能力値のプラスが大きい）")
+                if sum(st.values()) < 0 and not any(v > 0 for v in st.values()) and fx.get("fatigue", 0) >= 0:
                     WARN.append(f"[{p}] {cw}: 得がない（下がるだけ）")
                 if fx.get("money", 0) < 0: E(cw, "spending must go in cost, not fx")
                 r = c.get("roll")
