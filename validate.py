@@ -3,7 +3,7 @@
 import json, sys, re
 
 STATS = {"health", "happy", "know", "bond", "luck"}
-FX_KEYS = STATS | {"money", "income_mul", "fatigue"}
+FX_KEYS = STATS | {"money", "income_mul", "fatigue", "skill"}
 WARN = []   # 規則違反だがデータの見直しが終わるまでは警告にとどめるもの
 STATUS = {"school", "futoko", "college", "work", "jobless", "hikikomori", "retired"}
 CONDS = {"iso", "tired", "poor", "apathy"}
@@ -40,6 +40,7 @@ def main(paths):
                 E(where, "normal event should mix up and down")
             if kind in ("choice", "outcome") and any(abs(v) > 15 for v in st.values()): E(where, "stat change > 15")
             if abs(fx.get("fatigue", 0)) > 20: E(where, "fatigue change > 20")
+            if abs(fx.get("skill", 0)) > 15: E(where, "skill change > 15")
             if "income_mul" in fx and not (0.5 <= fx["income_mul"] <= 2.0): E(where, "income_mul out of 0.5-2.0")
 
         def chk_req(where, r):

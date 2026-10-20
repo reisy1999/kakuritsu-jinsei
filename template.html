@@ -944,6 +944,46 @@ function trackCurve(){
     s.happy=clamp(s.happy-6);s.press.apathy+=2;
   }
 }
+/* ========== 虹ルートを自分で切り開く ==========
+   鍛錬：2年に1回、その道を磨く分岐（練習・発表・師事・休む）。結果で値（実力・人気など）が動く。
+   崖っぷち：値が30を割ったら、終わる前に一度だけ立て直すチャンス（5年おき） */
+const TRAIN={athlete:["練習に打ち込む","大会に出る","コーチに学ぶ"],entertainer:["稽古に打ち込む","大きな舞台に立つ","先輩に学ぶ"],
+  app_founder:["開発に没頭する","新しい機能を出す","先輩経営者に学ぶ"],author:["書き続ける","新作を発表する","編集者と練り直す"],
+  researcher:["研究に没頭する","学会で発表する","共同研究に入る"],streamer:["毎日配信する","大型企画を打つ","先輩配信者に学ぶ"],
+  chef:["仕込みと試作に打ち込む","新メニューを出す","名店で修行し直す"]};
+const tvSet=d=>s=>{if(onCurve(s))s.tv=Math.max(0,Math.min(100,s.tv+d))};
+function trainDecision(){const t=TRACKS[s.track],c=t.curve,[a,b,m]=TRAIN[s.track]||["打ち込む","人前で見せる","師に学ぶ"];
+  return{title:t.name+"の道",text:`${c.label}は${Math.round(s.tv)}。この先の2年、どう磨くか。`,choices:[
+   {l:a,prior:.35,fx:{fatigue:15,happy:-1},roll:{q:"鍛錬",why:["health","know"],o:[
+     o("燃え尽きる",D("health",.35),{happy:-3},"やりすぎて、しばらく何も手につかなかった。",tvSet(-4)),
+     o("地道に伸びる",50,{},"昨日の自分より、少しだけ前に進んだ。",tvSet(2)),
+     o("壁を越える",UA("health","know",15),{happy:4},"ある日、急にできなかったことができるようになった。",tvSet(6))]}},
+   {l:b,prior:.25,fx:{fatigue:8,bond:1},roll:{q:"世に問う",why:["luck","happy"],o:[
+     o("酷評される",DA("luck","happy",.45),{happy:-5},"厳しい言葉ばかりが届いた。",tvSet(-8)),
+     o("そこそこの反応",45,{},"手応えは、ほどほどだった。",tvSet(1)),
+     o("大きな評判になる",UA("luck","happy",25),{happy:6},"思った以上に、多くの人に届いた。",tvSet(10))]}},
+   {l:m,prior:.2,cost:60,fx:{fatigue:5},roll:{q:"学ぶ",why:["bond"],o:[
+     o("合わない",D("bond",.3),{happy:-2},"教わり方が、自分には合わなかった。",tvSet(0)),
+     o("学びを得る",50,{},"自分にない視点を、一つ持ち帰った。",tvSet(2)),
+     o("目を開かされる",U("bond",15),{happy:3,bond:2},"それまでのやり方を、根本から見直した。",tvSet(5))]}},
+   {l:"少し休む",prior:.2,fx:{fatigue:-15,happy:2},roll:{q:"休む",why:["happy"],o:[
+     o("勘が鈍る",D("happy",.3),{},"戻ったとき、手が思うように動かなかった。",tvSet(-4)),
+     o("ほどよく休めた",50,{},"少し距離を置いたら、また続けたくなった。",tvSet(-2)),
+     o("新しい発想が湧く",U("happy",15),{happy:2},"離れているあいだに、次にやりたいことが見えた。",tvSet(2))]}}]};
+}
+function crisisDecision(){const t=TRACKS[s.track],c=t.curve;s.tvCrisisAt=s.age;
+  return{title:"崖っぷち",text:`${t.name}としての${c.label}は${Math.round(s.tv)}まで落ちた。このままでは続けられない。`,choices:[
+   {l:"原点に戻ってやり直す",prior:.45,fx:{fatigue:12,happy:-2},roll:{q:"再起",why:["health","happy"],o:[
+     o("届かない",DA("health","happy",.4),{happy:-4},"どれだけやっても、前のようにはいかなかった。",tvSet(0)),
+     o("持ち直す",45,{happy:2},"少しずつ、昔の感覚が戻ってきた。",tvSet(6)),
+     o("復活する",UA("health","happy",20),{happy:6},"もう一度、名前が知られるようになった。",tvSet(12))]}},
+   {l:"貯金を崩して専念する",prior:.25,cost:150,fx:{fatigue:8},roll:{q:"背水の陣",why:["luck","know"],o:[
+     o("空回りする",DA("luck","know",.4),{happy:-5},"お金だけが減っていった。",tvSet(2)),
+     o("手応えをつかむ",45,{happy:2},"一つのことに集中できた。",tvSet(8)),
+     o("一気に巻き返す",UA("luck","know",20),{happy:7},"一年で、別人のように伸びた。",tvSet(15))]}},
+   {l:"潔くやめる",prior:.3,fx:{fatigue:-10,happy:-2},set:s=>{s.trackEnded=1;s.trackEndKind="end";s.trackEndAge=s.age;const f=c.fail;if(f.job)setJob(s,f.job.name,f.job.income,f.job.grow,f.job.kind,f.job.type);else{s.status="jobless";s.job=null}},roll:{q:"次の道",why:["bond"],o:[
+     o("未練が残る",D("happy",.4),{happy:-3},"その道の話題になると、話をそらした。"),o("区切りをつける",50,{},"やり切ったと思うことにした。"),o("晴れやかに次へ",U("bond",15),{happy:4},"経験を活かせる、新しい場所を見つけた。")]}}]};
+}
 function trackEnd(){
   const t=TRACKS[s.track];if(!t||!t.end||s.trackEnded)return;
   const a=t.end.age;if(s.age<a[0])return;
@@ -999,7 +1039,7 @@ function famFatF(){let f=1;
   return Math.max(.5,Math.min(1.5,f))}
 const addFatigue=v=>{s.fatigue=clamp(s.fatigue+(v>0?v*famFatF():v))};
 function applyFx(fx){for(const k in fx){const v=fx[k];
-  if(k==="money")s.money+=v;else if(k==="incMul")jobMul(s,v);else if(k==="fatigue")addFatigue(v);else s[k]=clamp(s[k]+(v>0?v*gainF(s[k]):v))}}
+  if(k==="money")s.money+=v;else if(k==="incMul")jobMul(s,v);else if(k==="fatigue")addFatigue(v);else if(k==="skill"){if(onCurve(s))s.tv=Math.max(0,Math.min(100,s.tv+v));else if(s.job)s.job.skill=Math.max(0,Math.min(100,s.job.skill+v))}else s[k]=clamp(s[k]+(v>0?v*gainF(s[k]):v))}}
 const totalLv=()=>s.cd.iso+s.cd.tired+s.cd.poor+s.cd.apathy;
 /* 虹の兆しが出る年あたりの基準確率（運が高いほど上がる） */
 const RAINBOW_RATE=.062;
@@ -1419,6 +1459,9 @@ function houseEvent(){
 const TRIGGERS=[
   /* 生活保護：受けられる状態になったら、申請するかを選ぶ（実際に申請する人は2割前後と言われる） */
   {id:"welfare",when:()=>s.welfareOk&&!s.flags.welfare&&cool("welfare",5),make:()=>welfareDecision()},
+  /* 虹ルート：崖っぷちと鍛錬 */
+  {id:"crisis",when:()=>onCurve(s)&&s.tv<30&&(s.tvCrisisAt===undefined||s.age-s.tvCrisisAt>=5),make:()=>crisisDecision()},
+  {id:"train",when:()=>onCurve(s)&&cool("train",2),make:()=>trainDecision()},
   /* 介護 */
   {id:"pcare",when:()=>(s.parents||[]).some(p=>p.alive&&!p.careAsked&&p.a+s.age>=78&&Math.random()<.04*Math.exp(.1*(p.a+s.age-78))),make:()=>{const p=s.parents.find(p=>p.alive&&!p.careAsked&&p.a+s.age>=78);p.careAsked=1;return parentCareDecision(p)}},
   {id:"scare",when:()=>!s.selfCare&&s.age>=CARE.selfStart&&Math.random()<CARE.selfRate*Math.exp(.12*(s.age-CARE.selfStart))*(1.5-s.health/100),make:()=>selfCareDecision()},
