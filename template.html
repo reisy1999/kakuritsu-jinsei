@@ -817,7 +817,7 @@ function futokoDecision(s){
 /* ========== 傾き：マイナスの積み重ねで少しずつ深まる状態 ========== */
 const CONDS={
  iso:{n:"孤立",gap:s=>31-s.bond,up:["","誰とも深く話さない日が増えてきた。","誘いを断るのが、いつの間にか癖になった。","人と自分のあいだに、薄い膜があるように感じる。"],down:"少しずつ、人と話すのが苦ではなくなってきた。",drain:{happy:-1}},
- tired:{n:"疲弊",gap:s=>s.age>=65?s.fatigue-55:Math.max(s.fatigue-55,33-s.health),up:["","朝起きても、疲れが抜けなくなってきた。","休日はほとんど寝て過ごすようになった。","体が鉛のように重い。"],down:"体が少し軽くなった。",drain:{happy:-.5,health:-.5}},
+ tired:{n:"疲弊",gap:s=>s.age>=65?s.fatigue-DRIFT.fatDanger:Math.max(s.fatigue-DRIFT.fatDanger,33-s.health),up:["","朝起きても、疲れが抜けなくなってきた。","休日はほとんど寝て過ごすようになった。","体が鉛のように重い。"],down:"体が少し軽くなった。",drain:{happy:-.5,health:-.5}},
  poor:{n:"困窮",gap:s=>s.age<18||(s.status==="hikikomori"&&s.parentsAlive)?-99:s.money<-300?Math.min(40,(-s.money-300)/25):s.money<30&&(!s.job||s.job.inc<220)&&s.status!=="college"&&s.status!=="retired"?3:-10,up:["","支払いの日が近づくと、胃が重くなる。","カードの支払いを、別のカードで回すようになった。","通帳を開くのが怖い。"],down:"家計に、少し余裕が戻ってきた。",drain:{happy:-1,health:-.5}},
  apathy:{n:"無気力",gap:s=>26-s.happy,up:["","好きだったことに、前ほど心が動かない。","何をしても楽しいと思えない日が増えた。","一日が、色のない時間として過ぎていく。"],down:"久しぶりに、心から笑った。",drain:{know:-.5,bond:-.5}}
 };
@@ -882,7 +882,7 @@ function applySet(st){
 const prioOf=x=>{const r=x.requires||{},st=r.status||[];
   return st.length>0&&st.every(v=>v==="hikikomori"||v==="jobless"||v==="futoko")||Object.values(r.cond_min||{}).some(v=>v>=2)||r.money_max!==undefined&&r.money_max<0};
 /* 自己破産の選択肢は、資産が −500万円以下のときだけ選べる */
-const BANKRUPT_LINE=-500;
+const BANKRUPT_LINE=-600;
 const isBankruptChoice=c=>["good","mid","bad"].some(k=>c.roll[k].set&&c.roll[k].set.bankrupt);
 const BANKRUPT_MAX=2;   /* 生涯の上限。2回目は前回から7年以上空いたとき（bankrupt フラグが消えてから） */
 function genDecision(x){
@@ -980,7 +980,7 @@ function newLife(){
   const by=R(1975,2000);
   s={age:0,year:by,birthYear:by,sex:Math.random()<.5?"m":"f",pref:PREFS[pickW(PREFS,p=>p[1])][0],fam:2,parent:"",
     health:clamp(50+R(0,30)),happy:clamp(45+R(-10,10)),know:clamp(10+R(0,12)),bond:clamp(33+R(-12,22)),luck:clamp(25+R(0,50)),
-    money:0,edu:0,sch:0,fatigue:10,status:"school",job:null,jobs:[],goal:null,married:false,kids:0,flags:{},hist:[],forks:[],rainbow:0,peak:0,minMoney:0,hikiYears:0,alive:true,
+    money:0,edu:0,sch:0,fatigue:30,status:"school",job:null,jobs:[],goal:null,married:false,kids:0,flags:{},hist:[],forks:[],rainbow:0,peak:0,minMoney:0,hikiYears:0,alive:true,
     cd:{iso:0,tired:0,poor:0,apathy:0},press:{iso:0,tired:0,poor:0,apathy:0},decUsed:{},lastDec:0,nextGap:2,lastCat:null,parentsAlive:true,slopeMax:0,track:null,trackTried:{},pendingRainbow:null,exp:{},typeYears:{},effort:null,lastType:null};
   Object.defineProperty(s,"skill",{enumerable:true,configurable:true,get(){return onCurve(this)?Math.round(this.tv):this.job?Math.round(this.job.skill):0},set(v){if(this.job)this.job.skill=Math.max(0,Math.min(100,v))}});
   {const m=R(22,38);s.parents=[{n:"母",a:m,alive:1},{n:"父",a:m+R(-1,5),alive:1}]}
@@ -1043,7 +1043,7 @@ function yearlyEvent(){
 const TAKE=[[0,.82],[300,.8],[500,.78],[700,.75],[1000,.72],[1500,.68],[2000,.64]];
 function takeRate(inc){for(let i=1;i<TAKE.length;i++){const[a,ra]=TAKE[i-1],[b,rb]=TAKE[i];if(inc<=b)return ra+(rb-ra)*(inc-a)/(b-a)}return TAKE[TAKE.length-1][1]}
 const takeHome=inc=>inc*takeRate(inc);
-const ECON={adaptLo:.45,adaptHi:.56,adaptFrom:400,adaptSpan:800,liveMin:85,minPartner:50,minKid:35,liveMax:900,liveHome:100,retLive:105,retKeep:.75,priceK:.2,rentBase:55,rentPartner:25,rentKids:20};
+const ECON={adaptLo:.42,adaptHi:.62,adaptFrom:400,adaptSpan:800,liveMin:85,minPartner:50,minKid:35,liveMax:900,liveHome:100,retLive:105,retKeep:.75,priceK:.2,rentBase:55,rentPartner:25,rentKids:20};
 /* 住んでいる県の地域係数（家賃は係数の2乗、家賃以外の物価は priceK の分だけ効く） */
 const CITY={"東京都":1.35,"神奈川県":1.2,"大阪府":1.15,"愛知県":1.1,"埼玉県":1.1,"千葉県":1.1,"兵庫県":1.05,"福岡県":1.05};
 const METRO=Object.keys(CITY);
@@ -1209,18 +1209,19 @@ function buyHouse(used,down,paid){
 const houseOf=()=>assetsOf().find(x=>x.k==="house");
 /* 持ち家の年間の住居費：ローン返済＋固定資産税・修繕 */
 function houseCost(){const h=houseOf();if(!h)return 0;return (h.loan>0?h.pay:0)+h.price*HOUSE.upkeep}
-/* 株：インデックスは毎年 +1〜5% のどこか。個別株は毎年 +3〜8% だが、4%の年に暴落する（−30〜60%） */
-const STOCK={idx:[.01,.05],risky:[.03,.08],crash:.04,crashLoss:[.3,.6]};
+/* 株：インデックスは毎年 +3〜8% だが、8%の年に暴落する（−20〜40%。平均すると約+3%）。個別株は +3〜8% で、4%の年に −30〜60%。
+   現金は物価上昇で毎年1%目減りする */
+const STOCK={idx:[.03,.08],idxCrash:.08,idxLoss:[.2,.4],risky:[.03,.08],crash:.04,crashLoss:[.3,.6],cashErode:.01};
 const between=([a,b])=>a+Math.random()*(b-a);
 function assetYear(){
-  const A=assetsOf();
+  const A=assetsOf();if(s.money>0)s.money*=1-STOCK.cashErode;
   if(s.flags.house&&!A.some(x=>x.k==="house"))buyHouse(false,0);   /* 分岐で買った（頭金は分岐の側で払っている） */
   if(!s.flags.house)s.assets=A.filter(x=>x.k!=="house");
   for(const x of assetsOf()){
     if(x.k==="house"){if(s.flags.houseGood){x.land*=1.3;delete s.flags.houseGood}
       x.land*=Math.exp(landDrift()+gauss(.03));x.bldg=Math.max(x.bldg0*HOUSE.bldgFloor,x.bldg*(1-HOUSE.bldgDep));x.v=x.land+x.bldg;
       if(x.loan>0){x.loan=x.loan*(1+HOUSE.rate)-x.pay;if(x.loan<=1){x.loan=0;addRow("life","住まい","住宅ローンを払い終えた。")}}}
-    else if(x.k==="stock")x.v*=1+between(STOCK.idx);
+    else if(x.k==="stock"){if(Math.random()<STOCK.idxCrash){x.v*=1-between(STOCK.idxLoss);addRow("life","暴落","相場が大きく崩れた。積み立ててきた投資信託が、目に見えて減った。")}else x.v*=1+between(STOCK.idx)}
     else if(x.k==="risky"){if(Math.random()<STOCK.crash){x.v*=1-between(STOCK.crashLoss);addRow("life","暴落","持っていた個別株が暴落した。画面の数字を、しばらく見られなかった。")}else x.v*=1+between(STOCK.risky)}
     else{const c=ASSET[x.k];x.v=Math.max(0,x.v*Math.exp(c.mu+gauss(c.sd)));
       if(x.k==="building"){x.v*=1-BLD.dep;const vac=Math.random()<BLD.vacancy;s.money+=x.v*BLD.yield*(vac?.5:1)}
@@ -1308,7 +1309,8 @@ function lifeLevel(hh){const n=kidsAtHome(),lo=ECON.liveMin+(s.married?ECON.minP
   const target=Math.min(hi,Math.max(lo,hh*adaptOf(hh)));
   if(s.lifeLv==null)s.lifeLv=target;s.lifeLv+=(target-s.lifeLv)*(target>s.lifeLv?LIFE.up:LIFE.down);return s.lifeLv}
 /* まとまったお金が動く出来事（働いている25〜64歳） */
-const SHOCK={layoff:.003,spend:.025,windfall:.02};
+const SHOCK={layoff:.003,big:.006,spend:.05,windfall:.02};
+const BIG_TXT=["地震で家が傷み、大がかりな修繕が必要になった。","身内の借金の肩代わりを頼まれ、断れなかった。","自転車で人にけがをさせ、賠償を払うことになった。","親族の事業の失敗で、保証人として返済を求められた。"];
 const SPEND_TXT=["車が壊れて、買い替えることになった。","親戚の冠婚葬祭が続いた。","家の給湯器と屋根を直した。","親の入院費を出した。"];
 const WIND_TXT=["会社の業績が良く、ボーナスが跳ねた。","副業がたまたま当たった。","昔買った株を整理したら、思ったより残った。"];
 function shockYear(){
@@ -1316,7 +1318,8 @@ function shockYear(){
   const r=Math.random();let c=0;
   if(r<(c+=SHOCK.layoff*(2-era(s).m))){const sev=Math.round(s.job.inc*(s.job.form==="large"||s.job.form==="public"?.5:.15));s.money+=sev;s.lastType=s.job.type;
     addRow("life","失業",`会社が人員削減に踏み切った。対象になった。退職金は${man(sev)}。`,{money:sev});s.status="jobless";s.job=null;s.happy=clamp(s.happy-8);return}
-  if(r<(c+=SHOCK.spend)){const v=-R(60,250);s.money+=v;addRow("life","出費",SPEND_TXT[R(0,SPEND_TXT.length-1)],{money:v});return}
+  if(r<(c+=SHOCK.big)){const v=-R(300,1000);s.money+=v;s.happy=clamp(s.happy-5);addRow("life","出費",BIG_TXT[R(0,BIG_TXT.length-1)],{money:v});return}
+  if(r<(c+=SHOCK.spend)){const v=-R(50,400);s.money+=v;addRow("life","出費",SPEND_TXT[R(0,SPEND_TXT.length-1)],{money:v});return}
   if(r<(c+=SHOCK.windfall)){const v=R(50,300);s.money+=v;addRow("life","臨時収入",WIND_TXT[R(0,WIND_TXT.length-1)],{money:v})}
 }
 /* ========== 介護 ==========
@@ -1637,14 +1640,20 @@ const KID_STEPS={6:"子どもがランドセルを背負って、初めて登校
 function kidSteps(){syncKids();kidYear();s.kidBorn.forEach((b,i)=>{const a=s.age-b,txt=KID_STEPS[a];if(txt)addRow("life","家族",s.kidBorn.length>1?txt.replace("子どもが",["上の子が","下の子が","末の子が"][Math.min(i,2)]):txt)})}
 /* 毎年：幸福と人間関係は、50より高ければ少しずつ50に戻る。知識は50歳から、健康が低いほど早く衰える。
    疲労は休めば抜け、働いていれば少したまる。疲労が60を超えると健康と幸福を削る */
-const DRIFT={mean:.03,knowMean:.012,knowAge:50,fatRest:6,fatRecover:.15,fatWork:9};   /* 働く人の疲労は20前後で落ち着く */
+/* 疲労：普通の状態は30。毎年30に向かって戻り（fatBack）、仕事・忙しい職種・東京の通勤・幼い子・在宅介護でたまる。65以上が危険 */
+const DRIFT={mean:.03,knowMean:.012,knowAge:50,fatBase:30,fatBack:.5,fatWork:10,fatBusy:3,fatCity:3,fatKid:5,fatCare:8,fatDanger:65};
 function statYear(){
   for(const k of["happy","bond"])if(s[k]>50)s[k]=clamp(s[k]+(50-s[k])*DRIFT.mean);   /* 高い値だけを戻す（低い側の傾きの仕組みは変えない） */
   if(s.know>50)s.know=clamp(s.know+(50-s.know)*DRIFT.knowMean);
   if(s.age>=DRIFT.knowAge)s.know=clamp(s.know-(.2+Math.max(0,60-s.health)/40));
   const work=s.status==="work"||s.status==="college"||s.status==="school"&&s.age>=12;
-  if(work)addFatigue(DRIFT.fatWork);s.fatigue=clamp(s.fatigue-DRIFT.fatRest-s.fatigue*DRIFT.fatRecover);
-  if(s.fatigue>60){s.health=clamp(s.health-(s.fatigue-60)/20);s.happy=clamp(s.happy-(s.fatigue-60)/30)}
+  let add=work?DRIFT.fatWork:0;
+  if(s.status==="work"&&s.job&&(s.job.form==="large"||["tech","care"].includes(s.job.type)))add+=DRIFT.fatBusy;
+  if(s.status==="work"&&cityF()>=1.3)add+=DRIFT.fatCity;
+  if(s.kids&&s.kidList)add+=s.kidList.filter(k=>kidAge(k)<6).length*DRIFT.fatKid;
+  if((s.parents||[]).some(p=>p.alive&&p.care==="home"))add+=DRIFT.fatCare;
+  addFatigue(add);s.fatigue=clamp(s.fatigue-(s.fatigue-DRIFT.fatBase)*DRIFT.fatBack);
+  if(s.fatigue>DRIFT.fatDanger){s.health=clamp(s.health-(s.fatigue-DRIFT.fatDanger)/15);s.happy=clamp(s.happy-(s.fatigue-DRIFT.fatDanger)/20)}
 }
 function passive(){
   kidSteps();statYear();
@@ -1857,7 +1866,8 @@ function render(){
   $("family").textContent=s.parent?`実家：世帯年収 ${FAM[s.fam][0]}・${s.parent}`+(s.age<23&&s.status!=="work"?`・教育資金 ${man(Math.max(0,s.edu))}`:""):"実家：—";
   const cs=Object.keys(CONDS).filter(k=>s.cd[k]>0);
   const ill=s.ill?`<span class="cond">${ILL.names[s.ill]} <span class="dots">${"●".repeat(s.ill)}${"○".repeat(3-s.ill)}</span></span>`:"";
-  $("conds").innerHTML=ill+(cs.length?cs.map(k=>`<span class="cond">${CONDS[k].n} <span class="dots">${"●".repeat(s.cd[k])}${"○".repeat(3-s.cd[k])}</span></span>`).join(""):ill?"":`<span class="cond ok">状態：良好</span>`);
+  const fd=s.fatigue>=DRIFT.fatDanger?`<span class="cond">疲労が危険な水準</span>`:"";
+  $("conds").innerHTML=fd+ill+(cs.length?cs.map(k=>`<span class="cond">${CONDS[k].n} <span class="dots">${"●".repeat(s.cd[k])}${"○".repeat(3-s.cd[k])}</span></span>`).join(""):ill?"":`<span class="cond ok">状態：良好</span>`);
 }
 function setAuto(v){auto=v;clearTimeout(timer);$("play").textContent=auto?"❚❚ 一時停止":"▶ 自動で進める";if(auto&&!pending)timer=setTimeout(step,300)}
 $("play").onclick=()=>{if(!s.alive)return newLife();setAuto(!auto)};
@@ -1903,7 +1913,7 @@ function outTier(r,x){const ord=dispOrder(r.o),n=ord.length,pos=ord.indexOf(r.o.
 function fxLater(fx,tier){const m={};for(const k in fx||{}){if(NOW_KEYS.includes(k))continue;const v=fx[k],up=k==="fatigue"?v<0:v>0;
   m[k]=Math.round(v*(up?[.5,1,1.5][tier]:[1.5,1,1][tier]))}return m}
 function settleChoice(c,r,x){if(!c||c._settled)return null;c._settled=1;const tier=outTier(r,x),m=fxLater(c.fx,tier);
-  if(tier===0&&s.fatigue>40)m.happy=(m.happy||0)-Math.round((s.fatigue-40)/10);
+  if(tier===0&&s.fatigue>50)m.happy=(m.happy||0)-Math.round((s.fatigue-50)/10);
   applyFx(m);return m}
 const outcomeScore=x=>{let v=0;for(const k in x.fx||{}){const a=x.fx[k];v+=k==="money"?a/20:k==="incMul"?(a-1)*100:a}return v};
 function dispOrder(os){
