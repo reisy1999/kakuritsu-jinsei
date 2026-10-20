@@ -218,7 +218,7 @@ const JOB_TYPE={"営業職":"sales","中小企業の営業":"sales",
   "プロ選手":"sport","実業団選手":"sport","コーチ":"sport","コーチ・解説者":"sport",
   "課長":"=","主要部署の管理職":"=","閑職":"=","再就職先":"=","再就職先 社員":"=","転職先の管理職":"=","転職先の社員":"=","転職先の会社員":"=","紹介先の社員":"=","新しい仕事":"=","新規事業担当":"="};
 const formOf=(name,kind,prev)=>kind==="public"?"public":kind==="irregular"?"irregular":kind==="founder"||kind==="pro"||kind==="art"?"self":
-  /大手|メーカー/.test(name)?"large":prev&&prev.kind==="corp"&&JOB_TYPE[name]==="="?prev.form:"small";
+  /大手|メーカー|大病院/.test(name)?"large":prev&&prev.kind==="corp"&&JOB_TYPE[name]==="="?prev.form:"small";
 /* 虹ルートの仕事は年収レンジの対象外（道ごとの曲線は後の段階で入れる） */
 const isTrackJob=name=>name==="プロ選手"||name==="俳優"||typeof TRACKS!=="undefined"&&Object.values(TRACKS).some(t=>t.chance.hit.job&&t.chance.hit.job.name===name);
 const wageAt=(j,sk)=>{const[lo,hi]=WAGE[j.type][j.form];return lo+(hi-lo)*Math.pow(sk/100,1.5)};
@@ -354,6 +354,8 @@ const hunger=s=>Math.max(0,Math.min(1,(80-s.happy)/40));
    mode: "hs" 高卒 / "college" 専門・大学卒 / "change" 転職・無職からの就職 */
 const HUNT_TYPES={hs:["field","service","office","sales","care","sport","gov"],senmon:["field","service","office","sales","care","sport","gov","tech","art"]};
 const DREAM_TYPE={tech:"tech",sport:"sport",art:"art",stable:"gov"};
+/* 専門学校の分野（夢から決まる）。卒業時の就職活動では、この分野が必ず候補に入る */
+const SENMON_TYPE={tech:"tech",sport:"sport",art:"art",stable:"care"};
 const TITLE={sales:"営業職",service:"販売・サービス職",office:"事務職",tech:"エンジニア",care:"医療・福祉職",field:"製造・現場職",research:"研究職",gov:"公務員",art:"表現の仕事",sport:"競技"};
 const aptLabel=a=>a>=65?"高":a>=45?"中":"低";
 const eduBonus=()=>s.flags.uni===2?25:s.flags.uni===1?12:s.flags.senmon?5:0;
@@ -368,7 +370,8 @@ const region=()=>{const f=cityF();return REGION[f>=1.3?"tokyo":f>=1.05?"metro":"
 function huntCands(mode){
   /* 競技は夢がスポーツか競技経験のある人だけ、転職では選べない */
   const ok=huntTypes(mode).filter(k=>!(mode==="change"&&s.job&&k===s.job.type)&&!(k==="sport"&&(mode==="change"||s.goal!=="sport"&&!s.flags.sport))),out=[];
-  const dream=DREAM_TYPE[s.goal];if(dream&&ok.includes(dream))out.push(dream);
+  if(mode==="college"&&s.senmonType&&ok.includes(s.senmonType))out.push(s.senmonType);
+  const dream=DREAM_TYPE[s.goal];if(dream&&ok.includes(dream)&&!out.includes(dream))out.push(dream);
   ok.filter(k=>!out.includes(k)).sort((a,b)=>aptOf(s,b)-aptOf(s,a)).slice(0,2).forEach(k=>out.push(k));
   const rest=ok.filter(k=>!out.includes(k));while(out.length<region().cands&&rest.length)out.push(rest.splice(R(0,rest.length-1),1)[0]);
   return out;
@@ -392,7 +395,11 @@ function huntChoice(type,mode){
     o("アルバイトをしながら活動",50,{happy:2,health:-2},"夜はバイト、昼は制作。",take("アルバイト・創作活動","irregular")),
     o("事務所に所属する",UA("happy","luck",30),{happy:8},"小さな事務所に所属が決まった。",take("所属アーティスト","art"))]}};
   const e=era(s);
-  return{l,info,fx:dream?{happy:2}:{},roll:{q:"採用",why:JT[type].st,era:1,o:[
+  if(type==="care"&&s.senmonType==="care"&&mode==="college")return{l:"看護師（国家試験）",info:`学んだ分野・適性${aptLabel(apt)}・年収${lo}〜${hi}万`,fx:{happy:2},roll:{q:"国家試験",why:["know"],o:[
+    o("不合格で看護助手に",D("know",.3),{happy:-6},"国家試験に落ちた。看護助手として働きながら、来年を目指す。",take("看護助手","irregular")),
+    o("合格して地域の病院へ",45,{happy:5},"国家試験に合格した。地域の病院で看護師として働きはじめた。",take("看護師","corp")),
+    o("合格して大病院へ",s=>Math.max(1,((s.know-35)*.8+eduBonus())*region().large),{happy:7},"国家試験に合格した。大きな病院に採用された。",take("大病院の看護師","corp"))]}};
+  return{l,info:s.senmonType===type&&mode==="college"?"学んだ分野・"+info:info,fx:dream?{happy:2}:{},roll:{q:"採用",why:JT[type].st,era:1,o:[
     o("非正規で働く",s=>Math.max(1,(100-aptOf(s,type))*.35+(1-e.m)*60),{happy:-4},`${TITLE[type]}の仕事に、非正規で就いた。`,take(TITLE[type]+"（非正規）","irregular")),
     o("中小企業に就職",s=>45*pen,{},`${TITLE[type]}として、中小企業に就職した。`,take(TITLE[type],"corp")),
     o("大手企業に就職",s=>Math.max(1,((aptOf(s,type)-35)*.8+eduBonus())*e.m*pen*region().large),{happy:6},`${TITLE[type]}として、大手企業に採用された。`,take("大手企業の"+TITLE[type],"corp"))]}};
@@ -552,7 +559,7 @@ function pickDecision(s,a=s.age){
         o("合格",U("know",5),{happy:4},"地元の大学に進んだ。",s=>{s.status="college";s.flags.uni=1;payTuition(TU.local)}),...giveUp(TU.local),
         o("短大に進む",D("know",.4),{},"短大に進んだ。",s=>{s.status="college";s.flags.senmon=1;payTuition(TU.tandai)})]}},
       {l:`${senmon}に進む`,fx:{know:2,happy:2},roll:{q:"学費のやりくり",why:["luck"],o:[
-        o("入学する",50,{happy:2},"入学式の日、新しい道具をそろえた。",s=>{s.status="college";s.flags.senmon=1;payTuition(TU.senmon)}),...giveUp(TU.senmon)]}},
+        o("入学する",50,{happy:2},"入学式の日、新しい道具をそろえた。",s=>{s.status="college";s.flags.senmon=1;s.senmonType=SENMON_TYPE[s.goal||"stable"];s.exp[s.senmonType]=(s.exp[s.senmonType]||0)+25;payTuition(TU.senmon)}),...giveUp(TU.senmon)]}},
       sp?{l:"プロを目指す",fx:{health:3},roll:{q:"ドラフト・スカウト",why:["health"],o:[
         o("プロ契約",s=>Math.max(1,s.health-PRO_BAR+(s.flags.sport||0)*4+s.luck/20),{happy:12},"プロからの指名を受けた。",s=>setJob(s,"プロ選手",650,.05,"pro")),
         o("実業団に入る",35,{happy:3},"実業団に入った。",s=>setJob(s,"実業団選手",320,.02,"corp")),
