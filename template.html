@@ -260,7 +260,7 @@ const pensionOf=inc=>Math.round(80+inc*.18);
 /* 学費（万円、在学中の合計）。難関・中堅は都会での一人暮らしの仕送り込み */
 const TU={hard:650,mid:560,local:300,tandai:200,senmon:260};
 /* 教育資金と奨学金。knowByFam は家庭の環境（塾・本・時間）で毎年上乗せされる学力 */
-const EDU={private:60,knowByFam:[0,.1,.2,.35,.5,.6],kyufuFam:1,kyufuKnow:60,kyufuP:.5,payYears:15,payMin:12};
+const EDU={yobiko:100,private:60,knowByFam:[0,.1,.2,.35,.5,.6],kyufuFam:1,kyufuKnow:60,kyufuP:.5,payYears:15,payMin:12};
 const lackOf=cost=>Math.max(0,cost-Math.max(0,s.edu));
 function payTuition(cost){
   const lack=lackOf(cost);s.edu=Math.max(0,s.edu)-(cost-lack);if(!lack)return;
@@ -547,19 +547,27 @@ function pickDecision(s,a=s.age){
       {l:"友達と遊ぶ",fx:{bond:5,happy:4,know:-2},roll:{q:"思い出",why:["luck"],o:[o("一生の思い出",U("luck"),{bond:4,happy:4},"夏の夜、自転車で海まで走った。"),o("楽しい日々",50,{happy:2},"毎日がそれなりに楽しかった。"),o("成績が下がる",D("know",.3),{know:-4},"通知表を見た親がため息をついた。")]}}]};
     if(hiki)return hikiDecision(s);
     return genericLife(s,"16歳");
+  case 19:
+    if(st==="school"&&s.flags.ronin){const ro=s=>{delete s.flags.ronin};return{title:"再受験",text:`浪人して一年。もう一度、受験の季節が来た。`,choices:[
+      {l:"難関大学に再挑戦する",prior:.45,fx:{know:3,happy:-2},set:ro,roll:{q:"入試",why:["know"],o:[
+        o("合格",s=>Math.max(1,s.know-40+(s.flags.hs||0)*8),{happy:10},"一年越しの合格だった。",s=>{s.status="college";s.collegeStart=s.age;s.flags.uni=2;payTuition(TU.hard)}),
+        o("中堅大学に進む",40,{happy:-2},"第一志望には、今年も届かなかった。中堅大学に進んだ。",s=>{s.status="college";s.collegeStart=s.age;s.flags.uni=1;payTuition(TU.mid)}),...giveUp(TU.hard)]}},
+      {l:"確実に中堅大学に入る",prior:.45,fx:{know:2},set:ro,roll:{q:"入試",why:["know"],o:[
+        o("合格",50,{happy:5},"中堅大学に合格した。",s=>{s.status="college";s.collegeStart=s.age;s.flags.uni=1;payTuition(TU.mid)}),...giveUp(TU.mid)]}},
+      {l:"進学をやめて就職する",prior:.1,fx:{},set:s=>{ro(s);s.pendingHunt="hs"},roll:{q:"決断",why:["bond"],o:[o("就職を決める",1,{},"参考書を、後輩に譲った。")]}}]}}
   case 18:
     if(st==="school"){const sp=s.goal==="sport"&&(s.flags.sport||0)>=2;
       const senmon={tech:"IT専門学校",sport:"スポーツ専門学校",art:"美術・音楽の専門学校",stable:"医療系の専門学校"}[s.goal||"stable"];
       const ch=[
       {l:"難関大学を受ける",fx:{know:3,happy:-2},roll:{q:"入試",why:["know"],o:[
-        o("合格",s=>Math.max(1,s.know-45+(s.flags.hs||0)*8),{happy:8},"難関大学に合格した。",s=>{s.status="college";s.flags.uni=2;payTuition(TU.hard)}),
-        o("中堅大学に進む",40,{},"第二志望の大学に進んだ。",s=>{s.status="college";s.flags.uni=1;payTuition(TU.mid)}),
-        o("一浪して中堅大学へ",D("know",.4),{happy:-5},"一年浪人して、中堅大学に入った。",s=>{s.status="college";s.flags.uni=1;payTuition(TU.mid+100)}),...giveUp(TU.hard)]}},
+        o("合格",s=>Math.max(1,s.know-45+(s.flags.hs||0)*8),{happy:8},"難関大学に合格した。",s=>{s.status="college";s.collegeStart=s.age;s.flags.uni=2;payTuition(TU.hard)}),
+        o("中堅大学に進む",40,{},"第二志望の大学に進んだ。",s=>{s.status="college";s.collegeStart=s.age;s.flags.uni=1;payTuition(TU.mid)}),
+        o("浪人する",D("know",.4),{happy:-5},"第一志望には届かなかった。予備校に通って、もう一年がんばることにした。",s=>{s.flags.ronin=1;s.wasRonin=1;s.edu-=EDU.yobiko}),...giveUp(TU.hard)]}},
       {l:"地元の大学に進む",fx:{bond:2},roll:{q:"入試",why:["know"],o:[
-        o("合格",U("know",5),{happy:4},"地元の大学に進んだ。",s=>{s.status="college";s.flags.uni=1;payTuition(TU.local)}),...giveUp(TU.local),
-        o("短大に進む",D("know",.4),{},"短大に進んだ。",s=>{s.status="college";s.flags.senmon=1;payTuition(TU.tandai)})]}},
+        o("合格",U("know",5),{happy:4},"地元の大学に進んだ。",s=>{s.status="college";s.collegeStart=s.age;s.flags.uni=1;payTuition(TU.local)}),...giveUp(TU.local),
+        o("短大に進む",D("know",.4),{},"短大に進んだ。",s=>{s.status="college";s.collegeStart=s.age;s.flags.senmon=1;payTuition(TU.tandai)})]}},
       {l:`${senmon}に進む`,fx:{know:2,happy:2},roll:{q:"学費のやりくり",why:["luck"],o:[
-        o("入学する",50,{happy:2},"入学式の日、新しい道具をそろえた。",s=>{s.status="college";s.flags.senmon=1;s.senmonType=SENMON_TYPE[s.goal||"stable"];s.exp[s.senmonType]=(s.exp[s.senmonType]||0)+25;payTuition(TU.senmon)}),...giveUp(TU.senmon)]}},
+        o("入学する",50,{happy:2},"入学式の日、新しい道具をそろえた。",s=>{s.status="college";s.collegeStart=s.age;s.flags.senmon=1;s.senmonType=SENMON_TYPE[s.goal||"stable"];s.exp[s.senmonType]=(s.exp[s.senmonType]||0)+25;payTuition(TU.senmon)}),...giveUp(TU.senmon)]}},
       sp?{l:"プロを目指す",fx:{health:3},roll:{q:"ドラフト・スカウト",why:["health"],o:[
         o("プロ契約",s=>Math.max(1,s.health-PRO_BAR+(s.flags.sport||0)*4+s.luck/20),{happy:12},"プロからの指名を受けた。",s=>setJob(s,"プロ選手",650,.05,"pro")),
         o("実業団に入る",35,{happy:3},"実業団に入った。",s=>setJob(s,"実業団選手",320,.02,"corp")),
@@ -569,7 +577,7 @@ function pickDecision(s,a=s.age){
     if(hiki)return hikiDecision(s);
     return workDecision(s,"18歳の働き方");
   case 20:
-    if(st==="college"&&s.flags.senmon)return jobHunt("college");
+    if(st==="college"&&s.flags.senmon)return null;   /* 卒業は入学からの年数で決まる（nextDecision） */
     if(st==="college")return{title:"学生生活",text:"大学生活も折り返し。何に時間を使うか。",choices:[
       {l:"研究・勉強に没頭する",fx:{know:6},roll:{q:"ゼミ",why:["know"],o:[o("教授に見込まれる",U("know",30),{know:5,happy:3},"教授に大学院を勧められた。"),o("普通に単位を取る",45,{know:1},"成績は真ん中あたり。"),o("ついていけない",D("know",.4),{happy:-4},"ゼミの発表で何も答えられなかった。")]}},
       {l:"サークルで仲間をつくる",fx:{bond:6,happy:3},roll:{q:"仲間",why:["bond"],o:[o("生涯の友を得る",U("bond",25),{bond:5,happy:3},"夜通し語り合える友人が3人できた。"),o("楽しく過ごす",45,{happy:2},"合宿と飲み会の2年間だった。"),o("揉めて抜ける",D("bond",.4),{bond:-4},"代替わりで揉めて、サークルを抜けた。")]}},
@@ -1156,14 +1164,15 @@ function assetYear(){
       x.land*=Math.exp(landDrift()+gauss(.03));x.bldg=Math.max(x.bldg0*HOUSE.bldgFloor,x.bldg*(1-HOUSE.bldgDep));x.v=x.land+x.bldg;
       if(x.loan>0){x.loan=x.loan*(1+HOUSE.rate)-x.pay;if(x.loan<=1){x.loan=0;addRow("life","住まい","住宅ローンを払い終えた。")}}}
     else{const c=ASSET[x.k];x.v=Math.max(0,x.v*Math.exp(c.mu+gauss(c.sd)));
-      if(c.div)s.money+=x.v*c.div;if(c.rent)s.money+=x.v*c.rent}
+      if(c.div)s.money+=x.v*c.div;if(c.rent)s.money+=x.v*(x.k==="building"?BLD.yield:c.rent);
+      if(x.loan>0){s.money-=x.pay;x.loan=x.loan*(1+BLD.rate)-x.pay;if(x.loan<=1)x.loan=0}}
   }
 }
 /* 現金のマイナスを、売れる資産で埋める */
 function sellToCover(){
   if(s.money>=0)return;
   for(const k of["risky","stock","building","land"])for(const x of assetsOf().filter(x=>x.k===k)){
-    if(s.money>=0)break;const take=Math.min(x.v,-s.money+50);x.v-=take;s.money+=take;
+    if(s.money>=0)break;if(x.k==="building"){s.money+=x.v-(x.loan||0);x.v=0;x.loan=0}else{const take=Math.min(x.v,-s.money+50);x.v-=take;s.money+=take}
     addRow("life","資産",`${ASSET.names[k]}を売って、足りない分に充てた。`)}
   s.assets=assetsOf().filter(x=>x.k==="house"||x.v>1);
 }
@@ -1202,17 +1211,34 @@ function tsumitateDecision(){
      o("変わらない",50,{},"通帳の数字は、そのままだった。"),
      o("安心して暮らす",U("luck"),{happy:3},"いざというときの備えがあると思うと、落ち着いた。")]}}]};
 }
+/* 不動産投資：価格は手元資金の約3倍（頭金3割）。5,000万〜は一棟アパート、1億〜は一棟ビル。
+   投資ローンは25年・金利2%。家賃収入は表面利回り6%から管理費・修繕などを引いて約4.5% */
+const BLD={yield:.045,rate:.02,years:25,down:.3};
+const bldPay=loan=>loan*BLD.rate/(1-Math.pow(1+BLD.rate,-BLD.years));
 function buildingDecision(){
-  const amt=Math.round(s.money*.6);
-  return{title:"不動産投資",text:`資産は${man(s.money)}。一棟ビルの売り話が持ち込まれた。`,choices:[
-   {l:"一棟ビルを買う",fx:{},set:s=>{s.money-=amt;addAsset("building",amt)},roll:{q:"入居",why:["luck","know"],o:[
-     o("空室が続く",DA("luck","know",.5),{happy:-6},"テナントが埋まらず、管理費だけが出ていった。",()=>{const b=assetsOf().find(x=>x.k==="building");if(b)b.v*=.8}),
+  const P=Math.round(Math.min(50000,s.money/BLD.down)/1000)*1000,down=Math.round(P*BLD.down),loan=P-down,name=P>=10000?"一棟ビル":"一棟アパート";
+  return{title:"不動産投資",text:`資産は${man(s.money)}。${name}（${man(P)}）の売り話が持ち込まれた。`,choices:[
+   {l:`${name}を買う`,info:`頭金${man(down)}・ローン${man(loan)}（年${man(Math.round(bldPay(loan)))}）・家賃収入 年${man(Math.round(P*BLD.yield))}`,fx:{},set:s=>{s.money-=down;addAsset("building",P,{loan,pay:bldPay(loan)})},roll:{q:"入居",why:["luck","know"],o:[
+     o("空室が続く",DA("luck","know",.5),{happy:-6},"テナントが埋まらず、ローンの返済だけが出ていった。",()=>{const b=assetsOf().find(x=>x.k==="building");if(b)b.v*=.85}),
      o("ほどほどに埋まる",45,{},"半分ほどの部屋が埋まった。"),
      o("満室になる",UA("luck","know",25),{happy:6},"満室になった。毎月、家賃が入ってくる。")]}},
-   {l:"株に分けて回す",fx:{know:2},set:s=>{s.money-=Math.round(amt/2);addAsset("stock",Math.round(amt/2))},roll:{q:"相場",why:["luck"],o:[
+   {l:"株に分けて回す",fx:{know:2},set:s=>{const a=Math.round(s.money*.5);s.money-=a;const st=assetsOf().find(x=>x.k==="stock");if(st)st.v+=a;else addAsset("stock",a)},roll:{q:"相場",why:["luck"],o:[
      o("値下がりする",D("luck",.4),{happy:-3},"相場が下がった。"),o("じわじわ増える",50,{},"少しずつ増えた。"),o("大きく増える",U("luck",25),{happy:4},"大きく増えた。")]}},
    {l:"断る",fx:{happy:1},roll:{q:"そのあと",why:["luck"],o:[
-     o("惜しいことをした",D("luck",.3),{happy:-2},"あとで、そのビルの値段が上がったと聞いた。"),o("何も変わらない",50,{},"いつも通りの暮らしが続いた。"),o("断ってよかった",U("luck",10),{happy:3},"そのビルは、翌年に空き家だらけになった。")]}}]};
+     o("惜しいことをした",D("luck",.3),{happy:-2},"あとで、その物件の値段が上がったと聞いた。"),o("何も変わらない",50,{},"いつも通りの暮らしが続いた。"),o("断ってよかった",U("luck",10),{happy:3},"その物件は、翌年に空き部屋だらけになった。")]}}]};
+}
+/* ========== 投資家ルート ==========
+   投資できる資産の4%（取り崩しても減りにくいとされる目安）が年収を超えたら、仕事を辞めて投資で暮らす道が開ける */
+const investable=()=>s.money+assetsOf().filter(x=>x.k!=="house").reduce((a,x)=>a+x.v-(x.loan||0),0);
+function fireDecision(){
+  const inv=Math.round(investable()),inc=s.job.inc;
+  return{title:"投資で暮らせる",text:`投資できる資産が${man(inv)}になった。その4%（年${man(Math.round(inv*.04))}）が、今の年収${man(inc)}を超えた。`,choices:[
+   {l:"仕事を辞めて投資家になる",info:"収入は配当・家賃と資産の取り崩し。年金は65歳から",fx:{happy:5},set:s=>{s.pension=Math.round(pensionOf(s.job.inc)*.85);s.lastType=s.job.type;s.job=null;s.status="investor";s.wasInvestor=1},roll:{q:"自由な日々",why:["happy","know"],o:[
+     o("張り合いがない",D("happy",.4),{happy:-4},"平日の昼間、することが見つからなかった。"),o("自分の時間を楽しむ",50,{happy:3},"朝、目覚ましをかけずに起きた。"),o("やりたかったことを始める",UA("happy","know",20),{happy:6,know:3},"ずっと後回しにしていた勉強を始めた。")]}},
+   {l:"仕事を減らして、好きなことをする",fx:{happy:4},set:s=>{jobMul(s,.5);s.careerSlow=1},roll:{q:"半分の仕事",why:["happy"],o:[
+     o("中途半端に感じる",D("happy",.3),{happy:-2},"仕事でも趣味でも、どこか落ち着かなかった。"),o("ちょうどいい",50,{happy:2},"週に三日働き、残りは好きなことをした。"),o("両方が充実する",U("happy",15),{happy:5},"仕事にも、前より身が入った。")]}},
+   {l:"仕事を続ける",fx:{happy:1},roll:{q:"続ける",why:["know"],o:[
+     o("何のために働くのか迷う",D("happy",.3),{happy:-2},"お金のためではないなら、何のためか。"),o("いつも通り",50,{},"いつも通り出社した。"),o("仕事が好きだと気づく",U("know",15),{happy:3},"お金と関係なく、この仕事が好きだった。")]}}]};
 }
 /* 生活水準（家賃以外）：世帯の手取りで決まり、収入が上がるとすぐ上がり、下がってもなかなか下げられない */
 const LIFE={up:.6,down:.35};
@@ -1240,9 +1266,9 @@ function econ(){
   if(s.status==="retired")net=s.pension||100;
   if(s.status==="college")net=20;
   if(s.status==="jobless")net=50;
-  if(["work","jobless","retired","home"].includes(s.status)||(s.status==="hikikomori"&&!s.parentsAlive)){
+  if(["work","jobless","retired","home","investor"].includes(s.status)||(s.status==="hikikomori"&&!s.parentsAlive)){
     const atHome=s.flags.home&&s.parentsAlive;
-    const life=s.status==="retired"?ECON.retLive+(s.married?PARTNER.retLive:0):atHome?ECON.liveHome:lifeLevel(net+partnerNet());
+    const life=s.status==="retired"?ECON.retLive+(s.married?PARTNER.retLive:0):s.status==="investor"?(s.lifeLv??ECON.retLive):atHome?ECON.liveHome:lifeLevel(net+partnerNet());
     cost=life*priceF()+kidCost()*(!s.married&&s.flags.divorced?PARTNER.kidShareAfterDivorce:1)+eliteAtHome()*KID.eliteYearly
       +(atHome?0:s.flags.house&&houseOf()?houseCost():rentOf());   /* 住居費：持ち家はローンと維持費、賃貸は家賃 */
     if(s.status!=="work"&&s.money<0)cost=Math.min(cost,net+20);
@@ -1295,6 +1321,7 @@ const TRIGGERS=[
   {id:"misfit",when:()=>workingNormal()&&s.age-s.jobSince>=3&&s.skill<30&&s.misfitFor!==s.jobSince,make:()=>{s.misfitFor=s.jobSince;return misfitDecision()}},
   {id:"lowpay",when:()=>workingNormal()&&s.job.mul<.92&&cool("lowpay",5),make:()=>{const d=workDecision(s,"給料が上がらない");d.generic=0;return d}},
   /* 住まい */
+  {id:"fire",when:()=>s.status==="work"&&s.job&&!special()&&s.age>=30&&s.age<65&&investable()*.04>=s.job.inc&&cool("fire",5),make:()=>fireDecision()},
   {id:"house",when:()=>(s.status==="work"||s.status==="home")&&!s.flags.house&&wantOf("house")!=="never"&&s.money>=0&&!s.flags.bankrupt&&s.age>=25&&s.age<=50&&!s.flags.home&&houseEvent(),make:()=>{s.houseAskInc=s.job?s.job.inc:0;return houseCard()}},
 ];
 function triggerDecision(){
@@ -1499,6 +1526,7 @@ function passive(){
   if(s.age>72)s.know=clamp(s.know-.5);
   if(s.status==="futoko"&&s.age>=16){s.status="hikikomori";}
   if(s.status==="hikikomori"&&s.age>=65)s.status="retired",s.pension=70;
+  if(s.status==="investor"&&s.age>=65)s.status="retired";
   if((s.status==="jobless"||s.status==="home")&&s.age>=65)s.status="retired",s.pension=Math.max(80,s.pension||0);
   if(s.flags.bankrupt&&s.age-s.bankruptAge>=7)delete s.flags.bankrupt;
   /* 両親の寿命：親の年齢で毎年判定（生命表に近い指数関数） */
@@ -1570,8 +1598,8 @@ const famBoost=k=>k==="marry"?!s.married&&s.age>=25&&s.age<=40:k==="kids"?s.marr
 /* 子どもの分岐は子2人まで3年空けて、結婚の分岐は独身のまま40歳までなら4年空けて、再び出る */
 const famRepeat=(k,id)=>k==="kids"?s.married&&s.kids<2&&s.age-s.decUsed[id]>=3:k==="marry"?!s.married&&s.age<=40&&s.age-s.decUsed[id]>=4:false;
 /* 構造の節目：この年のこの状態なら必ず手書き分岐を出す */
-const STRUCT={12:()=>true,15:()=>s.status==="school"||s.status==="futoko",18:()=>s.status==="school",
-  20:()=>s.status==="college"&&!!s.flags.senmon,22:()=>s.status==="college",60:()=>s.status==="work"&&["corp","public","irregular"].includes(s.job.kind)};
+const STRUCT={12:()=>true,15:()=>s.status==="school"||s.status==="futoko",18:()=>s.status==="school"&&!s.flags.ronin,19:()=>s.status==="school"&&!!s.flags.ronin,
+  60:()=>s.status==="work"&&["corp","public","irregular"].includes(s.job.kind)};
 /* 節目以外の手書き分岐は、年齢の幅をもった候補になる [節目, 最小, 最大, 追加条件] */
 const HAND=[[6,6,7],[9,8,10],[13,13,14],[16,16,17],[20,19,21],[25,24,27],[31,30,33,()=>!s.flags.house],
   [37,36,40],[41,40,44],[45,44,48],[50,48,54,()=>s.parentsAlive],[55,54,58],[67,66,69],[75,74,79]];
@@ -1596,7 +1624,7 @@ function poolCands(){
    if((s.status==="work"&&a>=25&&a<=58||s.status==="jobless"&&a>=18&&a<=64)&&!special()&&(last===undefined||a-last>=gap))
      c.push({cat:"career",max:a,make:()=>{s.decUsed.career=a;const d=workDecision(s,s.status==="jobless"?"仕事を探す":"これからの働き方");d.generic=0;return d}})}
   if(s.decUsed.tsumitate===undefined&&a>=25&&a<=60&&s.money>=500&&!s.flags.bankrupt)c.push({cat:"money",max:60,make:()=>{s.decUsed.tsumitate=a;return tsumitateDecision()}});
-  if(s.decUsed.building===undefined&&a>=40&&a<=70&&s.money>=6000)c.push({cat:"money",max:70,make:()=>{s.decUsed.building=a;return buildingDecision()}});
+  if(s.decUsed.building===undefined&&a>=35&&a<=70&&s.money>=3000)c.push({cat:"money",max:70,make:()=>{s.decUsed.building=a;return buildingDecision()}});
   return c;
 }
 /* 候補の選び方：まず題材の種類を均等に（直前と同じ種類は半分、結婚・子どもは FAMILY_W 倍）、その中で年齢の幅が残り少ないものほど重く */
@@ -1612,6 +1640,7 @@ function nextDecision(){
   const a=s.age;
   if(s.pendingRainbow){const t=s.pendingRainbow;s.pendingRainbow=null;return rainbowDecision(t)}
   if(a<6)return null;
+  if(s.status==="college"&&a>=(s.collegeStart??18)+(s.flags.senmon?2:4))return jobHunt("college");
   if(STRUCT[a]&&STRUCT[a]()){const d=pickDecision(s,a);if(d)return d}
   {const kd=illDecision()||kidDecision()||triggerDecision();if(kd)return kd}
   if(a-s.lastDec>=2){
@@ -1656,10 +1685,10 @@ function addRow(kind,label,text,fx){
   $("log").prepend(li);
 }
 function statusLabel(){const st=s.status,a=s.age;
-  if(st==="school")return a<6?"未就学":s.flags.tsushin&&a>=15?"通信制・高校生":a<=12?(s.flags.private?"私立小学生":"小学生"):a<=15?"中学生":"高校生";
+  if(st==="school")return s.flags.ronin?"浪人生":a<6?"未就学":s.flags.tsushin&&a>=15?"通信制・高校生":a<=12?(s.flags.private?"私立小学生":"小学生"):a<=15?"中学生":"高校生";
   if(st==="futoko")return"不登校";if(st==="hikikomori")return"ひきこもり";
   if(st==="college")return s.flags.senmon?"専門学校生":"大学生";
-  if(st==="work")return s.job.name;if(st==="home")return homeLabel();if(st==="jobless")return"無職";if(st==="retired")return"引退";return"—"}
+  if(st==="work")return s.job.name;if(st==="home")return homeLabel();if(st==="investor")return"投資家";if(st==="jobless")return"無職";if(st==="retired")return"引退";return"—"}
 /* 家族の行：配偶者・子ども・孫 */
 const growLabel=g=>g>=75?"すくすく":g>=45?"ふつう":g>=28?"少し心配":"心配";
 function householdHTML(){
