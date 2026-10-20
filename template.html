@@ -423,7 +423,9 @@ function jobHunt(mode){
 /* 選んだ結果で就職活動が始まるときは、同じ年のうちに続けて出す */
 function afterDecision(){
   if(s.pendingHouse){s.pendingHouse=0;const d=houseDecision();if(d){showDecision(d);return true}addRow("life","住まい","ローンの審査が通らなかった。もう少し貯めてから考えることにした。");return false}
-  if(!s.pendingHunt)return false;const m=s.pendingHunt;s.pendingHunt=null;if(special())return false;showDecision(jobHunt(m));return true}
+  if(s.pendingHunt){const m=s.pendingHunt;s.pendingHunt=null;if(!special()){showDecision(jobHunt(m));return true}}
+  if(s.alive&&(s.yearDecs||0)<YEAR_MAX){const d=eventDecision();if(d){s.yearDecs=(s.yearDecs||0)+1;showDecision(prepSupport(d));return true}}
+  return false}
 function jobChoices(s){
   const uni=s.flags.uni||0,big=[
    {l:"大手企業を目指す",fx:{know:2},roll:{q:"就職活動",why:["know","bond"],era:1,o:[
@@ -880,7 +882,7 @@ function applySet(st){
 const prioOf=x=>{const r=x.requires||{},st=r.status||[];
   return st.length>0&&st.every(v=>v==="hikikomori"||v==="jobless"||v==="futoko")||Object.values(r.cond_min||{}).some(v=>v>=2)||r.money_max!==undefined&&r.money_max<0};
 /* 自己破産の選択肢は、資産が −500万円以下のときだけ選べる */
-const BANKRUPT_LINE=-700;
+const BANKRUPT_LINE=-500;
 const isBankruptChoice=c=>["good","mid","bad"].some(k=>c.roll[k].set&&c.roll[k].set.bankrupt);
 const BANKRUPT_MAX=2;   /* 生涯の上限。2回目は前回から7年以上空いたとき（bankrupt フラグが消えてから） */
 function genDecision(x){
@@ -1000,7 +1002,7 @@ function applyFx(fx){for(const k in fx){const v=fx[k];
   if(k==="money")s.money+=v;else if(k==="incMul")jobMul(s,v);else if(k==="fatigue")addFatigue(v);else s[k]=clamp(s[k]+(v>0?v*gainF(s[k]):v))}}
 const totalLv=()=>s.cd.iso+s.cd.tired+s.cd.poor+s.cd.apathy;
 /* 虹の兆しが出る年あたりの基準確率（運が高いほど上がる） */
-const RAINBOW_RATE=.052;
+const RAINBOW_RATE=.062;
 function tierOf(){const l=(s.luck-50)/100,sl=totalLv()*.025;
   const rb=RAINBOW_RATE*(0.4+s.luck/83),good=Math.max(.1,.35+l*.2-sl),normal=.4;const r=Math.random();
   if(r<rb)return"rainbow";if(r<rb+good)return"good";if(r<rb+good+normal)return"normal";return"bad"}
@@ -1041,7 +1043,7 @@ function yearlyEvent(){
 const TAKE=[[0,.82],[300,.8],[500,.78],[700,.75],[1000,.72],[1500,.68],[2000,.64]];
 function takeRate(inc){for(let i=1;i<TAKE.length;i++){const[a,ra]=TAKE[i-1],[b,rb]=TAKE[i];if(inc<=b)return ra+(rb-ra)*(inc-a)/(b-a)}return TAKE[TAKE.length-1][1]}
 const takeHome=inc=>inc*takeRate(inc);
-const ECON={adaptLo:.37,adaptHi:.56,adaptFrom:400,adaptSpan:800,liveMin:50,minPartner:35,minKid:20,liveMax:900,liveHome:100,retLive:105,retKeep:.75,priceK:.2,rentBase:55,rentPartner:25,rentKids:20};
+const ECON={adaptLo:.45,adaptHi:.56,adaptFrom:400,adaptSpan:800,liveMin:85,minPartner:50,minKid:35,liveMax:900,liveHome:100,retLive:105,retKeep:.75,priceK:.2,rentBase:55,rentPartner:25,rentKids:20};
 /* 住んでいる県の地域係数（家賃は係数の2乗、家賃以外の物価は priceK の分だけ効く） */
 const CITY={"東京都":1.35,"神奈川県":1.2,"大阪府":1.15,"愛知県":1.1,"埼玉県":1.1,"千葉県":1.1,"兵庫県":1.05,"福岡県":1.05};
 const METRO=Object.keys(CITY);
@@ -1327,6 +1329,15 @@ function careCost(){let c=0;
   for(const p of s.parents||[])if(p.alive&&p.care)c+=parentShare(p.care==="facility"?CARE.facility:CARE.home);
   if(s.selfCare)c+=s.selfCare==="facility"?CARE.facility*priceF():s.selfCare==="home"?CARE.home:0;
   return c}
+function welfareDecision(){const fam=s.parentsAlive||s.kids>0;
+  return{title:"生活保護",text:`貯えが尽きた。${s.status==="retired"?"年金だけでは暮らせない。":"収入だけでは、最低限の暮らしにも届かない。"}役所の窓口に行けば、生活保護を申請できる。`,choices:[
+   {l:"生活保護を申請する",prior:.25,info:"借金を整理し、最低限の暮らしが保障される",fx:{happy:-4,fatigue:-10},set:s=>{s.flags.welfare=1;s.sch=0;s.money=Math.max(0,s.money)},roll:{q:"窓口",why:["bond"],o:[
+     o("後ろめたさが残る",D("happy",.4),{happy:-3},"近所の人に知られないか、いつも気にしていた。"),o("暮らしが落ち着く",50,{},"借金は法テラスで整理し、毎月の暮らしが回るようになった。"),o("担当者に助けられる",U("bond",15),{happy:3},"ケースワーカーが、仕事探しも手伝ってくれた。")]}},
+   ...(fam?[{l:"家族や親戚に頼る",prior:.25,fx:{bond:-3,happy:-2},set:s=>{s.money+=40+s.fam*40},roll:{q:"家族",why:["bond"],o:[
+     o("気まずくなる",D("bond",.4),{bond:-3},"それ以来、家族の集まりに顔を出しにくくなった。"),o("少し助けてもらう",50,{},"黙って、まとまったお金を貸してくれた。"),o("快く支えてくれる",U("bond",15),{happy:3},"「困ったときはお互いさま」と言われた。",s=>{s.money+=50})]}}]:[]),
+   {l:"自分の力で何とかする",prior:.5,fx:{fatigue:10,know:1},roll:{q:"踏ん張る",why:["health","luck"],o:[
+     o("借金が膨らむ",DA("health","luck",.4),{happy:-4},"カードの支払いを、別のカードで回すようになった。"),o("なんとかしのぐ",45,{},"食費を切り詰めて、月末をしのいだ。"),o("日雇いの仕事が見つかる",UA("health","luck",15),{happy:2},"日雇いの仕事で、当面の生活費を稼いだ。",s=>{s.money+=40})]}}]};
+}
 function parentCareDecision(p){const pa=p.a+s.age,fac=parentShare(CARE.facility),hm=parentShare(CARE.home),rich=CARE.parentPay[s.fam]>=CARE.facility;
   return{title:"親の介護",text:`${p.n}（${pa}歳）が体調を崩し、介護が必要になった。${rich?"親の貯えで、費用はまかなえそうだ。":fac>=CARE.facility?"親に貯えは、ほとんどない。":"親の年金だけでは、足りない分がある。"}`,choices:[
    {l:"施設に入ってもらう",prior:.45,info:fac?`自分の負担 年${man(fac)}`:"費用は親の資産でまかなえる",fx:{},set:()=>{p.care="facility"},roll:{q:"施設",why:["luck"],o:[
@@ -1358,9 +1369,13 @@ function econ(){
     cost=life*priceF()+kidCost()*(!s.married&&s.flags.divorced?PARTNER.kidShareAfterDivorce:1)
       +(atHome?0:s.flags.house&&houseOf()?houseCost():rentOf())   /* 住居費：持ち家はローンと維持費、賃貸は家賃 */
       +careCost();   /* 介護（親と自分） */
-    if(s.status!=="work"&&s.money<0)cost=Math.min(cost,net+20);
-    /* 引退後にお金が尽きたら生活保護：それ以上は赤字が増えない */
-    if(s.status==="retired"&&s.money<0){cost=Math.min(cost,net+partnerNet());if(!s.flags.welfare){s.flags.welfare=1;addRow("life","生活保護","貯えが尽きた。役所の窓口で、生活保護の申請書を書いた。")}}
+    /* 生活保護：貯えが尽き、世帯の収入が最低限の生活費（下限の生活水準＋住居＋子ども）に届かないときは、
+       足りない分が保護されて、それ以上は借金が増えない。引退後は収入の多少にかかわらず同じ */
+    const hh=net+partnerNet(),floor=(ECON.liveMin+(s.married?ECON.minPartner:0)+kidsAtHome()*ECON.minKid)*priceF()+(atHome?0:rentOf())+kidCost();
+    s.welfareOk=s.money<0&&(s.status==="retired"||hh<floor);   /* 生活保護を受けられる状態（申請するかは分岐で選ぶ） */
+    if(s.flags.welfare&&s.money<=0&&(s.status==="retired"||hh<floor)){cost=Math.min(cost,hh);s.money=0}
+    else if(s.flags.welfare&&s.money>0&&hh>=floor)delete s.flags.welfare;   /* 収入が戻ったら保護を抜ける */
+    else if(s.status!=="work"&&s.money<0)cost=Math.min(cost,net+20);
     if(s.status==="jobless")s.happy=clamp(s.happy-2);}
   if(s.status==="hikikomori"&&s.age>=18)s.hikiYears++;
   s.flow={net:Math.round(net+partnerNet()),cost:Math.round(cost),house:Math.round(s.status==="retired"||!(s.flags.home&&s.parentsAlive)?(s.flags.house&&houseOf()?houseCost():rentOf()):0),kid:Math.round(kidCost()),care:Math.round(careCost())};
@@ -1396,6 +1411,8 @@ function houseEvent(){
   return newKid||raise||s.age-at>=(wantOf("house")==="yes"?2:5)&&saved;
 }
 const TRIGGERS=[
+  /* 生活保護：受けられる状態になったら、申請するかを選ぶ（実際に申請する人は2割前後と言われる） */
+  {id:"welfare",when:()=>s.welfareOk&&!s.flags.welfare&&cool("welfare",5),make:()=>welfareDecision()},
   /* 介護 */
   {id:"pcare",when:()=>(s.parents||[]).some(p=>p.alive&&!p.careAsked&&p.a+s.age>=78&&Math.random()<.04*Math.exp(.1*(p.a+s.age-78))),make:()=>{const p=s.parents.find(p=>p.alive&&!p.careAsked&&p.a+s.age>=78);p.careAsked=1;return parentCareDecision(p)}},
   {id:"scare",when:()=>!s.selfCare&&s.age>=CARE.selfStart&&Math.random()<CARE.selfRate*Math.exp(.12*(s.age-CARE.selfStart))*(1.5-s.health/100),make:()=>selfCareDecision()},
@@ -1750,14 +1767,24 @@ function pickCand(c){
   const k=ks[pickW(ks,k=>k==="family"?FAMILY_W:k===s.lastCat?.5:1)];s.lastCat=k;
   const xs=cats[k];return xs[pickW(xs,x=>1/(Math.max(0,x.max-s.age)+1))];
 }
-function nextDecision(){
-  const a=s.age;
+/* きっかけの分岐：虹の兆し・出会い・病気・子どもの進学・TRIGGERS（結婚の話・子ども・家・昇進・介護など） */
+function eventDecision(){
+  if(s.age<6)return null;
   if(s.pendingRainbow){const t=s.pendingRainbow;s.pendingRainbow=null;return rainbowDecision(t)}
   if(s.pendingLover&&!s.married&&!s.lover)return loverOffer();
+  return illDecision()||kidDecision()||triggerDecision();
+}
+/* 1年に出す分岐は最大2枚。1枚目のあと、きっかけの分岐が残っていれば同じ年に続けて出す（汎用の分岐は続けない） */
+const YEAR_MAX=2;
+function nextDecision(){
+  const a=s.age;
   if(a<6)return null;
+  /* 人生の節目（進路・卒業）は、出会いや虹の兆しより先に出す（そちらは翌年に回る） */
   if(s.status==="college"&&a>=(s.collegeStart??18)+(s.flags.senmon?2:4))return jobHunt("college");
   if(STRUCT[a]&&STRUCT[a]()){const d=pickDecision(s,a);if(d)return d}
-  {const kd=illDecision()||kidDecision()||triggerDecision();if(kd)return kd}
+  /* 安全策：何かの理由で18歳の進路を逃しても、高校生のまま19歳を過ぎたら必ず進路を決める */
+  if(s.status==="school"&&a>=19&&!s.flags.ronin){const d=pickDecision(s,18);if(d)return d}
+  {const ed=eventDecision();if(ed)return ed}
   if(a-s.lastDec>=2){
     const g=GEN.decisions.filter(x=>prioOf(x)&&genOk(x,1)),h=DPOOL.filter(p=>p.prio&&eligible(p));
     if(g.length||h.length)return g.length&&(!h.length||Math.random()<.75)?fromGen(pick(g)):fromPool(pick(h))}
@@ -1775,14 +1802,14 @@ function nextDecision(){
 
 function step(){
   if(pending||!s.alive)return;
-  s.age++;s.year++;
+  s.age++;s.year++;s.yearDecs=0;
   passive();illnessYear();marryCheck();birthCheck();if(s.status!=="work")growSkill();econ();
   const soc=SOCIETY[s.year];if(soc){const extra=soc[1](s);addRow("soc","社会",soc[0]+(extra?" "+extra:""))}
   yearlyEvent();
   updateConds();trackCurve();trackEnd();noBorrow();
   if(deathCheck()){die();return}
   snap();render();
-  const d=nextDecision();if(d){s.lastDec=s.age;s.nextGap=Math.random()<.5?2:3;   /* きっかけの分岐は、この間隔と関係なく出る */showDecision(prepSupport(d));return}
+  const d=nextDecision();if(d){s.lastDec=s.age;s.yearDecs=1;s.nextGap=Math.random()<.5?2:3;   /* きっかけの分岐は、この間隔と関係なく出る */showDecision(prepSupport(d));return}
   if(auto)timer=setTimeout(step,SPEED[speed]);
 }
 
